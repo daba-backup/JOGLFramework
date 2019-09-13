@@ -94,12 +94,12 @@ public class GLFront {
 		//Setup fog.
 		fog=new Fog();
 		
-		LogFile.WriteInfo("[GLGeneral-Initialize] Initialized.", true);
+		LogFile.WriteInfo("[GLFront-Initialize] Initialized.", true);
 	}
 	public static void Dispose() {
 		if(animator!=null)animator.stop();
 		
-		LogFile.WriteInfo("[GLGeneral-Dispose] Disposed.",true);
+		LogFile.WriteInfo("[GLFront-Dispose] Disposed.",true);
 	}
 	public static void Reshape() {
 		window_width=window.getWidth();
@@ -131,7 +131,7 @@ public class GLFront {
 		
 		GL4ShaderFunctions.InitializeSampler();
 		
-		LogFile.WriteInfo("[GLGeneral-LoadDefaultShaders] Default shaders loaded.",true);
+		LogFile.WriteInfo("[GLFront-LoadDefaultShaders] Default shaders loaded.",true);
 	}
 	public static void SetDefaultGLProperties() {
 		GL4Wrapper.glEnable(GL4.GL_DEPTH_TEST);
@@ -143,27 +143,27 @@ public class GLFront {
 		GL4Wrapper.glEnable(GL4.GL_BLEND);
 		GL4Wrapper.glBlendFunc(GL4.GL_SRC_ALPHA, GL4.GL_ONE_MINUS_SRC_ALPHA);
 		
-		LogFile.WriteInfo("[GLGeneral-SetDefaultGLProperties] Default properties set.",true);
+		LogFile.WriteInfo("[GLFront-SetDefaultGLProperties] Default properties set.",true);
 	}
 	
 	//Listener
 	public static void AddEventListener(GLEventListener event_listener) {
 		if(window==null) {
-			LogFile.WriteError("[GLGeneral-AddEventListener] Window is null.", true);
+			LogFile.WriteError("[GLFront-AddEventListener] Window is null.", true);
 			return;
 		}
 		window.addGLEventListener(event_listener);
 	}
 	public static void AddKeyListener(KeyListener key_listener) {
 		if(window==null) {
-			LogFile.WriteError("[GLGeneral-AddKeyListener] Window is null.", true);
+			LogFile.WriteError("[GLFront-AddKeyListener] Window is null.", true);
 			return;
 		}
 		window.addKeyListener(key_listener);
 	}
 	public static void AddMouseListener(MouseListener mouse_listener) {
 		if(window==null) {
-			LogFile.WriteError("[GLGeneral-AddMouseListener] Window is null.", true);
+			LogFile.WriteError("[GLFront-AddMouseListener] Window is null.", true);
 			return;
 		}
 		window.addMouseListener(mouse_listener);

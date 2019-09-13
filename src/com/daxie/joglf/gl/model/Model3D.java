@@ -10,6 +10,11 @@ import com.daxie.joglf.gl.model.loader.OBJLoader;
 import com.daxie.joglf.log.LogFile;
 import com.daxie.joglf.tool.FilenameFunctions;
 
+/**
+ * Manages models.
+ * @author Daba
+ *
+ */
 public class Model3D {
 	private static int count=0;
 	private static Map<Integer, ModelMgr> models_map=new HashMap<>();
@@ -33,6 +38,22 @@ public class Model3D {
 		
 		return model_handle;
 	}
+	public static int DuplicateModel(int model_handle) {
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteError("[Model3D-DuplicateModel] No such model. model_handle:"+model_handle, true);
+			return -1;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		ModelMgr duplicated_model=model.Duplicate();
+		
+		int duplicated_model_handle=count;
+		count++;
+		
+		models_map.put(duplicated_model_handle, duplicated_model);
+		
+		return duplicated_model_handle;
+	}
 	public static int DeleteModel(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
 			LogFile.WriteError("[Model3D-DeleteModel] No such model. model_handle:"+model_handle, true);
@@ -52,6 +73,7 @@ public class Model3D {
 		}
 		
 		models_map.clear();
+		count=0;
 	}
 	
 	public static int DrawModel(int model_handle) {

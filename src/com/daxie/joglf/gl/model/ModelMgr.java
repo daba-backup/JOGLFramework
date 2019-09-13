@@ -2,6 +2,7 @@ package com.daxie.joglf.gl.model;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.daxie.joglf.basis.matrix.Matrix;
@@ -38,6 +39,20 @@ public class ModelMgr {
 		
 		this.GenerateBuffers();
 	}
+	
+	public ModelMgr Duplicate() {
+		List<BufferedVertices> copied_buffered_vertices_list=new ArrayList<>();
+		
+		for(BufferedVertices buffered_vertices:buffered_vertices_list) {
+			BufferedVertices copied_buffered_vertices=buffered_vertices.Copy();
+			copied_buffered_vertices_list.add(copied_buffered_vertices);
+		}
+		
+		ModelMgr duplicated_model=new ModelMgr(copied_buffered_vertices_list);
+		
+		return duplicated_model;
+	}
+	
 	private void GenerateBuffers() {
 		int element_num=buffered_vertices_list.size();
 		indices_vbo=Buffers.newDirectIntBuffer(element_num);

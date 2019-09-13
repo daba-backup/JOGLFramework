@@ -3,6 +3,8 @@ package com.daxie.joglf.gl.model.buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
+import com.daxie.joglf.gl.tool.BufferFunctions;
+
 /**
  * Set of buffers for shaders.
  * @author Daba
@@ -16,6 +18,20 @@ public class BufferedVertices {
 	private FloatBuffer pos_buffer;
 	private FloatBuffer uv_buffer;
 	private FloatBuffer norm_buffer;
+	
+	public BufferedVertices Copy() {
+		BufferedVertices buffered_vertices=new BufferedVertices();
+		
+		buffered_vertices.texture_handle=this.texture_handle;
+		buffered_vertices.count=this.count;
+		
+		buffered_vertices.indices=BufferFunctions.CopyIntBuffer(this.indices);
+		buffered_vertices.pos_buffer=BufferFunctions.CopyFloatBuffer(this.pos_buffer);
+		buffered_vertices.uv_buffer=BufferFunctions.CopyFloatBuffer(this.uv_buffer);
+		buffered_vertices.norm_buffer=BufferFunctions.CopyFloatBuffer(this.norm_buffer);
+		
+		return buffered_vertices;
+	}
 	
 	public BufferedVertices() {
 		texture_handle=-1;
