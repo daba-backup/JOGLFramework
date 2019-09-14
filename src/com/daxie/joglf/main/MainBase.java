@@ -2,6 +2,8 @@ package com.daxie.joglf.main;
 
 import com.daxie.joglf.al.ALFront;
 import com.daxie.joglf.gl.GLFront;
+import com.daxie.joglf.gl.texture.TextureMgr;
+import com.daxie.joglf.log.LogFile;
 import com.jogamp.newt.event.KeyEvent;
 import com.jogamp.newt.event.KeyListener;
 import com.jogamp.newt.event.MouseEvent;
@@ -9,8 +11,15 @@ import com.jogamp.newt.event.MouseListener;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 
+/**
+ * Base class for Main
+ * @author Daba
+ *
+ */
 public class MainBase implements GLEventListener,KeyListener,MouseListener{
 	public MainBase() {
+		LogFile.SetLogLevelFlags(LogFile.LOG_LEVEL_ALL);
+		
 		GLFront.Initialize();
 		ALFront.Initialize();
 		
@@ -23,6 +32,8 @@ public class MainBase implements GLEventListener,KeyListener,MouseListener{
 	public void init(GLAutoDrawable drawable) {
 		GLFront.LoadDefaultShaders();
 		GLFront.SetDefaultGLProperties();
+		
+		TextureMgr.LoadDefaultTexture();
 	}
 	@Override
 	public void reshape(GLAutoDrawable drawable,int x,int y,int width,int height) {

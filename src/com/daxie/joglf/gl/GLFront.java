@@ -54,12 +54,12 @@ public class GLFront {
 	private static int window_width=DEFAULT_WINDOW_WIDTH;
 	private static int window_height=DEFAULT_WINDOW_HEIGHT;
 	
+	private static int fps=30;
+	
 	private static ColorU8 background_color=ColorU8Functions.GetColorU8(0.0f, 0.0f, 0.0f, 1.0f);
 	
 	//General
 	public static void Initialize() {
-		LogFile.SetLogLevelFlags(LogFile.LOG_LEVEL_ALL);
-		
 		GLCapabilities capabilities=new GLCapabilities(GLProfile.get(GLProfile.GL4));
 		
 		//Create a window.
@@ -74,7 +74,7 @@ public class GLFront {
 		});
 		
 		//Create an animator.
-		animator=new FPSAnimator(30);
+		animator=new FPSAnimator(fps);
 		animator.add(window);
 		animator.start();
 		
@@ -108,6 +108,8 @@ public class GLFront {
 		int window_x=window.getX();
 		int window_y=window.getY();
 		mouse.SetWindowPositionAndSize(window_x, window_y, window_width, window_height);
+		
+		camera.UpdateAspect();
 	}
 	public static void Update() {
 		keyboard.Update();
@@ -144,6 +146,10 @@ public class GLFront {
 		GL4Wrapper.glBlendFunc(GL4.GL_SRC_ALPHA, GL4.GL_ONE_MINUS_SRC_ALPHA);
 		
 		LogFile.WriteInfo("[GLFront-SetDefaultGLProperties] Default properties set.",true);
+	}
+	
+	public static int GetFPS() {
+		return fps;
 	}
 	
 	//Listener

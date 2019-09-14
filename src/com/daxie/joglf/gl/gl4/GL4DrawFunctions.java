@@ -4,11 +4,12 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import com.daxie.joglf.basis.coloru8.ColorU8;
+import com.daxie.joglf.basis.coloru8.ColorU8Functions;
 import com.daxie.joglf.basis.vector.Vector;
 import com.daxie.joglf.basis.vector.VectorFunctions;
-import com.daxie.joglf.gl.image.ImageMgr;
 import com.daxie.joglf.gl.shape.Triangle;
 import com.daxie.joglf.gl.shape.Vertex3D;
+import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.log.LogFile;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
@@ -83,6 +84,22 @@ public class GL4DrawFunctions {
 	public static void DrawLine3D(Vector line_pos_1,Vector line_pos_2,ColorU8 color) {
 		DrawLine3D(line_pos_1, line_pos_2, color,color);
 	}
+	
+	public static void DrawAxes(float length) {
+		DrawLine3D(
+				VectorFunctions.VGet(-length, 0.0f, 0.0f),
+				VectorFunctions.VGet(length, 0.0f, 0.0f),
+				ColorU8Functions.GetColorU8(1.0f, 0.0f, 0.0f, 1.0f));
+		DrawLine3D(
+				VectorFunctions.VGet(0.0f, -length, 0.0f),
+				VectorFunctions.VGet(0.0f, length, 0.0f),
+				ColorU8Functions.GetColorU8(0.0f, 1.0f, 0.0f, 1.0f));
+		DrawLine3D(
+				VectorFunctions.VGet(0.0f, 0.0f, -length),
+				VectorFunctions.VGet(0.0f, 0.0f, length),
+				ColorU8Functions.GetColorU8(0.0f, 0.0f, 1.0f, 1.0f));
+	}
+	
 	public static void DrawTriangle3D(Triangle triangle) {
 		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);
 		IntBuffer color_vbo=Buffers.newDirectIntBuffer(1);
@@ -143,10 +160,11 @@ public class GL4DrawFunctions {
 		GL4Wrapper.glDeleteBuffers(1, color_vbo);
 		GL4Wrapper.glDeleteVertexArrays(1, vao);
 	}
-	public static void DrawTexturedTriangle3D(Triangle triangle,int image_handle,boolean use_face_normal_flag) {
-		if(ImageMgr.ImageExists(image_handle)==false) {
+	
+	public static void DrawTexturedTriangle3D(Triangle triangle,int texture_handle,boolean use_face_normal_flag) {
+		if(TextureMgr.TextureExists(texture_handle)==false) {
 			LogFile.WriteError(
-					"[GL4DrawFunctions-DrawTexturedTriangle3D] No such image. image_handle:"+image_handle,true);
+					"[GL4DrawFunctions-DrawTexturedTriangle3D] No such texture. texture_handle:"+texture_handle,true);
 			return;
 		}
 		
@@ -234,12 +252,21 @@ public class GL4DrawFunctions {
 		GL4Wrapper.glBindSampler(0, sampler);
 		
 		//Draw
-		ImageMgr.EnableImage(image_handle);
-		ImageMgr.BindImage(image_handle);
+		if(texture_handle<0) {
+			TextureMgr.EnableDefaultTexture();
+			TextureMgr.BindDefaultTexture();
+		}
+		else {
+			TextureMgr.EnableTexture(texture_handle);
+			TextureMgr.BindTexture(texture_handle);
+		}
+		
 		GL4Wrapper.glDrawArrays(GL4.GL_TRIANGLES, 0, 3);
 		
-		GL4Wrapper.glBindVertexArray(0);	
-		ImageMgr.DisableImage(image_handle);
+		GL4Wrapper.glBindVertexArray(0);
+		
+		if(texture_handle<0)TextureMgr.DisableDefaultTexture();
+		else TextureMgr.DisableTexture(texture_handle);
 		
 		//Delete buffers
 		GL4Wrapper.glDeleteBuffers(1, pos_vbo);

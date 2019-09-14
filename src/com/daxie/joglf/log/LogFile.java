@@ -32,7 +32,7 @@ public class LogFile {
 	public static final int LOG_LEVEL_NONE=0b00000000;
 	public static final int LOG_LEVEL_ALL=0b00111111;
 	
-	private static int log_level_flags=LOG_LEVEL_FATAL|LOG_LEVEL_ERROR;
+	private static int log_level_flags=LOG_LEVEL_FATAL;
 	
 	private static boolean output_log_flag=true;
 	

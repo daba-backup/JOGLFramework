@@ -9,10 +9,14 @@ import com.daxie.joglf.gl.GLFront;
 import com.daxie.joglf.gl.gl4.GL4ShaderFunctions;
 import com.daxie.joglf.gl.gl4.GL4Wrapper;
 import com.daxie.joglf.gl.tool.BufferFunctions;
+import com.daxie.joglf.tool.MathFunctions;
 
 public class Camera {
 	private float near;
 	private float far;
+	
+	private CameraMode camera_mode;
+	private float fov;
 	
 	private Vector position;
 	private Vector target;
@@ -25,9 +29,19 @@ public class Camera {
 		near=1.0f;
 		far=1000.0f;
 		
+		camera_mode=CameraMode.PERSPECTIVE;
+		fov=MathFunctions.DegToRad(60.0f);
+		
 		position=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
 		target=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
 		up=VectorFunctions.VGet(0.0f, 1.0f, 0.0f);
+	}
+	
+	public void UpdateAspect() {
+		if(camera_mode==CameraMode.PERSPECTIVE) {
+			float aspect=GLFront.GetWindowAspect();
+			projection_matrix=ProjectionMatrix.GetPerspectiveMatrix(fov, aspect, near, far);
+		}
 	}
 	
 	public void SetCameraNearFar(float near,float far) {
@@ -47,9 +61,14 @@ public class Camera {
 	public void SetupCamera_Perspective(float fov) {
 		float aspect=GLFront.GetWindowAspect();
 		projection_matrix=ProjectionMatrix.GetPerspectiveMatrix(fov, aspect, near, far);
+		
+		camera_mode=CameraMode.PERSPECTIVE;
+		this.fov=fov;
 	}
 	public void SetupCamera_Ortho(float size) {
 		projection_matrix=ProjectionMatrix.GetOrthogonalMatrix(-size, size, -size, size, near, far);
+		
+		camera_mode=CameraMode.ORTHOGRAPHIC;
 	}
 	
 	public void SetCameraViewMatrix(Matrix m) {

@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.daxie.joglf.gl.image.ImageMgr;
 import com.daxie.joglf.gl.model.buffer.BufferedVertices;
+import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.log.LogFile;
 import com.daxie.joglf.tool.ExceptionFunctions;
 import com.daxie.joglf.tool.FilenameFunctions;
@@ -112,7 +112,7 @@ public class OBJLoader {
 			String texture_filename=mtl.getMapKd();
 			texture_filename=obj_directory+"/"+texture_filename;
 			
-			int texture_handle=ImageMgr.LoadImage(texture_filename);
+			int texture_handle=TextureMgr.LoadTexture(texture_filename);
 			buffered_vertices.SetTextureHandle(texture_handle);
 			
 			ret.add(buffered_vertices);

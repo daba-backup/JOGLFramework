@@ -1,4 +1,4 @@
-package com.daxie.joglf.gl.image;
+package com.daxie.joglf.gl.texture;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,18 +13,24 @@ import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
 /**
- * Image manager
+ * Texture manager
  * @author Daba
  *
  */
-public class ImageMgr {
+public class TextureMgr {
 	private static int count=0;
 	private static Map<Integer, Texture> images_map=new HashMap<>();
 	
-	public static int LoadImage(String image_filename) {
+	private static int default_texture_handle=-1;
+	
+	public static void LoadDefaultTexture() {
+		default_texture_handle=LoadTexture("./Data/Texture/white.bmp");
+	}
+	
+	public static int LoadTexture(String image_filename) {
 		File file=new File(image_filename);
 		if(!(file.isFile()&&file.canRead())) {
-			LogFile.WriteError("[ImageMgr-LoadImage] Failed to load an image.", true);
+			LogFile.WriteError("[TextureMgr-LoadTexture] Failed to load an image.", true);
 			return -1;
 		}
 		
@@ -36,7 +42,7 @@ public class ImageMgr {
 		catch(IOException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
 			
-			LogFile.WriteError("[ImageMgr-LoadImage] Below is the stack trace.",true);
+			LogFile.WriteError("[TextureMgr-LoadTexture] Below is the stack trace.",true);
 			LogFile.WriteError(str,false);
 			
 			return -1;
@@ -46,9 +52,9 @@ public class ImageMgr {
 		
 		return image_handle;
 	}
-	public static int DeleteImage(int image_handle) {
+	public static int DeleteTexture(int image_handle) {
 		if(images_map.containsKey(image_handle)==false) {
-			LogFile.WriteError("[ImageMgr-DeleteImage] No such image. image_handle:"+image_handle, true);
+			LogFile.WriteError("[TextureMgr-DeleteTexture] No such image. image_handle:"+image_handle, true);
 			return -1;
 		}
 		
@@ -60,7 +66,7 @@ public class ImageMgr {
 		
 		return 0;
 	}
-	public static void DeleteAllImages() {
+	public static void DeleteAllTextures() {
 		GL4 gl4=GLContext.getCurrentGL().getGL4();
 		for(Texture image:images_map.values()) {
 			image.destroy(gl4);
@@ -69,13 +75,13 @@ public class ImageMgr {
 		images_map.clear();
 	}
 	
-	public static boolean ImageExists(int image_handle) {
+	public static boolean TextureExists(int image_handle) {
 		return images_map.containsKey(image_handle);
 	}
 	
-	public static int EnableImage(int image_handle) {
+	public static int EnableTexture(int image_handle) {
 		if(images_map.containsKey(image_handle)==false) {
-			LogFile.WriteError("[ImageMgr-EnableImage] No such image. image_handle:"+image_handle, true);
+			LogFile.WriteError("[TextureMgr-EnableTexture] No such image. image_handle:"+image_handle, true);
 			return -1;
 		}
 		
@@ -86,9 +92,9 @@ public class ImageMgr {
 		
 		return 0;
 	}
-	public static int BindImage(int image_handle) {
+	public static int BindTexture(int image_handle) {
 		if(images_map.containsKey(image_handle)==false) {
-			LogFile.WriteError("[ImageMgr-BindImage] No such image. image_handle:"+image_handle, true);
+			LogFile.WriteError("[TextureMgr-BindTexture] No such image. image_handle:"+image_handle, true);
 			return -1;
 		}
 		
@@ -99,9 +105,9 @@ public class ImageMgr {
 		
 		return 0;
 	}
-	public static int DisableImage(int image_handle) {
+	public static int DisableTexture(int image_handle) {
 		if(images_map.containsKey(image_handle)==false) {
-			LogFile.WriteError("[ImageMgr-DisableImage] No such image. image_handle:"+image_handle, true);
+			LogFile.WriteError("[TextureMgr-DisableTexture] No such image. image_handle:"+image_handle, true);
 			return -1;
 		}
 		
@@ -111,5 +117,15 @@ public class ImageMgr {
 		image.disable(gl4);
 		
 		return 0;
+	}
+	
+	public static void EnableDefaultTexture() {
+		EnableTexture(default_texture_handle);
+	}
+	public static void BindDefaultTexture() {
+		BindTexture(default_texture_handle);
+	}
+	public static void DisableDefaultTexture() {
+		DisableTexture(default_texture_handle);
 	}
 }

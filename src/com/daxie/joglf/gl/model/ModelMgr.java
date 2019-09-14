@@ -11,8 +11,8 @@ import com.daxie.joglf.basis.vector.Vector;
 import com.daxie.joglf.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.gl4.GL4ShaderFunctions;
 import com.daxie.joglf.gl.gl4.GL4Wrapper;
-import com.daxie.joglf.gl.image.ImageMgr;
 import com.daxie.joglf.gl.model.buffer.BufferedVertices;
+import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.log.LogFile;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
@@ -38,6 +38,29 @@ public class ModelMgr {
 		scale=VectorFunctions.VGet(1.0f, 1.0f, 1.0f);
 		
 		this.GenerateBuffers();
+	}
+	
+	public void Interpolate(ModelMgr frame1,ModelMgr frame2,float blend_ratio) {
+		Vector orig_position=VectorFunctions.VGet(position.GetX(), position.GetY(), position.GetZ());
+		Vector orig_rotation=VectorFunctions.VGet(rotation.GetX(), rotation.GetY(), rotation.GetZ());
+		
+		List<BufferedVertices> interpolated_bv_list=new ArrayList<>();
+		List<BufferedVertices> frame1_bv_list=frame1.buffered_vertices_list;
+		List<BufferedVertices> frame2_bv_list=frame2.buffered_vertices_list;
+		
+		int element_num=frame1_bv_list.size();
+		for(int i=0;i<element_num;i++) {
+			BufferedVertices frame1_bv=frame1_bv_list.get(i);
+			BufferedVertices frame2_bv=frame2_bv_list.get(i);
+			
+			BufferedVertices interpolated_bv=BufferedVertices.Interpolate(frame1_bv, frame2_bv, blend_ratio);
+			interpolated_bv_list.add(interpolated_bv);
+		}
+		
+		this.buffered_vertices_list=interpolated_bv_list;
+		
+		this.SetPosition(orig_position);
+		this.SetRotation(orig_rotation);
 	}
 	
 	public ModelMgr Duplicate() {
@@ -145,7 +168,7 @@ public class ModelMgr {
 		
 		for(BufferedVertices buffered_vertices:buffered_vertices_list) {
 			int texture_handle=buffered_vertices.GetTextureHandle();
-			ImageMgr.DeleteImage(texture_handle);
+			TextureMgr.DeleteTexture(texture_handle);
 		}
 	}
 	
@@ -164,12 +187,19 @@ public class ModelMgr {
 			
 			GL4Wrapper.glBindVertexArray(vao.get(i));
 			
-			ImageMgr.EnableImage(texture_handle);
-			ImageMgr.BindImage(texture_handle);
+			if(texture_handle<0) {
+				TextureMgr.EnableDefaultTexture();
+				TextureMgr.BindDefaultTexture();
+			}
+			else {
+				TextureMgr.EnableTexture(texture_handle);
+				TextureMgr.BindTexture(texture_handle);
+			}
 			
 			GL4Wrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
 			
-			ImageMgr.DisableImage(texture_handle);
+			if(texture_handle<0)TextureMgr.DisableDefaultTexture();
+			else TextureMgr.DisableTexture(texture_handle);
 			
 			GL4Wrapper.glBindVertexArray(0);
 		}
