@@ -12,13 +12,16 @@ import com.daxie.joglf.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.gl4.GL4ShaderFunctions;
 import com.daxie.joglf.gl.gl4.GL4Wrapper;
 import com.daxie.joglf.gl.model.buffer.BufferedVertices;
+import com.daxie.joglf.gl.model.collision.CollInfo;
+import com.daxie.joglf.gl.model.collision.CollTriangle;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.log.LogFile;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
-public class ModelMgr {
+class ModelMgr {
 	private List<BufferedVertices> buffered_vertices_list;
+	private CollInfo coll_info;
 	
 	private Vector position;
 	private Vector rotation;
@@ -326,5 +329,64 @@ public class ModelMgr {
 		
 		BufferedVertices buffered_vertices=buffered_vertices_list.get(material_index);
 		buffered_vertices.SetTextureHandle(new_texture_handle);
+	}
+	
+	public boolean IsCollInfoSetup() {
+		if(coll_info==null)return false;
+		else return true;
+	}
+	public void SetupCollInfo() {
+		coll_info=new CollInfo();
+		
+		List<Vector> vertices=new ArrayList<>();
+		List<Vector> vertex_normals=new ArrayList<>();
+		for(BufferedVertices buffered_vertices:buffered_vertices_list) {
+			FloatBuffer pos_buffer=buffered_vertices.GetPosBuffer();
+			FloatBuffer norm_buffer=buffered_vertices.GetNormBuffer();
+			
+			int capacity=pos_buffer.capacity();
+			
+			for(int i=0;i<capacity;i+=3) {
+				Vector vertex=new Vector();
+				Vector vertex_normal=new Vector();
+				
+				vertex.SetX(pos_buffer.get(i));
+				vertex.SetY(pos_buffer.get(i+1));
+				vertex.SetZ(pos_buffer.get(i+2));
+				vertices.add(vertex);
+				
+				vertex_normal.SetX(norm_buffer.get(i));
+				vertex_normal.SetY(norm_buffer.get(i+1));
+				vertex_normal.SetZ(norm_buffer.get(i+2));
+				vertex_normals.add(vertex_normal);
+			}
+		}
+		
+		int vertex_num=vertices.size();
+		for(int i=0;i<vertex_num;i+=3) {
+			Vector[] vertices_temp=new Vector[3];
+			Vector[] vertex_normals_temp=new Vector[3];
+			vertices_temp[0]=vertices.get(i);
+			vertices_temp[1]=vertices.get(i+1);
+			vertices_temp[2]=vertices.get(i+2);
+			vertex_normals_temp[0]=vertex_normals.get(i);
+			vertex_normals_temp[1]=vertex_normals.get(i+1);
+			vertex_normals_temp[2]=vertex_normals.get(i+2);
+			
+			Vector face_normal=VectorFunctions.VAverage(vertex_normals_temp);
+			face_normal=VectorFunctions.VNorm(face_normal);
+			
+			CollTriangle coll_triangle=new CollTriangle();
+			coll_triangle.SetVertex(0, vertices_temp[0]);
+			coll_triangle.SetVertex(1, vertices_temp[1]);
+			coll_triangle.SetVertex(2, vertices_temp[2]);
+			coll_triangle.SetFaceNormal(face_normal);
+			
+			coll_info.AddTriangle(coll_triangle);
+		}
+	}
+	
+	public List<CollTriangle> GetCollTriangles(){
+		return coll_info.GetCollTriangles();
 	}
 }

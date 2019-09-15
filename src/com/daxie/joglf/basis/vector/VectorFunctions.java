@@ -195,13 +195,14 @@ public class VectorFunctions {
 		
 		return ret;
 	}
-	public static Vector VCenter(Vector[] vectors) {
+	public static Vector VAverage(Vector[] v) {
 		Vector ret=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
 		
-		for(int i=0;i<vectors.length;i++) {
-			ret=VectorFunctions.VAdd(ret, vectors[i]);
+		int v_num=v.length;
+		for(int i=0;i<v_num;i++) {
+			ret=VectorFunctions.VAdd(ret, v[i]);
 		}
-		ret=VectorFunctions.VScale(ret, 1.0f/vectors.length);
+		ret=VectorFunctions.VScale(ret, 1.0f/v_num);
 		
 		return ret;
 	}
