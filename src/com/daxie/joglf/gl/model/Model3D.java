@@ -19,7 +19,7 @@ import com.daxie.joglf.log.LogFile;
 import com.daxie.joglf.tool.FilenameFunctions;
 
 /**
- * Manages models.
+ * Model manager
  * @author Daba
  *
  */

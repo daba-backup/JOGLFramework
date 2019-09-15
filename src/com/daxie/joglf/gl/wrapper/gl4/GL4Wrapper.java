@@ -10,7 +10,7 @@ import com.jogamp.opengl.GL4;
 import com.jogamp.opengl.GLContext;
 
 /**
- * Wrapper functions of GL4.
+ * Wrapper functions of GL4
  * @author Daba
  *
  */

@@ -50,11 +50,8 @@ public class GLFront {
 	private static Fog fog;
 	
 	private static final String DEFAULT_WINDOW_TEXT="JOGLFramework";
-	private static String window_text=DEFAULT_WINDOW_TEXT;
 	private static final int DEFAULT_WINDOW_WIDTH=640;
 	private static final int DEFAULT_WINDOW_HEIGHT=480;
-	private static int window_width=DEFAULT_WINDOW_WIDTH;
-	private static int window_height=DEFAULT_WINDOW_HEIGHT;
 	
 	private static int fps=30;
 	
@@ -66,8 +63,8 @@ public class GLFront {
 		
 		GLCapabilities capabilities=null;
 		String profile_str="";
-		if(gl_version==GLVersion.GL3)profile_str=GLProfile.GL3;
-		else if(gl_version==GLVersion.GL4)profile_str=GLProfile.GL4;
+		if(gl_version==GLVersion.GL3)profile_str=GLProfile.GL3bc;
+		else if(gl_version==GLVersion.GL4)profile_str=GLProfile.GL4bc;
 		else if(gl_version==GLVersion.GLES3)profile_str=GLProfile.GLES3;
 		
 		capabilities=new GLCapabilities(GLProfile.get(profile_str));
@@ -114,11 +111,10 @@ public class GLFront {
 		LogFile.WriteInfo("[GLFront-Dispose] Disposed.",true);
 	}
 	public static void Reshape() {
-		window_width=window.getWidth();
-		window_height=window.getHeight();
-		
 		int window_x=window.getX();
 		int window_y=window.getY();
+		int window_width=window.getWidth();
+		int window_height=window.getHeight();
 		mouse.SetWindowPositionAndSize(window_x, window_y, window_width, window_height);
 		
 		camera.UpdateAspect();
@@ -236,19 +232,31 @@ public class GLFront {
 	
 	//Window
 	public static float GetWindowAspect() {
+		int window_width=window.getWidth();
+		int window_height=window.getHeight();
+		
 		return (float)window_width/window_height;
+	}
+	public static int GetWindowX() {
+		return window.getX();
+	}
+	public static int GetWindowY() {
+		return window.getY();
+	}
+	public static int GetWindowWidth() {
+		return window.getWidth();
+	}
+	public static int GetWindowHeight() {
+		return window.getHeight();
 	}
 	public static void SetWindowPosition(int x,int y) {
 		window.setPosition(x, y);
 	}
 	public static void SetWindowSize(int width,int height) {
 		window.setSize(width, height);
-		window_width=width;
-		window_height=height;
 	}
 	public static void SetWindowText(String text) {
 		window.setTitle(text);
-		window_text=text;
 	}
 	
 	public static void SetBackgroundColor(ColorU8 color) {

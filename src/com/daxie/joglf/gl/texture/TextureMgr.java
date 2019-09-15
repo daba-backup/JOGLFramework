@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.daxie.joglf.log.LogFile;
 import com.daxie.joglf.tool.ExceptionFunctions;
-import com.jogamp.opengl.GL4;
+import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GLContext;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
@@ -58,18 +58,18 @@ public class TextureMgr {
 			return -1;
 		}
 		
-		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		GL gl=GLContext.getCurrentGL();
 		Texture image=images_map.get(image_handle);
-		image.destroy(gl4);
+		image.destroy(gl);
 		
 		images_map.remove(image_handle);
 		
 		return 0;
 	}
 	public static void DeleteAllTextures() {
-		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		GL gl=GLContext.getCurrentGL();
 		for(Texture image:images_map.values()) {
-			image.destroy(gl4);
+			image.destroy(gl);
 		}
 		
 		images_map.clear();
@@ -85,10 +85,10 @@ public class TextureMgr {
 			return -1;
 		}
 		
-		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		GL gl=GLContext.getCurrentGL();
 		Texture image=images_map.get(image_handle);
 		
-		image.enable(gl4);
+		image.enable(gl);
 		
 		return 0;
 	}
@@ -98,10 +98,10 @@ public class TextureMgr {
 			return -1;
 		}
 		
-		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		GL gl=GLContext.getCurrentGL();
 		Texture image=images_map.get(image_handle);
 		
-		image.bind(gl4);
+		image.bind(gl);
 		
 		return 0;
 	}
@@ -111,10 +111,10 @@ public class TextureMgr {
 			return -1;
 		}
 		
-		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		GL gl=GLContext.getCurrentGL();
 		Texture image=images_map.get(image_handle);
 		
-		image.disable(gl4);
+		image.disable(gl);
 		
 		return 0;
 	}

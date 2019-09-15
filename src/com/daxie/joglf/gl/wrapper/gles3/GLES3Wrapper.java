@@ -10,7 +10,7 @@ import com.jogamp.opengl.GLContext;
 import com.jogamp.opengl.GLES3;
 
 /**
- * Wrapper functions of GLES3.
+ * Wrapper functions of GLES3
  * @author Daba
  *
  */
