@@ -8,13 +8,15 @@ import com.daxie.joglf.basis.vector.Vector;
 import com.daxie.joglf.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.camera.Camera;
 import com.daxie.joglf.gl.fog.Fog;
-import com.daxie.joglf.gl.gl4.GL4ShaderFunctions;
-import com.daxie.joglf.gl.gl4.GL4Wrapper;
 import com.daxie.joglf.gl.input.Keyboard;
 import com.daxie.joglf.gl.input.KeyboardEnum;
 import com.daxie.joglf.gl.input.Mouse;
 import com.daxie.joglf.gl.input.MouseEnum;
 import com.daxie.joglf.gl.lighting.Lighting;
+import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
+import com.daxie.joglf.gl.wrapper.GLVersion;
+import com.daxie.joglf.gl.wrapper.GLWrapper;
+import com.daxie.joglf.gl.wrapper.gl4.GL4Wrapper;
 import com.daxie.joglf.log.LogFile;
 import com.daxie.joglf.tool.MathFunctions;
 import com.jogamp.newt.event.KeyEvent;
@@ -60,7 +62,17 @@ public class GLFront {
 	
 	//General
 	public static void Initialize() {
-		GLCapabilities capabilities=new GLCapabilities(GLProfile.get(GLProfile.GL4));
+		GLVersion gl_version=GLWrapper.GetGLVersion();
+		
+		GLCapabilities capabilities=null;
+		String profile_str="";
+		if(gl_version==GLVersion.GL3)profile_str=GLProfile.GL3;
+		else if(gl_version==GLVersion.GL4)profile_str=GLProfile.GL4;
+		else if(gl_version==GLVersion.GLES3)profile_str=GLProfile.GLES3;
+		
+		capabilities=new GLCapabilities(GLProfile.get(profile_str));
+		
+		LogFile.WriteInfo("[GLFront-Initialize] GL profile:"+profile_str, true);
 		
 		//Create a window.
 		window=GLWindow.create(capabilities);
@@ -122,16 +134,16 @@ public class GLFront {
 	}
 	
 	public static void LoadDefaultShaders() {
-		GL4ShaderFunctions.CreateProgram(
+		GLShaderFunctions.CreateProgram(
 				"texture", 
 				"./Data/Shader/330/texture/vshader.glsl",
 				"./Data/Shader/330/texture/fshader.glsl");
-		GL4ShaderFunctions.CreateProgram(
+		GLShaderFunctions.CreateProgram(
 				"color",
 				"./Data/Shader/330/color/vshader.glsl",
 				"./Data/Shader/330/color/fshader.glsl");
 		
-		GL4ShaderFunctions.InitializeSampler();
+		GLShaderFunctions.InitializeSampler();
 		
 		LogFile.WriteInfo("[GLFront-LoadDefaultShaders] Default shaders loaded.",true);
 	}

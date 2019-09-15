@@ -3,6 +3,8 @@ package com.daxie.joglf.main;
 import com.daxie.joglf.al.ALFront;
 import com.daxie.joglf.gl.GLFront;
 import com.daxie.joglf.gl.texture.TextureMgr;
+import com.daxie.joglf.gl.wrapper.GLVersion;
+import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.joglf.log.LogFile;
 import com.jogamp.newt.event.KeyEvent;
 import com.jogamp.newt.event.KeyListener;
@@ -17,7 +19,9 @@ import com.jogamp.opengl.GLEventListener;
  *
  */
 public class MainBase implements GLEventListener,KeyListener,MouseListener{
-	public MainBase() {
+	public MainBase(GLVersion gl_version) {
+		GLWrapper.SetGLVersion(gl_version);
+		
 		LogFile.SetLogLevelFlags(LogFile.LOG_LEVEL_ALL);
 		
 		GLFront.Initialize();

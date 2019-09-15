@@ -4,9 +4,9 @@ import java.nio.FloatBuffer;
 
 import com.daxie.joglf.basis.coloru8.ColorU8;
 import com.daxie.joglf.basis.coloru8.ColorU8Functions;
-import com.daxie.joglf.gl.gl4.GL4ShaderFunctions;
-import com.daxie.joglf.gl.gl4.GL4Wrapper;
 import com.daxie.joglf.gl.tool.BufferFunctions;
+import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
+import com.daxie.joglf.gl.wrapper.gl4.GL4Wrapper;
 
 public class Fog {
 	private float fog_start;
@@ -37,8 +37,8 @@ public class Fog {
 		int fog_end_location;
 		int fog_color_location;
 		
-		GL4ShaderFunctions.EnableProgram("texture");
-		program_id=GL4ShaderFunctions.GetProgramID("texture");
+		GLShaderFunctions.EnableProgram("texture");
+		program_id=GLShaderFunctions.GetProgramID("texture");
 		
 		fog_start_location=GL4Wrapper.glGetUniformLocation(program_id, "fog_start");
 		fog_end_location=GL4Wrapper.glGetUniformLocation(program_id, "fog_end");

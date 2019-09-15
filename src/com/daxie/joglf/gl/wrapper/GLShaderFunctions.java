@@ -1,4 +1,4 @@
-package com.daxie.joglf.gl.gl4;
+package com.daxie.joglf.gl.wrapper;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
@@ -13,14 +13,13 @@ import com.daxie.joglf.tool.ExceptionFunctions;
 import com.daxie.joglf.tool.FileFunctions;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
-import com.jogamp.opengl.GLContext;
 
 /**
- * Shader functions of GL4.
+ * Shader functions
  * @author Daba
  *
  */
-public class GL4ShaderFunctions {
+public class GLShaderFunctions {
 	private static Map<String, Integer> program_ids_map=new HashMap<>();
 	private static IntBuffer sampler=Buffers.newDirectIntBuffer(1);
 	
@@ -36,8 +35,8 @@ public class GL4ShaderFunctions {
 		LogFile.WriteInfo("vertex_shader_filename:"+vertex_shader_filename,false);
 		LogFile.WriteInfo("fragment_shader_filename:"+fragment_shader_filename,false);
 		
-		int vertex_shader_id=GL4Wrapper.glCreateShader(GL4.GL_VERTEX_SHADER);
-		int fragment_shader_id=GL4Wrapper.glCreateShader(GL4.GL_FRAGMENT_SHADER);
+		int vertex_shader_id=GLWrapper.glCreateShader(GL4.GL_VERTEX_SHADER);
+		int fragment_shader_id=GLWrapper.glCreateShader(GL4.GL_FRAGMENT_SHADER);
 		
 		//Load the code files of shaders.
 		String[] vertex_shader_code=null;
@@ -73,15 +72,15 @@ public class GL4ShaderFunctions {
 		String error_message_str;
 		
 		//Compile vertex shader.
-		GL4Wrapper.glShaderSource(vertex_shader_id,vertex_shader_code.length,vertex_shader_code,null);
-		GL4Wrapper.glCompileShader(vertex_shader_id);
+		GLWrapper.glShaderSource(vertex_shader_id,vertex_shader_code.length,vertex_shader_code,null);
+		GLWrapper.glCompileShader(vertex_shader_id);
 		
 		//Check vertex shader.
-		GL4Wrapper.glGetShaderiv(vertex_shader_id, GL4.GL_COMPILE_STATUS, result);
+		GLWrapper.glGetShaderiv(vertex_shader_id, GL4.GL_COMPILE_STATUS, result);
 		if(result.get(0)==GL4.GL_FALSE){
-			GL4Wrapper.glGetShaderiv(vertex_shader_id, GL4.GL_INFO_LOG_LENGTH, info_log_length);
+			GLWrapper.glGetShaderiv(vertex_shader_id, GL4.GL_INFO_LOG_LENGTH, info_log_length);
 			error_message=Buffers.newDirectByteBuffer(info_log_length.get(0));
-			GL4Wrapper.glGetShaderInfoLog(vertex_shader_id,info_log_length.get(0),null,error_message);
+			GLWrapper.glGetShaderInfoLog(vertex_shader_id,info_log_length.get(0),null,error_message);
 			error_message_str=BufferFunctions.GetStringFromByteBuffer(error_message);
 			
 			LogFile.WriteError("[Shaders-LoadShaders] Vertex shader compilation failed. Below is the information log.",true);
@@ -91,15 +90,15 @@ public class GL4ShaderFunctions {
 		}
 		
 		//Compile fragment shader.
-		GL4Wrapper.glShaderSource(fragment_shader_id,fragment_shader_code.length,fragment_shader_code,null);
-		GL4Wrapper.glCompileShader(fragment_shader_id);
+		GLWrapper.glShaderSource(fragment_shader_id,fragment_shader_code.length,fragment_shader_code,null);
+		GLWrapper.glCompileShader(fragment_shader_id);
 		
 		//Check fragment shader.
-		GL4Wrapper.glGetShaderiv(fragment_shader_id, GL4.GL_COMPILE_STATUS, result);
+		GLWrapper.glGetShaderiv(fragment_shader_id, GL4.GL_COMPILE_STATUS, result);
 		if(result.get(0)==GL4.GL_FALSE) {
-			GL4Wrapper.glGetShaderiv(fragment_shader_id, GL4.GL_INFO_LOG_LENGTH, info_log_length);
+			GLWrapper.glGetShaderiv(fragment_shader_id, GL4.GL_INFO_LOG_LENGTH, info_log_length);
 			error_message=Buffers.newDirectByteBuffer(info_log_length.get(0));
-			GL4Wrapper.glGetShaderInfoLog(fragment_shader_id,info_log_length.get(0),null,error_message);
+			GLWrapper.glGetShaderInfoLog(fragment_shader_id,info_log_length.get(0),null,error_message);
 			error_message_str=BufferFunctions.GetStringFromByteBuffer(error_message);
 			
 			LogFile.WriteError("[Shaders-LoadShaders] Fragment shader compilation failed. Below is the information log.",true);
@@ -109,18 +108,18 @@ public class GL4ShaderFunctions {
 		}
 		
 		//Link program.
-		int program_id=GL4Wrapper.glCreateProgram();
-		GL4Wrapper.glAttachShader(program_id, vertex_shader_id);
-		GL4Wrapper.glAttachShader(program_id, fragment_shader_id);
+		int program_id=GLWrapper.glCreateProgram();
+		GLWrapper.glAttachShader(program_id, vertex_shader_id);
+		GLWrapper.glAttachShader(program_id, fragment_shader_id);
 		
-		GL4Wrapper.glLinkProgram(program_id);
+		GLWrapper.glLinkProgram(program_id);
 		
 		//Check program.
-		GL4Wrapper.glGetProgramiv(program_id, GL4.GL_LINK_STATUS, result);
+		GLWrapper.glGetProgramiv(program_id, GL4.GL_LINK_STATUS, result);
 		if(result.get(0)==GL4.GL_FALSE) {
-			GL4Wrapper.glGetProgramiv(program_id,GL4.GL_INFO_LOG_LENGTH,info_log_length);
+			GLWrapper.glGetProgramiv(program_id,GL4.GL_INFO_LOG_LENGTH,info_log_length);
 			error_message=Buffers.newDirectByteBuffer(info_log_length.get(0));
-			GL4Wrapper.glGetProgramInfoLog(program_id, info_log_length.get(0), null, error_message);
+			GLWrapper.glGetProgramInfoLog(program_id, info_log_length.get(0), null, error_message);
 			error_message_str=BufferFunctions.GetStringFromByteBuffer(error_message);
 			
 			LogFile.WriteError("[Shaders-LoadShaders] Program link failed. Below is the information log.",true);
@@ -129,8 +128,8 @@ public class GL4ShaderFunctions {
 			return -1;
 		}
 		
-		GL4Wrapper.glDeleteShader(vertex_shader_id);
-		GL4Wrapper.glDeleteShader(fragment_shader_id);
+		GLWrapper.glDeleteShader(vertex_shader_id);
+		GLWrapper.glDeleteShader(fragment_shader_id);
 		
 		program_ids_map.put(program_name, program_id);
 		
@@ -140,13 +139,13 @@ public class GL4ShaderFunctions {
 	 * Initialize a sampler.
 	 */
 	public static void InitializeSampler() {
-		GL4Wrapper.glGenSamplers(1, sampler);
+		GLWrapper.glGenSamplers(1, sampler);
 		
-		GL4Wrapper.glSamplerParameteri(sampler.get(0),GL4.GL_TEXTURE_MAG_FILTER,GL4.GL_NEAREST);
-		GL4Wrapper.glSamplerParameteri(sampler.get(0),GL4.GL_TEXTURE_MIN_FILTER,GL4.GL_NEAREST);
+		GLWrapper.glSamplerParameteri(sampler.get(0),GL4.GL_TEXTURE_MAG_FILTER,GL4.GL_NEAREST);
+		GLWrapper.glSamplerParameteri(sampler.get(0),GL4.GL_TEXTURE_MIN_FILTER,GL4.GL_NEAREST);
 		
-		GL4Wrapper.glSamplerParameteri(sampler.get(0),GL4.GL_TEXTURE_WRAP_S,GL4.GL_REPEAT);
-		GL4Wrapper.glSamplerParameteri(sampler.get(0),GL4.GL_TEXTURE_WRAP_T,GL4.GL_REPEAT);
+		GLWrapper.glSamplerParameteri(sampler.get(0),GL4.GL_TEXTURE_WRAP_S,GL4.GL_REPEAT);
+		GLWrapper.glSamplerParameteri(sampler.get(0),GL4.GL_TEXTURE_WRAP_T,GL4.GL_REPEAT);
 	}
 	
 	public static int GetProgramID(String program_name) {
@@ -158,15 +157,13 @@ public class GL4ShaderFunctions {
 	}
 	
 	public static int EnableProgram(String program_name) {
-		GL4 gl4=GLContext.getCurrentGL().getGL4();
-		
 		if(program_ids_map.containsKey(program_name)==false) {
 			LogFile.WriteError("[GL4ShaderFunctions-EnableProgram] Invalid program name. name:"+program_name,true);
 			return -1;
 		}
 		
 		int program_id=program_ids_map.get(program_name);
-		GL4Wrapper.glUseProgram(program_id);
+		GLWrapper.glUseProgram(program_id);
 		
 		return 0;
 	}

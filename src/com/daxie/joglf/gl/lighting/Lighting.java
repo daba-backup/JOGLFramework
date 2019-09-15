@@ -6,9 +6,9 @@ import com.daxie.joglf.basis.coloru8.ColorU8;
 import com.daxie.joglf.basis.coloru8.ColorU8Functions;
 import com.daxie.joglf.basis.vector.Vector;
 import com.daxie.joglf.basis.vector.VectorFunctions;
-import com.daxie.joglf.gl.gl4.GL4ShaderFunctions;
-import com.daxie.joglf.gl.gl4.GL4Wrapper;
 import com.daxie.joglf.gl.tool.BufferFunctions;
+import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
+import com.daxie.joglf.gl.wrapper.gl4.GL4Wrapper;
 
 /**
  * Lighting
@@ -47,8 +47,8 @@ public class Lighting {
 		int light_direction_location;
 		int ambient_color_location;
 		
-		GL4ShaderFunctions.EnableProgram("texture");
-		program_id=GL4ShaderFunctions.GetProgramID("texture");
+		GLShaderFunctions.EnableProgram("texture");
+		program_id=GLShaderFunctions.GetProgramID("texture");
 		
 		light_direction_location=GL4Wrapper.glGetUniformLocation(program_id, "light_direction");
 		ambient_color_location=GL4Wrapper.glGetUniformLocation(program_id, "ambient_color");

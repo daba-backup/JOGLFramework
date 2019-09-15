@@ -1,4 +1,4 @@
-package com.daxie.joglf.gl.gl4;
+package com.daxie.joglf.gl.wrapper.gl4;
 
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
@@ -22,6 +22,15 @@ public class GL4Wrapper {
 		int code=gl4.glGetError();
 		if(code!=GL4.GL_NO_ERROR) {
 			LogFile.WriteError("[GL4Wrapper-glActiveTexture] code:"+code,true);
+		}
+	}
+	public static void glAttachShader(int arg0,int arg1) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glAttachShader(arg0, arg1);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteError("[GL4Wrapper-glAttachShader] code:"+code,true);
 		}
 	}
 	public static void glBindBuffer(int arg0,int arg1) {
@@ -87,6 +96,26 @@ public class GL4Wrapper {
 			LogFile.WriteError("[GL4Wrapper-glClearColor] code:"+code,true);
 		}
 	}
+	public static void glCompileShader(int arg0) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glCompileShader(arg0);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteError("[GL4Wrapper-glCompileShader] code:"+code,true);
+		}
+	}
+	public static int glCreateProgram() {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		int ret=gl4.glCreateProgram();
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteError("[GL4Wrapper-glCreateProgram] code:"+code,true);
+		}
+		
+		return ret;
+	}
 	public static int glCreateShader(int arg0) {
 		GL4 gl4=GLContext.getCurrentGL().getGL4();
 		int ret=gl4.glCreateShader(arg0);
@@ -114,6 +143,15 @@ public class GL4Wrapper {
 		int code=gl4.glGetError();
 		if(code!=GL4.GL_NO_ERROR) {
 			LogFile.WriteError("[GL4Wrapper-glDeleteBuffers] code:"+code,true);
+		}
+	}
+	public static void glDeleteShader(int arg0) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glDeleteShader(arg0);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteError("[GL4Wrapper-glDeleteShader] code:"+code,true);
 		}
 	}
 	public static void glDeleteVertexArrays(int arg0,IntBuffer arg1) {
@@ -215,6 +253,42 @@ public class GL4Wrapper {
 			LogFile.WriteError("[GL4Wrapper-glGenVertexArrays] code:"+code,true);
 		}
 	}
+	public static void glGetProgramInfoLog(int arg0,int arg1,IntBuffer arg2,ByteBuffer arg3) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glGetProgramInfoLog(arg0, arg1, arg2, arg3);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteError("[GL4Wrapper-glGetProgramInfoLog] code:"+code,true);
+		}
+	}
+	public static void glGetProgramiv(int arg0,int arg1,IntBuffer arg2) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glGetProgramiv(arg0, arg1, arg2);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteError("[GL4Wrapper-glGetProgramiv] code:"+code,true);
+		}
+	}
+	public static void glGetShaderInfoLog(int arg0,int arg1,IntBuffer arg2,ByteBuffer arg3) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glGetShaderInfoLog(arg0, arg1, arg2, arg3);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteError("[GL4Wrapper-glGetShaderInfoLog] code:"+code,true);
+		}
+	}
+	public static void glGetShaderiv(int arg0,int arg1,IntBuffer arg2) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glGetShaderiv(arg0, arg1, arg2);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteError("[GL4Wrapper-glGetShaderiv] code:"+code,true);
+		}
+	}
 	public static int glGetUniformLocation(int arg0,String arg1) {
 		GL4 gl4=GLContext.getCurrentGL().getGL4();
 		int ret=gl4.glGetUniformLocation(arg0, arg1);
@@ -226,6 +300,15 @@ public class GL4Wrapper {
 		
 		return ret;
 	}
+	public static void glLinkProgram(int arg0) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glLinkProgram(arg0);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteError("[GL4Wrapper-glLinkProgram] code:"+code,true);
+		}
+	}
 	public static void glSamplerParameteri(int arg0,int arg1,int arg2) {
 		GL4 gl4=GLContext.getCurrentGL().getGL4();
 		gl4.glSamplerParameteri(arg0, arg1, arg2);
@@ -233,6 +316,15 @@ public class GL4Wrapper {
 		int code=gl4.glGetError();
 		if(code!=GL4.GL_NO_ERROR) {
 			LogFile.WriteError("[GL4Wrapper-glSamplerParameteri] code:"+code,true);
+		}
+	}
+	public static void glShaderSource(int arg0,int arg1,String[] arg2,IntBuffer arg3) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glShaderSource(arg0, arg1, arg2, arg3);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteError("[GL4Wrapper-glShaderSource] code:"+code,true);
 		}
 	}
 	public static void glTexParameteri(int arg0,int arg1,int arg2) {
@@ -289,9 +381,9 @@ public class GL4Wrapper {
 			LogFile.WriteError("[GL4Wrapper-glUniformMatrix4fv] code:"+code,true);
 		}
 	}
-	public static void glUseProgram(int program_id) {
+	public static void glUseProgram(int arg0) {
 		GL4 gl4=GLContext.getCurrentGL().getGL4();
-		gl4.glUseProgram(program_id);
+		gl4.glUseProgram(arg0);
 		
 		int code=gl4.glGetError();
 		if(code!=GL4.GL_NO_ERROR) {
@@ -305,98 +397,6 @@ public class GL4Wrapper {
 		int code=gl4.glGetError();
 		if(code!=GL4.GL_NO_ERROR) {
 			LogFile.WriteError("[GL4Wrapper-glVertexAttribPointer] code:"+code,true);
-		}
-	}
-	public static void glShaderSource(int arg0,int arg1,String[] arg2,IntBuffer arg3) {
-		GL4 gl4=GLContext.getCurrentGL().getGL4();
-		gl4.glShaderSource(arg0, arg1, arg2, arg3);
-		
-		int code=gl4.glGetError();
-		if(code!=GL4.GL_NO_ERROR) {
-			LogFile.WriteError("[GL4Wrapper-glShaderSource] code:"+code,true);
-		}
-	}
-	public static void glCompileShader(int arg0) {
-		GL4 gl4=GLContext.getCurrentGL().getGL4();
-		gl4.glCompileShader(arg0);
-		
-		int code=gl4.glGetError();
-		if(code!=GL4.GL_NO_ERROR) {
-			LogFile.WriteError("[GL4Wrapper-glCompileShader] code:"+code,true);
-		}
-	}
-	public static void glGetShaderiv(int arg0,int arg1,IntBuffer arg2) {
-		GL4 gl4=GLContext.getCurrentGL().getGL4();
-		gl4.glGetShaderiv(arg0, arg1, arg2);
-		
-		int code=gl4.glGetError();
-		if(code!=GL4.GL_NO_ERROR) {
-			LogFile.WriteError("[GL4Wrapper-glGetShaderiv] code:"+code,true);
-		}
-	}
-	public static void glGetShaderInfoLog(int arg0,int arg1,IntBuffer arg2,ByteBuffer arg3) {
-		GL4 gl4=GLContext.getCurrentGL().getGL4();
-		gl4.glGetShaderInfoLog(arg0, arg1, arg2, arg3);
-		
-		int code=gl4.glGetError();
-		if(code!=GL4.GL_NO_ERROR) {
-			LogFile.WriteError("[GL4Wrapper-glGetShaderInfoLog] code:"+code,true);
-		}
-	}
-	public static void glAttachShader(int arg0,int arg1) {
-		GL4 gl4=GLContext.getCurrentGL().getGL4();
-		gl4.glAttachShader(arg0, arg1);
-		
-		int code=gl4.glGetError();
-		if(code!=GL4.GL_NO_ERROR) {
-			LogFile.WriteError("[GL4Wrapper-glAttachShader] code:"+code,true);
-		}
-	}
-	public static int glCreateProgram() {
-		GL4 gl4=GLContext.getCurrentGL().getGL4();
-		int ret=gl4.glCreateProgram();
-		
-		int code=gl4.glGetError();
-		if(code!=GL4.GL_NO_ERROR) {
-			LogFile.WriteError("[GL4Wrapper-glCreateProgram] code:"+code,true);
-		}
-		
-		return ret;
-	}
-	public static void glLinkProgram(int arg0) {
-		GL4 gl4=GLContext.getCurrentGL().getGL4();
-		gl4.glLinkProgram(arg0);
-		
-		int code=gl4.glGetError();
-		if(code!=GL4.GL_NO_ERROR) {
-			LogFile.WriteError("[GL4Wrapper-glLinkProgram] code:"+code,true);
-		}
-	}
-	public static void glGetProgramiv(int arg0,int arg1,IntBuffer arg2) {
-		GL4 gl4=GLContext.getCurrentGL().getGL4();
-		gl4.glGetProgramiv(arg0, arg1, arg2);
-		
-		int code=gl4.glGetError();
-		if(code!=GL4.GL_NO_ERROR) {
-			LogFile.WriteError("[GL4Wrapper-glGetProgramiv] code:"+code,true);
-		}
-	}
-	public static void glGetProgramInfoLog(int arg0,int arg1,IntBuffer arg2,ByteBuffer arg3) {
-		GL4 gl4=GLContext.getCurrentGL().getGL4();
-		gl4.glGetProgramInfoLog(arg0, arg1, arg2, arg3);
-		
-		int code=gl4.glGetError();
-		if(code!=GL4.GL_NO_ERROR) {
-			LogFile.WriteError("[GL4Wrapper-glGetProgramInfoLog] code:"+code,true);
-		}
-	}
-	public static void glDeleteShader(int arg0) {
-		GL4 gl4=GLContext.getCurrentGL().getGL4();
-		gl4.glDeleteShader(arg0);
-		
-		int code=gl4.glGetError();
-		if(code!=GL4.GL_NO_ERROR) {
-			LogFile.WriteError("[GL4Wrapper-glDeleteShader] code:"+code,true);
 		}
 	}
 }

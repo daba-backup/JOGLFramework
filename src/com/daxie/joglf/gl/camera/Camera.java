@@ -6,9 +6,9 @@ import com.daxie.joglf.basis.matrix.Matrix;
 import com.daxie.joglf.basis.vector.Vector;
 import com.daxie.joglf.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.GLFront;
-import com.daxie.joglf.gl.gl4.GL4ShaderFunctions;
-import com.daxie.joglf.gl.gl4.GL4Wrapper;
 import com.daxie.joglf.gl.tool.BufferFunctions;
+import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
+import com.daxie.joglf.gl.wrapper.gl4.GL4Wrapper;
 import com.daxie.joglf.tool.MathFunctions;
 
 public class Camera {
@@ -95,8 +95,8 @@ public class Camera {
 		int camera_far_location;
 		
 		//Texture program
-		GL4ShaderFunctions.EnableProgram("texture");
-		program_id=GL4ShaderFunctions.GetProgramID("texture");
+		GLShaderFunctions.EnableProgram("texture");
+		program_id=GLShaderFunctions.GetProgramID("texture");
 		
 		camera_position_location=GL4Wrapper.glGetUniformLocation(program_id, "camera_position");
 		camera_target_location=GL4Wrapper.glGetUniformLocation(program_id, "camera_target");
@@ -113,8 +113,8 @@ public class Camera {
 		GL4Wrapper.glUniform1f(camera_far_location, far);
 		
 		//Color program
-		GL4ShaderFunctions.EnableProgram("color");
-		program_id=GL4ShaderFunctions.GetProgramID("color");
+		GLShaderFunctions.EnableProgram("color");
+		program_id=GLShaderFunctions.GetProgramID("color");
 		
 		projection_location=GL4Wrapper.glGetUniformLocation(program_id, "projection");
 		view_transformation_location=GL4Wrapper.glGetUniformLocation(program_id, "view_transformation");

@@ -1,4 +1,4 @@
-package com.daxie.joglf.gl.gl4;
+package com.daxie.joglf.gl.wrapper;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -15,11 +15,11 @@ import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
 /**
- * Draw functions of GL4.
+ * Draw functions
  * @author Daba
  *
  */
-public class GL4DrawFunctions {
+public class GLDrawFunctions {
 	public static void DrawLine3D(Vector line_pos_1,Vector line_pos_2,ColorU8 color_1,ColorU8 color_2) {
 		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);
 		IntBuffer color_vbo=Buffers.newDirectIntBuffer(1);
@@ -45,41 +45,41 @@ public class GL4DrawFunctions {
 		pos_buffer.flip();
 		color_buffer.flip();
 		
-		GL4ShaderFunctions.EnableProgram("color");
+		GLShaderFunctions.EnableProgram("color");
 		
-		GL4Wrapper.glGenBuffers(1, pos_vbo);
-		GL4Wrapper.glGenBuffers(1, color_vbo);
+		GLWrapper.glGenBuffers(1, pos_vbo);
+		GLWrapper.glGenBuffers(1, color_vbo);
 		
-		GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GL4Wrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*3*2,pos_buffer,GL4.GL_STATIC_DRAW);
-		GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, color_vbo.get(0));
-		GL4Wrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*4*2,color_buffer,GL4.GL_STATIC_DRAW);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*3*2,pos_buffer,GL4.GL_STATIC_DRAW);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, color_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*4*2,color_buffer,GL4.GL_STATIC_DRAW);
 		
-		GL4Wrapper.glGenVertexArrays(1, vao);
-		GL4Wrapper.glBindVertexArray(vao.get(0));
+		GLWrapper.glGenVertexArrays(1, vao);
+		GLWrapper.glBindVertexArray(vao.get(0));
 		
 		//Position attribute
-		GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GL4Wrapper.glEnableVertexAttribArray(0);
-		GL4Wrapper.glVertexAttribPointer(0, 3, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*3, 0);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(0);
+		GLWrapper.glVertexAttribPointer(0, 3, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*3, 0);
 		
 		//Color attribute
-		GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, color_vbo.get(0));
-		GL4Wrapper.glEnableVertexAttribArray(1);
-		GL4Wrapper.glVertexAttribPointer(1, 4, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*4, 0);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, color_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(1);
+		GLWrapper.glVertexAttribPointer(1, 4, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*4, 0);
 		
-		GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
-		GL4Wrapper.glBindVertexArray(0);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
+		GLWrapper.glBindVertexArray(0);
 		
 		//Draw
-		GL4Wrapper.glBindVertexArray(vao.get(0));
-		GL4Wrapper.glDrawArrays(GL4.GL_LINES, 0, 2);
-		GL4Wrapper.glBindVertexArray(0);
+		GLWrapper.glBindVertexArray(vao.get(0));
+		GLWrapper.glDrawArrays(GL4.GL_LINES, 0, 2);
+		GLWrapper.glBindVertexArray(0);
 		
 		//Delete buffers
-		GL4Wrapper.glDeleteBuffers(1, pos_vbo);
-		GL4Wrapper.glDeleteBuffers(1, color_vbo);
-		GL4Wrapper.glDeleteVertexArrays(1, vao);
+		GLWrapper.glDeleteBuffers(1, pos_vbo);
+		GLWrapper.glDeleteBuffers(1, color_vbo);
+		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
 	public static void DrawLine3D(Vector line_pos_1,Vector line_pos_2,ColorU8 color) {
 		DrawLine3D(line_pos_1, line_pos_2, color,color);
@@ -124,41 +124,41 @@ public class GL4DrawFunctions {
 		pos_buffer.flip();
 		color_buffer.flip();
 		
-		GL4ShaderFunctions.EnableProgram("color");
+		GLShaderFunctions.EnableProgram("color");
 		
-		GL4Wrapper.glGenBuffers(1, pos_vbo);
-		GL4Wrapper.glGenBuffers(1, color_vbo);
+		GLWrapper.glGenBuffers(1, pos_vbo);
+		GLWrapper.glGenBuffers(1, color_vbo);
 		
-		GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GL4Wrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*3*2,pos_buffer,GL4.GL_STATIC_DRAW);
-		GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, color_vbo.get(0));
-		GL4Wrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*4*2,color_buffer,GL4.GL_STATIC_DRAW);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*3*2,pos_buffer,GL4.GL_STATIC_DRAW);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, color_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*4*2,color_buffer,GL4.GL_STATIC_DRAW);
 		
-		GL4Wrapper.glGenVertexArrays(1, vao);
-		GL4Wrapper.glBindVertexArray(vao.get(0));
+		GLWrapper.glGenVertexArrays(1, vao);
+		GLWrapper.glBindVertexArray(vao.get(0));
 		
 		//Position attribute
-		GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GL4Wrapper.glEnableVertexAttribArray(0);
-		GL4Wrapper.glVertexAttribPointer(0, 3, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*3, 0);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(0);
+		GLWrapper.glVertexAttribPointer(0, 3, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*3, 0);
 		
 		//Color attribute
-		GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, color_vbo.get(0));
-		GL4Wrapper.glEnableVertexAttribArray(1);
-		GL4Wrapper.glVertexAttribPointer(1, 4, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*4, 0);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, color_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(1);
+		GLWrapper.glVertexAttribPointer(1, 4, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*4, 0);
 		
-		GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
-		GL4Wrapper.glBindVertexArray(0);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
+		GLWrapper.glBindVertexArray(0);
 		
 		//Draw
-		GL4Wrapper.glBindVertexArray(vao.get(0));
-		GL4Wrapper.glDrawArrays(GL4.GL_LINES, 0, 2);
-		GL4Wrapper.glBindVertexArray(0);
+		GLWrapper.glBindVertexArray(vao.get(0));
+		GLWrapper.glDrawArrays(GL4.GL_LINES, 0, 2);
+		GLWrapper.glBindVertexArray(0);
 		
 		//Delete buffers
-		GL4Wrapper.glDeleteBuffers(1, pos_vbo);
-		GL4Wrapper.glDeleteBuffers(1, color_vbo);
-		GL4Wrapper.glDeleteVertexArrays(1, vao);
+		GLWrapper.glDeleteBuffers(1, pos_vbo);
+		GLWrapper.glDeleteBuffers(1, color_vbo);
+		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
 	
 	public static void DrawTexturedTriangle3D(Triangle triangle,int texture_handle,boolean use_face_normal_flag) {
@@ -212,44 +212,44 @@ public class GL4DrawFunctions {
 		uv_buffer.flip();
 		norm_buffer.flip();
 		
-		GL4ShaderFunctions.EnableProgram("texture");
+		GLShaderFunctions.EnableProgram("texture");
 		
-		GL4Wrapper.glGenBuffers(1, pos_vbo);
-		GL4Wrapper.glGenBuffers(1, uv_vbo);
-		GL4Wrapper.glGenBuffers(1, norm_vbo);
+		GLWrapper.glGenBuffers(1, pos_vbo);
+		GLWrapper.glGenBuffers(1, uv_vbo);
+		GLWrapper.glGenBuffers(1, norm_vbo);
 		
-		GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GL4Wrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*pos_buffer.capacity(), pos_buffer, GL4.GL_STATIC_DRAW);
-		GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, uv_vbo.get(0));
-		GL4Wrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*uv_buffer.capacity(), uv_buffer, GL4.GL_STATIC_DRAW);
-		GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, norm_vbo.get(0));
-		GL4Wrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*norm_buffer.capacity(), norm_buffer, GL4.GL_STATIC_DRAW);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*pos_buffer.capacity(), pos_buffer, GL4.GL_STATIC_DRAW);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, uv_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*uv_buffer.capacity(), uv_buffer, GL4.GL_STATIC_DRAW);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, norm_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*norm_buffer.capacity(), norm_buffer, GL4.GL_STATIC_DRAW);
 		
-		GL4Wrapper.glGenVertexArrays(1, vao);
-		GL4Wrapper.glBindVertexArray(vao.get(0));
+		GLWrapper.glGenVertexArrays(1, vao);
+		GLWrapper.glBindVertexArray(vao.get(0));
 		
 		//Position attribute
-		GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GL4Wrapper.glEnableVertexAttribArray(0);
-		GL4Wrapper.glVertexAttribPointer(0, 3, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*3, 0);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(0);
+		GLWrapper.glVertexAttribPointer(0, 3, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*3, 0);
 		
 		//UVs attribute
-		GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, uv_vbo.get(0));
-		GL4Wrapper.glEnableVertexAttribArray(1);
-		GL4Wrapper.glVertexAttribPointer(1, 2, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*2, 0);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, uv_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(1);
+		GLWrapper.glVertexAttribPointer(1, 2, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*2, 0);
 		
 		//Normal attribute
-		GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, norm_vbo.get(0));
-		GL4Wrapper.glEnableVertexAttribArray(2);
-		GL4Wrapper.glVertexAttribPointer(2, 3, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*3, 0);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, norm_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(2);
+		GLWrapper.glVertexAttribPointer(2, 3, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*3, 0);
 		
-		GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
-		GL4Wrapper.glBindVertexArray(0);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
+		GLWrapper.glBindVertexArray(0);
 		
-		GL4Wrapper.glBindVertexArray(vao.get(0));
+		GLWrapper.glBindVertexArray(vao.get(0));
 		
-		int sampler=GL4ShaderFunctions.GetSampler();
-		GL4Wrapper.glBindSampler(0, sampler);
+		int sampler=GLShaderFunctions.GetSampler();
+		GLWrapper.glBindSampler(0, sampler);
 		
 		//Draw
 		if(texture_handle<0) {
@@ -261,16 +261,16 @@ public class GL4DrawFunctions {
 			TextureMgr.BindTexture(texture_handle);
 		}
 		
-		GL4Wrapper.glDrawArrays(GL4.GL_TRIANGLES, 0, 3);
+		GLWrapper.glDrawArrays(GL4.GL_TRIANGLES, 0, 3);
 		
-		GL4Wrapper.glBindVertexArray(0);
+		GLWrapper.glBindVertexArray(0);
 		
 		if(texture_handle<0)TextureMgr.DisableDefaultTexture();
 		else TextureMgr.DisableTexture(texture_handle);
 		
 		//Delete buffers
-		GL4Wrapper.glDeleteBuffers(1, pos_vbo);
-		GL4Wrapper.glDeleteBuffers(1, uv_vbo);
-		GL4Wrapper.glDeleteVertexArrays(1, vao);
+		GLWrapper.glDeleteBuffers(1, pos_vbo);
+		GLWrapper.glDeleteBuffers(1, uv_vbo);
+		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
 }

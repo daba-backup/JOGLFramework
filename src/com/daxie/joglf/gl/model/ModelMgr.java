@@ -9,12 +9,12 @@ import com.daxie.joglf.basis.matrix.Matrix;
 import com.daxie.joglf.basis.matrix.MatrixFunctions;
 import com.daxie.joglf.basis.vector.Vector;
 import com.daxie.joglf.basis.vector.VectorFunctions;
-import com.daxie.joglf.gl.gl4.GL4ShaderFunctions;
-import com.daxie.joglf.gl.gl4.GL4Wrapper;
 import com.daxie.joglf.gl.model.buffer.BufferedVertices;
 import com.daxie.joglf.gl.model.collision.CollInfo;
 import com.daxie.joglf.gl.model.collision.CollTriangle;
 import com.daxie.joglf.gl.texture.TextureMgr;
+import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
+import com.daxie.joglf.gl.wrapper.gl4.GL4Wrapper;
 import com.daxie.joglf.log.LogFile;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
@@ -178,9 +178,9 @@ class ModelMgr {
 	public void Draw() {
 		int element_num=buffered_vertices_list.size();
 		
-		GL4ShaderFunctions.EnableProgram("texture");
+		GLShaderFunctions.EnableProgram("texture");
 		
-		int sampler=GL4ShaderFunctions.GetSampler();
+		int sampler=GLShaderFunctions.GetSampler();
 		GL4Wrapper.glBindSampler(0, sampler);
 		
 		for(int i=0;i<element_num;i++) {
