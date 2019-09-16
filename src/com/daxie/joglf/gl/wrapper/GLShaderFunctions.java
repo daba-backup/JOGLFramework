@@ -48,13 +48,13 @@ public class GLShaderFunctions {
 		catch(FileNotFoundException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
 			
-			LogFile.WriteError("Failed to load a file. Below is the stack trace.",true);
-			LogFile.WriteError(str,false);
+			LogFile.WriteWarn("Failed to load a file. Below is the stack trace.",true);
+			LogFile.WriteWarn(str,false);
 			
 			return -1;
 		}
 		catch(UnsupportedEncodingException e) {
-			LogFile.WriteError("[GL4ShaderFunctions-CreateProgram] Internal error. Unknown encoding specified.",true);
+			LogFile.WriteWarn("[GL4ShaderFunctions-CreateProgram] Internal error. Unknown encoding specified.",true);
 			return -1;
 		}
 		
@@ -83,8 +83,8 @@ public class GLShaderFunctions {
 			GLWrapper.glGetShaderInfoLog(vertex_shader_id,info_log_length.get(0),null,error_message);
 			error_message_str=BufferFunctions.GetStringFromByteBuffer(error_message);
 			
-			LogFile.WriteError("[Shaders-LoadShaders] Vertex shader compilation failed. Below is the information log.",true);
-			LogFile.WriteError(error_message_str,false);
+			LogFile.WriteWarn("[Shaders-LoadShaders] Vertex shader compilation failed. Below is the information log.",true);
+			LogFile.WriteWarn(error_message_str,false);
 			
 			return -1;
 		}
@@ -101,8 +101,8 @@ public class GLShaderFunctions {
 			GLWrapper.glGetShaderInfoLog(fragment_shader_id,info_log_length.get(0),null,error_message);
 			error_message_str=BufferFunctions.GetStringFromByteBuffer(error_message);
 			
-			LogFile.WriteError("[Shaders-LoadShaders] Fragment shader compilation failed. Below is the information log.",true);
-			LogFile.WriteError(error_message_str,false);
+			LogFile.WriteWarn("[Shaders-LoadShaders] Fragment shader compilation failed. Below is the information log.",true);
+			LogFile.WriteWarn(error_message_str,false);
 			
 			return -1;
 		}
@@ -122,8 +122,8 @@ public class GLShaderFunctions {
 			GLWrapper.glGetProgramInfoLog(program_id, info_log_length.get(0), null, error_message);
 			error_message_str=BufferFunctions.GetStringFromByteBuffer(error_message);
 			
-			LogFile.WriteError("[Shaders-LoadShaders] Program link failed. Below is the information log.",true);
-			LogFile.WriteError(error_message_str,false);
+			LogFile.WriteWarn("[Shaders-LoadShaders] Program link failed. Below is the information log.",true);
+			LogFile.WriteWarn(error_message_str,false);
 			
 			return -1;
 		}
@@ -158,7 +158,7 @@ public class GLShaderFunctions {
 	
 	public static int EnableProgram(String program_name) {
 		if(program_ids_map.containsKey(program_name)==false) {
-			LogFile.WriteError("[GL4ShaderFunctions-EnableProgram] Invalid program name. name:"+program_name,true);
+			LogFile.WriteWarn("[GL4ShaderFunctions-EnableProgram] Invalid program name. name:"+program_name,true);
 			return -1;
 		}
 		

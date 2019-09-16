@@ -40,7 +40,7 @@ public class OBJLoader {
 			isr=new InputStreamReader(new FileInputStream(obj_filename));
 		}
 		catch(FileNotFoundException e) {
-			LogFile.WriteError("[OBJLoader-LoadOBJ] File not found. filename:"+obj_filename,true);
+			LogFile.WriteWarn("[OBJLoader-LoadOBJ] File not found. filename:"+obj_filename,true);
 			return ret;
 		}
 		
@@ -51,8 +51,8 @@ public class OBJLoader {
 		catch(IOException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
 			
-			LogFile.WriteError("[OBJLoader-LoadOBJ] Below is the stack trace.",true);
-			LogFile.WriteError(str,false);
+			LogFile.WriteWarn("[OBJLoader-LoadOBJ] Below is the stack trace.",true);
+			LogFile.WriteWarn(str,false);
 			
 			return ret;
 		}
@@ -77,8 +77,8 @@ public class OBJLoader {
 			catch(IOException e) {
 				String str=ExceptionFunctions.GetPrintStackTraceString(e);
 				
-				LogFile.WriteError("[OBJLoader-LoadOBJ] Below is the stack trace.",true);
-				LogFile.WriteError(str,false);
+				LogFile.WriteWarn("[OBJLoader-LoadOBJ] Below is the stack trace.",true);
+				LogFile.WriteWarn(str,false);
 				
 				return ret;
 			}

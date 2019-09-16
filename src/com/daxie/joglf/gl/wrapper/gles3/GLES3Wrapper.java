@@ -21,7 +21,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glActiveTexture] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glActiveTexture] code:"+code,true);
 		}
 	}
 	public static void glAttachShader(int arg0,int arg1) {
@@ -30,7 +30,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glAttachShader] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glAttachShader] code:"+code,true);
 		}
 	}
 	public static void glBindBuffer(int arg0,int arg1) {
@@ -39,7 +39,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glBindBuffer] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glBindBuffer] code:"+code,true);
 		}
 	}
 	public static void glBindSampler(int arg0,int arg1) {
@@ -48,7 +48,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glBindSampler] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glBindSampler] code:"+code,true);
 		}
 	}
 	public static void glBindVertexArray(int arg0) {
@@ -57,7 +57,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glBindVertexArray] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glBindVertexArray] code:"+code,true);
 		}
 	}
 	public static void glBlendFunc(int arg0,int arg1) {
@@ -66,7 +66,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glBlendFunc] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glBlendFunc] code:"+code,true);
 		}
 	}
 	public static void glBufferData(int arg0,long arg1,Buffer arg2,int arg3) {
@@ -75,7 +75,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glBufferData] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glBufferData] code:"+code,true);
 		}
 	}
 	public static void glClear(int arg0) {
@@ -84,7 +84,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glClear] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glClear] code:"+code,true);
 		}
 	}
 	public static void glClearColor(float arg0,float arg1,float arg2,float arg3) {
@@ -93,7 +93,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glClearColor] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glClearColor] code:"+code,true);
 		}
 	}
 	public static void glCompileShader(int arg0) {
@@ -102,7 +102,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glCompileShader] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glCompileShader] code:"+code,true);
 		}
 	}
 	public static int glCreateProgram() {
@@ -111,7 +111,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glCreateProgram] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glCreateProgram] code:"+code,true);
 		}
 		
 		return ret;
@@ -122,7 +122,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glCreateShader] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glCreateShader] code:"+code,true);
 		}
 		
 		return ret;
@@ -133,7 +133,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glCullFace] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glCullFace] code:"+code,true);
 		}
 	}
 	public static void glDeleteBuffers(int arg0,IntBuffer arg1) {
@@ -142,7 +142,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glDeleteBuffers] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glDeleteBuffers] code:"+code,true);
 		}
 	}
 	public static void glDeleteShader(int arg0) {
@@ -151,7 +151,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glDeleteShader] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glDeleteShader] code:"+code,true);
 		}
 	}
 	public static void glDeleteVertexArrays(int arg0,IntBuffer arg1) {
@@ -160,7 +160,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glDeleteVertexArrays] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glDeleteVertexArrays] code:"+code,true);
 		}
 	}
 	public static void glDepthFunc(int arg0) {
@@ -169,7 +169,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glDepthFunc] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glDepthFunc] code:"+code,true);
 		}
 	}
 	public static void glDisableVertexAttribArray(int arg0) {
@@ -178,7 +178,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glDisableVertexAttribArray] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glDisableVertexAttribArray] code:"+code,true);
 		}
 	}
 	public static void glDrawArrays(int arg0,int arg1,int arg2) {
@@ -187,7 +187,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glDrawArrays] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glDrawArrays] code:"+code,true);
 		}
 	}
 	public static void glDrawElements(int arg0,int arg1,int arg2,int arg3) {
@@ -196,7 +196,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glDrawElements] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glDrawElements] code:"+code,true);
 		}
 	}
 	public static void glEnable(int arg0) {
@@ -205,7 +205,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glEnable] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glEnable] code:"+code,true);
 		}
 	}
 	public static void glEnableVertexAttribArray(int arg0) {
@@ -214,7 +214,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glEnableVertexAttribArray] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glEnableVertexAttribArray] code:"+code,true);
 		}
 	}
 	public static void glFlush() {
@@ -223,7 +223,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glFlush] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glFlush] code:"+code,true);
 		}
 	}
 	public static void glGenBuffers(int arg0,IntBuffer arg1) {
@@ -232,7 +232,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glGenBuffers] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glGenBuffers] code:"+code,true);
 		}
 	}
 	public static void glGenSamplers(int arg0,IntBuffer arg1) {
@@ -241,7 +241,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glGenSamplers] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glGenSamplers] code:"+code,true);
 		}
 	}
 	public static void glGenVertexArrays(int arg0,IntBuffer arg1) {
@@ -250,7 +250,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glGenVertexArrays] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glGenVertexArrays] code:"+code,true);
 		}
 	}
 	public static void glGetProgramInfoLog(int arg0,int arg1,IntBuffer arg2,ByteBuffer arg3) {
@@ -259,7 +259,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glGetProgramInfoLog] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glGetProgramInfoLog] code:"+code,true);
 		}
 	}
 	public static void glGetProgramiv(int arg0,int arg1,IntBuffer arg2) {
@@ -268,7 +268,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glGetProgramiv] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glGetProgramiv] code:"+code,true);
 		}
 	}
 	public static void glGetShaderInfoLog(int arg0,int arg1,IntBuffer arg2,ByteBuffer arg3) {
@@ -277,7 +277,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glGetShaderInfoLog] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glGetShaderInfoLog] code:"+code,true);
 		}
 	}
 	public static void glGetShaderiv(int arg0,int arg1,IntBuffer arg2) {
@@ -286,7 +286,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glGetShaderiv] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glGetShaderiv] code:"+code,true);
 		}
 	}
 	public static int glGetUniformLocation(int arg0,String arg1) {
@@ -295,7 +295,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glGetUniformLocation] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glGetUniformLocation] code:"+code,true);
 		}
 		
 		return ret;
@@ -306,7 +306,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glLinkProgram] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glLinkProgram] code:"+code,true);
 		}
 	}
 	public static void glSamplerParameteri(int arg0,int arg1,int arg2) {
@@ -315,7 +315,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glSamplerParameteri] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glSamplerParameteri] code:"+code,true);
 		}
 	}
 	public static void glShaderSource(int arg0,int arg1,String[] arg2,IntBuffer arg3) {
@@ -324,7 +324,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glShaderSource] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glShaderSource] code:"+code,true);
 		}
 	}
 	public static void glTexParameteri(int arg0,int arg1,int arg2) {
@@ -333,7 +333,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glTexParameteri] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glTexParameteri] code:"+code,true);
 		}
 	}
 	public static void glUniform1f(int arg0,float arg1) {
@@ -342,7 +342,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glUniform1f] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glUniform1f] code:"+code,true);
 		}
 	}
 	public static void glUniform1i(int arg0,int arg1) {
@@ -351,7 +351,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glUniform1i] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glUniform1i] code:"+code,true);
 		}
 	}
 	public static void glUniform3fv(int arg0,int arg1,FloatBuffer arg2) {
@@ -360,7 +360,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glUniform3fv] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glUniform3fv] code:"+code,true);
 		}
 	}
 	public static void glUniform4fv(int arg0,int arg1,FloatBuffer arg2) {
@@ -369,7 +369,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glUniform4fv] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glUniform4fv] code:"+code,true);
 		}
 	}
 	public static void glUniformMatrix4fv(int arg0,int arg1,boolean arg2,FloatBuffer arg3) {
@@ -378,7 +378,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glUniformMatrix4fv] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glUniformMatrix4fv] code:"+code,true);
 		}
 	}
 	public static void glUseProgram(int arg0) {
@@ -387,7 +387,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glUseProgram] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glUseProgram] code:"+code,true);
 		}
 	}
 	public static void glVertexAttribPointer(int arg0,int arg1,int arg2,boolean arg3,int arg4,long arg5) {
@@ -396,7 +396,7 @@ public class GLES3Wrapper {
 		
 		int code=gles3.glGetError();
 		if(code!=GLES3.GL_NO_ERROR) {
-			LogFile.WriteError("[GLES3Wrapper-glVertexAttribPointer] code:"+code,true);
+			LogFile.WriteWarn("[GLES3Wrapper-glVertexAttribPointer] code:"+code,true);
 		}
 	}
 }

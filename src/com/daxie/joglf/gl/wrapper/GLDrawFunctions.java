@@ -163,7 +163,7 @@ public class GLDrawFunctions {
 	
 	public static void DrawTexturedTriangle3D(Triangle triangle,int texture_handle,boolean use_face_normal_flag) {
 		if(TextureMgr.TextureExists(texture_handle)==false) {
-			LogFile.WriteError(
+			LogFile.WriteWarn(
 					"[GL4DrawFunctions-DrawTexturedTriangle3D] No such texture. texture_handle:"+texture_handle,true);
 			return;
 		}

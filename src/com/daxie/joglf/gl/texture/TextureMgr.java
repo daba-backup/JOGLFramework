@@ -30,7 +30,7 @@ public class TextureMgr {
 	public static int LoadTexture(String image_filename) {
 		File file=new File(image_filename);
 		if(!(file.isFile()&&file.canRead())) {
-			LogFile.WriteError("[TextureMgr-LoadTexture] Failed to load an image.", true);
+			LogFile.WriteWarn("[TextureMgr-LoadTexture] Failed to load an image.", true);
 			return -1;
 		}
 		
@@ -42,8 +42,8 @@ public class TextureMgr {
 		catch(IOException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
 			
-			LogFile.WriteError("[TextureMgr-LoadTexture] Below is the stack trace.",true);
-			LogFile.WriteError(str,false);
+			LogFile.WriteWarn("[TextureMgr-LoadTexture] Below is the stack trace.",true);
+			LogFile.WriteWarn(str,false);
 			
 			return -1;
 		}
@@ -54,7 +54,7 @@ public class TextureMgr {
 	}
 	public static int DeleteTexture(int texture_handle) {
 		if(images_map.containsKey(texture_handle)==false) {
-			LogFile.WriteError("[TextureMgr-DeleteTexture] No such image. texture_handle:"+texture_handle, true);
+			LogFile.WriteWarn("[TextureMgr-DeleteTexture] No such image. texture_handle:"+texture_handle, true);
 			return -1;
 		}
 		
@@ -73,7 +73,7 @@ public class TextureMgr {
 	
 	public static int EnableTexture(int texture_handle) {
 		if(images_map.containsKey(texture_handle)==false) {
-			LogFile.WriteError("[TextureMgr-EnableTexture] No such image. texture_handle:"+texture_handle, true);
+			LogFile.WriteWarn("[TextureMgr-EnableTexture] No such image. texture_handle:"+texture_handle, true);
 			return -1;
 		}
 		
@@ -86,7 +86,7 @@ public class TextureMgr {
 	}
 	public static int BindTexture(int texture_handle) {
 		if(images_map.containsKey(texture_handle)==false) {
-			LogFile.WriteError("[TextureMgr-BindTexture] No such image. texture_handle:"+texture_handle, true);
+			LogFile.WriteWarn("[TextureMgr-BindTexture] No such image. texture_handle:"+texture_handle, true);
 			return -1;
 		}
 		
@@ -99,7 +99,7 @@ public class TextureMgr {
 	}
 	public static int DisableTexture(int texture_handle) {
 		if(images_map.containsKey(texture_handle)==false) {
-			LogFile.WriteError("[TextureMgr-DisableTexture] No such image. texture_handle:"+texture_handle, true);
+			LogFile.WriteWarn("[TextureMgr-DisableTexture] No such image. texture_handle:"+texture_handle, true);
 			return -1;
 		}
 		

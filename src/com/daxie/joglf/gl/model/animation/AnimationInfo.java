@@ -31,7 +31,7 @@ public class AnimationInfo {
 	
 	public float GetMaxTime() {
 		if(frames_map.size()==0) {
-			LogFile.WriteError("[AnimationInfo-GetTotalTime] No frames registered.", true);
+			LogFile.WriteWarn("[AnimationInfo-GetTotalTime] No frames registered.", true);
 			return 0.0f;
 		}
 		
@@ -51,7 +51,7 @@ public class AnimationInfo {
 		AnimationBlendInfo abi=new AnimationBlendInfo();
 		
 		if(frames_map.size()==0) {
-			LogFile.WriteError("[AnimationInfo-GetBlendInfo] No frames registered.", true);
+			LogFile.WriteWarn("[AnimationInfo-GetBlendInfo] No frames registered.", true);
 			return abi;
 		}
 		

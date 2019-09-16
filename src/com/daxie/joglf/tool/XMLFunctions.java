@@ -34,8 +34,8 @@ public class XMLFunctions {
 		catch(TransformerConfigurationException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
 			
-			LogFile.WriteError("[XMLFunctions-WriteXML] Below is the stack trace.",true);
-			LogFile.WriteError(str,false);
+			LogFile.WriteWarn("[XMLFunctions-WriteXML] Below is the stack trace.",true);
+			LogFile.WriteWarn(str,false);
 			
 			return -1;
 		}
@@ -49,8 +49,8 @@ public class XMLFunctions {
 		catch(TransformerException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
 			
-			LogFile.WriteError("[XMLFunctions-WriteXML] Below is the stack trace.",true);
-			LogFile.WriteError(str,false);
+			LogFile.WriteWarn("[XMLFunctions-WriteXML] Below is the stack trace.",true);
+			LogFile.WriteWarn(str,false);
 			
 			return -1;
 		}

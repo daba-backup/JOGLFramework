@@ -59,8 +59,8 @@ public class TextMgr {
 		catch(IOException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
 			
-			LogFile.WriteError("[TextureMgr-CreateDefaultFont] Below is the stack trace.", true);
-			LogFile.WriteError(str, false);
+			LogFile.WriteWarn("[TextureMgr-CreateDefaultFont] Below is the stack trace.", true);
+			LogFile.WriteWarn(str, false);
 			
 			return -1;
 		}
@@ -81,8 +81,8 @@ public class TextMgr {
 		catch(IOException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
 			
-			LogFile.WriteError("[TextureMgr-LoadFont] Below is the stack trace.", true);
-			LogFile.WriteError(str, false);
+			LogFile.WriteWarn("[TextureMgr-LoadFont] Below is the stack trace.", true);
+			LogFile.WriteWarn(str, false);
 			
 			return -1;
 		}
@@ -97,11 +97,11 @@ public class TextMgr {
 	
 	public static int DeleteFont(int font_handle) {
 		if(fonts_map.containsKey(font_handle)==false) {
-			LogFile.WriteError("[FontMgr-DeleteFont] No such font. font_handle:"+font_handle, true);
+			LogFile.WriteWarn("[FontMgr-DeleteFont] No such font. font_handle:"+font_handle, true);
 			return -1;
 		}
 		if(font_handle==default_font_handle) {
-			LogFile.WriteError("[FontMgr-DeleteFont] Cannot delete the default font.", true);
+			LogFile.WriteWarn("[FontMgr-DeleteFont] Cannot delete the default font.", true);
 			return -1;
 		}
 		
@@ -118,7 +118,7 @@ public class TextMgr {
 	}
 	public static int DrawTextWithFont(int x,int y,String text,int font_handle,ColorU8 color,int size,int weight) {
 		if(fonts_map.containsKey(font_handle)==false) {
-			LogFile.WriteError("[TextMgr-DrawTextWithFont] No such font. font_handle:"+font_handle,true);
+			LogFile.WriteWarn("[TextMgr-DrawTextWithFont] No such font. font_handle:"+font_handle,true);
 			return -1;
 		}
 		

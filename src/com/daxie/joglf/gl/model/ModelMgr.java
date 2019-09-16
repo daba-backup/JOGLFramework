@@ -323,7 +323,7 @@ class ModelMgr {
 	
 	public void ChangeTexture(int material_index,int new_texture_handle) {
 		if(!(0<=material_index&&material_index<buffered_vertices_list.size())) {
-			LogFile.WriteError("[ModelMgr-ChangeTexture] Index out of bounds.", true);
+			LogFile.WriteWarn("[ModelMgr-ChangeTexture] Index out of bounds.", true);
 			return;
 		}
 		

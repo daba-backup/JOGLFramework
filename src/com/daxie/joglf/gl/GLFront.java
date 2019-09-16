@@ -163,21 +163,21 @@ public class GLFront {
 	//Listener
 	public static void AddEventListener(GLEventListener event_listener) {
 		if(window==null) {
-			LogFile.WriteError("[GLFront-AddEventListener] Window is null.", true);
+			LogFile.WriteWarn("[GLFront-AddEventListener] Window is null.", true);
 			return;
 		}
 		window.addGLEventListener(event_listener);
 	}
 	public static void AddKeyListener(KeyListener key_listener) {
 		if(window==null) {
-			LogFile.WriteError("[GLFront-AddKeyListener] Window is null.", true);
+			LogFile.WriteWarn("[GLFront-AddKeyListener] Window is null.", true);
 			return;
 		}
 		window.addKeyListener(key_listener);
 	}
 	public static void AddMouseListener(MouseListener mouse_listener) {
 		if(window==null) {
-			LogFile.WriteError("[GLFront-AddMouseListener] Window is null.", true);
+			LogFile.WriteWarn("[GLFront-AddMouseListener] Window is null.", true);
 			return;
 		}
 		window.addMouseListener(mouse_listener);

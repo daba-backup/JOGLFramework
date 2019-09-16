@@ -23,7 +23,7 @@ public class MainBase implements GLEventListener,KeyListener,MouseListener{
 	public MainBase(GLVersion gl_version) {
 		GLWrapper.SetGLVersion(gl_version);
 		
-		LogFile.SetLogLevelFlags(LogFile.LOG_LEVEL_FATAL);
+		LogFile.SetLogLevelFlags(LogFile.LOG_LEVEL_FATAL|LogFile.LOG_LEVEL_ERROR);
 		
 		GLFront.Initialize();
 		ALFront.Initialize();
