@@ -1,5 +1,6 @@
 package com.daxie.joglf.gl.text;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -58,7 +59,29 @@ public class TextMgr {
 		catch(IOException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
 			
-			LogFile.WriteError("[TextureMgr-CreateFont] Below is the stack trace.", true);
+			LogFile.WriteError("[TextureMgr-CreateDefaultFont] Below is the stack trace.", true);
+			LogFile.WriteError(str, false);
+			
+			return -1;
+		}
+		
+		int font_handle=count;
+		count++;
+		
+		fonts_map.put(font_handle, font);
+		
+		return font_handle;
+	}
+	
+	public static int LoadFont(String font_filename) {
+		Font font=null;
+		try {
+			font=FontFactory.get(new File(font_filename));
+		}
+		catch(IOException e) {
+			String str=ExceptionFunctions.GetPrintStackTraceString(e);
+			
+			LogFile.WriteError("[TextureMgr-LoadFont] Below is the stack trace.", true);
 			LogFile.WriteError(str, false);
 			
 			return -1;
@@ -89,6 +112,22 @@ public class TextMgr {
 	
 	public static int DrawText(int x,int y,String text,ColorU8 color,int size,int weight) {
 		Font font=fonts_map.get(default_font_handle);
+		innerDrawText(x, y, text, font, color, size, weight);
+		
+		return 0;
+	}
+	public static int DrawTextWithFont(int x,int y,String text,int font_handle,ColorU8 color,int size,int weight) {
+		if(fonts_map.containsKey(font_handle)==false) {
+			LogFile.WriteError("[TextMgr-DrawTextWithFont] No such font. font_handle:"+font_handle,true);
+			return -1;
+		}
+		
+		Font font=fonts_map.get(font_handle);
+		innerDrawText(x, y, text, font, color, size, weight);
+		
+		return 0;
+	}
+	private static void innerDrawText(int x,int y,String text,Font font,ColorU8 color,int size,int weight) {
 		float pixel_size=font.getPixelSize(size,weight);
 		
 		PMVMatrix pmv=region_renderer.getMatrix();
@@ -107,7 +146,5 @@ public class TextMgr {
 		region_renderer.reshapeOrtho(window_width, window_height, 0.1f, 1000.0f);
 		text_region_util.drawString3D(gl, region_renderer, font, pixel_size, text, null, sample_count);
 		region_renderer.enable(gl, false);
-		
-		return 0;
 	}
 }
