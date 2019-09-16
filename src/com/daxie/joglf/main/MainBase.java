@@ -2,6 +2,7 @@ package com.daxie.joglf.main;
 
 import com.daxie.joglf.al.ALFront;
 import com.daxie.joglf.gl.GLFront;
+import com.daxie.joglf.gl.text.TextMgr;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLVersion;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
@@ -38,6 +39,7 @@ public class MainBase implements GLEventListener,KeyListener,MouseListener{
 		GLFront.SetDefaultGLProperties();
 		
 		TextureMgr.LoadDefaultTexture();
+		TextMgr.Initialize();
 	}
 	@Override
 	public void reshape(GLAutoDrawable drawable,int x,int y,int width,int height) {
