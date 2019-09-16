@@ -2,10 +2,10 @@ package com.daxie.joglf.gl.lighting;
 
 import java.nio.FloatBuffer;
 
-import com.daxie.joglf.basis.coloru8.ColorU8;
-import com.daxie.joglf.basis.coloru8.ColorU8Functions;
-import com.daxie.joglf.basis.vector.Vector;
-import com.daxie.joglf.basis.vector.VectorFunctions;
+import com.daxie.basis.coloru8.ColorU8;
+import com.daxie.basis.coloru8.ColorU8Functions;
+import com.daxie.basis.vector.Vector;
+import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.tool.BufferFunctions;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.gl4.GL4Wrapper;

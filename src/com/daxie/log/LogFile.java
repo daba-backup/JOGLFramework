@@ -1,4 +1,4 @@
-package com.daxie.joglf.log;
+package com.daxie.log;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-import com.daxie.joglf.tool.DateFunctions;
+import com.daxie.tool.DateFunctions;
 
 /**
  * Offers log functions.<br>

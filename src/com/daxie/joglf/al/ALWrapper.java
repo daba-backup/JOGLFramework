@@ -3,11 +3,16 @@ package com.daxie.joglf.al;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 
-import com.daxie.joglf.log.LogFile;
+import com.daxie.log.LogFile;
 import com.jogamp.openal.AL;
 import com.jogamp.openal.ALFactory;
 import com.jogamp.openal.util.ALut;
 
+/**
+ * Wrapper functions of AL
+ * @author Daba
+ *
+ */
 public class ALWrapper {
 	public static void alDistanceModel(int arg0) {
 		AL al=ALFactory.getAL();

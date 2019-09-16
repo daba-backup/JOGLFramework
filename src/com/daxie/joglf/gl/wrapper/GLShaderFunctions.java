@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.daxie.joglf.gl.tool.BufferFunctions;
-import com.daxie.joglf.log.LogFile;
-import com.daxie.joglf.tool.ExceptionFunctions;
-import com.daxie.joglf.tool.FileFunctions;
+import com.daxie.log.LogFile;
+import com.daxie.tool.ExceptionFunctions;
+import com.daxie.tool.FileFunctions;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 

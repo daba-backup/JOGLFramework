@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-import com.daxie.joglf.log.LogFile;
+import com.daxie.log.LogFile;
 import com.jogamp.opengl.GLContext;
 import com.jogamp.opengl.GLES3;
 

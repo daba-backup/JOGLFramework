@@ -1,4 +1,4 @@
-package com.daxie.joglf.tool;
+package com.daxie.tool;
 
 import java.io.File;
 
@@ -11,7 +11,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 
-import com.daxie.joglf.log.LogFile;
+import com.daxie.log.LogFile;
 
 /**
  * Methods to handle XML.

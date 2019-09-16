@@ -1,7 +1,7 @@
 package com.daxie.joglf.gl.shape;
 
-import com.daxie.joglf.basis.coloru8.ColorU8;
-import com.daxie.joglf.basis.vector.Vector;
+import com.daxie.basis.coloru8.ColorU8;
+import com.daxie.basis.vector.Vector;
 
 /**
  * Vertex

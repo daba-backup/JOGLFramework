@@ -1,7 +1,7 @@
 package com.daxie.joglf.gl.tool;
 
-import com.daxie.joglf.basis.vector.Vector;
-import com.daxie.joglf.basis.vector.VectorFunctions;
+import com.daxie.basis.vector.Vector;
+import com.daxie.basis.vector.VectorFunctions;
 
 /**
  * Offers functions to handle segments.

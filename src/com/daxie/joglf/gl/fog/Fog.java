@@ -2,12 +2,17 @@ package com.daxie.joglf.gl.fog;
 
 import java.nio.FloatBuffer;
 
-import com.daxie.joglf.basis.coloru8.ColorU8;
-import com.daxie.joglf.basis.coloru8.ColorU8Functions;
+import com.daxie.basis.coloru8.ColorU8;
+import com.daxie.basis.coloru8.ColorU8Functions;
 import com.daxie.joglf.gl.tool.BufferFunctions;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.gl4.GL4Wrapper;
 
+/**
+ * Fog
+ * @author Daba
+ *
+ */
 public class Fog {
 	private float fog_start;
 	private float fog_end;

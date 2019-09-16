@@ -4,9 +4,9 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-import com.daxie.joglf.basis.coloru8.ColorU8;
-import com.daxie.joglf.basis.matrix.Matrix;
-import com.daxie.joglf.basis.vector.Vector;
+import com.daxie.basis.coloru8.ColorU8;
+import com.daxie.basis.matrix.Matrix;
+import com.daxie.basis.vector.Vector;
 import com.jogamp.common.nio.Buffers;
 
 /**

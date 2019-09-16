@@ -1,6 +1,6 @@
-package com.daxie.joglf.basis.matrix;
+package com.daxie.basis.matrix;
 
-import com.daxie.joglf.basis.vector.Vector;
+import com.daxie.basis.vector.Vector;
 
 /**
  * Offers methods to handle matrices.

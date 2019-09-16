@@ -1,6 +1,6 @@
 package com.daxie.joglf.hitcheck;
 
-import com.daxie.joglf.basis.vector.Vector;
+import com.daxie.basis.vector.Vector;
 
 /**
  * Hit result

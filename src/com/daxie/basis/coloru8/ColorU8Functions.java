@@ -1,4 +1,4 @@
-package com.daxie.joglf.basis.coloru8;
+package com.daxie.basis.coloru8;
 
 /**
  * Offers methods to handle ColorU8.

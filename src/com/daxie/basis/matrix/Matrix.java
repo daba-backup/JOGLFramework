@@ -1,4 +1,4 @@
-package com.daxie.joglf.basis.matrix;
+package com.daxie.basis.matrix;
 
 /**
  * 4 by 4 matrix

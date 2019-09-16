@@ -1,5 +1,10 @@
 package com.daxie.joglf.gl.shape;
 
+/**
+ * Triangle
+ * @author Daba
+ *
+ */
 public class Triangle {
 	private Vertex3D[] vertices;
 	

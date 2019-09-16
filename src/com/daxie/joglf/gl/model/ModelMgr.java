@@ -5,20 +5,25 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.daxie.joglf.basis.matrix.Matrix;
-import com.daxie.joglf.basis.matrix.MatrixFunctions;
-import com.daxie.joglf.basis.vector.Vector;
-import com.daxie.joglf.basis.vector.VectorFunctions;
+import com.daxie.basis.matrix.Matrix;
+import com.daxie.basis.matrix.MatrixFunctions;
+import com.daxie.basis.vector.Vector;
+import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.model.buffer.BufferedVertices;
 import com.daxie.joglf.gl.model.collision.CollInfo;
 import com.daxie.joglf.gl.model.collision.CollTriangle;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.joglf.log.LogFile;
+import com.daxie.log.LogFile;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
+/**
+ * Model manager
+ * @author Daba
+ *
+ */
 class ModelMgr {
 	private List<BufferedVertices> buffered_vertices_list;
 	private CollInfo coll_info;

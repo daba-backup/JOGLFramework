@@ -5,15 +5,15 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.daxie.joglf.basis.coloru8.ColorU8;
-import com.daxie.joglf.basis.coloru8.ColorU8Functions;
-import com.daxie.joglf.basis.vector.Vector;
-import com.daxie.joglf.basis.vector.VectorFunctions;
+import com.daxie.basis.coloru8.ColorU8;
+import com.daxie.basis.coloru8.ColorU8Functions;
+import com.daxie.basis.vector.Vector;
+import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.shape.Triangle;
 import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.gl4.GL4Wrapper;
-import com.daxie.joglf.log.LogFile;
+import com.daxie.log.LogFile;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 

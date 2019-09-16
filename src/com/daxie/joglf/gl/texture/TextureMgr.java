@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.daxie.joglf.log.LogFile;
-import com.daxie.joglf.tool.ExceptionFunctions;
+import com.daxie.log.LogFile;
+import com.daxie.tool.ExceptionFunctions;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GLContext;
 import com.jogamp.opengl.util.texture.Texture;
@@ -19,7 +19,7 @@ import com.jogamp.opengl.util.texture.TextureIO;
  */
 public class TextureMgr {
 	private static int count=0;
-	private static Map<Integer, Texture> images_map=new HashMap<>();
+	private static Map<Integer, Texture> textures_map=new HashMap<>();
 	
 	private static int default_texture_handle=-1;
 	
@@ -27,17 +27,17 @@ public class TextureMgr {
 		default_texture_handle=LoadTexture("./Data/Texture/white.bmp");
 	}
 	
-	public static int LoadTexture(String image_filename) {
-		File file=new File(image_filename);
+	public static int LoadTexture(String texture_filename) {
+		File file=new File(texture_filename);
 		if(!(file.isFile()&&file.canRead())) {
-			LogFile.WriteWarn("[TextureMgr-LoadTexture] Failed to load an image.", true);
+			LogFile.WriteWarn("[TextureMgr-LoadTexture] Failed to load a texture.", true);
 			return -1;
 		}
 		
 		int texture_handle=count;
 		try {
-			Texture image=TextureIO.newTexture(file,true);
-			images_map.put(texture_handle, image);
+			Texture texture=TextureIO.newTexture(file,true);
+			textures_map.put(texture_handle, texture);
 		}
 		catch(IOException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
@@ -53,60 +53,60 @@ public class TextureMgr {
 		return texture_handle;
 	}
 	public static int DeleteTexture(int texture_handle) {
-		if(images_map.containsKey(texture_handle)==false) {
-			LogFile.WriteWarn("[TextureMgr-DeleteTexture] No such image. texture_handle:"+texture_handle, true);
+		if(textures_map.containsKey(texture_handle)==false) {
+			LogFile.WriteWarn("[TextureMgr-DeleteTexture] No such texture. texture_handle:"+texture_handle, true);
 			return -1;
 		}
 		
 		GL gl=GLContext.getCurrentGL();
-		Texture image=images_map.get(texture_handle);
-		image.destroy(gl);
+		Texture texture=textures_map.get(texture_handle);
+		texture.destroy(gl);
 		
-		images_map.remove(texture_handle);
+		textures_map.remove(texture_handle);
 		
 		return 0;
 	}
 	
 	public static boolean TextureExists(int texture_handle) {
-		return images_map.containsKey(texture_handle);
+		return textures_map.containsKey(texture_handle);
 	}
 	
 	public static int EnableTexture(int texture_handle) {
-		if(images_map.containsKey(texture_handle)==false) {
-			LogFile.WriteWarn("[TextureMgr-EnableTexture] No such image. texture_handle:"+texture_handle, true);
+		if(textures_map.containsKey(texture_handle)==false) {
+			LogFile.WriteWarn("[TextureMgr-EnableTexture] No such texture. texture_handle:"+texture_handle, true);
 			return -1;
 		}
 		
 		GL gl=GLContext.getCurrentGL();
-		Texture image=images_map.get(texture_handle);
+		Texture texture=textures_map.get(texture_handle);
 		
-		image.enable(gl);
+		texture.enable(gl);
 		
 		return 0;
 	}
 	public static int BindTexture(int texture_handle) {
-		if(images_map.containsKey(texture_handle)==false) {
-			LogFile.WriteWarn("[TextureMgr-BindTexture] No such image. texture_handle:"+texture_handle, true);
+		if(textures_map.containsKey(texture_handle)==false) {
+			LogFile.WriteWarn("[TextureMgr-BindTexture] No such texture. texture_handle:"+texture_handle, true);
 			return -1;
 		}
 		
 		GL gl=GLContext.getCurrentGL();
-		Texture image=images_map.get(texture_handle);
+		Texture texture=textures_map.get(texture_handle);
 		
-		image.bind(gl);
+		texture.bind(gl);
 		
 		return 0;
 	}
 	public static int DisableTexture(int texture_handle) {
-		if(images_map.containsKey(texture_handle)==false) {
-			LogFile.WriteWarn("[TextureMgr-DisableTexture] No such image. texture_handle:"+texture_handle, true);
+		if(textures_map.containsKey(texture_handle)==false) {
+			LogFile.WriteWarn("[TextureMgr-DisableTexture] No such texture. texture_handle:"+texture_handle, true);
 			return -1;
 		}
 		
 		GL gl=GLContext.getCurrentGL();
-		Texture image=images_map.get(texture_handle);
+		Texture texture=textures_map.get(texture_handle);
 		
-		image.disable(gl);
+		texture.disable(gl);
 		
 		return 0;
 	}

@@ -6,6 +6,11 @@ import java.awt.Robot;
 import com.jogamp.newt.event.MouseEvent;
 import com.jogamp.newt.event.MouseListener;
 
+/**
+ * Mouse
+ * @author Daba
+ *
+ */
 public class Mouse implements MouseListener{
 	private final int KEY_NUM=9;
 	

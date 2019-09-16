@@ -1,4 +1,4 @@
-package com.daxie.joglf.tool;
+package com.daxie.tool;
 
 import java.nio.ByteBuffer;
 

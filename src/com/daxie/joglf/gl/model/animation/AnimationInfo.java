@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import com.daxie.joglf.gl.GLFront;
-import com.daxie.joglf.log.LogFile;
+import com.daxie.log.LogFile;
 
 /**
  * Animation information

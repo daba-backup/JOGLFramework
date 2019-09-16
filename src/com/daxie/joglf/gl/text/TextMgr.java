@@ -5,10 +5,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.daxie.joglf.basis.coloru8.ColorU8;
+import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.joglf.gl.GLFront;
-import com.daxie.joglf.log.LogFile;
-import com.daxie.joglf.tool.ExceptionFunctions;
+import com.daxie.log.LogFile;
+import com.daxie.tool.ExceptionFunctions;
 import com.jogamp.graph.curve.Region;
 import com.jogamp.graph.curve.opengl.RegionRenderer;
 import com.jogamp.graph.curve.opengl.RenderState;

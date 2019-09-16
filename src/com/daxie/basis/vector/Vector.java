@@ -1,4 +1,4 @@
-package com.daxie.joglf.basis.vector;
+package com.daxie.basis.vector;
 
 /**
  * 3D vector

@@ -1,4 +1,4 @@
-package com.daxie.joglf.basis.coloru8;
+package com.daxie.basis.coloru8;
 
 /**
  * Color with transparency

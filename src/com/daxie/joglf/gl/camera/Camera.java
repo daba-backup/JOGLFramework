@@ -2,15 +2,20 @@ package com.daxie.joglf.gl.camera;
 
 import java.nio.FloatBuffer;
 
-import com.daxie.joglf.basis.matrix.Matrix;
-import com.daxie.joglf.basis.vector.Vector;
-import com.daxie.joglf.basis.vector.VectorFunctions;
+import com.daxie.basis.matrix.Matrix;
+import com.daxie.basis.vector.Vector;
+import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.GLFront;
 import com.daxie.joglf.gl.tool.BufferFunctions;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.gl4.GL4Wrapper;
-import com.daxie.joglf.tool.MathFunctions;
+import com.daxie.tool.MathFunctions;
 
+/**
+ * Camera
+ * @author Daba
+ *
+ */
 public class Camera {
 	private float near;
 	private float far;

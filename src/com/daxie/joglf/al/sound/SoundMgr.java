@@ -2,17 +2,17 @@ package com.daxie.joglf.al.sound;
 
 import java.nio.ByteBuffer;
 
+import com.daxie.basis.vector.Vector;
+import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.al.ALWrapper;
-import com.daxie.joglf.basis.vector.Vector;
-import com.daxie.joglf.basis.vector.VectorFunctions;
 import com.jogamp.openal.AL;
 
 /**
- * Information for 3D sound
+ * Sound manager
  * @author Daba
  *
  */
-public class SoundMgr {
+class SoundMgr {
 	private int buffer;
 	private int source;
 	

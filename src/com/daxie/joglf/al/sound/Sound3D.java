@@ -3,11 +3,11 @@ package com.daxie.joglf.al.sound;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.daxie.basis.vector.Vector;
+import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.al.ALWrapper;
-import com.daxie.joglf.basis.vector.Vector;
-import com.daxie.joglf.basis.vector.VectorFunctions;
-import com.daxie.joglf.log.LogFile;
-import com.daxie.joglf.tool.FilenameFunctions;
+import com.daxie.log.LogFile;
+import com.daxie.tool.FilenameFunctions;
 import com.jogamp.openal.AL;
 
 /**

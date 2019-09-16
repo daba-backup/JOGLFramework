@@ -1,9 +1,9 @@
 package com.daxie.joglf.gl.camera;
 
-import com.daxie.joglf.basis.matrix.Matrix;
-import com.daxie.joglf.basis.matrix.MatrixFunctions;
-import com.daxie.joglf.basis.vector.Vector;
-import com.daxie.joglf.basis.vector.VectorFunctions;
+import com.daxie.basis.matrix.Matrix;
+import com.daxie.basis.matrix.MatrixFunctions;
+import com.daxie.basis.vector.Vector;
+import com.daxie.basis.vector.VectorFunctions;
 
 /**
  * Offers methods for view transformation.

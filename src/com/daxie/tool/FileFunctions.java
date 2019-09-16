@@ -1,4 +1,4 @@
-package com.daxie.joglf.tool;
+package com.daxie.tool;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -17,7 +17,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.daxie.joglf.log.LogFile;
+import com.daxie.log.LogFile;
 
 /**
  * Methods to handle files.

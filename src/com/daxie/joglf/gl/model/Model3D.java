@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.daxie.joglf.basis.vector.Vector;
+import com.daxie.basis.vector.Vector;
 import com.daxie.joglf.gl.model.animation.AnimationBlendInfo;
 import com.daxie.joglf.gl.model.animation.AnimationInfo;
 import com.daxie.joglf.gl.model.animation.AnimationInfoMap;
@@ -15,8 +15,8 @@ import com.daxie.joglf.gl.model.collision.CollTriangle;
 import com.daxie.joglf.gl.model.loader.OBJLoader;
 import com.daxie.joglf.hitcheck.HitCheckFunctions;
 import com.daxie.joglf.hitcheck.HitResult;
-import com.daxie.joglf.log.LogFile;
-import com.daxie.joglf.tool.FilenameFunctions;
+import com.daxie.log.LogFile;
+import com.daxie.tool.FilenameFunctions;
 
 /**
  * Model manager

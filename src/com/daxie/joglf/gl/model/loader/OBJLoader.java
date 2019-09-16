@@ -12,9 +12,9 @@ import java.util.Map;
 
 import com.daxie.joglf.gl.model.buffer.BufferedVertices;
 import com.daxie.joglf.gl.texture.TextureMgr;
-import com.daxie.joglf.log.LogFile;
-import com.daxie.joglf.tool.ExceptionFunctions;
-import com.daxie.joglf.tool.FilenameFunctions;
+import com.daxie.log.LogFile;
+import com.daxie.tool.ExceptionFunctions;
+import com.daxie.tool.FilenameFunctions;
 
 import de.javagl.obj.Mtl;
 import de.javagl.obj.MtlReader;

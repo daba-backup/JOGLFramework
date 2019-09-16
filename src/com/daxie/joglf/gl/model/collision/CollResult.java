@@ -1,6 +1,6 @@
 package com.daxie.joglf.gl.model.collision;
 
-import com.daxie.joglf.basis.vector.Vector;
+import com.daxie.basis.vector.Vector;
 
 /**
  * Collision result
