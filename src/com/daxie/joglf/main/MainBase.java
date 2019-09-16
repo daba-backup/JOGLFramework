@@ -52,8 +52,8 @@ public class MainBase implements GLEventListener,KeyListener,MouseListener{
 	}
 	@Override
 	public void dispose(GLAutoDrawable drawable) {
-		GLFront.Dispose();
-		ALFront.Dispose();
+		//GLFront.Dispose();
+		//ALFront.Dispose();
 	}
 	
 	@Override

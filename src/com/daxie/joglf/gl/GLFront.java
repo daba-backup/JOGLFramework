@@ -1,5 +1,6 @@
 package com.daxie.joglf.gl;
 
+import com.daxie.joglf.al.ALFront;
 import com.daxie.joglf.basis.coloru8.ColorU8;
 import com.daxie.joglf.basis.coloru8.ColorU8Functions;
 import com.daxie.joglf.basis.matrix.Matrix;
@@ -78,6 +79,8 @@ public class GLFront {
 		window.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowDestroyed(WindowEvent e) {
+				GLFront.Dispose();
+				ALFront.Dispose();
 				System.exit(0);
 			}
 		});
