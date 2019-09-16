@@ -14,7 +14,7 @@ import com.daxie.joglf.gl.model.collision.CollInfo;
 import com.daxie.joglf.gl.model.collision.CollTriangle;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
-import com.daxie.joglf.gl.wrapper.gl4.GL4Wrapper;
+import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.joglf.log.LogFile;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
@@ -87,11 +87,11 @@ class ModelMgr {
 		norm_vbo=Buffers.newDirectIntBuffer(element_num);
 		vao=Buffers.newDirectIntBuffer(element_num);
 		
-		GL4Wrapper.glGenBuffers(element_num, indices_vbo);
-		GL4Wrapper.glGenBuffers(element_num, pos_vbo);
-		GL4Wrapper.glGenBuffers(element_num, uv_vbo);
-		GL4Wrapper.glGenBuffers(element_num, norm_vbo);
-		GL4Wrapper.glGenVertexArrays(element_num, vao);
+		GLWrapper.glGenBuffers(element_num, indices_vbo);
+		GLWrapper.glGenBuffers(element_num, pos_vbo);
+		GLWrapper.glGenBuffers(element_num, uv_vbo);
+		GLWrapper.glGenBuffers(element_num, norm_vbo);
+		GLWrapper.glGenVertexArrays(element_num, vao);
 		
 		for(int i=0;i<element_num;i++) {
 			BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
@@ -100,41 +100,41 @@ class ModelMgr {
 			FloatBuffer uv_buffer=buffered_vertices.GetUVBuffer();
 			FloatBuffer norm_buffer=buffered_vertices.GetNormBuffer();
 			
-			GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(i));
-			GL4Wrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+			GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(i));
+			GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
 					Buffers.SIZEOF_FLOAT*pos_buffer.capacity(), pos_buffer, GL4.GL_DYNAMIC_DRAW);
-			GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, uv_vbo.get(i));
-			GL4Wrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*uv_buffer.capacity(), uv_buffer, GL4.GL_STATIC_DRAW);
-			GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, norm_vbo.get(i));
-			GL4Wrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+			GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, uv_vbo.get(i));
+			GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*uv_buffer.capacity(), uv_buffer, GL4.GL_STATIC_DRAW);
+			GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, norm_vbo.get(i));
+			GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
 					Buffers.SIZEOF_FLOAT*norm_buffer.capacity(), norm_buffer, GL4.GL_DYNAMIC_DRAW);
 			
-			GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
+			GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
 		}
 		for(int i=0;i<element_num;i++) {
 			BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
 			IntBuffer indices=buffered_vertices.GetIndices();
 			
-			GL4Wrapper.glBindVertexArray(vao.get(i));
+			GLWrapper.glBindVertexArray(vao.get(i));
 			
-			GL4Wrapper.glBindBuffer(GL4.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(i));
-			GL4Wrapper.glBufferData(GL4.GL_ELEMENT_ARRAY_BUFFER, 
+			GLWrapper.glBindBuffer(GL4.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(i));
+			GLWrapper.glBufferData(GL4.GL_ELEMENT_ARRAY_BUFFER, 
 					Buffers.SIZEOF_INT*indices.capacity(), indices, GL4.GL_STATIC_DRAW);
 			
-			GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(i));
-			GL4Wrapper.glEnableVertexAttribArray(0);
-			GL4Wrapper.glVertexAttribPointer(0, 3, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*3, 0);
+			GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(i));
+			GLWrapper.glEnableVertexAttribArray(0);
+			GLWrapper.glVertexAttribPointer(0, 3, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*3, 0);
 			
-			GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, uv_vbo.get(i));
-			GL4Wrapper.glEnableVertexAttribArray(1);
-			GL4Wrapper.glVertexAttribPointer(1, 2, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*2, 0);
+			GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, uv_vbo.get(i));
+			GLWrapper.glEnableVertexAttribArray(1);
+			GLWrapper.glVertexAttribPointer(1, 2, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*2, 0);
 			
-			GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, norm_vbo.get(i));
-			GL4Wrapper.glEnableVertexAttribArray(2);
-			GL4Wrapper.glVertexAttribPointer(2, 3, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*3, 0);
+			GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, norm_vbo.get(i));
+			GLWrapper.glEnableVertexAttribArray(2);
+			GLWrapper.glVertexAttribPointer(2, 3, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*3, 0);
 			
-			GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
-			GL4Wrapper.glBindVertexArray(0);
+			GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
+			GLWrapper.glBindVertexArray(0);
 		}
 	}
 	
@@ -147,27 +147,27 @@ class ModelMgr {
 			FloatBuffer pos_buffer=buffered_vertices.GetPosBuffer();
 			FloatBuffer norm_buffer=buffered_vertices.GetNormBuffer();
 			
-			GL4Wrapper.glBindVertexArray(vao.get(i));
+			GLWrapper.glBindVertexArray(vao.get(i));
 			
-			GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(i));
-			GL4Wrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+			GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(i));
+			GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
 					Buffers.SIZEOF_FLOAT*pos_buffer.capacity(), pos_buffer, GL4.GL_DYNAMIC_DRAW);
-			GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, norm_vbo.get(i));
-			GL4Wrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+			GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, norm_vbo.get(i));
+			GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
 					Buffers.SIZEOF_FLOAT*norm_buffer.capacity(), norm_buffer, GL4.GL_DYNAMIC_DRAW);
 			
-			GL4Wrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
-			GL4Wrapper.glBindVertexArray(0);
+			GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
+			GLWrapper.glBindVertexArray(0);
 		}
 	}
 	
 	public void DeleteBuffers() {
 		int element_num=buffered_vertices_list.size();
 		
-		GL4Wrapper.glDeleteBuffers(element_num, indices_vbo);
-		GL4Wrapper.glDeleteBuffers(element_num, pos_vbo);
-		GL4Wrapper.glDeleteBuffers(element_num, uv_vbo);
-		GL4Wrapper.glDeleteVertexArrays(element_num, vao);
+		GLWrapper.glDeleteBuffers(element_num, indices_vbo);
+		GLWrapper.glDeleteBuffers(element_num, pos_vbo);
+		GLWrapper.glDeleteBuffers(element_num, uv_vbo);
+		GLWrapper.glDeleteVertexArrays(element_num, vao);
 		
 		for(BufferedVertices buffered_vertices:buffered_vertices_list) {
 			int texture_handle=buffered_vertices.GetTextureHandle();
@@ -181,14 +181,14 @@ class ModelMgr {
 		GLShaderFunctions.EnableProgram("texture");
 		
 		int sampler=GLShaderFunctions.GetSampler();
-		GL4Wrapper.glBindSampler(0, sampler);
+		GLWrapper.glBindSampler(0, sampler);
 		
 		for(int i=0;i<element_num;i++) {
 			BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
 			int texture_handle=buffered_vertices.GetTextureHandle();
 			int count=buffered_vertices.GetCount();
 			
-			GL4Wrapper.glBindVertexArray(vao.get(i));
+			GLWrapper.glBindVertexArray(vao.get(i));
 			
 			if(texture_handle<0) {
 				TextureMgr.EnableDefaultTexture();
@@ -199,12 +199,12 @@ class ModelMgr {
 				TextureMgr.BindTexture(texture_handle);
 			}
 			
-			GL4Wrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
+			GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
 			
 			if(texture_handle<0)TextureMgr.DisableDefaultTexture();
 			else TextureMgr.DisableTexture(texture_handle);
 			
-			GL4Wrapper.glBindVertexArray(0);
+			GLWrapper.glBindVertexArray(0);
 		}
 	}
 	

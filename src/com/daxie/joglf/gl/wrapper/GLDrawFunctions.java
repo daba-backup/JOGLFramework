@@ -2,6 +2,8 @@ package com.daxie.joglf.gl.wrapper;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.daxie.joglf.basis.coloru8.ColorU8;
 import com.daxie.joglf.basis.coloru8.ColorU8Functions;
@@ -10,6 +12,7 @@ import com.daxie.joglf.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.shape.Triangle;
 import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.texture.TextureMgr;
+import com.daxie.joglf.gl.wrapper.gl4.GL4Wrapper;
 import com.daxie.joglf.log.LogFile;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
@@ -160,11 +163,167 @@ public class GLDrawFunctions {
 		GLWrapper.glDeleteBuffers(1, color_vbo);
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
+	public static void DrawSphere3D(Vector center,float radius,int slice_num,int stack_num,ColorU8 color) {
+		List<Vector> vertices=new ArrayList<>();
+		List<Integer> indices=new ArrayList<>();
+		
+		int vertex_num=slice_num*(stack_num-1)+2;
+		
+		//North pole
+		vertices.add(VectorFunctions.VGet(0.0f, 1.0f, 0.0f));
+		
+		//Middle
+		for(int i=1;i<stack_num;i++) {
+			float ph=(float)Math.PI*(float)i/(float)stack_num;
+			float y=(float)Math.cos(ph);
+			float r=(float)Math.sin(ph);
+			
+			for(int j=0;j<slice_num;j++) {
+				float th=2.0f*(float)Math.PI*(float)j/(float)slice_num;
+				float x=r*(float)Math.cos(th);
+				float z=r*(float)Math.sin(th);
+				
+				vertices.add(VectorFunctions.VGet(x, y, z));
+			}
+		}
+		
+		//South pole
+		vertices.add(VectorFunctions.VGet(0.0f,-1.0f, 0.0f));
+		
+		for(int i=0;i<vertex_num;i++) {
+			Vector vertex=vertices.get(i);
+			
+			vertex=VectorFunctions.VScale(vertex, radius);
+			vertex=VectorFunctions.VAdd(vertex, center);
+			
+			vertices.set(i, vertex);
+		}
+		
+		//Ridgelines around the north pole
+		for(int i=1;i<=slice_num;i++) {
+			indices.add(0);
+			indices.add(i);
+		}
+		
+		//Ridgelines in the middle
+		int count=1;
+		for(int i=2;i<stack_num;i++) {
+			for(int j=1;j<slice_num;j++) {
+				indices.add(count);
+				indices.add(count+1);
+				
+				indices.add(count);
+				indices.add(count+slice_num);
+				
+				count++;
+			}
+			
+			indices.add(count);
+			indices.add(count-slice_num+1);
+			
+			indices.add(count);
+			indices.add(count+slice_num);
+			
+			count++;
+		}
+		
+		//Ridgelines in the bottom
+		for(int i=1;i<slice_num;i++) {
+			indices.add(count);
+			indices.add(count+1);
+			
+			indices.add(count);
+			indices.add(vertex_num-1);
+			
+			count++;
+		}
+		
+		indices.add(count);
+		indices.add(count-slice_num+1);
+		
+		indices.add(count);
+		indices.add(vertex_num-1);
+		
+		//Make buffers.
+		IntBuffer indices_vbo=Buffers.newDirectIntBuffer(1);
+		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);
+		IntBuffer color_vbo=Buffers.newDirectIntBuffer(1);
+		IntBuffer vao=Buffers.newDirectIntBuffer(1);
+		
+		IntBuffer indices_buffer=Buffers.newDirectIntBuffer(indices.size());
+		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(vertices.size()*3);
+		FloatBuffer color_buffer=Buffers.newDirectFloatBuffer(indices.size()*4);
+		
+		int indices_size=indices.size();
+		for(int i=0;i<indices_size;i++) {
+			indices_buffer.put(indices.get(i));
+		}
+		for(int i=0;i<vertex_num;i++) {
+			Vector vertex=vertices.get(i);
+			
+			pos_buffer.put(vertex.GetX());
+			pos_buffer.put(vertex.GetY());
+			pos_buffer.put(vertex.GetZ());
+		}
+		
+		float color_r=color.GetR();
+		float color_g=color.GetG();
+		float color_b=color.GetB();
+		float color_a=color.GetA();
+		for(int i=0;i<indices_size;i++) {
+			color_buffer.put(color_r);
+			color_buffer.put(color_g);
+			color_buffer.put(color_b);
+			color_buffer.put(color_a);
+		}
+		
+		indices_buffer.flip();
+		pos_buffer.flip();
+		color_buffer.flip();
+		
+		GLShaderFunctions.EnableProgram("color");
+		
+		GLWrapper.glGenBuffers(1, indices_vbo);
+		GLWrapper.glGenBuffers(1, pos_vbo);
+		GLWrapper.glGenBuffers(1, color_vbo);
+		
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*pos_buffer.capacity(),pos_buffer,GL4.GL_STATIC_DRAW);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, color_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*color_buffer.capacity(),color_buffer,GL4.GL_STATIC_DRAW);
+		
+		GLWrapper.glGenVertexArrays(1, vao);
+		GLWrapper.glBindVertexArray(vao.get(0));
+		
+		//Indices
+		GL4Wrapper.glBindBuffer(GL4.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(0));
+		GL4Wrapper.glBufferData(GL4.GL_ELEMENT_ARRAY_BUFFER, 
+				Buffers.SIZEOF_INT*indices_buffer.capacity(), indices_buffer, GL4.GL_STATIC_DRAW);
+		
+		//Position attribute
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(0);
+		GLWrapper.glVertexAttribPointer(0, 3, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*3, 0);
+		
+		//Color attribute
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, color_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(1);
+		GLWrapper.glVertexAttribPointer(1, 4, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*4, 0);
+		
+		GLWrapper.glDrawElements(GL4.GL_LINES,indices_size,GL4.GL_UNSIGNED_INT,0);
+		
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
+		GLWrapper.glBindVertexArray(0);
+		
+		GLWrapper.glDeleteBuffers(1, indices_vbo);
+		GLWrapper.glDeleteBuffers(1, pos_vbo);
+		GLWrapper.glDeleteBuffers(1, color_vbo);
+		GLWrapper.glDeleteVertexArrays(1, vao);
+	}
 	
 	public static void DrawTexturedTriangle3D(Triangle triangle,int texture_handle,boolean use_face_normal_flag) {
 		if(TextureMgr.TextureExists(texture_handle)==false) {
-			LogFile.WriteWarn(
-					"[GL4DrawFunctions-DrawTexturedTriangle3D] No such texture. texture_handle:"+texture_handle,true);
+			LogFile.WriteWarn("[GLDrawFunctions-DrawTexturedTriangle3D] No such texture. texture_handle:"+texture_handle,true);
 			return;
 		}
 		

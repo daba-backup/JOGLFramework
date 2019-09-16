@@ -81,6 +81,7 @@ public class GLFront {
 			public void windowDestroyed(WindowEvent e) {
 				GLFront.Dispose();
 				ALFront.Dispose();
+				
 				System.exit(0);
 			}
 		});

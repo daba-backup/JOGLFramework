@@ -31,7 +31,7 @@ public class GLShaderFunctions {
 	 * @return -1 on error and 0 on success
 	 */
 	public static int CreateProgram(String program_name,String vertex_shader_filename,String fragment_shader_filename) {
-		LogFile.WriteInfo("[GL4ShaderFunctions-CreateProgram] Start creating a program.",true);
+		LogFile.WriteInfo("[GLShaderFunctions-CreateProgram] Start creating a program.",true);
 		LogFile.WriteInfo("vertex_shader_filename:"+vertex_shader_filename,false);
 		LogFile.WriteInfo("fragment_shader_filename:"+fragment_shader_filename,false);
 		
@@ -54,7 +54,7 @@ public class GLShaderFunctions {
 			return -1;
 		}
 		catch(UnsupportedEncodingException e) {
-			LogFile.WriteWarn("[GL4ShaderFunctions-CreateProgram] Internal error. Unknown encoding specified.",true);
+			LogFile.WriteWarn("[GLShaderFunctions-CreateProgram] Internal error. Unknown encoding specified.",true);
 			return -1;
 		}
 		
@@ -158,7 +158,7 @@ public class GLShaderFunctions {
 	
 	public static int EnableProgram(String program_name) {
 		if(program_ids_map.containsKey(program_name)==false) {
-			LogFile.WriteWarn("[GL4ShaderFunctions-EnableProgram] Invalid program name. name:"+program_name,true);
+			LogFile.WriteWarn("[GLShaderFunctions-EnableProgram] Invalid program name. name:"+program_name,true);
 			return -1;
 		}
 		
