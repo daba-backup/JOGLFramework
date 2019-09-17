@@ -317,6 +317,9 @@ public class GLFront {
 	public static void SetFogColor(ColorU8 color) {
 		fog.SetFogColor(color);
 	}
+	public static void SetFogStartEnd(float start,float end) {
+		fog.SetFogStartEnd(start, end);
+	}
 	
 	//Lighting
 	public static void SetAmbientColor(ColorU8 color) {
