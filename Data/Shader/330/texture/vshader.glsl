@@ -14,6 +14,9 @@ uniform float camera_far;
 uniform vec3 light_direction;
 uniform vec4 ambient_color;
 
+uniform float diffuse_power;
+uniform float specular_power;
+
 uniform float fog_start;
 uniform float fog_end;
 
@@ -34,7 +37,10 @@ void SetLighting(){
     float diffuse=clamp(dot(vs_in_normal,light_direction),0.0,1.0);
     float specular=pow(clamp(dot(vs_in_normal,half_le),0.0,1.0),2.0);
 
-    vs_out_color=ambient_color+vec4(vec3(diffuse),1.0)+vec4(vec3(specular),1.0);
+    vec4 diffuse_color=vec4(diffuse*diffuse_power);
+    vec4 specular_color=vec4(specular*specular_power);
+
+    vs_out_color=ambient_color+diffuse_color+specular_color;
 }
 void SetFog(){
     float linear_pos=length(camera_position-vs_in_position);

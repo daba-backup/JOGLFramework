@@ -313,6 +313,28 @@ public class GLFront {
 		camera.SetupCamera_Ortho(size);
 	}
 	
+	//Fog
+	public static void SetFogColor(ColorU8 color) {
+		fog.SetFogColor(color);
+	}
+	
+	//Lighting
+	public static void SetAmbientColor(ColorU8 color) {
+		lighting.SetAmbientColor(color);
+	}
+	public static void SetLightDirection(Vector light_direction) {
+		lighting.SetLightDirection(light_direction);
+	}
+	public static void SetLightDirection(Vector position,Vector target) {
+		lighting.SetLightDirection(position, target);
+	}
+	public static void SetDiffusePower(float diffuse_power) {
+		lighting.SetDiffusePower(diffuse_power);
+	}
+	public static void SetSpecularPower(float specular_power) {
+		lighting.SetSpecularPower(specular_power);
+	}
+	
 	//Keyboard
 	public static int GetKeyboardPressingCount(KeyboardEnum key) {
 		return keyboard.GetPressingCount(key);

@@ -8,7 +8,7 @@ import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.tool.BufferFunctions;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
-import com.daxie.joglf.gl.wrapper.gl4.GL4Wrapper;
+import com.daxie.joglf.gl.wrapper.GLWrapper;
 
 /**
  * Lighting
@@ -19,11 +19,16 @@ public class Lighting {
 	private Vector light_direction;
 	private ColorU8 ambient_color;
 	
+	private float diffuse_power;
+	private float specular_power;
+	
 	public Lighting() {
 		light_direction=VectorFunctions.VGet(1.0f, -1.0f, 1.0f);
 		light_direction=VectorFunctions.VNorm(light_direction);
+		ambient_color=ColorU8Functions.GetColorU8(0.6f, 0.6f, 0.6f, 0.6f);
 		
-		ambient_color=ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f);
+		diffuse_power=0.3f;
+		specular_power=0.1f;
 	}
 	
 	public void SetLightDirection(Vector light_direction) {
@@ -36,6 +41,12 @@ public class Lighting {
 	public void SetAmbientColor(ColorU8 ambient_color) {
 		this.ambient_color=ambient_color;
 	}
+	public void SetDiffusePower(float diffuse_power) {
+		this.diffuse_power=diffuse_power;
+	}
+	public void SetSpecularPower(float specular_power) {
+		this.specular_power=specular_power;
+	}
 	
 	public void Update() {
 		FloatBuffer light_direction_buf=BufferFunctions.MakeFloatBufferFromVector(light_direction);
@@ -46,14 +57,20 @@ public class Lighting {
 		
 		int light_direction_location;
 		int ambient_color_location;
+		int diffuse_power_location;
+		int specular_power_location;
 		
 		GLShaderFunctions.EnableProgram("texture");
 		program_id=GLShaderFunctions.GetProgramID("texture");
 		
-		light_direction_location=GL4Wrapper.glGetUniformLocation(program_id, "light_direction");
-		ambient_color_location=GL4Wrapper.glGetUniformLocation(program_id, "ambient_color");
+		light_direction_location=GLWrapper.glGetUniformLocation(program_id, "light_direction");
+		ambient_color_location=GLWrapper.glGetUniformLocation(program_id, "ambient_color");
+		diffuse_power_location=GLWrapper.glGetUniformLocation(program_id, "diffuse_power");
+		specular_power_location=GLWrapper.glGetUniformLocation(program_id, "specular_power");
 		
-		GL4Wrapper.glUniform3fv(light_direction_location, 1, light_direction_buf);
-		GL4Wrapper.glUniform4fv(ambient_color_location, 1, ambient_color_buf);
+		GLWrapper.glUniform3fv(light_direction_location, 1, light_direction_buf);
+		GLWrapper.glUniform4fv(ambient_color_location, 1, ambient_color_buf);
+		GLWrapper.glUniform1f(diffuse_power_location, diffuse_power);
+		GLWrapper.glUniform1f(specular_power_location, specular_power);
 	}
 }
