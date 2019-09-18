@@ -138,8 +138,8 @@ public class TextureMgr {
 		Texture texture=textures_map.get(texture_handle);
 		
 		IntBuffer indices=Buffers.newDirectIntBuffer(6);
-		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(2*4);
-		FloatBuffer uv_buffer=Buffers.newDirectFloatBuffer(2*4);
+		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(8);
+		FloatBuffer uv_buffer=Buffers.newDirectFloatBuffer(8);
 		
 		indices.put(0);
 		indices.put(1);
@@ -151,8 +151,8 @@ public class TextureMgr {
 		int window_width=GLFront.GetWindowWidth();
 		int window_height=GLFront.GetWindowHeight();
 		
-		float normalized_x=(float)x/window_width-1.0f;
-		float normalized_y=(float)y/window_height-1.0f;
+		float normalized_x=2.0f*x/window_width-1.0f;
+		float normalized_y=2.0f*y/window_height-1.0f;
 		float normalized_width=(float)width/window_width*2.0f;
 		float normalized_height=(float)height/window_height*2.0f;
 		

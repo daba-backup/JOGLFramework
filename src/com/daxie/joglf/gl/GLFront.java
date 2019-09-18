@@ -146,6 +146,10 @@ public class GLFront {
 				"texture_drawer", 
 				"./Data/Shader/330/texture_drawer/vshader.glsl", 
 				"./Data/Shader/330/texture_drawer/fshader.glsl");
+		GLShaderFunctions.CreateProgram(
+				"line_drawer", 
+				"./Data/Shader/330/line_drawer/vshader.glsl", 
+				"./Data/Shader/330/line_drawer/fshader.glsl");
 		
 		GLShaderFunctions.InitializeSampler();
 		

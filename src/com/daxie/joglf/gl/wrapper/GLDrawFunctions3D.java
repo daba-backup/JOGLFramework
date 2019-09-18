@@ -20,11 +20,11 @@ import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
 /**
- * Draw functions
+ * Draw functions for 3D primitives
  * @author Daba
  *
  */
-public class GLDrawFunctions {
+public class GLDrawFunctions3D {
 	public static void DrawLine3D(Vector line_pos_1,Vector line_pos_2,ColorU8 color_1,ColorU8 color_2) {
 		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);
 		IntBuffer color_vbo=Buffers.newDirectIntBuffer(1);
@@ -56,9 +56,11 @@ public class GLDrawFunctions {
 		GLWrapper.glGenBuffers(1, color_vbo);
 		
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*3*2,pos_buffer,GL4.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*pos_buffer.capacity(),pos_buffer,GL4.GL_STATIC_DRAW);
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, color_vbo.get(0));
-		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*4*2,color_buffer,GL4.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*color_buffer.capacity(),color_buffer,GL4.GL_STATIC_DRAW);
 		
 		GLWrapper.glGenVertexArrays(1, vao);
 		GLWrapper.glBindVertexArray(vao.get(0));
@@ -163,9 +165,11 @@ public class GLDrawFunctions {
 		GLWrapper.glGenBuffers(1, color_vbo);
 		
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*3*2,pos_buffer,GL4.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*pos_buffer.capacity(),pos_buffer,GL4.GL_STATIC_DRAW);
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, color_vbo.get(0));
-		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*4*2,color_buffer,GL4.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*color_buffer.capacity(),color_buffer,GL4.GL_STATIC_DRAW);
 		
 		GLWrapper.glGenVertexArrays(1, vao);
 		GLWrapper.glBindVertexArray(vao.get(0));
@@ -318,9 +322,11 @@ public class GLDrawFunctions {
 		GLWrapper.glGenBuffers(1, color_vbo);
 		
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*pos_buffer.capacity(),pos_buffer,GL4.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*pos_buffer.capacity(),pos_buffer,GL4.GL_STATIC_DRAW);
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, color_vbo.get(0));
-		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*color_buffer.capacity(),color_buffer,GL4.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*color_buffer.capacity(),color_buffer,GL4.GL_STATIC_DRAW);
 		
 		GLWrapper.glGenVertexArrays(1, vao);
 		GLWrapper.glBindVertexArray(vao.get(0));
@@ -504,9 +510,11 @@ public class GLDrawFunctions {
 		GLWrapper.glGenBuffers(1, color_vbo);
 		
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*pos_buffer.capacity(),pos_buffer,GL4.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*pos_buffer.capacity(),pos_buffer,GL4.GL_STATIC_DRAW);
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, color_vbo.get(0));
-		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*color_buffer.capacity(),color_buffer,GL4.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*color_buffer.capacity(),color_buffer,GL4.GL_STATIC_DRAW);
 		
 		GLWrapper.glGenVertexArrays(1, vao);
 		GLWrapper.glBindVertexArray(vao.get(0));
@@ -594,11 +602,14 @@ public class GLDrawFunctions {
 		GLWrapper.glGenBuffers(1, norm_vbo);
 		
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*pos_buffer.capacity(), pos_buffer, GL4.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*pos_buffer.capacity(), pos_buffer, GL4.GL_STATIC_DRAW);
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, uv_vbo.get(0));
-		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*uv_buffer.capacity(), uv_buffer, GL4.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*uv_buffer.capacity(), uv_buffer, GL4.GL_STATIC_DRAW);
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, norm_vbo.get(0));
-		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*norm_buffer.capacity(), norm_buffer, GL4.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*norm_buffer.capacity(), norm_buffer, GL4.GL_STATIC_DRAW);
 		
 		GLWrapper.glGenVertexArrays(1, vao);
 		GLWrapper.glBindVertexArray(vao.get(0));
