@@ -5,6 +5,7 @@ import java.nio.ByteBuffer;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.al.ALWrapper;
+import com.daxie.joglf.al.buffer.SoundBuffer;
 import com.jogamp.openal.AL;
 
 /**
@@ -24,7 +25,7 @@ class SoundMgr {
 	private float reference_distance;
 	private float max_distance;
 	
-	public SoundMgr(String wav_filename) {
+	public SoundMgr(SoundBuffer sound_buffer) {
 		source_position=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
 		source_velocity=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
 		
@@ -33,20 +34,19 @@ class SoundMgr {
 		reference_distance=10.0f;
 		max_distance=50.0f;
 		
-		this.LoadSound(wav_filename);
+		this.GenerateBufferAndSource(sound_buffer);
 	}
-	private void LoadSound(String wav_filename) {
+	private void GenerateBufferAndSource(SoundBuffer sound_buffer) {
 		int[] buffers=new int[1];
 		int[] sources=new int[1];
-		int[] format=new int[1];
-		int[] size=new int[1];
-		ByteBuffer[] data=new ByteBuffer[1];
-		int[] freq=new int[1];
-		int[] loop=new int[1];
+		
+		int format=sound_buffer.GetFormat();
+		int size=sound_buffer.GetSize();
+		ByteBuffer data=sound_buffer.GetData();
+		int freq=sound_buffer.GetFreq();
 		
 		ALWrapper.alGenBuffers(1, buffers, 0);
-		ALWrapper.alutLoadWAVFile(wav_filename,format,data,size,freq,loop);
-		ALWrapper.alBufferData(buffers[0], format[0], data[0], size[0], freq[0]);
+		ALWrapper.alBufferData(buffers[0], format, data, size, freq);
 		
 		ALWrapper.alGenSources(1, sources, 0);
 		ALWrapper.alSourcei(sources[0], AL.AL_BUFFER, buffers[0]);

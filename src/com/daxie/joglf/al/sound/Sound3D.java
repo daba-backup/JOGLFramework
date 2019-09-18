@@ -6,6 +6,8 @@ import java.util.Map;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.al.ALWrapper;
+import com.daxie.joglf.al.buffer.SoundBuffer;
+import com.daxie.joglf.al.loader.WAVLoader;
 import com.daxie.log.LogFile;
 import com.daxie.tool.FilenameFunctions;
 import com.jogamp.openal.AL;
@@ -56,7 +58,9 @@ public class Sound3D {
 		
 		int sound_handle=count;
 		if(extension.equals("wav")||extension.equals("WAV")) {
-			SoundMgr sound=new SoundMgr(sound_filename);
+			SoundBuffer sound_buffer=WAVLoader.LoadWAV(sound_filename);
+			SoundMgr sound=new SoundMgr(sound_buffer);
+			
 			sounds_map.put(sound_handle, sound);
 		}
 		else {
