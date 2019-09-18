@@ -26,7 +26,6 @@ public class MainBase implements GLEventListener,KeyListener,MouseListener{
 		LogFile.SetLogLevelFlags(LogFile.LOG_LEVEL_FATAL|LogFile.LOG_LEVEL_ERROR);
 		
 		GLFront.Initialize();
-		ALFront.Initialize();
 		
 		GLFront.AddEventListener(this);
 		GLFront.AddKeyListener(this);
@@ -37,6 +36,8 @@ public class MainBase implements GLEventListener,KeyListener,MouseListener{
 	public void init(GLAutoDrawable drawable) {
 		GLFront.LoadDefaultShaders();
 		GLFront.SetDefaultGLProperties();
+		
+		ALFront.Initialize();
 		
 		TextureMgr.LoadDefaultTexture();
 		TextMgr.Initialize();

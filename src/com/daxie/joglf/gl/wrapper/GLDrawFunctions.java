@@ -7,6 +7,8 @@ import java.util.List;
 
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.basis.coloru8.ColorU8Functions;
+import com.daxie.basis.matrix.Matrix;
+import com.daxie.basis.matrix.MatrixFunctions;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.shape.Triangle;
@@ -102,6 +104,34 @@ public class GLDrawFunctions {
 				VectorFunctions.VGet(0.0f, 0.0f, length),
 				ColorU8Functions.GetColorU8(0.0f, 0.0f, 1.0f, 1.0f));
 	}
+	public static void DrawAxes_Positive(float length) {
+		DrawLine3D(
+				VectorFunctions.VGet(0.0f, 0.0f, 0.0f),
+				VectorFunctions.VGet(length, 0.0f, 0.0f),
+				ColorU8Functions.GetColorU8(1.0f, 0.0f, 0.0f, 1.0f));
+		DrawLine3D(
+				VectorFunctions.VGet(0.0f, 0.0f, 0.0f),
+				VectorFunctions.VGet(0.0f, length, 0.0f),
+				ColorU8Functions.GetColorU8(0.0f, 1.0f, 0.0f, 1.0f));
+		DrawLine3D(
+				VectorFunctions.VGet(0.0f, 0.0f, 0.0f),
+				VectorFunctions.VGet(0.0f, 0.0f, length),
+				ColorU8Functions.GetColorU8(0.0f, 0.0f, 1.0f, 1.0f));
+	}
+	public static void DrawAxes_Negative(float length) {
+		DrawLine3D(
+				VectorFunctions.VGet(-length, 0.0f, 0.0f),
+				VectorFunctions.VGet(0.0f, 0.0f, 0.0f),
+				ColorU8Functions.GetColorU8(1.0f, 0.0f, 0.0f, 1.0f));
+		DrawLine3D(
+				VectorFunctions.VGet(0.0f, -length, 0.0f),
+				VectorFunctions.VGet(0.0f, 0.0f, 0.0f),
+				ColorU8Functions.GetColorU8(0.0f, 1.0f, 0.0f, 1.0f));
+		DrawLine3D(
+				VectorFunctions.VGet(0.0f, 0.0f, -length),
+				VectorFunctions.VGet(0.0f, 0.0f, 0.0f),
+				ColorU8Functions.GetColorU8(0.0f, 0.0f, 1.0f, 1.0f));
+	}
 	
 	public static void DrawTriangle3D(Triangle triangle) {
 		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);
@@ -195,6 +225,192 @@ public class GLDrawFunctions {
 			
 			vertex=VectorFunctions.VScale(vertex, radius);
 			vertex=VectorFunctions.VAdd(vertex, center);
+			
+			vertices.set(i, vertex);
+		}
+		
+		//Ridgelines around the north pole
+		for(int i=1;i<=slice_num;i++) {
+			indices.add(0);
+			indices.add(i);
+		}
+		
+		//Ridgelines in the middle
+		int count=1;
+		for(int i=2;i<stack_num;i++) {
+			for(int j=1;j<slice_num;j++) {
+				indices.add(count);
+				indices.add(count+1);
+				
+				indices.add(count);
+				indices.add(count+slice_num);
+				
+				count++;
+			}
+			
+			indices.add(count);
+			indices.add(count-slice_num+1);
+			
+			indices.add(count);
+			indices.add(count+slice_num);
+			
+			count++;
+		}
+		
+		//Ridgelines in the bottom
+		for(int i=1;i<slice_num;i++) {
+			indices.add(count);
+			indices.add(count+1);
+			
+			indices.add(count);
+			indices.add(vertex_num-1);
+			
+			count++;
+		}
+		
+		indices.add(count);
+		indices.add(count-slice_num+1);
+		
+		indices.add(count);
+		indices.add(vertex_num-1);
+		
+		//Make buffers.
+		IntBuffer indices_vbo=Buffers.newDirectIntBuffer(1);
+		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);
+		IntBuffer color_vbo=Buffers.newDirectIntBuffer(1);
+		IntBuffer vao=Buffers.newDirectIntBuffer(1);
+		
+		IntBuffer indices_buffer=Buffers.newDirectIntBuffer(indices.size());
+		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(vertices.size()*3);
+		FloatBuffer color_buffer=Buffers.newDirectFloatBuffer(indices.size()*4);
+		
+		int indices_size=indices.size();
+		for(int i=0;i<indices_size;i++) {
+			indices_buffer.put(indices.get(i));
+		}
+		for(int i=0;i<vertex_num;i++) {
+			Vector vertex=vertices.get(i);
+			
+			pos_buffer.put(vertex.GetX());
+			pos_buffer.put(vertex.GetY());
+			pos_buffer.put(vertex.GetZ());
+		}
+		
+		float color_r=color.GetR();
+		float color_g=color.GetG();
+		float color_b=color.GetB();
+		float color_a=color.GetA();
+		for(int i=0;i<indices_size;i++) {
+			color_buffer.put(color_r);
+			color_buffer.put(color_g);
+			color_buffer.put(color_b);
+			color_buffer.put(color_a);
+		}
+		
+		indices_buffer.flip();
+		pos_buffer.flip();
+		color_buffer.flip();
+		
+		GLShaderFunctions.EnableProgram("color");
+		
+		GLWrapper.glGenBuffers(1, indices_vbo);
+		GLWrapper.glGenBuffers(1, pos_vbo);
+		GLWrapper.glGenBuffers(1, color_vbo);
+		
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*pos_buffer.capacity(),pos_buffer,GL4.GL_STATIC_DRAW);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, color_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*color_buffer.capacity(),color_buffer,GL4.GL_STATIC_DRAW);
+		
+		GLWrapper.glGenVertexArrays(1, vao);
+		GLWrapper.glBindVertexArray(vao.get(0));
+		
+		//Indices
+		GL4Wrapper.glBindBuffer(GL4.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(0));
+		GL4Wrapper.glBufferData(GL4.GL_ELEMENT_ARRAY_BUFFER, 
+				Buffers.SIZEOF_INT*indices_buffer.capacity(), indices_buffer, GL4.GL_STATIC_DRAW);
+		
+		//Position attribute
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(0);
+		GLWrapper.glVertexAttribPointer(0, 3, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*3, 0);
+		
+		//Color attribute
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, color_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(1);
+		GLWrapper.glVertexAttribPointer(1, 4, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*4, 0);
+		
+		GLWrapper.glDrawElements(GL4.GL_LINES,indices_size,GL4.GL_UNSIGNED_INT,0);
+		
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
+		GLWrapper.glBindVertexArray(0);
+		
+		GLWrapper.glDeleteBuffers(1, indices_vbo);
+		GLWrapper.glDeleteBuffers(1, pos_vbo);
+		GLWrapper.glDeleteBuffers(1, color_vbo);
+		GLWrapper.glDeleteVertexArrays(1, vao);
+	}
+	public static void DrawCapsule3D(
+			Vector capsule_pos_1,Vector capsule_pos_2,
+			float radius,int slice_num,int stack_num,ColorU8 color) {
+		Vector capsule_axis=VectorFunctions.VSub(capsule_pos_2, capsule_pos_1);
+		float d=VectorFunctions.VSize(capsule_axis);
+		float half_d=d/2.0f;
+		
+		float th_v=VectorFunctions.VAngleV(capsule_axis);
+		float th_h=VectorFunctions.VAngleH(capsule_axis);
+		
+		Vector center_pos=VectorFunctions.VAdd(capsule_pos_1, capsule_pos_2);
+		center_pos=VectorFunctions.VScale(center_pos, 0.5f);
+		
+		List<Vector> vertices=new ArrayList<>();
+		List<Integer> indices=new ArrayList<>();
+		
+		int vertex_num=slice_num*(stack_num-1)+2;
+		
+		//North pole
+		vertices.add(VectorFunctions.VGet(0.0f, radius+half_d, 0.0f));
+		
+		//Middle
+		for(int i=1;i<stack_num/2;i++) {
+			float ph=(float)Math.PI*(float)i/(float)stack_num;
+			float y=radius*(float)Math.cos(ph)+half_d;
+			float r=radius*(float)Math.sin(ph);
+			
+			for(int j=0;j<slice_num;j++) {
+				float th=2.0f*(float)Math.PI*(float)j/(float)slice_num;
+				float x=r*(float)Math.cos(th);
+				float z=r*(float)Math.sin(th);
+				
+				vertices.add(VectorFunctions.VGet(x, y, z));
+			}
+		}
+		for(int i=stack_num/2;i<stack_num;i++) {
+			float ph=(float)Math.PI*(float)i/(float)stack_num;
+			float y=radius*(float)Math.cos(ph)-half_d;
+			float r=radius*(float)Math.sin(ph);
+			
+			for(int j=0;j<slice_num;j++) {
+				float th=2.0f*(float)Math.PI*(float)j/(float)slice_num;
+				float x=r*(float)Math.cos(th);
+				float z=r*(float)Math.sin(th);
+				
+				vertices.add(VectorFunctions.VGet(x, y, z));
+			}
+		}
+		
+		//South pole
+		vertices.add(VectorFunctions.VGet(0.0f,-radius-half_d, 0.0f));
+		
+		Matrix rot_z=MatrixFunctions.MGetRotZ(th_v-(float)Math.PI/2.0f);
+		Matrix rot_y=MatrixFunctions.MGetRotY(-th_h);
+		
+		for(int i=0;i<vertex_num;i++) {
+			Vector vertex=vertices.get(i);
+			
+			vertex=VectorFunctions.VTransform(vertex, rot_z);
+			vertex=VectorFunctions.VTransform(vertex, rot_y);
+			vertex=VectorFunctions.VAdd(vertex,center_pos);
 			
 			vertices.set(i, vertex);
 		}

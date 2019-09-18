@@ -195,6 +195,11 @@ public class VectorFunctions {
 		
 		return ret;
 	}
+	/**
+	 * Returns the average (center) of the vector.
+	 * @param v Vector
+	 * @return Average
+	 */
 	public static Vector VAverage(Vector[] v) {
 		Vector ret=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
 		
@@ -205,5 +210,40 @@ public class VectorFunctions {
 		ret=VectorFunctions.VScale(ret, 1.0f/v_num);
 		
 		return ret;
+	}
+	/**
+	 * Returns the vertical angle of the vector.
+	 * @param v Vector
+	 * @return Vertical angle
+	 */
+	public static float VAngleV(Vector v) {
+		float d=VectorFunctions.VSize(v);
+		if(d<1.0E-8f)return 0.0f;
+		
+		float th;
+		
+		float sin_th=v.GetY()/d;	
+		th=(float)Math.asin(sin_th);
+		
+		return th;
+	}
+	/**
+	 * Returns the horizontal angle of the vector.
+	 * @param v Vector
+	 * @return Horizontal angle
+	 */
+	public static float VAngleH(Vector v) {
+		Vector xz_vec=VectorFunctions.VGet(v.GetX(), 0.0f, v.GetZ());
+		float xz_length=VectorFunctions.VSize(xz_vec);
+		if(xz_length<1.0E-8f)return 0.0f;
+		
+		float th;
+		
+		float cos_th=v.GetX()/xz_length;
+		th=(float)Math.acos(cos_th);
+		
+		if(v.GetZ()<0.0f)th*=(-1.0f);
+		
+		return th;
 	}
 }
