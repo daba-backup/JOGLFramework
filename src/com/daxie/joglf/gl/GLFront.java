@@ -142,6 +142,10 @@ public class GLFront {
 				"color",
 				"./Data/Shader/330/color/vshader.glsl",
 				"./Data/Shader/330/color/fshader.glsl");
+		GLShaderFunctions.CreateProgram(
+				"texture_drawer", 
+				"./Data/Shader/330/texture_drawer/vshader.glsl", 
+				"./Data/Shader/330/texture_drawer/fshader.glsl");
 		
 		GLShaderFunctions.InitializeSampler();
 		

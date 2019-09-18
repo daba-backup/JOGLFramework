@@ -22,4 +22,37 @@ public class MathFunctions {
 	public static float RadToDeg(float rad) {
 		return 180.0f*rad/(float)Math.PI;
 	}
+	
+	/**
+	 * Clamps an int value between min and max.
+	 * @param value Value
+	 * @param min Minimum
+	 * @param max Maximum
+	 * @return Clamped value
+	 */
+	public static int Clamp(int value,int min,int max) {
+		int ret;
+		
+		if(value<min)ret=min;
+		else if(value>max)ret=max;
+		else ret=value;
+		
+		return ret;
+	}
+	/**
+	 * Clamps a float value between min and max.
+	 * @param value Value
+	 * @param min Minimum
+	 * @param max Maximum
+	 * @return Clamped value
+	 */
+	public static float Clamp(float value,float min,float max) {
+		float ret;
+		
+		if(value<min)ret=min;
+		else if(value>max)ret=max;
+		else ret=value;
+		
+		return ret;
+	}
 }
