@@ -22,6 +22,8 @@ public class Lighting {
 	private float diffuse_power;
 	private float specular_power;
 	
+	private boolean lighting_enabled_flag;
+	
 	public Lighting() {
 		light_direction=VectorFunctions.VGet(1.0f, -1.0f, 1.0f);
 		light_direction=VectorFunctions.VNorm(light_direction);
@@ -29,6 +31,8 @@ public class Lighting {
 		
 		diffuse_power=0.3f;
 		specular_power=0.1f;
+		
+		lighting_enabled_flag=true;
 	}
 	
 	public void SetLightDirection(Vector light_direction) {
@@ -47,11 +51,11 @@ public class Lighting {
 	public void SetSpecularPower(float specular_power) {
 		this.specular_power=specular_power;
 	}
+	public void SetLightingEnabledFlag(boolean lighting_enabled_flag) {
+		this.lighting_enabled_flag=lighting_enabled_flag;
+	}
 	
 	public void Update() {
-		FloatBuffer light_direction_buf=BufferFunctions.MakeFloatBufferFromVector(light_direction);
-		FloatBuffer ambient_color_buf=BufferFunctions.MakeFloatBufferFromColorU8(ambient_color);
-		
 		//Texture program
 		int program_id;
 		
@@ -68,9 +72,23 @@ public class Lighting {
 		diffuse_power_location=GLWrapper.glGetUniformLocation(program_id, "diffuse_power");
 		specular_power_location=GLWrapper.glGetUniformLocation(program_id, "specular_power");
 		
+		FloatBuffer light_direction_buf=BufferFunctions.MakeFloatBufferFromVector(light_direction);
+		FloatBuffer ambient_color_buf;
+		
 		GLWrapper.glUniform3fv(light_direction_location, 1, light_direction_buf);
-		GLWrapper.glUniform4fv(ambient_color_location, 1, ambient_color_buf);
-		GLWrapper.glUniform1f(diffuse_power_location, diffuse_power);
-		GLWrapper.glUniform1f(specular_power_location, specular_power);
+		if(lighting_enabled_flag==true) {
+			ambient_color_buf=BufferFunctions.MakeFloatBufferFromColorU8(ambient_color);
+			
+			GLWrapper.glUniform4fv(ambient_color_location, 1, ambient_color_buf);
+			GLWrapper.glUniform1f(diffuse_power_location, diffuse_power);
+			GLWrapper.glUniform1f(specular_power_location, specular_power);
+		}
+		else {
+			ambient_color_buf=BufferFunctions.MakeFloatBufferFromColorU8(ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f));
+			
+			GLWrapper.glUniform4fv(ambient_color_location, 1, ambient_color_buf);
+			GLWrapper.glUniform1f(diffuse_power_location, 0.0f);
+			GLWrapper.glUniform1f(specular_power_location, 0.0f);
+		}
 	}
 }

@@ -322,6 +322,12 @@ public class GLFront {
 	}
 	
 	//Fog
+	public static void EnableFog() {
+		fog.SetFogEnabledFlag(true);
+	}
+	public static void DisableFog() {
+		fog.SetFogEnabledFlag(false);
+	}
 	public static void SetFogColor(ColorU8 color) {
 		fog.SetFogColor(color);
 	}
@@ -330,6 +336,12 @@ public class GLFront {
 	}
 	
 	//Lighting
+	public static void EnableLighting() {
+		lighting.SetLightingEnabledFlag(true);
+	}
+	public static void DisableLighting() {
+		lighting.SetLightingEnabledFlag(false);
+	}
 	public static void SetAmbientColor(ColorU8 color) {
 		lighting.SetAmbientColor(color);
 	}
