@@ -119,6 +119,12 @@ public class GLFront {
 		
 		LogFile.WriteInfo("[GLFront-Dispose] Disposed.",true);
 	}
+	
+	public static boolean IsInitialized() {
+		if(animator==null)return false;
+		else return true;
+	}
+	
 	public static void Reshape() {
 		int window_x=window.getX();
 		int window_y=window.getY();
@@ -180,6 +186,18 @@ public class GLFront {
 	 */
 	public static int GetFPS() {
 		return fps;
+	}
+	/**
+	 * Sets the number of frames per second.
+	 * @param a_fps Number of frames per second
+	 */
+	public static void SetFPS(int a_fps) {
+		if(IsInitialized()==true) {
+			LogFile.WriteWarn("[GLFront-SetFPS] This method is disabled after the framework is initialized.", true);
+			return;
+		}
+		
+		fps=a_fps;
 	}
 	
 	//Listener

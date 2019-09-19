@@ -5,9 +5,11 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
+import com.daxie.joglf.gl.GLFront;
 import com.daxie.joglf.gl.wrapper.gl3.GL3Wrapper;
 import com.daxie.joglf.gl.wrapper.gl4.GL4Wrapper;
 import com.daxie.joglf.gl.wrapper.gles3.GLES3Wrapper;
+import com.daxie.log.LogFile;
 
 /**
  * Offers wrapper functions for several GL versions.
@@ -18,6 +20,11 @@ public class GLWrapper{
 	private static GLVersion gl_version=GLVersion.GL4;
 	
 	public static void SetGLVersion(GLVersion version) {
+		if(GLFront.IsInitialized()==true) {
+			LogFile.WriteWarn("[GLWrapper-SetGLVersion] This method is disabled after the framework is initialized.", true);
+			return;
+		}
+		
 		gl_version=version;
 	}
 	public static GLVersion GetGLVersion() {
