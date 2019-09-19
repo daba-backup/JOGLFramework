@@ -17,7 +17,6 @@ import com.daxie.joglf.gl.lighting.Lighting;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.GLVersion;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.joglf.gl.wrapper.gl4.GL4Wrapper;
 import com.daxie.log.LogFile;
 import com.daxie.tool.MathFunctions;
 import com.jogamp.newt.event.KeyEvent;
@@ -59,6 +58,9 @@ public class GLFront {
 	private static ColorU8 background_color=ColorU8Functions.GetColorU8(0.0f, 0.0f, 0.0f, 1.0f);
 	
 	//General
+	/**
+	 * Initializes the framework.
+	 */
 	public static void Initialize() {
 		GLVersion gl_version=GLWrapper.GetGLVersion();
 		
@@ -109,6 +111,9 @@ public class GLFront {
 		
 		LogFile.WriteInfo("[GLFront-Initialize] Initialized.", true);
 	}
+	/**
+	 * Finalizes the framework.
+	 */
 	public static void Dispose() {
 		if(animator!=null)animator.stop();
 		
@@ -155,19 +160,24 @@ public class GLFront {
 		
 		LogFile.WriteInfo("[GLFront-LoadDefaultShaders] Default shaders loaded.",true);
 	}
+	
 	public static void SetDefaultGLProperties() {
-		GL4Wrapper.glEnable(GL4.GL_DEPTH_TEST);
-		GL4Wrapper.glDepthFunc(GL4.GL_LESS);
+		GLWrapper.glEnable(GL4.GL_DEPTH_TEST);
+		GLWrapper.glDepthFunc(GL4.GL_LESS);
 		
-		GL4Wrapper.glEnable(GL4.GL_CULL_FACE);
-		GL4Wrapper.glCullFace(GL4.GL_BACK);
+		GLWrapper.glEnable(GL4.GL_CULL_FACE);
+		GLWrapper.glCullFace(GL4.GL_BACK);
 		
-		GL4Wrapper.glEnable(GL4.GL_BLEND);
-		GL4Wrapper.glBlendFunc(GL4.GL_SRC_ALPHA, GL4.GL_ONE_MINUS_SRC_ALPHA);
+		GLWrapper.glEnable(GL4.GL_BLEND);
+		GLWrapper.glBlendFunc(GL4.GL_SRC_ALPHA, GL4.GL_ONE_MINUS_SRC_ALPHA);
 		
 		LogFile.WriteInfo("[GLFront-SetDefaultGLProperties] Default properties set.",true);
 	}
 	
+	/**
+	 * Returns the number of frames per second.
+	 * @return Number of frames per second
+	 */
 	public static int GetFPS() {
 		return fps;
 	}
@@ -194,7 +204,7 @@ public class GLFront {
 		}
 		window.addMouseListener(mouse_listener);
 	}
-	
+
 	public static void onKeyPressed(KeyEvent e) {
 		keyboard.keyPressed(e);
 	}
@@ -228,10 +238,10 @@ public class GLFront {
 	
 	//Screen
 	public static void ClearDrawScreen() {
-		GL4Wrapper.glClearColor(
+		GLWrapper.glClearColor(
 				background_color.GetR(),background_color.GetG(),
 				background_color.GetB(),background_color.GetA());
-		GL4Wrapper.glClear(GL4.GL_COLOR_BUFFER_BIT|GL4.GL_DEPTH_BUFFER_BIT);
+		GLWrapper.glClear(GL4.GL_COLOR_BUFFER_BIT|GL4.GL_DEPTH_BUFFER_BIT);
 	}
 	
 	//Cursor

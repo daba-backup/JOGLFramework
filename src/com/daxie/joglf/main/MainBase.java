@@ -15,7 +15,8 @@ import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 
 /**
- * Base class for Main
+ * Base class for Main<br>
+ * Extend this class and make a main class with the main() method in it.
  * @author Daba
  *
  */
