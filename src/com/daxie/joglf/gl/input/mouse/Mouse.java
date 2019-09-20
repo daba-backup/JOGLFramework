@@ -1,8 +1,9 @@
-package com.daxie.joglf.gl.input;
+package com.daxie.joglf.gl.input.mouse;
 
 import java.awt.AWTException;
 import java.awt.Robot;
 
+import com.daxie.joglf.gl.input.CountsAndFlags;
 import com.jogamp.newt.event.MouseEvent;
 import com.jogamp.newt.event.MouseListener;
 
@@ -68,7 +69,9 @@ public class Mouse implements MouseListener{
 			diff_y=0;
 		}
 		
-		if(fix_mouse_pointer_flag==true)robot.mouseMove(window_x+center_x,window_y+center_y);
+		if(fix_mouse_pointer_flag==true) {
+			robot.mouseMove(window_x+center_x,window_y+center_y);
+		}
 	}
 	
 	@Override

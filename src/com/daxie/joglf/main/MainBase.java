@@ -52,7 +52,6 @@ public class MainBase implements GLEventListener,KeyListener,MouseListener{
 	@Override
 	public void reshape(GLAutoDrawable drawable,int x,int y,int width,int height) {
 		CameraFront.Reshape();
-		MouseFront.Reshape();
 	}
 	@Override
 	public void display(GLAutoDrawable drawable) {

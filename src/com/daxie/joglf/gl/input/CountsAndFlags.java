@@ -1,10 +1,11 @@
 package com.daxie.joglf.gl.input;
 
 /**
+ * Counts and flags used for handling user input.
  * @author Daba
  *
  */
-class CountsAndFlags {
+public class CountsAndFlags {
 	private int element_num;
 	
 	private int[] pressing_counts;

@@ -1,4 +1,4 @@
-package com.daxie.joglf.gl.input;
+package com.daxie.joglf.gl.input.mouse;
 
 /**
  * Mouse codes

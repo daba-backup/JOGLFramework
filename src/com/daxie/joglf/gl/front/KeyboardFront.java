@@ -1,7 +1,7 @@
 package com.daxie.joglf.gl.front;
 
-import com.daxie.joglf.gl.input.Keyboard;
-import com.daxie.joglf.gl.input.KeyboardEnum;
+import com.daxie.joglf.gl.input.keyboard.Keyboard;
+import com.daxie.joglf.gl.input.keyboard.KeyboardEnum;
 import com.jogamp.newt.event.KeyEvent;
 
 /**

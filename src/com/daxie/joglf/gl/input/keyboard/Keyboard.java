@@ -1,5 +1,6 @@
-package com.daxie.joglf.gl.input;
+package com.daxie.joglf.gl.input.keyboard;
 
+import com.daxie.joglf.gl.input.CountsAndFlags;
 import com.jogamp.newt.event.KeyEvent;
 import com.jogamp.newt.event.KeyListener;
 

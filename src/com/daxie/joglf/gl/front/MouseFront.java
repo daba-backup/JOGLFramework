@@ -1,7 +1,7 @@
 package com.daxie.joglf.gl.front;
 
-import com.daxie.joglf.gl.input.Mouse;
-import com.daxie.joglf.gl.input.MouseEnum;
+import com.daxie.joglf.gl.input.mouse.Mouse;
+import com.daxie.joglf.gl.input.mouse.MouseEnum;
 import com.jogamp.newt.event.MouseEvent;
 
 /**
@@ -12,15 +12,6 @@ import com.jogamp.newt.event.MouseEvent;
 public class MouseFront {
 	private static Mouse mouse=new Mouse();
 	
-	public static void Reshape() {
-		int x=WindowFront.GetWindowX();
-		int y=WindowFront.GetWindowY();
-		int width=WindowFront.GetWindowWidth();
-		int height=WindowFront.GetWindowHeight();
-		
-		mouse.SetWindowPositionAndSize(x, y, width, height);
-	}
-
 	public static int GetMousePressingCount(MouseEnum key) {
 		return mouse.GetButtonPressingCount(key);
 	}
@@ -69,6 +60,13 @@ public class MouseFront {
 	}
 	
 	public static void Update() {
+		int x=WindowFront.GetWindowX();
+		int y=WindowFront.GetWindowY();
+		int width=WindowFront.GetWindowWidth();
+		int height=WindowFront.GetWindowHeight();
+		
+		mouse.SetWindowPositionAndSize(x, y, width, height);
+		
 		mouse.Update();
 	}
 }
