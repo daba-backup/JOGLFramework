@@ -37,7 +37,7 @@ public class Camera {
 		camera_mode=CameraMode.PERSPECTIVE;
 		fov=MathFunctions.DegToRad(60.0f);
 		
-		position=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
+		position=VectorFunctions.VGet(-50.0f, 50.0f, -50.0f);
 		target=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
 		up=VectorFunctions.VGet(0.0f, 1.0f, 0.0f);
 	}
