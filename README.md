@@ -14,6 +14,10 @@ This project is currently under development. Therefore the specification is subj
 - Texture management
 - Play WAV and MP3
 
+## Sample
+
+Samples are available in [JOGLFrameworkSamples](https://github.com/Dabasan/JOGLFrameworkSamples).
+
 ## Dependencies
 
 - [JOGL (Java Binding for the OpenGL API)](https://github.com/sgothel/jogl)
