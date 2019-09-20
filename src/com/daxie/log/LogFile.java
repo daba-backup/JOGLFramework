@@ -161,6 +161,7 @@ public class LogFile {
 	/**
 	 * Writes a trace string.
 	 * @param str String
+	 * @param output_date_flag Specifies whether to output the date
 	 */
 	//TRACE
 	public static void WriteTrace(String str,boolean output_date_flag) {
@@ -181,6 +182,7 @@ public class LogFile {
 	/**
 	 * Writes a debug string.
 	 * @param str String
+	 * @param output_date_flag Specifies whether to output the date
 	 */
 	//DEBUG
 	public static void WriteDebug(String str,boolean output_date_flag) {
@@ -201,6 +203,7 @@ public class LogFile {
 	/**
 	 * Writes an info string.
 	 * @param str String
+	 * @param output_date_flag Specifies whether to output the date
 	 */
 	//INFO
 	public static void WriteInfo(String str,boolean output_date_flag) {
@@ -221,6 +224,7 @@ public class LogFile {
 	/**
 	 * Writes a warning string.
 	 * @param str String
+	 * @param output_date_flag Specifies whether to output the date
 	 */
 	//WARN
 	public static void WriteWarn(String str,boolean output_date_flag) {
@@ -241,6 +245,7 @@ public class LogFile {
 	/**
 	 * Writes an error string.
 	 * @param str String
+	 * @param output_date_flag Specifies whether to output the date
 	 */
 	//ERROR
 	public static void WriteError(String str,boolean output_date_flag) {
@@ -261,6 +266,7 @@ public class LogFile {
 	/**
 	 * Writes a fatal string.
 	 * @param str String
+	 * @param output_date_flag Specifies whether to output the date
 	 */
 	//FATAL
 	public static void WriteFatal(String str,boolean output_date_flag) {

@@ -4,6 +4,8 @@ JOGLFramework aims to simplify OpenGL-relating processing by wrapping raw functi
 
 It also provides several wrapper functions for Java OpenAL (JOAL).
 
+This project is currently under development. Therefore the specification is subject to frequent change.
+
 # Overview
 
 ## Features

@@ -137,6 +137,8 @@ public class FileFunctions {
 	 * @param filename Filename
 	 * @param encoding Encoding
 	 * @param lines Lines to write in the file
+	 * @exception FileNotFoundException Thrown when it fails to write
+	 * @exception UnsupportedEncodingException Unknown encoding specified
 	 */
 	public static void CreateTextFile(String filename,String encoding,List<String> lines) 
 			throws FileNotFoundException,UnsupportedEncodingException{
@@ -181,6 +183,7 @@ public class FileFunctions {
 	 * Creates a binary file.
 	 * @param filename Filename
 	 * @param bin A list of bytes
+	 * @exception FileNotFoundException Thrown when it fails to write
 	 */
 	public static void CreateBinFile(String filename,List<Byte> bin) throws FileNotFoundException{
 		DataOutputStream dos=null;
