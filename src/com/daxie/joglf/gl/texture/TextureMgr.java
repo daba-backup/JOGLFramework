@@ -7,7 +7,7 @@ import java.nio.IntBuffer;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.daxie.joglf.gl.GLFront;
+import com.daxie.joglf.gl.front.WindowFront;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.log.LogFile;
@@ -148,8 +148,8 @@ public class TextureMgr {
 		indices.put(3);
 		indices.put(0);
 		
-		int window_width=GLFront.GetWindowWidth();
-		int window_height=GLFront.GetWindowHeight();
+		int window_width=WindowFront.GetWindowWidth();
+		int window_height=WindowFront.GetWindowHeight();
 		
 		float normalized_x=2.0f*x/window_width-1.0f;
 		float normalized_y=2.0f*y/window_height-1.0f;

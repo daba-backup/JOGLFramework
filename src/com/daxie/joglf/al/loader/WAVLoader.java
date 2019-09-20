@@ -2,8 +2,8 @@ package com.daxie.joglf.al.loader;
 
 import java.nio.ByteBuffer;
 
-import com.daxie.joglf.al.ALWrapper;
 import com.daxie.joglf.al.buffer.SoundBuffer;
+import com.daxie.joglf.al.wrapper.ALWrapper;
 
 /**
  * WAV loader

@@ -5,9 +5,9 @@ import java.util.Map;
 
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
-import com.daxie.joglf.al.ALWrapper;
 import com.daxie.joglf.al.buffer.SoundBuffer;
 import com.daxie.joglf.al.loader.WAVLoader;
+import com.daxie.joglf.al.wrapper.ALWrapper;
 import com.daxie.log.LogFile;
 import com.daxie.tool.FilenameFunctions;
 import com.jogamp.openal.AL;

@@ -1,4 +1,4 @@
-package com.daxie.joglf.al;
+package com.daxie.joglf.al.wrapper;
 
 import java.nio.Buffer;
 import java.nio.ByteBuffer;

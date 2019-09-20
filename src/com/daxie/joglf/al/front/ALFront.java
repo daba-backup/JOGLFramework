@@ -1,6 +1,7 @@
-package com.daxie.joglf.al;
+package com.daxie.joglf.al.front;
 
 import com.daxie.joglf.al.sound.Sound3D;
+import com.daxie.joglf.al.wrapper.ALWrapper;
 import com.daxie.log.LogFile;
 import com.jogamp.openal.AL;
 import com.jogamp.openal.util.ALut;

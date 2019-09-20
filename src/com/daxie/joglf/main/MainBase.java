@@ -1,7 +1,13 @@
 package com.daxie.joglf.main;
 
-import com.daxie.joglf.al.ALFront;
-import com.daxie.joglf.gl.GLFront;
+import com.daxie.joglf.al.front.ALFront;
+import com.daxie.joglf.gl.front.CameraFront;
+import com.daxie.joglf.gl.front.FogFront;
+import com.daxie.joglf.gl.front.GLFront;
+import com.daxie.joglf.gl.front.KeyboardFront;
+import com.daxie.joglf.gl.front.LightingFront;
+import com.daxie.joglf.gl.front.MouseFront;
+import com.daxie.joglf.gl.front.WindowFront;
 import com.daxie.joglf.gl.text.TextMgr;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLVersion;
@@ -26,16 +32,17 @@ public class MainBase implements GLEventListener,KeyListener,MouseListener{
 		
 		LogFile.SetLogLevelFlags(LogFile.LOG_LEVEL_FATAL|LogFile.LOG_LEVEL_ERROR);
 		
-		GLFront.Initialize();
-		ALFront.Initialize();
+		WindowFront.Initialize();
 		
-		GLFront.AddEventListener(this);
-		GLFront.AddKeyListener(this);
-		GLFront.AddMouseListener(this);
+		WindowFront.AddEventListener(this);
+		WindowFront.AddKeyListener(this);
+		WindowFront.AddMouseListener(this);
 	}
 	
 	@Override
 	public void init(GLAutoDrawable drawable) {
+		ALFront.Initialize();
+		
 		GLFront.LoadDefaultShaders();
 		GLFront.SetDefaultGLProperties();
 		
@@ -44,12 +51,20 @@ public class MainBase implements GLEventListener,KeyListener,MouseListener{
 	}
 	@Override
 	public void reshape(GLAutoDrawable drawable,int x,int y,int width,int height) {
-		GLFront.Reshape();
+		CameraFront.Reshape();
+		MouseFront.Reshape();
 	}
 	@Override
 	public void display(GLAutoDrawable drawable) {
-		GLFront.ClearDrawScreen();
-		GLFront.Update();
+		WindowFront.ClearDrawScreen();
+		
+		KeyboardFront.Update();
+		MouseFront.Update();
+		
+		CameraFront.Update();
+		
+		LightingFront.Update();
+		FogFront.Update();
 	}
 	@Override
 	public void dispose(GLAutoDrawable drawable) {
@@ -59,43 +74,43 @@ public class MainBase implements GLEventListener,KeyListener,MouseListener{
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		GLFront.onKeyPressed(e);
+		KeyboardFront.onKeyPressed(e);
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
-		GLFront.onKeyReleased(e);
+		KeyboardFront.onKeyReleased(e);
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		GLFront.onMouseClicked(e);
+		MouseFront.onMouseClicked(e);
 	}
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		GLFront.onMouseDragged(e);
+		MouseFront.onMouseDragged(e);
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		GLFront.onMouseEntered(e);
+		MouseFront.onMouseEntered(e);
 	}
 	@Override
 	public void mouseExited(MouseEvent e) {
-		GLFront.onMouseExited(e);
+		MouseFront.onMouseExited(e);
 	}
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		GLFront.onMouseMoved(e);
+		MouseFront.onMouseMoved(e);
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
-		GLFront.onMousePressed(e);
+		MouseFront.onMousePressed(e);
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		GLFront.onMouseReleased(e);
+		MouseFront.onMouseReleased(e);
 	}
 	@Override
 	public void mouseWheelMoved(MouseEvent e) {
-		GLFront.onMouseWheelMoved(e);
+		MouseFront.onMouseWheelMoved(e);
 	}
 }

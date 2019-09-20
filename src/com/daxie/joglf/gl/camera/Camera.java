@@ -5,7 +5,7 @@ import java.nio.FloatBuffer;
 import com.daxie.basis.matrix.Matrix;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
-import com.daxie.joglf.gl.GLFront;
+import com.daxie.joglf.gl.front.WindowFront;
 import com.daxie.joglf.gl.tool.BufferFunctions;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.gl4.GL4Wrapper;
@@ -44,7 +44,7 @@ public class Camera {
 	
 	public void UpdateAspect() {
 		if(camera_mode==CameraMode.PERSPECTIVE) {
-			float aspect=GLFront.GetWindowAspect();
+			float aspect=WindowFront.GetWindowAspect();
 			projection_matrix=ProjectionMatrix.GetPerspectiveMatrix(fov, aspect, near, far);
 		}
 	}
@@ -62,9 +62,18 @@ public class Camera {
 	public void SetCameraUpVector(Vector up) {
 		this.up=up;
 	}
+	public Vector GetCameraPosition() {
+		return new Vector(position);
+	}
+	public Vector GetCameraTarget() {
+		return new Vector(target);
+	}
+	public Vector GetCameraUpVector() {
+		return new Vector(up);
+	}
 	
 	public void SetupCamera_Perspective(float fov) {
-		float aspect=GLFront.GetWindowAspect();
+		float aspect=WindowFront.GetWindowAspect();
 		projection_matrix=ProjectionMatrix.GetPerspectiveMatrix(fov, aspect, near, far);
 		
 		camera_mode=CameraMode.PERSPECTIVE;

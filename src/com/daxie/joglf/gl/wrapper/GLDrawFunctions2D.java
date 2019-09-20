@@ -4,7 +4,7 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import com.daxie.basis.coloru8.ColorU8;
-import com.daxie.joglf.gl.GLFront;
+import com.daxie.joglf.gl.front.WindowFront;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -41,8 +41,8 @@ public class GLDrawFunctions2D {
 		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(4);
 		FloatBuffer color_buffer=Buffers.newDirectFloatBuffer(8);
 		
-		int window_width=GLFront.GetWindowWidth();
-		int window_height=GLFront.GetWindowHeight();
+		int window_width=WindowFront.GetWindowWidth();
+		int window_height=WindowFront.GetWindowHeight();
 		
 		float normalized_x1=NormalizeCoordinate(x1, window_width);
 		float normalized_y1=NormalizeCoordinate(y1, window_height);
@@ -122,8 +122,8 @@ public class GLDrawFunctions2D {
 		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(2*4);
 		FloatBuffer color_buffer=Buffers.newDirectFloatBuffer(4*4);
 		
-		int window_width=GLFront.GetWindowWidth();
-		int window_height=GLFront.GetWindowHeight();
+		int window_width=WindowFront.GetWindowWidth();
+		int window_height=WindowFront.GetWindowHeight();
 		
 		float normalized_x1=NormalizeCoordinate(x1, window_width);
 		float normalized_y1=NormalizeCoordinate(y1, window_height);
@@ -203,8 +203,8 @@ public class GLDrawFunctions2D {
 		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(2*div_num);
 		FloatBuffer color_buffer=Buffers.newDirectFloatBuffer(4*div_num);
 		
-		int window_width=GLFront.GetWindowWidth();
-		int window_height=GLFront.GetWindowHeight();
+		int window_width=WindowFront.GetWindowWidth();
+		int window_height=WindowFront.GetWindowHeight();
 		
 		for(int i=0;i<div_num;i++) {
 			float th=(float)Math.PI*2.0f/div_num*i;

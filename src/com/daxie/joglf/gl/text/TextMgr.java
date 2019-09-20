@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.daxie.basis.coloru8.ColorU8;
-import com.daxie.joglf.gl.GLFront;
+import com.daxie.joglf.gl.front.WindowFront;
 import com.daxie.log.LogFile;
 import com.daxie.tool.ExceptionFunctions;
 import com.jogamp.graph.curve.Region;
@@ -138,8 +138,8 @@ public class TextMgr {
 		render_state.setColorStatic(color.GetR(), color.GetG(), color.GetB(), color.GetA());
 		
 		GL2ES2 gl=GLContext.getCurrentGL().getGL2ES2();
-		int window_width=GLFront.GetWindowWidth();
-		int window_height=GLFront.GetWindowHeight();
+		int window_width=WindowFront.GetWindowWidth();
+		int window_height=WindowFront.GetWindowHeight();
 		
 		int[] sample_count=new int[] {4};
 		region_renderer.enable(gl,true);

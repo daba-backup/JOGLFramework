@@ -4,8 +4,8 @@ import java.nio.ByteBuffer;
 
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
-import com.daxie.joglf.al.ALWrapper;
 import com.daxie.joglf.al.buffer.SoundBuffer;
+import com.daxie.joglf.al.wrapper.ALWrapper;
 import com.jogamp.openal.AL;
 
 /**
