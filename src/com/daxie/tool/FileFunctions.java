@@ -29,15 +29,15 @@ public class FileFunctions {
 	 * Returns all lines of a text file.
 	 * @param filename Filename to load
 	 * @param encoding Encoding of the file
-	 * @return An array of strings that are split per line
+	 * @return A list of strings that are split per line
 	 * @throws FileNotFoundException Specified file not found
 	 * @throws UnsupportedEncodingException Specified encoding not supported
 	 */
-	public static String[] GetFileAllLines(String filename,String encoding) throws FileNotFoundException,UnsupportedEncodingException{
-		StringBuilder sb=new StringBuilder("");
+	public static List<String> GetFileAllLines(String filename,String encoding) throws FileNotFoundException,UnsupportedEncodingException{
+		List<String> ret=new ArrayList<>();
 		
+		StringBuilder sb=new StringBuilder("");
 		BufferedReader br=null;
-		String line;
 		
 		br=new BufferedReader(
 				new InputStreamReader(
@@ -45,6 +45,8 @@ public class FileFunctions {
 		
 		try {	
 			while(true) {
+				String line;
+				
 				line=br.readLine();
 				if(line==null)break;
 				
@@ -54,12 +56,10 @@ public class FileFunctions {
 		}
 		catch(IOException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
-			LogFile.WriteFatal("[FileFunctions-GetFileAllLines] Below is the stack trace.",true);
-			LogFile.WriteFatal(str, false);
+			LogFile.WriteWarn("[FileFunctions-GetFileAllLines] Below is the stack trace.",true);
+			LogFile.WriteWarn(str, false);
 			
-			LogFile.CloseLogFile();
-			
-			System.exit(1);
+			return ret;
 		}
 		finally {
 			try {
@@ -69,16 +69,19 @@ public class FileFunctions {
 			}
 			catch(IOException e) {
 				String str=ExceptionFunctions.GetPrintStackTraceString(e);
-				LogFile.WriteFatal("[FileFunctions-GetFileAllLines] Below is the stack trace.",true);
-				LogFile.WriteFatal(str, false);
+				LogFile.WriteWarn("[FileFunctions-GetFileAllLines] Below is the stack trace.",true);
+				LogFile.WriteWarn(str, false);
 				
-				LogFile.CloseLogFile();
-				
-				System.exit(1);
+				return ret;
 			}
 		}
 		
-		return sb.toString().split("\n");
+		String[] lines=sb.toString().split("\n");
+		for(String line:lines) {
+			ret.add(line);
+		}
+		
+		return ret;
 	}
 	/**
 	 * Returns all bytes of a binary file.
@@ -106,12 +109,10 @@ public class FileFunctions {
 		}
 		catch(IOException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
-			LogFile.WriteFatal("[FileFunctions-GetFileAllBin] Below is the stack trace.",true);
-			LogFile.WriteFatal(str,false);
+			LogFile.WriteWarn("[FileFunctions-GetFileAllBin] Below is the stack trace.",true);
+			LogFile.WriteWarn(str,false);
 			
-			LogFile.CloseLogFile();
-			
-			System.exit(1);
+			return bin;
 		}
 		finally {
 			try {
@@ -121,12 +122,10 @@ public class FileFunctions {
 			}
 			catch(IOException e) {
 				String str=ExceptionFunctions.GetPrintStackTraceString(e);
-				LogFile.WriteFatal("[FileFunctions-GetFileAllBin] Below is the stack trace.",true);
-				LogFile.WriteFatal(str,false);
+				LogFile.WriteWarn("[FileFunctions-GetFileAllBin] Below is the stack trace.",true);
+				LogFile.WriteWarn(str,false);
 				
-				LogFile.CloseLogFile();
-				
-				System.exit(1);
+				return bin;
 			}
 		}
 		
@@ -157,12 +156,10 @@ public class FileFunctions {
 		}
 		catch(IOException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
-			LogFile.WriteFatal("[FileFunctions-CreateTextFile] Below is the stack trace.",true);
-			LogFile.WriteFatal(str,false);
+			LogFile.WriteWarn("[FileFunctions-CreateTextFile] Below is the stack trace.",true);
+			LogFile.WriteWarn(str,false);
 			
-			LogFile.CloseLogFile();
-			
-			System.exit(1);
+			return;
 		}
 		finally {
 			try {
@@ -170,12 +167,10 @@ public class FileFunctions {
 			}
 			catch(IOException e) {
 				String str=ExceptionFunctions.GetPrintStackTraceString(e);
-				LogFile.WriteFatal("[FileFunctions-CreateTextFile] Below is the stack trace.",true);
-				LogFile.WriteFatal(str,false);
+				LogFile.WriteWarn("[FileFunctions-CreateTextFile] Below is the stack trace.",true);
+				LogFile.WriteWarn(str,false);
 				
-				LogFile.CloseLogFile();
-				
-				System.exit(1);
+				return;
 			}
 		}
 	}
@@ -198,12 +193,10 @@ public class FileFunctions {
 		}
 		catch(IOException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
-			LogFile.WriteFatal("[FileFunctions-CreateBinFile] Below is the stack trace.",true);
-			LogFile.WriteFatal(str,false);
+			LogFile.WriteWarn("[FileFunctions-CreateBinFile] Below is the stack trace.",true);
+			LogFile.WriteWarn(str,false);
 			
-			LogFile.CloseLogFile();
-			
-			System.exit(1);
+			return;
 		}
 		finally {
 			try {
@@ -211,12 +204,10 @@ public class FileFunctions {
 			}
 			catch(IOException e) {
 				String str=ExceptionFunctions.GetPrintStackTraceString(e);
-				LogFile.WriteFatal("[FileFunctions-CreateBinFile] Below is the stack trace.",true);
-				LogFile.WriteFatal(str,false);
+				LogFile.WriteWarn("[FileFunctions-CreateBinFile] Below is the stack trace.",true);
+				LogFile.WriteWarn(str,false);
 				
-				LogFile.CloseLogFile();
-				
-				System.exit(1);
+				return;
 			}
 		}
 	}
