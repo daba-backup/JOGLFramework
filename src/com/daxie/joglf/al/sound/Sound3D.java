@@ -26,6 +26,10 @@ public class Sound3D {
 	private static Vector listener_target=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
 	private static Vector listener_up=VectorFunctions.VGet(0.0f, 1.0f, 0.0f);
 	
+	public static void SetDistanceModel(int model) {
+		ALWrapper.alDistanceModel(model);
+	}
+	
 	public static void SetupListenerProperties() {
 		ALWrapper.alListener3f(AL.AL_POSITION, listener_position.GetX(), listener_position.GetY(), listener_position.GetZ());
 		ALWrapper.alListener3f(AL.AL_VELOCITY, listener_velocity.GetX(), listener_velocity.GetY(), listener_velocity.GetZ());
