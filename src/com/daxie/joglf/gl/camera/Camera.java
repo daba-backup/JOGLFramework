@@ -8,7 +8,7 @@ import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.front.WindowFront;
 import com.daxie.joglf.gl.tool.BufferFunctions;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
-import com.daxie.joglf.gl.wrapper.gl4.GL4Wrapper;
+import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.tool.MathFunctions;
 
 /**
@@ -53,10 +53,8 @@ public class Camera {
 		this.near=near;
 		this.far=far;
 	}
-	public void SetCameraPosition(Vector position) {
+	public void SetCameraPositionAndTarget(Vector position,Vector target) {
 		this.position=position;
-	}
-	public void SetCameraTarget(Vector target) {
 		this.target=target;
 	}
 	public void SetCameraUpVector(Vector up) {
@@ -67,6 +65,12 @@ public class Camera {
 	}
 	public Vector GetCameraTarget() {
 		return new Vector(target);
+	}
+	public Vector GetCameraFrontVector() {
+		Vector front=VectorFunctions.VSub(target,position);
+		front=VectorFunctions.VNorm(front);
+		
+		return front;
 	}
 	public Vector GetCameraUpVector() {
 		return new Vector(up);
@@ -112,29 +116,29 @@ public class Camera {
 		GLShaderFunctions.EnableProgram("texture");
 		program_id=GLShaderFunctions.GetProgramID("texture");
 		
-		camera_position_location=GL4Wrapper.glGetUniformLocation(program_id, "camera_position");
-		camera_target_location=GL4Wrapper.glGetUniformLocation(program_id, "camera_target");
-		projection_location=GL4Wrapper.glGetUniformLocation(program_id, "projection");
-		view_transformation_location=GL4Wrapper.glGetUniformLocation(program_id, "view_transformation");
-		camera_near_location=GL4Wrapper.glGetUniformLocation(program_id, "camera_near");
-		camera_far_location=GL4Wrapper.glGetUniformLocation(program_id, "camera_far");
+		camera_position_location=GLWrapper.glGetUniformLocation(program_id, "camera_position");
+		camera_target_location=GLWrapper.glGetUniformLocation(program_id, "camera_target");
+		projection_location=GLWrapper.glGetUniformLocation(program_id, "projection");
+		view_transformation_location=GLWrapper.glGetUniformLocation(program_id, "view_transformation");
+		camera_near_location=GLWrapper.glGetUniformLocation(program_id, "camera_near");
+		camera_far_location=GLWrapper.glGetUniformLocation(program_id, "camera_far");
 		
-		GL4Wrapper.glUniform3fv(camera_position_location, 1, camera_position);
-		GL4Wrapper.glUniform3fv(camera_target_location, 1, camera_target);
-		GL4Wrapper.glUniformMatrix4fv(projection_location, 1, true, projection);
-		GL4Wrapper.glUniformMatrix4fv(view_transformation_location,1,true,view_transformation);
-		GL4Wrapper.glUniform1f(camera_near_location, near);
-		GL4Wrapper.glUniform1f(camera_far_location, far);
+		GLWrapper.glUniform3fv(camera_position_location, 1, camera_position);
+		GLWrapper.glUniform3fv(camera_target_location, 1, camera_target);
+		GLWrapper.glUniformMatrix4fv(projection_location, 1, true, projection);
+		GLWrapper.glUniformMatrix4fv(view_transformation_location,1,true,view_transformation);
+		GLWrapper.glUniform1f(camera_near_location, near);
+		GLWrapper.glUniform1f(camera_far_location, far);
 		
 		//Color program
 		GLShaderFunctions.EnableProgram("color");
 		program_id=GLShaderFunctions.GetProgramID("color");
 		
-		projection_location=GL4Wrapper.glGetUniformLocation(program_id, "projection");
-		view_transformation_location=GL4Wrapper.glGetUniformLocation(program_id, "view_transformation");
+		projection_location=GLWrapper.glGetUniformLocation(program_id, "projection");
+		view_transformation_location=GLWrapper.glGetUniformLocation(program_id, "view_transformation");
 		
-		GL4Wrapper.glUniformMatrix4fv(projection_location, 1, true, projection);
-		GL4Wrapper.glUniformMatrix4fv(view_transformation_location,1,true,view_transformation);
+		GLWrapper.glUniformMatrix4fv(projection_location, 1, true, projection);
+		GLWrapper.glUniformMatrix4fv(view_transformation_location,1,true,view_transformation);
 		
 		view_transformation_matrix=null;
 	}

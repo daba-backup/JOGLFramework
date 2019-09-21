@@ -22,13 +22,11 @@ public class CameraFront {
 		camera.SetCameraNearFar(near, far);
 	}
 	public static void SetCameraPositionAndTarget_UpVecY(Vector position,Vector target) {
-		camera.SetCameraPosition(position);
-		camera.SetCameraTarget(target);
+		camera.SetCameraPositionAndTarget(position,target);
 		camera.SetCameraUpVector(VectorFunctions.VGet(0.0f, 1.0f, 0.0f));
 	}
 	public static void SetCameraPositionAndTargetAndUpVec(Vector position,Vector target,Vector up) {
-		camera.SetCameraPosition(position);
-		camera.SetCameraTarget(target);
+		camera.SetCameraPositionAndTarget(position,target);
 		camera.SetCameraUpVector(up);
 	}
 	public static void SetCameraViewMatrix(Matrix m) {
@@ -48,8 +46,7 @@ public class CameraFront {
 		Matrix rot_direction=MatrixFunctions.MGetRotAxis(direction, t_rotate);
 		Vector up=VectorFunctions.VTransform(VectorFunctions.VGet(0.0f, 1.0f, 0.0f), rot_direction);
 		
-		camera.SetCameraPosition(position);
-		camera.SetCameraTarget(target);
+		camera.SetCameraPositionAndTarget(position,target);
 		camera.SetCameraUpVector(up);
 	}
 	
@@ -58,6 +55,9 @@ public class CameraFront {
 	}
 	public static Vector GetCameraTarget() {
 		return camera.GetCameraTarget();
+	}
+	public static Vector GetCameraFrontVector() {
+		return camera.GetCameraFrontVector();
 	}
 	public static Vector GetCameraUpVector() {
 		return camera.GetCameraUpVector();
