@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.daxie.joglf.gl.tool.BufferFunctions;
@@ -42,13 +43,18 @@ public class GLShaderFunctions {
 		String[] vertex_shader_code=null;
 		String[] fragment_shader_code=null;
 		try {
-			vertex_shader_code=FileFunctions.GetFileAllLines(vertex_shader_filename, "UTF-8");
-			fragment_shader_code=FileFunctions.GetFileAllLines(fragment_shader_filename, "UTF-8");
+			List<String> vertex_shader_code_list=FileFunctions.GetFileAllLines(vertex_shader_filename, "UTF-8");
+			List<String> fragment_shader_code_list=FileFunctions.GetFileAllLines(fragment_shader_filename, "UTF-8");
+			
+			vertex_shader_code=new String[vertex_shader_code_list.size()];
+			fragment_shader_code=new String[fragment_shader_code_list.size()];
+			vertex_shader_code_list.toArray(vertex_shader_code);
+			fragment_shader_code_list.toArray(fragment_shader_code);
 		}
 		catch(FileNotFoundException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
 			
-			LogFile.WriteWarn("Failed to load a file. Below is the stack trace.",true);
+			LogFile.WriteWarn("[GLShaderFunctions-CreateProgram] Failed to load a file. Below is the stack trace.",true);
 			LogFile.WriteWarn(str,false);
 			
 			return -1;
