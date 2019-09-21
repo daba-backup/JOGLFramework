@@ -1,11 +1,14 @@
 package com.daxie.joglf.gl.texture;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import com.daxie.joglf.gl.front.WindowFront;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
@@ -16,8 +19,10 @@ import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL4;
 import com.jogamp.opengl.GLContext;
+import com.jogamp.opengl.util.awt.ImageUtil;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
+import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
 
 /**
  * Texture manager
@@ -44,6 +49,14 @@ public class TextureMgr {
 		int texture_handle=count;
 		try {
 			Texture texture=TextureIO.newTexture(file,true);
+			if(texture.getMustFlipVertically()==true) {
+				BufferedImage image=ImageIO.read(file);
+				ImageUtil.flipImageVertically(image);
+				
+				GL gl=GLContext.getCurrentGL();
+				texture=AWTTextureIO.newTexture(gl.getGLProfile(), image, true);
+			}
+			
 			textures_map.put(texture_handle, texture);
 		}
 		catch(IOException e) {
@@ -156,52 +169,26 @@ public class TextureMgr {
 		float normalized_width=(float)width/window_width*2.0f;
 		float normalized_height=(float)height/window_height*2.0f;
 		
-		boolean must_flipped_flag=texture.getMustFlipVertically();
-		
 		//Bottom left
 		pos_buffer.put(normalized_x);
 		pos_buffer.put(normalized_y);
-		if(must_flipped_flag==true) {
-			uv_buffer.put(0.0f);
-			uv_buffer.put(1.0f);
-		}
-		else {
-			uv_buffer.put(0.0f);
-			uv_buffer.put(0.0f);
-		}
+		uv_buffer.put(0.0f);
+		uv_buffer.put(0.0f);
 		//Bottom right
 		pos_buffer.put(normalized_x+normalized_width);
 		pos_buffer.put(normalized_y);
-		if(must_flipped_flag==true) {
-			uv_buffer.put(1.0f);
-			uv_buffer.put(1.0f);
-		}
-		else {
-			uv_buffer.put(1.0f);
-			uv_buffer.put(0.0f);
-		}
+		uv_buffer.put(1.0f);
+		uv_buffer.put(0.0f);
 		//Top right
 		pos_buffer.put(normalized_x+normalized_width);
 		pos_buffer.put(normalized_y+normalized_height);
-		if(must_flipped_flag==true) {
-			uv_buffer.put(1.0f);
-			uv_buffer.put(0.0f);
-		}
-		else {
-			uv_buffer.put(1.0f);
-			uv_buffer.put(1.0f);
-		}
+		uv_buffer.put(1.0f);
+		uv_buffer.put(1.0f);
 		//Top left
 		pos_buffer.put(normalized_x);
 		pos_buffer.put(normalized_y+normalized_height);
-		if(must_flipped_flag==true) {
-			uv_buffer.put(0.0f);
-			uv_buffer.put(0.0f);
-		}
-		else {
-			uv_buffer.put(0.0f);
-			uv_buffer.put(1.0f);
-		}
+		uv_buffer.put(0.0f);
+		uv_buffer.put(1.0f);
 		
 		indices.flip();
 		pos_buffer.flip();
