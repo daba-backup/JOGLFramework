@@ -10,88 +10,105 @@ import com.daxie.joglf.gl.tool.SegmentFunctions;
  *
  */
 public class HitCheckFunctions {
-	public static HitResult HitCheck_Segment_Triangle(Vector segment_pos_1,Vector segment_pos_2,
+	public static float GetSquareDistance_Capsule_Triangle(
+			Vector capsule_pos_1,Vector capsule_pos_2,
 			Vector triangle_pos_1,Vector triangle_pos_2,Vector triangle_pos_3) {
-		HitResult hit_result=new HitResult();
+		float distance_c1c2_t1t2;
+		float distance_c1c2_t2t3;
+		float distance_c1c2_t3t1;
+		HitResult hit_result_c1_t;
+		HitResult hit_result_c2_t;
 		
-		final float EPSILON=1.0E-3f;
+		distance_c1c2_t1t2=GetSquareDistance_Segment_Segment(capsule_pos_1, capsule_pos_2, triangle_pos_1,triangle_pos_2);
+		distance_c1c2_t2t3=GetSquareDistance_Segment_Segment(capsule_pos_1, capsule_pos_2, triangle_pos_2,triangle_pos_3);
+		distance_c1c2_t3t1=GetSquareDistance_Segment_Segment(capsule_pos_1, capsule_pos_2, triangle_pos_3,triangle_pos_1);
+		hit_result_c1_t=HitCheck_PerpendicularFromPoint_Triangle(capsule_pos_1, triangle_pos_1, triangle_pos_2, triangle_pos_3);
+		hit_result_c2_t=HitCheck_PerpendicularFromPoint_Triangle(capsule_pos_2, triangle_pos_1, triangle_pos_2, triangle_pos_3);
 		
-		Vector edge1,edge2,edge3;
-		edge1=VectorFunctions.VSub(triangle_pos_2, triangle_pos_1);
-		edge2=VectorFunctions.VSub(triangle_pos_3, triangle_pos_2);
-		edge3=VectorFunctions.VSub(triangle_pos_1, triangle_pos_3);
-		
-		Vector normal;
-		normal=VectorFunctions.VCross(edge1, edge2);
-		normal=VectorFunctions.VNorm(normal);
-		
-		Vector v1,v2;
-		v1=VectorFunctions.VSub(segment_pos_1, triangle_pos_1);
-		v2=VectorFunctions.VSub(segment_pos_2, triangle_pos_1);
-		
-		float dot1,dot2;
-		dot1=VectorFunctions.VDot(v1, normal);
-		dot2=VectorFunctions.VDot(v2, normal);
-		
-		float abs_dot1,abs_dot2;
-		abs_dot1=Math.abs(dot1);
-		abs_dot2=Math.abs(dot2);
-		
-		float a=abs_dot1/(abs_dot1+abs_dot2);
-		
-		Vector intersection;
-		intersection=VectorFunctions.VAdd(VectorFunctions.VScale(v1, 1.0f-a), VectorFunctions.VScale(v2, a));
-		intersection=VectorFunctions.VAdd(triangle_pos_1, intersection);
-		
-		//If the intersection is on an edge, then the intersection is on the triangle.
-		float distance_edge_1,distance_edge_2,distance_edge_3;
-		distance_edge_1=GetSquareDistance_Point_Segment(intersection, triangle_pos_1,triangle_pos_2);
-		distance_edge_2=GetSquareDistance_Point_Segment(intersection,triangle_pos_2,triangle_pos_3);
-		distance_edge_3=GetSquareDistance_Point_Segment(intersection,triangle_pos_3,triangle_pos_1);
-		
-		final float SQUARE_EPSILON=EPSILON*EPSILON;//Note that this might be an invalid value if EPSILON is too small.
-		
-		if(distance_edge_1<SQUARE_EPSILON||distance_edge_2<SQUARE_EPSILON||distance_edge_3<SQUARE_EPSILON) {
-			hit_result.SetHitFlag(true);
-			hit_result.SetHitPosition(intersection);
+		float min_distance=distance_c1c2_t1t2;
+		if(distance_c1c2_t2t3<min_distance)min_distance=distance_c1c2_t2t3;
+		if(distance_c1c2_t3t1<min_distance)min_distance=distance_c1c2_t3t1;
+		if(hit_result_c1_t.GetHitFlag()==true) {
+			Vector perpendicular_vector;
+			float distance;
 			
-			return hit_result;
+			perpendicular_vector=VectorFunctions.VSub(hit_result_c1_t.GetHitPosition(),capsule_pos_1);
+			distance=VectorFunctions.VSquareSize(perpendicular_vector);
+			
+			if(distance<min_distance)min_distance=distance;
+		}
+		if(hit_result_c2_t.GetHitFlag()==true) {
+			Vector perpendicular_vector;
+			float distance;
+			
+			perpendicular_vector=VectorFunctions.VSub(hit_result_c2_t.GetHitPosition(),capsule_pos_2);
+			distance=VectorFunctions.VSquareSize(perpendicular_vector);
+			
+			if(distance<min_distance)min_distance=distance;
 		}
 		
-		//Judge whether the intersection calculated is located on the triangle.
-		Vector v3,v4,v5;
-		v3=VectorFunctions.VSub(intersection,triangle_pos_2);
-		v4=VectorFunctions.VSub(intersection, triangle_pos_3);
-		v5=VectorFunctions.VSub(intersection, triangle_pos_1);
+		return min_distance;
+	}
+	public static LineTInfo GetSquareDistance_Line_Line(
+			Vector line1_pos,Vector line1_direction_vector,Vector line2_pos,Vector line2_direction_vector) {
+		LineTInfo line_t_info=new LineTInfo();
+		float distance;
 		
-		Vector n1,n2,n3;
-		n1=VectorFunctions.VCross(edge1, v3);
-		n2=VectorFunctions.VCross(edge2, v4);
-		n3=VectorFunctions.VCross(edge3, v5);
-		n1=VectorFunctions.VNorm(n1);
-		n2=VectorFunctions.VNorm(n2);
-		n3=VectorFunctions.VNorm(n3);
+		final float EPSILON=1.0E-6f;
+		final float SQUARE_EPSILON=EPSILON*EPSILON;
 		
-		//Check whether calculated normals "n1", "n2" and "n3" are identical to "normal".
-		Vector sub_1,sub_2,sub_3;
-		sub_1=VectorFunctions.VSub(n1, normal);
-		sub_2=VectorFunctions.VSub(n2, normal);
-		sub_3=VectorFunctions.VSub(n3, normal);
-		
-		float sub_1_size,sub_2_size,sub_3_size;
-		sub_1_size=VectorFunctions.VSquareSize(sub_1);
-		sub_2_size=VectorFunctions.VSquareSize(sub_2);
-		sub_3_size=VectorFunctions.VSquareSize(sub_3);
-		
-		if(sub_1_size<SQUARE_EPSILON&&sub_2_size<SQUARE_EPSILON&&sub_3_size<SQUARE_EPSILON) {
-			hit_result.SetHitFlag(true);
-			hit_result.SetHitPosition(intersection);
-		}
-		else {
-			hit_result.SetHitFlag(false);
+		//If two lines are parallel, 
+		//the distance of two lines equals the distance between line1_pos and line2.
+		Vector cr;
+		cr=VectorFunctions.VCross(line1_direction_vector, line2_direction_vector);
+		if(VectorFunctions.VSquareSize(cr)<SQUARE_EPSILON) {
+			line_t_info=GetSquareDistance_Point_Line(line1_pos, line2_pos, line2_direction_vector);
+			return line_t_info;
 		}
 		
-		return hit_result;
+		Vector p11,p21;
+		Vector v1,v2;
+		p11=line1_pos;
+		p21=line2_pos;
+		v1=line1_direction_vector;
+		v2=line2_direction_vector;
+		
+		Vector p1121;
+		p1121=VectorFunctions.VSub(p11, p21);
+		
+		float dot1,dot2,dot3,dot4,dot5;
+		dot1=VectorFunctions.VDot(v1, v1);
+		dot2=VectorFunctions.VDot(v2, v2);
+		dot3=VectorFunctions.VDot(v1, v2);
+		dot4=VectorFunctions.VDot(v1, p1121);
+		dot5=VectorFunctions.VDot(v2, p1121);
+		
+		float numerator,denominator;
+		float t1;
+		numerator=dot3*dot5-dot2*dot4;
+		denominator=dot1*dot2-dot3*dot3;
+		t1=numerator/denominator;
+		
+		Vector vtemp;
+		float dot6;
+		float t2;
+		vtemp=VectorFunctions.VSub(p11, p21);
+		vtemp=VectorFunctions.VAdd(vtemp, VectorFunctions.VScale(v1,t1));
+		dot6=VectorFunctions.VDot(v2, vtemp);
+		t2=dot6/dot2;
+		
+		Vector p1,p2;
+		Vector p12;
+		p1=VectorFunctions.VAdd(p11, VectorFunctions.VScale(v1, t1));
+		p2=VectorFunctions.VAdd(p21, VectorFunctions.VScale(v2, t2));
+		p12=VectorFunctions.VSub(p1, p2);
+		
+		distance=VectorFunctions.VSquareSize(p12);
+		line_t_info.SetDistance(distance);	
+		line_t_info.SetT1(t1);
+		line_t_info.SetT2(t2);
+		
+		return line_t_info;
 	}
 	public static LineTInfo GetSquareDistance_Point_Line(Vector point,Vector line_point,Vector line_direction_vector) {
 		LineTInfo line_t_info=new LineTInfo();
@@ -154,67 +171,6 @@ public class HitCheckFunctions {
 		}
 		
 		return distance;
-	}
-	public static LineTInfo GetSquareDistance_Line_Line(
-			Vector line1_pos,Vector line1_direction_vector,Vector line2_pos,Vector line2_direction_vector) {
-		LineTInfo line_t_info=new LineTInfo();
-		float distance;
-		
-		final float EPSILON=1.0E-6f;
-		final float SQUARE_EPSILON=EPSILON*EPSILON;
-		
-		//If two lines are parallel, 
-		//the distance of two lines equals the distance between line1_pos and line2.
-		Vector cr;
-		cr=VectorFunctions.VCross(line1_direction_vector, line2_direction_vector);
-		if(VectorFunctions.VSquareSize(cr)<SQUARE_EPSILON) {
-			line_t_info=GetSquareDistance_Point_Line(line1_pos, line2_pos, line2_direction_vector);
-			return line_t_info;
-		}
-		
-		Vector p11,p21;
-		Vector v1,v2;
-		p11=line1_pos;
-		p21=line2_pos;
-		v1=line1_direction_vector;
-		v2=line2_direction_vector;
-		
-		Vector p1121;
-		p1121=VectorFunctions.VSub(p11, p21);
-		
-		float dot1,dot2,dot3,dot4,dot5;
-		dot1=VectorFunctions.VDot(v1, v1);
-		dot2=VectorFunctions.VDot(v2, v2);
-		dot3=VectorFunctions.VDot(v1, v2);
-		dot4=VectorFunctions.VDot(v1, p1121);
-		dot5=VectorFunctions.VDot(v2, p1121);
-		
-		float numerator,denominator;
-		float t1;
-		numerator=dot3*dot5-dot2*dot4;
-		denominator=dot1*dot2-dot3*dot3;
-		t1=numerator/denominator;
-		
-		Vector vtemp;
-		float dot6;
-		float t2;
-		vtemp=VectorFunctions.VSub(p11, p21);
-		vtemp=VectorFunctions.VAdd(vtemp, VectorFunctions.VScale(v1,t1));
-		dot6=VectorFunctions.VDot(v2, vtemp);
-		t2=dot6/dot2;
-		
-		Vector p1,p2;
-		Vector p12;
-		p1=VectorFunctions.VAdd(p11, VectorFunctions.VScale(v1, t1));
-		p2=VectorFunctions.VAdd(p21, VectorFunctions.VScale(v2, t2));
-		p12=VectorFunctions.VSub(p1, p2);
-		
-		distance=VectorFunctions.VSquareSize(p12);
-		line_t_info.SetDistance(distance);	
-		line_t_info.SetT1(t1);
-		line_t_info.SetT2(t2);
-		
-		return line_t_info;
 	}
 	public static float GetSquareDistance_Segment_Segment(
 			Vector segment1_pos_1,Vector segment1_pos_2,Vector segment2_pos_1,Vector segment2_pos_2) {
@@ -299,6 +255,33 @@ public class HitCheckFunctions {
 			return distance;
 		}
 	}
+	public static float GetSquareDistance_Sphere_Triangle(
+			Vector center,Vector triangle_pos_1,Vector triangle_pos_2,Vector triangle_pos_3) {
+		float distance_c_t1t2;
+		float distance_c_t2t3;
+		float distance_c_t3t1;
+		HitResult hit_result_c_t;
+		
+		distance_c_t1t2=GetSquareDistance_Point_Segment(center, triangle_pos_1, triangle_pos_2);
+		distance_c_t2t3=GetSquareDistance_Point_Segment(center, triangle_pos_2, triangle_pos_3);
+		distance_c_t3t1=GetSquareDistance_Point_Segment(center, triangle_pos_3, triangle_pos_1);
+		hit_result_c_t=HitCheck_PerpendicularFromPoint_Triangle(center, triangle_pos_1, triangle_pos_2, triangle_pos_3);
+		
+		float min_distance=distance_c_t1t2;
+		if(distance_c_t2t3<min_distance)min_distance=distance_c_t2t3;
+		if(distance_c_t3t1<min_distance)min_distance=distance_c_t3t1;
+		if(hit_result_c_t.GetHitFlag()==true) {
+			Vector perpendicular_vector;
+			float distance;
+			
+			perpendicular_vector=VectorFunctions.VSub(hit_result_c_t.GetHitPosition(),center);
+			distance=VectorFunctions.VSquareSize(perpendicular_vector);
+			
+			if(distance<min_distance)min_distance=distance;
+		}
+		
+		return min_distance;
+	}
 	public static boolean HitCheck_Capsule_Capsule(
 			Vector capsule1_pos_1,Vector capsule1_pos_2,float r1,
 			Vector capsule2_pos_1,Vector capsule2_pos_2,float r2) {
@@ -311,6 +294,20 @@ public class HitCheckFunctions {
 		float square_r=(r1+r2)*(r1+r2);
 		
 		if(distance<square_r)ret=true;
+		else ret=false;
+		
+		return ret;
+	}
+	public static boolean HitCheck_Capsule_Triangle(
+			Vector capsule_pos_1,Vector capsule_pos_2,float r,
+			Vector triangle_pos_1,Vector triangle_pos_2,Vector triangle_pos_3) {
+		boolean ret;
+		
+		float min_distance;
+		min_distance=GetSquareDistance_Capsule_Triangle(
+				capsule_pos_1, capsule_pos_2, triangle_pos_1, triangle_pos_2, triangle_pos_3);
+		
+		if(min_distance<r*r)ret=true;
 		else ret=false;
 		
 		return ret;
@@ -341,82 +338,98 @@ public class HitCheckFunctions {
 		
 		return hit_result;
 	}
-	public static float GetSquareDistance_Capsule_Triangle(
-			Vector capsule_pos_1,Vector capsule_pos_2,
+	public static HitResult HitCheck_Segment_Triangle(Vector segment_pos_1,Vector segment_pos_2,
 			Vector triangle_pos_1,Vector triangle_pos_2,Vector triangle_pos_3) {
-		float distance_c1c2_t1t2;
-		float distance_c1c2_t2t3;
-		float distance_c1c2_t3t1;
-		HitResult hit_result_c1_t;
-		HitResult hit_result_c2_t;
+		HitResult hit_result=new HitResult();
 		
-		distance_c1c2_t1t2=GetSquareDistance_Segment_Segment(capsule_pos_1, capsule_pos_2, triangle_pos_1,triangle_pos_2);
-		distance_c1c2_t2t3=GetSquareDistance_Segment_Segment(capsule_pos_1, capsule_pos_2, triangle_pos_2,triangle_pos_3);
-		distance_c1c2_t3t1=GetSquareDistance_Segment_Segment(capsule_pos_1, capsule_pos_2, triangle_pos_3,triangle_pos_1);
-		hit_result_c1_t=HitCheck_PerpendicularFromPoint_Triangle(capsule_pos_1, triangle_pos_1, triangle_pos_2, triangle_pos_3);
-		hit_result_c2_t=HitCheck_PerpendicularFromPoint_Triangle(capsule_pos_2, triangle_pos_1, triangle_pos_2, triangle_pos_3);
+		final float EPSILON=1.0E-3f;
 		
-		float min_distance=distance_c1c2_t1t2;
-		if(distance_c1c2_t2t3<min_distance)min_distance=distance_c1c2_t2t3;
-		if(distance_c1c2_t3t1<min_distance)min_distance=distance_c1c2_t3t1;
-		if(hit_result_c1_t.GetHitFlag()==true) {
-			Vector perpendicular_vector;
-			float distance;
+		Vector edge1,edge2,edge3;
+		edge1=VectorFunctions.VSub(triangle_pos_2, triangle_pos_1);
+		edge2=VectorFunctions.VSub(triangle_pos_3, triangle_pos_2);
+		edge3=VectorFunctions.VSub(triangle_pos_1, triangle_pos_3);
+		
+		Vector normal;
+		normal=VectorFunctions.VCross(edge1, edge2);
+		normal=VectorFunctions.VNorm(normal);
+		
+		Vector v1,v2;
+		v1=VectorFunctions.VSub(segment_pos_1, triangle_pos_1);
+		v2=VectorFunctions.VSub(segment_pos_2, triangle_pos_1);
+		
+		float dot1,dot2;
+		dot1=VectorFunctions.VDot(v1, normal);
+		dot2=VectorFunctions.VDot(v2, normal);
+		
+		float abs_dot1,abs_dot2;
+		abs_dot1=Math.abs(dot1);
+		abs_dot2=Math.abs(dot2);
+		
+		float a=abs_dot1/(abs_dot1+abs_dot2);
+		
+		Vector intersection;
+		intersection=VectorFunctions.VAdd(VectorFunctions.VScale(v1, 1.0f-a), VectorFunctions.VScale(v2, a));
+		intersection=VectorFunctions.VAdd(triangle_pos_1, intersection);
+		
+		//If the intersection is on an edge, then the intersection is on the triangle.
+		float distance_edge_1,distance_edge_2,distance_edge_3;
+		distance_edge_1=GetSquareDistance_Point_Segment(intersection, triangle_pos_1,triangle_pos_2);
+		distance_edge_2=GetSquareDistance_Point_Segment(intersection,triangle_pos_2,triangle_pos_3);
+		distance_edge_3=GetSquareDistance_Point_Segment(intersection,triangle_pos_3,triangle_pos_1);
+		
+		final float SQUARE_EPSILON=EPSILON*EPSILON;//Note that this might be an invalid value if EPSILON is too small.
+		
+		if(distance_edge_1<SQUARE_EPSILON||distance_edge_2<SQUARE_EPSILON||distance_edge_3<SQUARE_EPSILON) {
+			hit_result.SetHitFlag(true);
+			hit_result.SetHitPosition(intersection);
 			
-			perpendicular_vector=VectorFunctions.VSub(hit_result_c1_t.GetHitPosition(),capsule_pos_1);
-			distance=VectorFunctions.VSquareSize(perpendicular_vector);
-			
-			if(distance<min_distance)min_distance=distance;
+			return hit_result;
 		}
-		if(hit_result_c2_t.GetHitFlag()==true) {
-			Vector perpendicular_vector;
-			float distance;
-			
-			perpendicular_vector=VectorFunctions.VSub(hit_result_c2_t.GetHitPosition(),capsule_pos_2);
-			distance=VectorFunctions.VSquareSize(perpendicular_vector);
-			
-			if(distance<min_distance)min_distance=distance;
+		
+		//Judge whether the intersection calculated is located on the triangle.
+		Vector v3,v4,v5;
+		v3=VectorFunctions.VSub(intersection,triangle_pos_2);
+		v4=VectorFunctions.VSub(intersection, triangle_pos_3);
+		v5=VectorFunctions.VSub(intersection, triangle_pos_1);
+		
+		Vector n1,n2,n3;
+		n1=VectorFunctions.VCross(edge1, v3);
+		n2=VectorFunctions.VCross(edge2, v4);
+		n3=VectorFunctions.VCross(edge3, v5);
+		n1=VectorFunctions.VNorm(n1);
+		n2=VectorFunctions.VNorm(n2);
+		n3=VectorFunctions.VNorm(n3);
+		
+		//Check whether calculated normals "n1", "n2" and "n3" are identical to "normal".
+		Vector sub_1,sub_2,sub_3;
+		sub_1=VectorFunctions.VSub(n1, normal);
+		sub_2=VectorFunctions.VSub(n2, normal);
+		sub_3=VectorFunctions.VSub(n3, normal);
+		
+		float sub_1_size,sub_2_size,sub_3_size;
+		sub_1_size=VectorFunctions.VSquareSize(sub_1);
+		sub_2_size=VectorFunctions.VSquareSize(sub_2);
+		sub_3_size=VectorFunctions.VSquareSize(sub_3);
+		
+		if(sub_1_size<SQUARE_EPSILON&&sub_2_size<SQUARE_EPSILON&&sub_3_size<SQUARE_EPSILON) {
+			hit_result.SetHitFlag(true);
+			hit_result.SetHitPosition(intersection);
+		}
+		else {
+			hit_result.SetHitFlag(false);
 		}
 		
-		return min_distance;
+		return hit_result;
 	}
-	public static float GetSquareDistance_Sphere_Triangle(
-			Vector center,Vector triangle_pos_1,Vector triangle_pos_2,Vector triangle_pos_3) {
-		float distance_c_t1t2;
-		float distance_c_t2t3;
-		float distance_c_t3t1;
-		HitResult hit_result_c_t;
-		
-		distance_c_t1t2=GetSquareDistance_Point_Segment(center, triangle_pos_1, triangle_pos_2);
-		distance_c_t2t3=GetSquareDistance_Point_Segment(center, triangle_pos_2, triangle_pos_3);
-		distance_c_t3t1=GetSquareDistance_Point_Segment(center, triangle_pos_3, triangle_pos_1);
-		hit_result_c_t=HitCheck_PerpendicularFromPoint_Triangle(center, triangle_pos_1, triangle_pos_2, triangle_pos_3);
-		
-		float min_distance=distance_c_t1t2;
-		if(distance_c_t2t3<min_distance)min_distance=distance_c_t2t3;
-		if(distance_c_t3t1<min_distance)min_distance=distance_c_t3t1;
-		if(hit_result_c_t.GetHitFlag()==true) {
-			Vector perpendicular_vector;
-			float distance;
-			
-			perpendicular_vector=VectorFunctions.VSub(hit_result_c_t.GetHitPosition(),center);
-			distance=VectorFunctions.VSquareSize(perpendicular_vector);
-			
-			if(distance<min_distance)min_distance=distance;
-		}
-		
-		return min_distance;
-	}
-	public static boolean HitCheck_Capsule_Triangle(
-			Vector capsule_pos_1,Vector capsule_pos_2,float r,
-			Vector triangle_pos_1,Vector triangle_pos_2,Vector triangle_pos_3) {
+	public static boolean HitCheck_Sphere_Sphere(
+			Vector sphere1_center,float sphere1_r,Vector sphere2_center,float sphere2_r) {
 		boolean ret;
 		
-		float min_distance;
-		min_distance=GetSquareDistance_Capsule_Triangle(
-				capsule_pos_1, capsule_pos_2, triangle_pos_1, triangle_pos_2, triangle_pos_3);
+		Vector dvector=VectorFunctions.VSub(sphere2_center, sphere1_center);
+		float distance=VectorFunctions.VSquareSize(dvector);
+		float square_sum_r=(sphere1_r+sphere2_r)*(sphere1_r+sphere2_r);
 		
-		if(min_distance<r*r)ret=true;
+		if(distance<square_sum_r)ret=true;
 		else ret=false;
 		
 		return ret;
