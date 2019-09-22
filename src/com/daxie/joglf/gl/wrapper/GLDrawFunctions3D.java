@@ -135,6 +135,27 @@ public class GLDrawFunctions3D {
 				ColorU8Functions.GetColorU8(0.0f, 0.0f, 1.0f, 1.0f));
 	}
 	
+	public static void DrawTriangle3D(Vector triangle_pos_1,Vector triangle_pos_2,Vector triangle_pos_3,ColorU8 color) {
+		Triangle triangle=new Triangle();
+		
+		Vertex3D[] vertices=new Vertex3D[3];
+		for(int i=0;i<3;i++) {
+			vertices[i]=new Vertex3D();
+		}
+		
+		vertices[0].SetPos(triangle_pos_1);
+		vertices[1].SetPos(triangle_pos_2);
+		vertices[2].SetPos(triangle_pos_3);
+		for(int i=0;i<3;i++) {
+			vertices[i].SetDif(color);
+		}
+		
+		for(int i=0;i<3;i++) {
+			triangle.SetVertex(i, vertices[i]);
+		}
+		
+		DrawTriangle3D(triangle);
+	}
 	public static void DrawTriangle3D(Triangle triangle) {
 		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);
 		IntBuffer color_vbo=Buffers.newDirectIntBuffer(1);
