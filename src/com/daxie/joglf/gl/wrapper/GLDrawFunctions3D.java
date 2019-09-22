@@ -210,7 +210,7 @@ public class GLDrawFunctions3D {
 		
 		//Draw
 		GLWrapper.glBindVertexArray(vao.get(0));
-		GLWrapper.glDrawArrays(GL4.GL_LINES, 0, 2);
+		GLWrapper.glDrawArrays(GL4.GL_LINE_LOOP, 0, 3);
 		GLWrapper.glBindVertexArray(0);
 		
 		//Delete buffers
