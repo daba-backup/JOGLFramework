@@ -421,6 +421,19 @@ public class HitCheckFunctions {
 		
 		return hit_result;
 	}
+	public static boolean HitCheck_Sphere_Capsule(
+			Vector sphere_center,float sphere_r,
+			Vector capsule_pos_1,Vector capsule_pos_2,float capsule_r) {
+		boolean ret;
+		
+		float distance=GetSquareDistance_Point_Segment(sphere_center, capsule_pos_1, capsule_pos_2);
+		float square_sum_r=(sphere_r+capsule_r)*(sphere_r+capsule_r);
+		
+		if(distance<square_sum_r)ret=true;
+		else ret=false;
+		
+		return ret;
+	}
 	public static boolean HitCheck_Sphere_Sphere(
 			Vector sphere1_center,float sphere1_r,Vector sphere2_center,float sphere2_r) {
 		boolean ret;
