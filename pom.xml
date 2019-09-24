@@ -52,7 +52,7 @@
 					<source>1.8</source>
 					<target>1.8</target>
 					<excludes>
-						<exclude>com/daxie/main/**</exclude>
+						<exclude>com/daxie/testmain/**</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
