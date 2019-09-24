@@ -314,11 +314,9 @@ class ModelMgr {
 			FloatBuffer norm_buffer=buffered_vertices.GetNormBuffer();
 			
 			int capacity;
-			int upper_bound;
 			
 			capacity=pos_buffer.capacity();
-			upper_bound=capacity/3;
-			for(int i=0;i<upper_bound;i++) {
+			for(int i=0;i<capacity;i+=3) {
 				Vector vtemp=new Vector();
 				
 				vtemp.SetX(pos_buffer.get(i));
@@ -335,8 +333,7 @@ class ModelMgr {
 			}
 			
 			capacity=norm_buffer.capacity();
-			upper_bound=capacity/3;
-			for(int i=0;i<upper_bound;i++) {
+			for(int i=0;i<capacity;i+=3) {
 				Vector vtemp=new Vector();
 				
 				vtemp.SetX(norm_buffer.get(i));
