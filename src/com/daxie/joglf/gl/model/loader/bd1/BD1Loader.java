@@ -50,6 +50,7 @@ public class BD1Loader {
 		}
 		
 		List<BD1Block> blocks=bd1_parser.GetBlocks();
+		BD1Inverter.InvertZ(blocks);
 		
 		BD1Triangulator triangulator=new BD1Triangulator();
 		triangulator.TriangulateBlocks(blocks);
@@ -136,6 +137,7 @@ public class BD1Loader {
 		}
 		
 		List<BD1Block> blocks=bd1_parser.GetBlocks();
+		BD1Inverter.InvertZ(blocks);
 		
 		BD1Triangulator triangulator=new BD1Triangulator();
 		triangulator.TriangulateBlocks(blocks);
