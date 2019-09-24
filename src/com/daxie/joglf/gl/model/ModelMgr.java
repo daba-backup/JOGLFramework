@@ -303,6 +303,9 @@ class ModelMgr {
 		property_updated_flag=true;
 	}
 	public void SetRotation(Vector rotation) {
+		Vector original_position=this.GetPosition();
+		this.SetPosition(VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
+		
 		Vector displacement=VectorFunctions.VSub(rotation, this.rotation);
 		
 		Matrix rot_x=MatrixFunctions.MGetRotX(displacement.GetX());
@@ -353,10 +356,17 @@ class ModelMgr {
 			buffered_vertices.SetNormBuffer(norm_buffer);
 		}
 		
+		this.SetPosition(original_position);
+		
 		this.rotation=rotation;
 		property_updated_flag=true;
 	}
 	public void SetScale(Vector scale) {
+		Vector original_position=this.GetPosition();
+		Vector original_rotation=this.GetRotation();
+		this.SetPosition(VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
+		this.SetRotation(VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
+		
 		float displacement_x=scale.GetX()/this.scale.GetX();
 		float displacement_y=scale.GetY()/this.scale.GetY();
 		float displacement_z=scale.GetZ()/this.scale.GetZ();
@@ -375,6 +385,9 @@ class ModelMgr {
 			
 			buffered_vertices.SetPosBuffer(pos_buffer);
 		}
+		
+		this.SetPosition(original_position);
+		this.SetRotation(original_rotation);
 		
 		this.scale=scale;
 		property_updated_flag=true;

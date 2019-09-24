@@ -4,6 +4,8 @@ JOGLFramework aims to simplify OpenGL-relating processing by wrapping raw functi
 
 It also provides several wrapper functions for Java OpenAL (JOAL).
 
+This project is currently under development. Therefore the specification is subject to frequent change.
+
 # Overview
 
 ## Features
@@ -11,67 +13,6 @@ It also provides several wrapper functions for Java OpenAL (JOAL).
 - 3D model management
 - Texture management
 - Play WAV and MP3
-
-## Install
-
-### Maven
-
-Add these lines to pom.xml in your project.
-
-```xml
-<groupId>com.github.dabasan</groupId>
-<artifactId>joglframework</artifactId>
-<version>1.0.0</version>
-```
-
-## Usage
-
-Below is a short snippet.
-
-------
-
-```java
-public class Main extends MainBase{
-	public static void main(String[] args) {
-		new Main(GLVersion.GL4);
-	}
-	public Main(GLVersion version) {
-		super(version);
-	}
-	
-	//init() is called when the OpenGL context is created.
-	@Override
-	public void init(GLAutoDrawable drawable) {
-		super.init(drawable);
-		
-		System.out.println("init");
-	}
-	//reshape() is called when the main window is resized.
-	@Override
-	public void reshape(GLAutoDrawable drawable,int x,int y,int width,int height) {
-		super.reshape(drawable, x, y, width, height);
-		
-		System.out.println("reshape");
-	}
-	//display() is called every frame.
-	@Override
-	public void display(GLAutoDrawable drawable) {
-		super.display(drawable);
-		
-		//Close the window if ESC is pressed.
-		if(KeyboardFront.GetKeyboardPressingCount(KeyboardEnum.KEY_ESCAPE)==1) {
-			WindowFront.CloseWindow();
-		}
-	}
-	//dispose() is called when the OpenGL context is destroyed.
-	@Override
-	public void dispose(GLAutoDrawable drawable) {
-		super.dispose(drawable);
-		
-		System.out.println("dispose");
-	}
-}
-```
 
 ## Sample
 
@@ -107,8 +48,3 @@ JOGLFramework is released under the MIT license.
 
 - [JOGL - Java Binding for the OpenGL API](https://jogamp.org/jogl/www/)
   Official website of JOGL
-
-------
-
-- [Twitter](https://twitter.com/Daxie_tksm6)
-  My twitter account
