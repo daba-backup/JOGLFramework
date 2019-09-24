@@ -32,6 +32,9 @@ class ModelMgr {
 	private Vector rotation;
 	private Vector scale;
 	
+	private boolean mat_enabled_flag;
+	private Matrix mat;
+	
 	private boolean property_updated_flag;
 	
 	private IntBuffer indices_vbo;
@@ -46,6 +49,8 @@ class ModelMgr {
 		position=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
 		rotation=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
 		scale=VectorFunctions.VGet(1.0f, 1.0f, 1.0f);
+		
+		mat_enabled_flag=false;
 		
 		property_updated_flag=false;
 		
@@ -272,12 +277,25 @@ class ModelMgr {
 	public Vector GetScale() {
 		return new Vector(scale);
 	}
+	public Matrix GetMatrix() {
+		if(mat_enabled_flag==false) {
+			LogFile.WriteWarn("[ModelMgr-GetMatrix] Matrix is disabled.", true);
+			return new Matrix();
+		}
+		
+		return new Matrix(mat);
+	}
 	
 	public int GetElementNum() {
 		return buffered_vertices_list.size();
 	}
 	
 	public void SetPosition(Vector position) {
+		if(mat_enabled_flag==true) {
+			LogFile.WriteWarn("[ModelMgr-SetPosition] This method is disabled due to matrix operations.", true);
+			return;
+		}
+		
 		Vector translate=VectorFunctions.VSub(position, this.position);
 		
 		float translate_x=translate.GetX();
@@ -303,6 +321,11 @@ class ModelMgr {
 		property_updated_flag=true;
 	}
 	public void SetRotation(Vector rotation) {
+		if(mat_enabled_flag==true) {
+			LogFile.WriteWarn("[ModelMgr-SetRotation] This method is disabled due to matrix operations.", true);
+			return;
+		}
+		
 		Vector original_position=this.GetPosition();
 		this.SetPosition(VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
 		
@@ -362,6 +385,11 @@ class ModelMgr {
 		property_updated_flag=true;
 	}
 	public void SetScale(Vector scale) {
+		if(mat_enabled_flag==true) {
+			LogFile.WriteWarn("[ModelMgr-SetScale] This method is disabled due to matrix operations.", true);
+			return;
+		}
+		
 		Vector original_position=this.GetPosition();
 		Vector original_rotation=this.GetRotation();
 		this.SetPosition(VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
@@ -390,6 +418,68 @@ class ModelMgr {
 		this.SetRotation(original_rotation);
 		
 		this.scale=scale;
+		property_updated_flag=true;
+	}
+	public void SetMatrix(Matrix m) {
+		final float EPSILON=1.0E-8f;
+		boolean identity_matrix_flag=true;
+		for(int i=0;i<4;i++) {
+			for(int j=0;j<4;j++) {
+				if(m.GetValue(i, j)>EPSILON) {
+					identity_matrix_flag=false;
+					break;
+				}
+			}
+		}
+		
+		if(identity_matrix_flag==true) {
+			mat_enabled_flag=false;
+			return;
+		}
+		
+		for(BufferedVertices buffered_vertices:buffered_vertices_list) {
+			FloatBuffer pos_buffer=buffered_vertices.GetPosBuffer();
+			FloatBuffer norm_buffer=buffered_vertices.GetNormBuffer();
+			
+			int capacity;
+			
+			capacity=pos_buffer.capacity();
+			for(int i=0;i<capacity;i+=3) {
+				Vector vtemp=new Vector();
+				
+				vtemp.SetX(pos_buffer.get(i));
+				vtemp.SetY(pos_buffer.get(i+1));
+				vtemp.SetZ(pos_buffer.get(i+2));
+				
+				vtemp=VectorFunctions.VTransform(vtemp, m);
+				
+				pos_buffer.put(i,vtemp.GetX());
+				pos_buffer.put(i+1,vtemp.GetY());
+				pos_buffer.put(i+2,vtemp.GetZ());
+			}
+			
+			capacity=norm_buffer.capacity();
+			for(int i=0;i<capacity;i+=3) {
+				Vector vtemp=new Vector();
+				
+				vtemp.SetX(norm_buffer.get(i));
+				vtemp.SetY(norm_buffer.get(i+1));
+				vtemp.SetZ(norm_buffer.get(i+2));
+				
+				vtemp=VectorFunctions.VTransform(vtemp, m);
+				vtemp=VectorFunctions.VNorm(vtemp);
+				
+				norm_buffer.put(i,vtemp.GetX());
+				norm_buffer.put(i+1,vtemp.GetY());
+				norm_buffer.put(i+2,vtemp.GetZ());
+			}
+			
+			buffered_vertices.SetPosBuffer(pos_buffer);
+			buffered_vertices.SetNormBuffer(norm_buffer);
+		}
+		
+		mat=m;
+		mat_enabled_flag=true;
 		property_updated_flag=true;
 	}
 	

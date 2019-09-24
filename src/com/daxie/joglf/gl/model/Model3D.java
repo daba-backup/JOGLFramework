@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.daxie.basis.matrix.Matrix;
 import com.daxie.basis.vector.Vector;
 import com.daxie.joglf.gl.model.animation.AnimationBlendInfo;
 import com.daxie.joglf.gl.model.animation.AnimationInfo;
@@ -211,6 +212,17 @@ public class Model3D {
 		
 		ModelMgr model=models_map.get(model_handle);
 		model.SetScale(scale);
+		
+		return 0;
+	}
+	public static int SetModelMatrix(int model_handle,Matrix m) {
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteWarn("[Model3D-SetModelMatrix] No such model. model_handle:"+model_handle, true);
+			return -1;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		model.SetMatrix(m);
 		
 		return 0;
 	}
