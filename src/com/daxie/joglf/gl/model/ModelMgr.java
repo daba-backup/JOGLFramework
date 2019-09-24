@@ -32,6 +32,8 @@ class ModelMgr {
 	private Vector rotation;
 	private Vector scale;
 	
+	private boolean property_updated_flag;
+	
 	private IntBuffer indices_vbo;
 	private IntBuffer pos_vbo;
 	private IntBuffer uv_vbo;
@@ -44,6 +46,8 @@ class ModelMgr {
 		position=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
 		rotation=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
 		scale=VectorFunctions.VGet(1.0f, 1.0f, 1.0f);
+		
+		property_updated_flag=false;
 		
 		this.GenerateBuffers();
 	}
@@ -142,8 +146,7 @@ class ModelMgr {
 			GLWrapper.glBindVertexArray(0);
 		}
 	}
-	
-	public void UpdateBuffers() {
+	private void UpdateBuffers() {
 		int element_num=buffered_vertices_list.size();
 		
 		for(int i=0;i<element_num;i++) {
@@ -164,6 +167,8 @@ class ModelMgr {
 			GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
 			GLWrapper.glBindVertexArray(0);
 		}
+		
+		property_updated_flag=false;
 	}
 	
 	public void DeleteBuffers() {
@@ -181,6 +186,10 @@ class ModelMgr {
 	}
 	
 	public void Draw() {
+		if(property_updated_flag==true) {
+			this.UpdateBuffers();
+		}
+		
 		int element_num=buffered_vertices_list.size();
 		
 		GLShaderFunctions.EnableProgram("texture");
@@ -189,6 +198,47 @@ class ModelMgr {
 		GLWrapper.glBindSampler(0, sampler);
 		
 		for(int i=0;i<element_num;i++) {
+			BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
+			int texture_handle=buffered_vertices.GetTextureHandle();
+			int count=buffered_vertices.GetCount();
+			
+			GLWrapper.glBindVertexArray(vao.get(i));
+			
+			if(texture_handle<0) {
+				TextureMgr.EnableDefaultTexture();
+				TextureMgr.BindDefaultTexture();
+			}
+			else {
+				TextureMgr.EnableTexture(texture_handle);
+				TextureMgr.BindTexture(texture_handle);
+			}
+			
+			GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
+			
+			if(texture_handle<0)TextureMgr.DisableDefaultTexture();
+			else TextureMgr.DisableTexture(texture_handle);
+			
+			GLWrapper.glBindVertexArray(0);
+		}
+	}
+	public void DrawElements(int bound) {
+		if(property_updated_flag==true) {
+			this.UpdateBuffers();
+		}
+		
+		int element_num=buffered_vertices_list.size();
+		
+		int clamped_bound=0;
+		if(bound<0)clamped_bound=0;
+		else if(bound<element_num)clamped_bound=bound;
+		else clamped_bound=element_num;
+		
+		GLShaderFunctions.EnableProgram("texture");
+		
+		int sampler=GLShaderFunctions.GetSampler();
+		GLWrapper.glBindSampler(0, sampler);
+		
+		for(int i=0;i<clamped_bound;i++) {
 			BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
 			int texture_handle=buffered_vertices.GetTextureHandle();
 			int count=buffered_vertices.GetCount();
@@ -223,6 +273,10 @@ class ModelMgr {
 		return new Vector(scale);
 	}
 	
+	public int GetElementNum() {
+		return buffered_vertices_list.size();
+	}
+	
 	public void SetPosition(Vector position) {
 		Vector translate=VectorFunctions.VSub(position, this.position);
 		
@@ -246,6 +300,7 @@ class ModelMgr {
 		}
 		
 		this.position=position;
+		property_updated_flag=true;
 	}
 	public void SetRotation(Vector rotation) {
 		Vector displacement=VectorFunctions.VSub(rotation, this.rotation);
@@ -302,6 +357,7 @@ class ModelMgr {
 		}
 		
 		this.rotation=rotation;
+		property_updated_flag=true;
 	}
 	public void SetScale(Vector scale) {
 		float displacement_x=scale.GetX()/this.scale.GetX();
@@ -324,6 +380,7 @@ class ModelMgr {
 		}
 		
 		this.scale=scale;
+		property_updated_flag=true;
 	}
 	
 	public void ChangeTexture(int material_index,int new_texture_handle) {

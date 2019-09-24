@@ -1,4 +1,4 @@
-package com.daxie.joglf.gl.model.loader;
+package com.daxie.joglf.gl.model.loader.obj;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

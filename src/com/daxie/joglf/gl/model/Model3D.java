@@ -12,7 +12,8 @@ import com.daxie.joglf.gl.model.buffer.BufferedVertices;
 import com.daxie.joglf.gl.model.collision.CollResult;
 import com.daxie.joglf.gl.model.collision.CollResultDim;
 import com.daxie.joglf.gl.model.collision.CollTriangle;
-import com.daxie.joglf.gl.model.loader.OBJLoader;
+import com.daxie.joglf.gl.model.loader.bd1.BD1Loader;
+import com.daxie.joglf.gl.model.loader.obj.OBJLoader;
 import com.daxie.joglf.hitcheck.HitCheckFunctions;
 import com.daxie.joglf.hitcheck.HitResult;
 import com.daxie.log.LogFile;
@@ -28,12 +29,30 @@ public class Model3D {
 	private static Map<Integer, ModelMgr> models_map=new HashMap<>();
 	private static Map<Integer, AnimationInfoMap> animation_info_map=new HashMap<>();
 	
+	private static boolean keep_order_if_possible=false;
+	
+	public static void SetKeepOrderIfPossible(boolean a_keep_order_if_possible) {
+		keep_order_if_possible=a_keep_order_if_possible;
+	}
+	
 	public static int LoadModel(String model_filename) {
 		String extension=FilenameFunctions.GetFileExtension(model_filename);
 		
 		int model_handle=count;
 		if(extension.equals("obj")||extension.equals("OBJ")) {
 			List<BufferedVertices> buffered_vertices_list=OBJLoader.LoadOBJ(model_filename);
+			ModelMgr model=new ModelMgr(buffered_vertices_list);
+			
+			models_map.put(model_handle, model);
+		}
+		else if(extension.equals("bd1")||extension.equals("BD1")) {
+			List<BufferedVertices> buffered_vertices_list;
+			if(keep_order_if_possible==false) {
+				buffered_vertices_list=BD1Loader.LoadBD1(model_filename);
+			}
+			else {
+				buffered_vertices_list=BD1Loader.LoadBD1_KeepOrder(model_filename);
+			}
 			ModelMgr model=new ModelMgr(buffered_vertices_list);
 			
 			models_map.put(model_handle, model);
@@ -89,15 +108,77 @@ public class Model3D {
 	
 	public static int DrawModel(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogFile.WriteWarn("[Model3D-Draw] No such model. model_handle:"+model_handle, true);
+			LogFile.WriteWarn("[Model3D-DrawModel] No such model. model_handle:"+model_handle, true);
 			return -1;
 		}
 		
 		ModelMgr model=models_map.get(model_handle);
-		model.UpdateBuffers();
 		model.Draw();
 		
 		return 0;
+	}
+	public static int DrawModelElements(int model_handle,int bound) {
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteWarn("[Model3D-DrawModelElements] No such model. model_handle:"+model_handle, true);
+			return -1;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		model.DrawElements(bound);
+		
+		return 0;
+	}
+	
+	public static Vector GetModelPosition(int model_handle) {
+		Vector ret=new Vector();
+		
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteWarn("[Model3D-GetModelPosition] No such model. model_handle:"+model_handle, true);
+			return ret;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		ret=model.GetPosition();
+		
+		return ret;
+	}
+	public static Vector GetModelRotation(int model_handle) {
+		Vector ret=new Vector();
+		
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteWarn("[Model3D-GetModelRotation] No such model. model_handle:"+model_handle, true);
+			return ret;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		ret=model.GetRotation();
+		
+		return ret;
+	}
+	public static Vector GetModelScale(int model_handle) {
+		Vector ret=new Vector();
+		
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteWarn("[Model3D-GetModelScale] No such model. model_handle:"+model_handle, true);
+			return ret;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		ret=model.GetScale();
+		
+		return ret;
+	}
+	public static int GetModelElementNum(int model_handle) {
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteWarn("[Model3D-GetModelElementNum] No such model. model_handle:"+model_handle, true);
+			return -1;
+		}
+		
+		int ret=-1;
+		ModelMgr model=models_map.get(model_handle);
+		ret=model.GetElementNum();
+		
+		return ret;
 	}
 	
 	public static int SetModelPosition(int model_handle,Vector position) {
