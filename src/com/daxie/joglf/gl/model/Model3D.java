@@ -217,8 +217,8 @@ public class Model3D {
 	}
 	/**
 	 * Applies a matrix to manipulate a model.<br>
-	 * Once this method is called, 
-	 * {@link #SetModelPosition(int, Vector)}, {@link #SetModelRotation(int, Vector)}, {@link #SetModelScale(int, Vector)}}
+	 * Once this method is called with a non-identity matrix,
+	 * {@link #SetModelPosition(int, Vector)}, {@link #SetModelRotation(int, Vector)}, {@link #SetModelScale(int, Vector)}
 	 * are disabled.<br>
 	 * Pass an identity matrix to this method in order to enable those methods again.
 	 * @param model_handle Model handle
