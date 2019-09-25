@@ -12,8 +12,14 @@ import com.jogamp.openal.util.ALut;
  *
  */
 public class ALFront {
+	private static boolean no_use_alut_flag=false;
+	
+	public static void SetNoUseAlutFlag(boolean a_no_use_alut_flag) {
+		no_use_alut_flag=a_no_use_alut_flag;
+	}
+	
 	public static void Initialize() {
-		ALut.alutInit();
+		if(no_use_alut_flag==false)ALut.alutInit();
 		Sound3D.SetupListenerProperties();
 		
 		ALWrapper.alDistanceModel(AL.AL_INVERSE_DISTANCE);
@@ -21,7 +27,7 @@ public class ALFront {
 		LogFile.WriteInfo("[ALFront-Initialize] Initialized.", true);
 	}
 	public static void Dispose() {
-		ALut.alutExit();
+		if(no_use_alut_flag==false)ALut.alutExit();
 		
 		LogFile.WriteInfo("[ALFront-Dispose] Disposed.", true);
 	}

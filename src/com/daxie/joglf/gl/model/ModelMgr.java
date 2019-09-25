@@ -425,7 +425,7 @@ class ModelMgr {
 		boolean identity_matrix_flag=true;
 		for(int i=0;i<4;i++) {
 			for(int j=0;j<4;j++) {
-				if(m.GetValue(i, j)>EPSILON) {
+				if(Math.abs(1.0f-m.GetValue(i, j))>EPSILON) {
 					identity_matrix_flag=false;
 					break;
 				}
