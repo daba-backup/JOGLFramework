@@ -26,9 +26,9 @@ public class WindowFront {
 	private static FPSAnimator animator;
 	private static GLWindow window;
 	
-	private static final String DEFAULT_WINDOW_TEXT="JOGLFramework";
-	private static final int DEFAULT_WINDOW_WIDTH=640;
-	private static final int DEFAULT_WINDOW_HEIGHT=480;
+	private static String window_text="JOGLFramework";
+	private static int window_width=640;
+	private static int window_height=480;
 	
 	private static int fps=30;
 	
@@ -49,8 +49,8 @@ public class WindowFront {
 		
 		//Create a window.
 		window=GLWindow.create(capabilities);
-		window.setTitle(DEFAULT_WINDOW_TEXT);
-		window.setSize(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
+		window.setTitle(window_text);
+		window.setSize(window_width, window_height);
 		window.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowDestroyed(WindowEvent e) {
@@ -128,6 +128,13 @@ public class WindowFront {
 				background_color.GetR(),background_color.GetG(),
 				background_color.GetB(),background_color.GetA());
 		GLWrapper.glClear(GL4.GL_COLOR_BUFFER_BIT|GL4.GL_DEPTH_BUFFER_BIT);
+	}
+	
+	public static void HideWindow() {
+		window.setVisible(false);
+	}
+	public static void ShowWindow() {
+		window.setVisible(true);
 	}
 	
 	public static void HideCursor() {
