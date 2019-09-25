@@ -17,10 +17,15 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
  * @author Daba
  *
  */
-public class MP3Player extends Thread{
+public class MP3Player{
 	private static int count=0;
 	private static Map<Integer, AdvancedPlayer> players_map=new HashMap<>();
 	
+	/**
+	 * Loads a MP3 file.
+	 * @param sound_filename Filename
+	 * @return Sound handle
+	 */
 	public static int LoadSound(String sound_filename) {
 		BufferedInputStream stream=null;
 		AdvancedPlayer player=null;
@@ -49,6 +54,12 @@ public class MP3Player extends Thread{
 		
 		return sound_handle;
 	}
+	/**
+	 * Deletes a sound.<br>
+	 * Use this method to stop a sound.
+	 * @param sound_handle Sound handle
+	 * @return -1 on error and 0 on success
+	 */
 	public static int DeleteSound(int sound_handle) {
 		if(players_map.containsKey(sound_handle)==false) {
 			LogFile.WriteWarn("[MP3Player-DeleteSound] No such sound. sound_handle:"+sound_handle, true);

@@ -1,7 +1,7 @@
 package com.daxie.joglf.gl.input.mouse;
 
 /**
- * Mouse codes
+ * Mouse enum
  * @author Daba
  *
  */

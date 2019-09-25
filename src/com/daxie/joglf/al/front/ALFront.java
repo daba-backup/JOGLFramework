@@ -12,10 +12,28 @@ import com.jogamp.openal.util.ALut;
  *
  */
 public class ALFront {
+	/**
+	 * JOGLFramework randomly terminates once per approximately ten attempts on my environment
+	 * with ALException that says "Error opening default OpenAL device".<br>
+	 * This flag is used to avoid using ALut.alutInit() that throws ALException.<br>
+	 * Accordingly, methods that depend on ALUT will be also disabled.
+	 * Note that this is a solution for the nonce.
+	 */
 	private static boolean no_use_alut_flag=false;
 	
+	/**
+	 * Sets the flag to disable ALUT.
+	 * @param a_no_use_alut_flag Flag
+	 */
 	public static void SetNoUseAlutFlag(boolean a_no_use_alut_flag) {
 		no_use_alut_flag=a_no_use_alut_flag;
+	}
+	/**
+	 * Returns the flag to disable ALUT.
+	 * @return Flag
+	 */
+	public static boolean GetNoUseAlutFlag() {
+		return no_use_alut_flag;
 	}
 	
 	public static void Initialize() {

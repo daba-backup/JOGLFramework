@@ -16,7 +16,7 @@ import com.daxie.log.LogFile;
  * @author Daba
  *
  */
-public class GLWrapper{ 
+public class GLWrapper{
 	private static GLVersion gl_version=GLVersion.GL4;
 	
 	public static void SetGLVersion(GLVersion version) {

@@ -21,7 +21,7 @@ import com.daxie.log.LogFile;
 import com.daxie.tool.FilenameFunctions;
 
 /**
- * Model manager
+ * Model3D
  * @author Daba
  *
  */
@@ -215,6 +215,16 @@ public class Model3D {
 		
 		return 0;
 	}
+	/**
+	 * Applies a matrix to manipulate a model.<br>
+	 * Once this method is called, 
+	 * {@link #SetModelPosition(int, Vector)}, {@link #SetModelRotation(int, Vector)}, {@link #SetModelScale(int, Vector)}}
+	 * are disabled.<br>
+	 * Pass an identity matrix to this method in order to enable those methods again.
+	 * @param model_handle Model handle
+	 * @param m Matrix
+	 * @return -1 on error and 0 on success
+	 */
 	public static int SetModelMatrix(int model_handle,Matrix m) {
 		if(models_map.containsKey(model_handle)==false) {
 			LogFile.WriteWarn("[Model3D-SetModelMatrix] No such model. model_handle:"+model_handle, true);
@@ -385,6 +395,15 @@ public class Model3D {
 		
 		return coll_result;
 	}
+	/**
+	 * Collision check of a capsule against a model.<br>
+	 * Note that returned CollResultDim does not contain valid hit positions. 
+	 * @param model_handle Model handle
+	 * @param capsule_pos_1 Capsule pos 1
+	 * @param capsule_pos_2 Capsule pos 2
+	 * @param r Radius of the capsule
+	 * @return CollResultDim
+	 */
 	public static CollResultDim CollCheck_Capsule(int model_handle,Vector capsule_pos_1,Vector capsule_pos_2,float r) {
 		CollResultDim coll_result_dim=new CollResultDim();
 		
@@ -421,6 +440,14 @@ public class Model3D {
 		
 		return coll_result_dim;
 	}
+	/**
+	 * Collision check of a sphere against a model.<br>
+	 * Note that returned CollResultDim does not contain valid hit positions. 
+	 * @param model_handle Model handle
+	 * @param center Center of the sphere
+	 * @param r Radius of the sphere
+	 * @return CollResultDim
+	 */
 	public static CollResultDim CollCheck_Sphere(int model_handle,Vector center,float r) {
 		CollResultDim coll_result_dim=new CollResultDim();
 		

@@ -1,7 +1,7 @@
 package com.daxie.joglf.gl.input.keyboard;
 
 /**
- * Key codes
+ * Keyboard enum
  * @author Daba
  *
  */

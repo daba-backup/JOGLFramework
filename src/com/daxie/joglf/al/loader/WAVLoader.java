@@ -3,7 +3,9 @@ package com.daxie.joglf.al.loader;
 import java.nio.ByteBuffer;
 
 import com.daxie.joglf.al.buffer.SoundBuffer;
+import com.daxie.joglf.al.front.ALFront;
 import com.daxie.joglf.al.wrapper.ALWrapper;
+import com.daxie.log.LogFile;
 
 /**
  * WAV loader
@@ -11,7 +13,21 @@ import com.daxie.joglf.al.wrapper.ALWrapper;
  *
  */
 public class WAVLoader {
+	/**
+	 * Loads a WAV file.<br>
+	 * This method depends on ALUT.<br>
+	 * Therefore, this method fails if ALUT is disabled.
+	 * @param wav_filename Filename of a WAV file
+	 * @return SoundBuffer
+	 */
 	public static SoundBuffer LoadWAV(String wav_filename) {
+		SoundBuffer sound_buffer=new SoundBuffer();
+		
+		if(ALFront.GetNoUseAlutFlag()==true) {
+			LogFile.WriteWarn("[WAVLoader-LoadWAV] ALUT is disabled.", true);
+			return sound_buffer;
+		}
+		
 		int[] format=new int[1];
 		int[] size=new int[1];
 		ByteBuffer[] data=new ByteBuffer[1];
@@ -20,7 +36,6 @@ public class WAVLoader {
 		
 		ALWrapper.alutLoadWAVFile(wav_filename,format,data,size,freq,loop);
 		
-		SoundBuffer sound_buffer=new SoundBuffer();
 		sound_buffer.SetFormat(format[0]);
 		sound_buffer.SetSize(size[0]);
 		sound_buffer.SetData(data[0]);

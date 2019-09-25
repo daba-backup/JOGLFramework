@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A set of collision information
+ * Collection of collision information
  * @author Daba
  *
  */

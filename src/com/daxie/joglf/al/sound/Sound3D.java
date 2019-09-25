@@ -13,7 +13,8 @@ import com.daxie.tool.FilenameFunctions;
 import com.jogamp.openal.AL;
 
 /**
- * Manages sounds.
+ * Sound3D<br>
+ * 3D sound is disabled for stereo sound files.
  * @author Daba
  *
  */

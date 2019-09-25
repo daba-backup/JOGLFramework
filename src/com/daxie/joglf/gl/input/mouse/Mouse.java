@@ -8,7 +8,11 @@ import com.jogamp.newt.event.MouseEvent;
 import com.jogamp.newt.event.MouseListener;
 
 /**
- * Mouse
+ * Mouse<br>
+ * This class fails to move the mouse to the correct location on some environments.<br>
+ * There is a JDK bug report that may be related to this problem.<br>
+ * @see <a href="https://bugs.openjdk.java.net/browse/JDK-8196030">AWT Robot mouseMove fails on Windows 10 1709 with HiDPI</a>
+ * 
  * @author Daba
  *
  */
