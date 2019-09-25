@@ -7,7 +7,7 @@ import com.daxie.joglf.gl.shape.Triangle;
  * @author Daba
  *
  */
-public class BD1Triangle extends Triangle{
+class BD1Triangle extends Triangle{
 	private int texture_id;
 	
 	public BD1Triangle() {
