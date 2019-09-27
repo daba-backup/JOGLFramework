@@ -28,9 +28,11 @@ Download all required jars and add them to the classpath.
 ### Maven project
 
 ```xml
-<groupId>com.github.dabasan</groupId>
-<artifactId>joglframework</artifactId>
-<version>1.0.0</version>
+<dependency>
+    <groupId>com.github.dabasan</groupId>
+    <artifactId>joglframework</artifactId>
+    <version>1.0.0</version>
+</dependency>
 ```
 
 ## Example
