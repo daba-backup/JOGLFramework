@@ -65,7 +65,7 @@ public class WindowFront {
 		animator=new FPSAnimator(fps);
 		animator.add(window);
 		animator.start();
-		
+
 		window.setVisible(true);
 		
 		LogFile.WriteInfo("[WindowFront-Initialize] Initialized.", true);

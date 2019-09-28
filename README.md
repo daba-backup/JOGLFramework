@@ -110,6 +110,12 @@ Samples are available in [JOGLFrameworkSamples](https://github.com/Dabasan/JOGLF
 
 JOGLFramework is released under the MIT license.
 
+## Comment
+
+Currently, this framework is capable of handling a **single** window. I don't think it is sufficient when you try to create a practical game or a level editor, but I'm not really sure how to support multiwindow with JOGL. I will dig into that point someday......
+
+By the way, your positive advice will be always appreciated. 
+
 # External links
 
 - [JOGL - Java Binding for the OpenGL API](https://jogamp.org/jogl/www/)
