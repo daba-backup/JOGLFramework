@@ -112,9 +112,7 @@ JOGLFramework is released under the MIT license.
 
 ## Comment
 
-Currently, this framework is capable of handling a **single** window. I don't think it is sufficient when you try to create a practical game or a level editor, but I'm not really sure how to support multiwindow with JOGL. I will dig into that point someday......
-
-By the way, your positive advice will be always appreciated. 
+Currently, this framework is capable of handling a **single** window. I don't think it is sufficient for practical use (such as a level editor), but I'm not really sure how to support multiwindow with JOGL. I will dig into that point someday......
 
 # External links
 
