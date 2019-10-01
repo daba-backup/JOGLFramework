@@ -1,9 +1,16 @@
 package com.daxie.joglf.gl.front;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import com.daxie.joglf.gl.text.TextMgr;
+import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
+import com.daxie.joglf.gl.wrapper.GLVersion;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.log.LogFile;
 import com.jogamp.opengl.GL4;
+import com.jogamp.opengl.GLProfile;
 
 /**
  * Offers methods for GL operations.
@@ -11,7 +18,38 @@ import com.jogamp.opengl.GL4;
  *
  */
 public class GLFront {
-	public static void LoadDefaultShaders() {
+	private static String profile_str="";
+	private static Lock lock=new ReentrantLock();
+	
+	private static boolean initialized_flag=false;
+	
+	public static void Setup(GLVersion gl_version) {
+		GLWrapper.SetGLVersion(gl_version);
+		CreateGLProfileStr(gl_version);
+	}
+	public static void Initialize() {
+		LoadDefaultShaders();
+		SetDefaultGLProperties();
+		
+		TextureMgr.Initialize();
+		TextMgr.Initialize();
+		
+		initialized_flag=true;
+	}
+	
+	public static String GetProfileStr() {
+		return profile_str;
+	}
+	public static boolean IsInitialized() {
+		return initialized_flag;
+	}
+	
+	private static void CreateGLProfileStr(GLVersion gl_version) {
+		if(gl_version==GLVersion.GL3)profile_str=GLProfile.GL3bc;
+		else if(gl_version==GLVersion.GL4)profile_str=GLProfile.GL4bc;
+		else if(gl_version==GLVersion.GLES3)profile_str=GLProfile.GLES3;
+	}
+	private static void LoadDefaultShaders() {
 		GLShaderFunctions.CreateProgram(
 				"texture", 
 				"./Data/Shader/330/texture/vshader.glsl",
@@ -33,7 +71,7 @@ public class GLFront {
 		
 		LogFile.WriteInfo("[GLFront-LoadDefaultShaders] Default shaders loaded.",true);
 	}
-	public static void SetDefaultGLProperties() {
+	private static void SetDefaultGLProperties() {
 		GLWrapper.glEnable(GL4.GL_DEPTH_TEST);
 		GLWrapper.glDepthFunc(GL4.GL_LESS);
 		
@@ -44,5 +82,12 @@ public class GLFront {
 		GLWrapper.glBlendFunc(GL4.GL_SRC_ALPHA, GL4.GL_ONE_MINUS_SRC_ALPHA);
 		
 		LogFile.WriteInfo("[GLFront-SetDefaultGLProperties] Default properties set.",true);
+	}
+	
+	public static void Lock() {
+		lock.lock();
+	}
+	public static void Unlock() {
+		lock.unlock();
 	}
 }

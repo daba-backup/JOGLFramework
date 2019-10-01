@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-import com.daxie.joglf.gl.front.WindowFront;
+import com.daxie.joglf.gl.front.GLFront;
 import com.daxie.joglf.gl.wrapper.gl3.GL3Wrapper;
 import com.daxie.joglf.gl.wrapper.gl4.GL4Wrapper;
 import com.daxie.joglf.gl.wrapper.gles3.GLES3Wrapper;
@@ -20,7 +20,7 @@ public class GLWrapper{
 	private static GLVersion gl_version=GLVersion.GL4;
 	
 	public static void SetGLVersion(GLVersion version) {
-		if(WindowFront.IsInitialized()==true) {
+		if(GLFront.IsInitialized()==true) {
 			LogFile.WriteWarn("[GLWrapper-SetGLVersion] This method is disabled after the framework is initialized.", true);
 			return;
 		}

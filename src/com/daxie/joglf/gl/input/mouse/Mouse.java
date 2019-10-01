@@ -24,8 +24,8 @@ public class Mouse implements MouseListener{
 	private int x,y;
 	private int diff_x,diff_y;
 	
-	private int window_x,window_y;//window position (screen coordinates).
-	private int center_x,center_y;//center position of the window (client coordinates).
+	private int fix_pos_x;
+	private int fix_pos_y;
 	private Robot robot;//is used to fix the mouse pointer.
 	
 	private boolean fix_mouse_pointer_flag;
@@ -38,10 +38,8 @@ public class Mouse implements MouseListener{
 		diff_x=0;
 		diff_y=0;
 		
-		window_x=0;
-		window_y=0;
-		center_x=0;
-		center_y=0;
+		fix_pos_x=0;
+		fix_pos_y=0;
 		try {
 			robot=new Robot();
 		}
@@ -55,18 +53,16 @@ public class Mouse implements MouseListener{
 	public void SetFixMousePointerFlag(boolean fix_mouse_pointer_flag) {
 		this.fix_mouse_pointer_flag=fix_mouse_pointer_flag;
 	}
-	public void SetWindowPositionAndSize(int x,int y,int width,int height) {
-		window_x=x;
-		window_y=y;
-		center_x=width/2;
-		center_y=height/2;
+	public void SetFixMousePointerPosition(int x,int y) {
+		fix_pos_x=x;
+		fix_pos_y=y;
 	}
 	public void Update() {
 		mouse_buttons.UpdateCounts();
 		
 		if(fix_mouse_pointer_flag==true) {
-			diff_x=x-center_x;
-			diff_y=y-center_y;
+			diff_x=x-fix_pos_x;
+			diff_y=y-fix_pos_y;
 		}
 		else {
 			diff_x=0;
@@ -74,7 +70,7 @@ public class Mouse implements MouseListener{
 		}
 		
 		if(fix_mouse_pointer_flag==true) {
-			robot.mouseMove(window_x+center_x,window_y+center_y);
+			robot.mouseMove(fix_pos_x,fix_pos_y);
 		}
 	}
 	

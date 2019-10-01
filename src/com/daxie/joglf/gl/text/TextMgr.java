@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.daxie.basis.coloru8.ColorU8;
-import com.daxie.joglf.gl.front.WindowFront;
 import com.daxie.log.LogFile;
 import com.daxie.tool.ExceptionFunctions;
 import com.jogamp.graph.curve.Region;
@@ -35,6 +34,9 @@ public class TextMgr {
 	private static TextRegionUtil text_region_util;
 	
 	private static int default_font_handle;
+	
+	private static int window_width=640;
+	private static int window_height=480;
 	
 	public static void Initialize() {
 		render_state=RenderState.createRenderState(SVertex.factory());
@@ -110,6 +112,11 @@ public class TextMgr {
 		return 0;
 	}
 	
+	public static void SetWindowSize(int width,int height) {
+		window_width=width;
+		window_height=height;
+	}
+	
 	public static int DrawText(int x,int y,String text,ColorU8 color,int size,int weight) {
 		Font font=fonts_map.get(default_font_handle);
 		innerDrawText(x, y, text, font, color, size, weight);
@@ -138,8 +145,6 @@ public class TextMgr {
 		render_state.setColorStatic(color.GetR(), color.GetG(), color.GetB(), color.GetA());
 		
 		GL2ES2 gl=GLContext.getCurrentGL().getGL2ES2();
-		int window_width=WindowFront.GetWindowWidth();
-		int window_height=WindowFront.GetWindowHeight();
 		
 		int[] sample_count=new int[] {4};
 		region_renderer.enable(gl,true);

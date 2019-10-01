@@ -14,10 +14,6 @@ import com.daxie.joglf.gl.camera.Camera;
 public class CameraFront {
 	private static Camera camera=new Camera();
 	
-	public static void Reshape() {
-		camera.UpdateAspect();
-	}
-	
 	public static void SetCameraNearFar(float near,float far) {
 		camera.SetCameraNearFar(near, far);
 	}
@@ -70,7 +66,7 @@ public class CameraFront {
 		camera.SetupCamera_Ortho(size);
 	}
 	
-	public static void Update() {
-		camera.Update();
+	public static void Update(int width,int height) {
+		camera.Update(width,height);
 	}
 }

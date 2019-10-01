@@ -10,7 +10,6 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import com.daxie.joglf.gl.front.WindowFront;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.log.LogFile;
@@ -35,7 +34,10 @@ public class TextureMgr {
 	
 	private static int default_texture_handle=-1;
 	
-	public static void LoadDefaultTexture() {
+	private static int window_width=640;
+	private static int window_height=480;
+	
+	public static void Initialize() {
 		default_texture_handle=LoadTexture("./Data/Texture/white.bmp");
 	}
 	
@@ -89,6 +91,11 @@ public class TextureMgr {
 	
 	public static boolean TextureExists(int texture_handle) {
 		return textures_map.containsKey(texture_handle);
+	}
+	
+	public static void SetWindowSize(int width,int height) {
+		window_width=width;
+		window_height=height;
 	}
 	
 	public static int EnableTexture(int texture_handle) {
@@ -160,9 +167,6 @@ public class TextureMgr {
 		indices.put(2);
 		indices.put(3);
 		indices.put(0);
-		
-		int window_width=WindowFront.GetWindowWidth();
-		int window_height=WindowFront.GetWindowHeight();
 		
 		float normalized_x=2.0f*x/window_width-1.0f;
 		float normalized_y=2.0f*y/window_height-1.0f;

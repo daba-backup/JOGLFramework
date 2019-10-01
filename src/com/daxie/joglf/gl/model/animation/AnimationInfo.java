@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import com.daxie.joglf.gl.front.WindowFront;
+import com.daxie.joglf.gl.window.Window;
 import com.daxie.log.LogFile;
 
 /**
@@ -23,7 +23,7 @@ public class AnimationInfo {
 	}
 	
 	public void AppendFrame(float time,int frame_handle) {
-		int fps=WindowFront.GetFPS();
+		int fps=Window.GetFPS();
 		int frame_index=Math.round(fps*time);
 		
 		frames_map.put(frame_index, frame_handle);
@@ -41,7 +41,7 @@ public class AnimationInfo {
 		int size=frame_indices.size();
 		int max_frame_index=frame_indices.get(size-1);
 		
-		int fps=WindowFront.GetFPS();
+		int fps=Window.GetFPS();
 		float max_time=(float)max_frame_index/fps;
 		
 		return max_time;
@@ -55,7 +55,7 @@ public class AnimationInfo {
 			return abi;
 		}
 		
-		int fps=WindowFront.GetFPS();
+		int fps=Window.GetFPS();
 		int frame_index=Math.round(time*fps);
 		
 		Set<Integer> frame_indices_set=frames_map.keySet();
