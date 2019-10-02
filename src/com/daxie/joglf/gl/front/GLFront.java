@@ -40,6 +40,10 @@ public class GLFront {
 	public static String GetProfileStr() {
 		return profile_str;
 	}
+	public static boolean IsSetup() {
+		if(profile_str.equals(""))return false;
+		else return true;
+	}
 	public static boolean IsInitialized() {
 		return initialized_flag;
 	}
