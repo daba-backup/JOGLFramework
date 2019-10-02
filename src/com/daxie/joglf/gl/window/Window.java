@@ -200,9 +200,17 @@ public class Window implements GLEventListener,KeyListener,MouseListener{
 		if(GLFront.IsInitialized()==false) {
 			GLFront.Initialize();
 		}
+		
+		this.Init();
+	}
+	protected void Init() {
+		
 	}
 	@Override
 	public void reshape(GLAutoDrawable drawable,int x,int y,int width,int height) {
+		this.Reshape(x, y, width, height);
+	}
+	protected void Reshape(int x,int y,int width,int height) {
 		
 	}
 	@Override
@@ -221,14 +229,10 @@ public class Window implements GLEventListener,KeyListener,MouseListener{
 		GLFront.Lock();
 		this.DefaultUpdate();
 		this.Update();
+		this.Draw();
 		CameraFront.Update(width, height);
 		GLFront.Unlock();
 	}
-	@Override
-	public void dispose(GLAutoDrawable drawable) {
-		
-	}
-	
 	private void DefaultUpdate() {
 		this.ClearDrawScreen();
 		
@@ -247,6 +251,17 @@ public class Window implements GLEventListener,KeyListener,MouseListener{
 	protected void Update() {
 		CameraFront.SetCameraPositionAndTarget_UpVecY(
 				VectorFunctions.VGet(50.0f, 50.0f, 50.0f),VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
+	}
+	protected void Draw() {
+		
+	}
+	
+	@Override
+	public void dispose(GLAutoDrawable drawable) {
+		this.Dispose();
+	}
+	protected void Dispose() {
+		
 	}
 	
 	@Override

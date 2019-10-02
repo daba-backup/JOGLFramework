@@ -107,6 +107,15 @@ public class Model3D {
 		count=0;
 	}
 	
+	public static boolean ModelExists(int model_handle) {
+		boolean ret;
+		
+		if(models_map.containsKey(model_handle)==true)ret=true;
+		else ret=false;
+		
+		return ret;
+	}
+	
 	public static int DrawModel(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
 			LogFile.WriteWarn("[Model3D-DrawModel] No such model. model_handle:"+model_handle, true);
