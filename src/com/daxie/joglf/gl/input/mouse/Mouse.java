@@ -24,6 +24,8 @@ public class Mouse implements MouseListener{
 	private int x,y;
 	private int diff_x,diff_y;
 	
+	private float[] rotations;
+	
 	private int fix_pos_x;
 	private int fix_pos_y;
 	private Robot robot;//is used to fix the mouse pointer.
@@ -37,6 +39,8 @@ public class Mouse implements MouseListener{
 		y=0;
 		diff_x=0;
 		diff_y=0;
+		
+		rotations=new float[]{0.0f,0.0f,0.0f};
 		
 		fix_pos_x=0;
 		fix_pos_y=0;
@@ -165,7 +169,7 @@ public class Mouse implements MouseListener{
 	}
 	@Override
 	public void mouseWheelMoved(MouseEvent e) {
-		
+		rotations=e.getRotation();
 	}
 	
 	public int GetX() {
@@ -179,6 +183,24 @@ public class Mouse implements MouseListener{
 	}
 	public int GetDiffY() {
 		return diff_y;
+	}
+	public float GetHorizontalRotation() {
+		float rotation=rotations[0];
+		rotations[0]=0.0f;
+		
+		return rotation;
+	}
+	public float GetVerticalRotation() {
+		float rotation=rotations[1];
+		rotations[1]=0.0f;
+		
+		return rotation;
+	}
+	public float GetZAxisRotation() {
+		float rotation=rotations[2];
+		rotations[2]=0.0f;
+		
+		return rotation;
 	}
 	
 	public int GetButtonPressingCount(MouseEnum key) {

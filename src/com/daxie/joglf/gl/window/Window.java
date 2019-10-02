@@ -2,11 +2,17 @@ package com.daxie.joglf.gl.window;
 
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.basis.coloru8.ColorU8Functions;
+import com.daxie.basis.vector.VectorFunctions;
+import com.daxie.joglf.gl.front.CameraFront;
+import com.daxie.joglf.gl.front.FogFront;
 import com.daxie.joglf.gl.front.GLFront;
+import com.daxie.joglf.gl.front.LightingFront;
 import com.daxie.joglf.gl.input.keyboard.Keyboard;
 import com.daxie.joglf.gl.input.keyboard.KeyboardEnum;
 import com.daxie.joglf.gl.input.mouse.Mouse;
 import com.daxie.joglf.gl.input.mouse.MouseEnum;
+import com.daxie.joglf.gl.text.TextMgr;
+import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.log.LogFile;
 import com.jogamp.newt.event.KeyEvent;
@@ -78,6 +84,7 @@ public class Window implements GLEventListener,KeyListener,MouseListener{
 		window.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowDestroyed(WindowEvent e) {
+				animator.stop();
 				System.exit(0);
 			}
 		});
@@ -108,6 +115,9 @@ public class Window implements GLEventListener,KeyListener,MouseListener{
 	public static int GetFPS() {
 		return fps;
 	}
+	public ColorU8 GetBackgroundColor() {
+		return new ColorU8(background_color);
+	}
 	public void SetTitle(String title) {
 		window.setTitle(title);
 	}
@@ -123,6 +133,9 @@ public class Window implements GLEventListener,KeyListener,MouseListener{
 			return;
 		}
 		fps=a_fps;
+	}
+	public void SetBackgroundColor(ColorU8 color) {
+		background_color=color;
 	}
 	
 	public void ShowWindow() {
@@ -194,6 +207,7 @@ public class Window implements GLEventListener,KeyListener,MouseListener{
 	}
 	@Override
 	public void display(GLAutoDrawable drawable) {
+		//Update input.
 		keyboard.Update();
 		
 		int x=window.getX();
@@ -202,10 +216,37 @@ public class Window implements GLEventListener,KeyListener,MouseListener{
 		int height=window.getHeight();
 		mouse.SetFixMousePointerPosition(x+width/2,y+height/2);
 		mouse.Update();
+		
+		//Update shader-relating properties.
+		GLFront.Lock();
+		this.DefaultUpdate();
+		this.Update();
+		CameraFront.Update(width, height);
+		GLFront.Unlock();
 	}
 	@Override
 	public void dispose(GLAutoDrawable drawable) {
 		
+	}
+	
+	private void DefaultUpdate() {
+		this.ClearDrawScreen();
+		
+		int width=window.getWidth();
+		int height=window.getHeight();
+		
+		TextureMgr.SetWindowSize(width, height);
+		TextMgr.SetWindowSize(width, height);
+		
+		LightingFront.Update();
+		FogFront.Update();
+		
+		TextureMgr.SetWindowSize(width, height);
+		TextMgr.SetWindowSize(width, height);
+	}
+	protected void Update() {
+		CameraFront.SetCameraPositionAndTarget_UpVecY(
+				VectorFunctions.VGet(50.0f, 50.0f, 50.0f),VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
 	}
 	
 	@Override
