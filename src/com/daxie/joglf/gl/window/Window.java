@@ -36,6 +36,7 @@ import com.jogamp.opengl.util.FPSAnimator;
  */
 public class Window implements GLEventListener,KeyListener,MouseListener{
 	private GLWindow window;
+	private WindowAdapter adapter;
 	private FPSAnimator animator;
 	
 	private Keyboard keyboard;
@@ -50,6 +51,8 @@ public class Window implements GLEventListener,KeyListener,MouseListener{
 	
 	private ColorU8 background_color;
 	
+	private boolean destroyed_flag;
+	
 	public Window() {
 		String profile_str=GLFront.GetProfileStr();
 		GLCapabilities capabilities=new GLCapabilities(GLProfile.get(profile_str));
@@ -61,6 +64,14 @@ public class Window implements GLEventListener,KeyListener,MouseListener{
 		window.addKeyListener(this);
 		window.addMouseListener(this);
 		
+		adapter=new WindowAdapter() {
+			@Override
+			public void windowDestroyed(WindowEvent e) {
+				animator.stop();
+			}
+		};
+		window.addWindowListener(adapter);
+		
 		animator=new FPSAnimator(fps);
 		animator.add(window);
 		animator.start();
@@ -71,23 +82,29 @@ public class Window implements GLEventListener,KeyListener,MouseListener{
 		keyboard=new Keyboard();
 		mouse=new Mouse();
 		
-		background_color=ColorU8Functions.GetColorU8(0.0f, 0.0f, 0.0f, 0.0f);
+		background_color=ColorU8Functions.GetColorU8(0.0f, 0.0f, 0.0f, 1.0f);
+		
+		destroyed_flag=false;
 		
 		window.setVisible(true);
 	}
 	
 	public void CloseWindow() {
 		window.destroy();
+		destroyed_flag=true;
 	}
 	
 	public void SetExitProcessWhenDestroyed() {
-		window.addWindowListener(new WindowAdapter() {
+		window.removeWindowListener(adapter);
+		
+		adapter=new WindowAdapter() {
 			@Override
 			public void windowDestroyed(WindowEvent e) {
 				animator.stop();
 				System.exit(0);
 			}
-		});
+		};
+		window.addWindowListener(adapter);
 	}
 	
 	protected void ClearDrawScreen() {
@@ -136,6 +153,10 @@ public class Window implements GLEventListener,KeyListener,MouseListener{
 	}
 	public void SetBackgroundColor(ColorU8 color) {
 		background_color=color;
+	}
+	
+	public boolean HasFocus() {
+		return window.hasFocus();
 	}
 	
 	public void ShowWindow() {
@@ -191,6 +212,15 @@ public class Window implements GLEventListener,KeyListener,MouseListener{
 	public int GetMouseReleasingCount(MouseEnum key) {
 		return mouse.GetButtonReleasingCount(key);
 	}
+	public float GetMouseWheelVerticalRotation() {
+		return mouse.GetVerticalRotation();
+	}
+	public float GetMouseWheelHorizontalRotation() {
+		return mouse.GetHorizontalRotation();
+	}
+	public float GetMouseWheelZAxisRotation() {
+		return mouse.GetZAxisRotation();
+	}
 	public void SetFixMousePointerFlag(boolean fix_mouse_pointer_flag) {
 		mouse.SetFixMousePointerFlag(fix_mouse_pointer_flag);
 	}
@@ -229,8 +259,10 @@ public class Window implements GLEventListener,KeyListener,MouseListener{
 		GLFront.Lock();
 		this.DefaultUpdate();
 		this.Update();
-		this.Draw();
-		CameraFront.Update(width, height);
+		if(destroyed_flag==false) {
+			this.Draw();
+			CameraFront.Update(width, height);
+		}
 		GLFront.Unlock();
 	}
 	private void DefaultUpdate() {
