@@ -35,7 +35,7 @@ import com.jogamp.opengl.util.FPSAnimator;
  * @author Daba
  *
  */
-public class Window implements GLEventListener,KeyListener,MouseListener{
+public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 	private GLWindow window;
 	private WindowAdapter adapter;
 	private FPSAnimator animator;
@@ -54,7 +54,7 @@ public class Window implements GLEventListener,KeyListener,MouseListener{
 	
 	private boolean destroyed_flag;
 	
-	public Window() {
+	public JOGLFWindow() {
 		if(GLFront.IsSetup()==false) {
 			throw new GLNotSetupException();
 		}
@@ -95,9 +95,9 @@ public class Window implements GLEventListener,KeyListener,MouseListener{
 	}
 	
 	class WindowCloser extends Thread{
-		private Window window;
+		private JOGLFWindow window;
 		
-		public WindowCloser(Window window) {
+		public WindowCloser(JOGLFWindow window) {
 			this.window=window;
 		}
 		@Override
@@ -105,7 +105,6 @@ public class Window implements GLEventListener,KeyListener,MouseListener{
 			window.window.destroy();
 		}
 	}
-	
 	public void CloseWindow() {
 		WindowCloser closer=new WindowCloser(this);
 		closer.start();
