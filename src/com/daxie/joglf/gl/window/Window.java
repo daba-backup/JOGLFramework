@@ -89,8 +89,22 @@ public class Window implements GLEventListener,KeyListener,MouseListener{
 		window.setVisible(true);
 	}
 	
+	class WindowCloser extends Thread{
+		private Window window;
+		
+		public WindowCloser(Window window) {
+			this.window=window;
+		}
+		@Override
+		public void run() {
+			window.window.destroy();
+		}
+	}
+	
 	public void CloseWindow() {
-		window.destroy();
+		WindowCloser closer=new WindowCloser(this);
+		closer.start();
+		
 		destroyed_flag=true;
 	}
 	
@@ -157,6 +171,10 @@ public class Window implements GLEventListener,KeyListener,MouseListener{
 	
 	public boolean HasFocus() {
 		return window.hasFocus();
+	}
+	
+	public boolean IsDestroyed() {
+		return destroyed_flag;
 	}
 	
 	public void ShowWindow() {
@@ -283,6 +301,10 @@ public class Window implements GLEventListener,KeyListener,MouseListener{
 	protected void Update() {
 		CameraFront.SetCameraPositionAndTarget_UpVecY(
 				VectorFunctions.VGet(50.0f, 50.0f, 50.0f),VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
+		
+		if(this.GetKeyboardPressingCount(KeyboardEnum.KEY_ESCAPE)==1) {
+			this.CloseWindow();
+		}
 	}
 	protected void Draw() {
 		
