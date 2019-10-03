@@ -142,7 +142,7 @@ public class GLShaderFunctions {
 		return 0;
 	}
 	/**
-	 * Initialize a sampler.
+	 * Initializes a sampler.
 	 */
 	public static void InitializeSampler() {
 		GLWrapper.glGenSamplers(1, sampler);

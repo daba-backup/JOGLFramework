@@ -112,6 +112,10 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		destroyed_flag=true;
 	}
 	
+	public void AddChildWindow(JOGLFWindow child) {
+		window.addChild(child.window);
+	}
+	
 	public void SetExitProcessWhenDestroyed() {
 		window.removeWindowListener(adapter);
 		
@@ -252,7 +256,10 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 	@Override
 	public void init(GLAutoDrawable drawable) {
 		GLFront.Initialize();
+		
+		GLFront.Lock();
 		this.Init();
+		GLFront.Unlock();
 	}
 	protected void Init() {
 		
@@ -260,7 +267,9 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 	
 	@Override
 	public void reshape(GLAutoDrawable drawable,int x,int y,int width,int height) {
+		GLFront.Lock();
 		this.Reshape(x, y, width, height);
+		GLFront.Unlock();
 	}
 	protected void Reshape(int x,int y,int width,int height) {
 		
@@ -313,7 +322,9 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 	
 	@Override
 	public void dispose(GLAutoDrawable drawable) {
+		GLFront.Lock();
 		this.Dispose();
+		GLFront.Unlock();
 	}
 	protected void Dispose() {
 		
