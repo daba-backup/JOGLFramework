@@ -119,6 +119,8 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 			@Override
 			public void windowDestroyed(WindowEvent e) {
 				animator.stop();
+				LogFile.CloseLogFile();
+				
 				System.exit(0);
 			}
 		};
@@ -249,15 +251,13 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 	
 	@Override
 	public void init(GLAutoDrawable drawable) {
-		if(GLFront.IsInitialized()==false) {
-			GLFront.Initialize();
-		}
-		
+		GLFront.Initialize();
 		this.Init();
 	}
 	protected void Init() {
 		
 	}
+	
 	@Override
 	public void reshape(GLAutoDrawable drawable,int x,int y,int width,int height) {
 		this.Reshape(x, y, width, height);
@@ -277,7 +277,8 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		mouse.SetFixMousePointerPosition(x+width/2,y+height/2);
 		mouse.Update();
 		
-		//Update shader-relating properties.
+		//Update shader-relating properties with lock
+		//in order to avoid interference from concurrent display() in other windows.
 		GLFront.Lock();
 		this.DefaultUpdate();
 		this.Update();
@@ -305,10 +306,6 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 	protected void Update() {
 		CameraFront.SetCameraPositionAndTarget_UpVecY(
 				VectorFunctions.VGet(50.0f, 50.0f, 50.0f),VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
-		
-		if(this.GetKeyboardPressingCount(KeyboardEnum.KEY_ESCAPE)==1) {
-			this.CloseWindow();
-		}
 	}
 	protected void Draw() {
 		

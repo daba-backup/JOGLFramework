@@ -39,6 +39,8 @@ public class TextureMgr {
 	
 	public static void Initialize() {
 		default_texture_handle=LoadTexture("./Data/Texture/white.bmp");
+		
+		LogFile.WriteInfo("[TextureMgr-Initialize] TextureMgr initialized.", true);
 	}
 	
 	public static int LoadTexture(String texture_filename) {

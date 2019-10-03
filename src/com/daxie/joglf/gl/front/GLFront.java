@@ -21,11 +21,13 @@ public class GLFront {
 	private static String profile_str="";
 	private static Lock lock=new ReentrantLock();
 	
-	private static boolean initialized_flag=false;
+	private static boolean setup_flag=false;
 	
 	public static void Setup(GLVersion gl_version) {
 		GLWrapper.SetGLVersion(gl_version);
 		CreateGLProfileStr(gl_version);
+		
+		setup_flag=true;
 	}
 	public static void Initialize() {
 		LoadDefaultShaders();
@@ -33,19 +35,13 @@ public class GLFront {
 		
 		TextureMgr.Initialize();
 		TextMgr.Initialize();
-		
-		initialized_flag=true;
 	}
 	
 	public static String GetProfileStr() {
 		return profile_str;
 	}
 	public static boolean IsSetup() {
-		if(profile_str.equals(""))return false;
-		else return true;
-	}
-	public static boolean IsInitialized() {
-		return initialized_flag;
+		return setup_flag;
 	}
 	
 	private static void CreateGLProfileStr(GLVersion gl_version) {

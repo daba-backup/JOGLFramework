@@ -20,8 +20,8 @@ public class GLWrapper{
 	private static GLVersion gl_version=GLVersion.GL4;
 	
 	public static void SetGLVersion(GLVersion version) {
-		if(GLFront.IsInitialized()==true) {
-			LogFile.WriteWarn("[GLWrapper-SetGLVersion] This method is disabled after the framework is initialized.", true);
+		if(GLFront.IsSetup()==true) {
+			LogFile.WriteWarn("[GLWrapper-SetGLVersion] This method is disabled after GL is setup.", true);
 			return;
 		}
 		

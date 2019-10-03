@@ -52,6 +52,8 @@ public class TextMgr {
 		region_renderer.enable(gl, false);
 		
 		default_font_handle=CreateDefaultFont();
+		
+		LogFile.WriteInfo("[TextMgr-Initialize] TextMgr initialized.", true);
 	}
 	private static int CreateDefaultFont() {
 		Font font=null;
