@@ -7,7 +7,6 @@ import com.daxie.basis.coloru8.ColorU8Functions;
 import com.daxie.joglf.gl.tool.BufferFunctions;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.joglf.gl.wrapper.gl4.GL4Wrapper;
 
 /**
  * Fog
@@ -53,9 +52,9 @@ public class Fog {
 		GLShaderFunctions.EnableProgram("texture");
 		program_id=GLShaderFunctions.GetProgramID("texture");
 		
-		fog_start_location=GL4Wrapper.glGetUniformLocation(program_id, "fog_start");
-		fog_end_location=GL4Wrapper.glGetUniformLocation(program_id, "fog_end");
-		fog_color_location=GL4Wrapper.glGetUniformLocation(program_id, "fog_color");
+		fog_start_location=GLWrapper.glGetUniformLocation(program_id, "fog_start");
+		fog_end_location=GLWrapper.glGetUniformLocation(program_id, "fog_end");
+		fog_color_location=GLWrapper.glGetUniformLocation(program_id, "fog_color");
 		
 		if(fog_enabled_flag==true) {
 			GLWrapper.glUniform1f(fog_start_location, fog_start);

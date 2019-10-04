@@ -7,6 +7,8 @@ package com.daxie.joglf.gl.wrapper;
  */
 public enum GLVersion {
 	GL3,
+	GL3bc,
 	GL4,
+	GL4bc,
 	GLES3
 }
