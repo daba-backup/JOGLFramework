@@ -19,6 +19,11 @@ import com.daxie.log.LogFile;
 public class GLWrapper{
 	private static GLVersion gl_version=GLVersion.GL4bc;
 	
+	/**
+	 * Sets the GL version.<br>
+	 * This method is disabled after GL is setup.
+	 * @param version Version
+	 */
 	public static void SetGLVersion(GLVersion version) {
 		if(GLFront.IsSetup()==true) {
 			LogFile.WriteWarn("[GLWrapper-SetGLVersion] This method is disabled after GL is setup.", true);
@@ -124,6 +129,11 @@ public class GLWrapper{
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glDepthFunc(arg0);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glDepthFunc(arg0);
 		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glDepthFunc(arg0);
+	}
+	public static void glDisable(int arg0) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glDisable(arg0);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glDisable(arg0);
+		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glDisable(arg0);
 	}
 	public static void glDisableVertexAttribArray(int arg0) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glDisableVertexAttribArray(arg0);

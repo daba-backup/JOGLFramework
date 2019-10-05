@@ -172,6 +172,15 @@ public class GLES3Wrapper {
 			LogFile.WriteWarn("[GLES3Wrapper-glDepthFunc] code:"+code,true);
 		}
 	}
+	public static void glDisable(int arg0) {
+		GLES3 gles3=GLContext.getCurrentGL().getGLES3();
+		gles3.glDisable(arg0);
+		
+		int code=gles3.glGetError();
+		if(code!=GLES3.GL_NO_ERROR) {
+			LogFile.WriteWarn("[GLES3Wrapper-glDisable] code:"+code,true);
+		}
+	}
 	public static void glDisableVertexAttribArray(int arg0) {
 		GLES3 gles3=GLContext.getCurrentGL().getGLES3();
 		gles3.glDisableVertexAttribArray(arg0);

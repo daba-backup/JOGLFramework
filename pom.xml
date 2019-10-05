@@ -5,7 +5,7 @@
 	
 	<groupId>com.github.dabasan</groupId>
 	<artifactId>joglframework</artifactId>
-	<version>2.0.0-SNAPSHOT</version>
+	<version>2.0.0</version>
 
 	<name>JOGLFramework</name>
 	<description>Simplify OpenGL-relating processing by wrapping raw functions provided by JOGL.</description>
@@ -52,7 +52,7 @@
 					<source>1.8</source>
 					<target>1.8</target>
 					<excludes>
-						<exclude>com/daxie/testmain/**</exclude>
+						<exclude>com/daxie/joglf/testmain/**</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
@@ -99,7 +99,7 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>3.1.0</version>
 				<configuration>
-					<excludePackageNames>com.daxie.testmain</excludePackageNames>
+					<excludePackageNames>com.daxie.joglf.testmain</excludePackageNames>
 				</configuration>
 				<executions>
 					<execution>

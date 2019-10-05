@@ -12,12 +12,13 @@ It also provides several wrapper functions for Java OpenAL (JOAL).
 - 3D hitcheck functions
 - Texture management
 - Play WAV and MP3
+- Multiwindow support
 
 ## Install
 
 Locate the *Data* folder at the current directory of your program.
 
-Direct link:https://github.com/Dabasan/JOGLFramework/releases/download/v1.0.0/Data.zip
+Direct link:https://github.com/Dabasan/JOGLFramework/releases/download/v2.0.0/Data.zip
 
 After setting up *Data*, you need to get required jars.
 
@@ -31,58 +32,67 @@ Download all required jars and add them to the classpath.
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
 ## Example
 
+### MyWindow.java
+
 ```java
-public class Main extends MainBase{
-	public static void main(String[] args) {
-		new Main(GLVersion.GL4);
-	}
-	public Main(GLVersion version) {
-		super(version);
+import com.daxie.joglf.gl.window.JOGLFWindow;
+
+public class MyWindow extends JOGLFWindow{
+	public MyWindow() {
+		
 	}
 	
-	//init() is called when the OpenGL context is created.
 	@Override
-	public void init(GLAutoDrawable drawable) {
-		super.init(drawable);
-		
-		System.out.println("init");
+	protected void Init() {
+		System.out.println("Init");
 	}
-	//reshape() is called when the main window is resized.
 	@Override
-	public void reshape(GLAutoDrawable drawable,int x,int y,int width,int height) {
-		super.reshape(drawable, x, y, width, height);
-		
-		System.out.println("reshape");
+	protected void Reshape(int x,int y,int width,int height) {
+		System.out.println("Reshape");
 	}
-	//display() is called every frame.
 	@Override
-	public void display(GLAutoDrawable drawable) {
-		super.display(drawable);
-		
-		//Close the window if ESC is pressed.
-		if(KeyboardFront.GetKeyboardPressingCount(KeyboardEnum.KEY_ESCAPE)==1) {
-			WindowFront.CloseWindow();
-		}
+	protected void Update() {
+		System.out.println("Update");
 	}
-	//dispose() is called when the OpenGL context is destroyed.
 	@Override
-	public void dispose(GLAutoDrawable drawable) {
-		super.dispose(drawable);
+	protected void Draw() {
+		System.out.println("Draw");
+	}
+	@Override
+	protected void Dispose() {
+		System.out.println("Dispose");
+	}
+}
+```
+
+### Main.java
+
+```java
+import com.daxie.joglf.gl.front.GLFront;
+import com.daxie.joglf.gl.wrapper.GLVersion;
+
+public class Main {
+	public static void main(String[] args) {
+		new Main();
+	}
+	public Main() {
+		GLFront.Setup(GLVersion.GL4);
 		
-		System.out.println("dispose");
+		JOGLFWindow window=new MyWindow();
+		window.SetTitle("MyWindow");
 	}
 }
 ```
 
 ## Sample
 
-Samples are available in [JOGLFrameworkSamples](https://github.com/Dabasan/JOGLFrameworkSamples).
+Samples are available in [JOGLFramework2Samples](https://github.com/Dabasan/JOGLFramework2Samples).
 
 ## Dependencies
 
@@ -109,10 +119,6 @@ Samples are available in [JOGLFrameworkSamples](https://github.com/Dabasan/JOGLF
 ## License
 
 JOGLFramework is released under the MIT license.
-
-## Comment
-
-Currently, this framework is capable of handling a **single** window. I don't think it is sufficient for practical use (such as a level editor), but I'm not really sure how to support multiwindow with JOGL. I will dig into that point someday......
 
 # External links
 
