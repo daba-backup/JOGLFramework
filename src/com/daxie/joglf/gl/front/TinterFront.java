@@ -18,9 +18,6 @@ public class TinterFront {
 	public static void Initialize() {
 		tinter.Initialize();
 	}
-	public static void Dispose() {
-		tinter.Dispose();
-	}
 	
 	public static void Tint() {
 		tinter.Tint();
