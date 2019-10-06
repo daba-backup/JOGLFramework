@@ -13,7 +13,8 @@ import com.jogamp.openal.util.ALut;
  */
 public class ALFront {
 	/**
-	 * JOGLFramework randomly terminates once per approximately ten attempts on my environment
+	 * JOGLFramework terminates during ALut.alutInit().<br>
+	 * This error occurs once per approximately ten attempts on my environment
 	 * with ALException that says "Error opening default OpenAL device".<br>
 	 * This flag is used to avoid using ALut.alutInit() that throws ALException.<br>
 	 * Accordingly, methods that depend on ALUT will be also disabled.
