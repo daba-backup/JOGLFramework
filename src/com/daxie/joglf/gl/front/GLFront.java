@@ -68,6 +68,10 @@ public class GLFront {
 				"line_drawer", 
 				"./Data/Shader/330/line_drawer/vshader.glsl", 
 				"./Data/Shader/330/line_drawer/fshader.glsl");
+		GLShaderFunctions.CreateProgram(
+				"tinter", 
+				"./Data/Shader/330/tinter/vshader.glsl", 
+				"./Data/Shader/330/tinter/fshader.glsl");
 		
 		GLShaderFunctions.InitializeSampler();
 		
