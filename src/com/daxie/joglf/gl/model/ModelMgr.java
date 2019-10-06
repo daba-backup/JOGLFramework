@@ -218,7 +218,9 @@ class ModelMgr {
 				TextureMgr.BindTexture(texture_handle);
 			}
 			
+			GLWrapper.glEnable(GL4.GL_BLEND);
 			GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
+			GLWrapper.glDisable(GL4.GL_BLEND);
 			
 			if(texture_handle<0)TextureMgr.DisableDefaultTexture();
 			else TextureMgr.DisableTexture(texture_handle);
@@ -259,7 +261,9 @@ class ModelMgr {
 				TextureMgr.BindTexture(texture_handle);
 			}
 			
+			GLWrapper.glEnable(GL4.GL_BLEND);
 			GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
+			GLWrapper.glDisable(GL4.GL_BLEND);
 			
 			if(texture_handle<0)TextureMgr.DisableDefaultTexture();
 			else TextureMgr.DisableTexture(texture_handle);

@@ -240,7 +240,9 @@ public class TextureMgr {
 		
 		texture.enable(gl);
 		texture.bind(gl);
+		GLWrapper.glEnable(GL4.GL_BLEND);
 		GLWrapper.glDrawElements(GL4.GL_TRIANGLES, 6, GL4.GL_UNSIGNED_INT, 0);
+		GLWrapper.glDisable(GL4.GL_BLEND);
 		texture.disable(gl);
 		
 		GLWrapper.glBindVertexArray(0);

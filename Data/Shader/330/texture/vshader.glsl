@@ -41,6 +41,7 @@ void SetLighting(){
     vec4 specular_color=vec4(specular*specular_power);
 
     vs_out_color=ambient_color+diffuse_color+specular_color;
+    vs_out_color.a=1.0;
 }
 void SetFog(){
     float linear_pos=length(camera_position-vs_in_position);

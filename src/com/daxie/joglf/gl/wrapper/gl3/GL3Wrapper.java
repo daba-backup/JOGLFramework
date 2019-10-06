@@ -172,6 +172,15 @@ public class GL3Wrapper {
 			LogFile.WriteWarn("[GL3Wrapper-glDepthFunc] code:"+code,true);
 		}
 	}
+	public static void glDepthMask(boolean arg0) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glDepthMask(arg0);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteWarn("[GL3Wrapper-glDepthMask] code:"+code,true);
+		}
+	}
 	public static void glDisable(int arg0) {
 		GL3 gl3=GLContext.getCurrentGL().getGL3();
 		gl3.glDisable(arg0);

@@ -130,6 +130,11 @@ public class GLWrapper{
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glDepthFunc(arg0);
 		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glDepthFunc(arg0);
 	}
+	public static void glDepthMask(boolean arg0) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glDepthMask(arg0);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glDepthMask(arg0);
+		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glDepthMask(arg0);
+	}
 	public static void glDisable(int arg0) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glDisable(arg0);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glDisable(arg0);

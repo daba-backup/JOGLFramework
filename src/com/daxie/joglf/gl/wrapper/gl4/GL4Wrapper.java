@@ -172,6 +172,15 @@ public class GL4Wrapper {
 			LogFile.WriteWarn("[GL4Wrapper-glDepthFunc] code:"+code,true);
 		}
 	}
+	public static void glDepthMask(boolean arg0) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glDepthMask(arg0);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteWarn("[GL4Wrapper-glDepthMask] code:"+code,true);
+		}
+	}
 	public static void glDisable(int arg0) {
 		GL4 gl4=GLContext.getCurrentGL().getGL4();
 		gl4.glDisable(arg0);
