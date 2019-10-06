@@ -2,8 +2,8 @@ package com.daxie.joglf.gl.drawer;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import com.daxie.basis.vector.Vector;
 import com.daxie.joglf.gl.shape.Triangle;
@@ -31,7 +31,7 @@ public class DynamicTrianglesDrawer {
 	
 	public DynamicTrianglesDrawer() {
 		texture_handle=-1;
-		triangles_map=new HashMap<>();
+		triangles_map=new TreeMap<>();
 		
 		pos_vbo=Buffers.newDirectIntBuffer(1);
 		uv_vbo=Buffers.newDirectIntBuffer(1);
@@ -147,7 +147,10 @@ public class DynamicTrianglesDrawer {
 		
 		int triangle_num=triangles_map.size();
 		int vertex_num=triangle_num*3;
+		
+		GLWrapper.glEnable(GL4.GL_BLEND);
 		GLWrapper.glDrawArrays(GL4.GL_TRIANGLES, 0, vertex_num);
+		GLWrapper.glDisable(GL4.GL_BLEND);
 		
 		if(texture_handle<0)TextureMgr.DisableDefaultTexture();
 		else TextureMgr.DisableTexture(texture_handle);
