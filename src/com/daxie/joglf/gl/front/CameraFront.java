@@ -46,6 +46,19 @@ public class CameraFront {
 		camera.SetCameraUpVector(up);
 	}
 	
+	public static Vector GetCameraPosition() {
+		return camera.GetCameraPosition();
+	}
+	public static Vector GetCameraTarget() {
+		return camera.GetCameraTarget();
+	}
+	public static Vector GetCameraFrontVector() {
+		return camera.GetCameraFrontVector();
+	}
+	public static Vector GetCameraUpVector() {
+		return camera.GetCameraUpVector();
+	}
+	
 	public static void SetupCamera_Perspective(float fov) {
 		camera.SetupCamera_Perspective(fov);
 	}

@@ -21,6 +21,8 @@ public class Mouse implements MouseListener{
 	
 	private CountsAndFlags mouse_buttons;
 	
+	private int window_x,window_y;
+	
 	private int x,y;
 	private int diff_x,diff_y;
 	
@@ -34,6 +36,9 @@ public class Mouse implements MouseListener{
 	
 	public Mouse() {
 		mouse_buttons=new CountsAndFlags(KEY_NUM);
+		
+		window_x=0;
+		window_y=0;
 		
 		x=0;
 		y=0;
@@ -57,6 +62,11 @@ public class Mouse implements MouseListener{
 	public void SetFixMousePointerFlag(boolean fix_mouse_pointer_flag) {
 		this.fix_mouse_pointer_flag=fix_mouse_pointer_flag;
 	}
+	
+	public void SetWindowPosition(int window_x,int window_y) {
+		this.window_x=window_x;
+		this.window_y=window_y;
+	}
 	public void SetFixMousePointerPosition(int x,int y) {
 		fix_pos_x=x;
 		fix_pos_y=y;
@@ -74,7 +84,7 @@ public class Mouse implements MouseListener{
 		}
 		
 		if(fix_mouse_pointer_flag==true) {
-			robot.mouseMove(fix_pos_x,fix_pos_y);
+			robot.mouseMove(window_x+fix_pos_x,window_y+fix_pos_y);
 		}
 	}
 	

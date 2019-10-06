@@ -284,7 +284,8 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		int y=window.getY();
 		int width=window.getWidth();
 		int height=window.getHeight();
-		mouse.SetFixMousePointerPosition(x+width/2,y+height/2);
+		mouse.SetWindowPosition(x, y);
+		mouse.SetFixMousePointerPosition(width/2, height/2);
 		mouse.Update();
 		
 		//Update shader-relating properties with lock
