@@ -96,6 +96,10 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		window.setVisible(true);
 	}
 	
+	protected GLWindow GetWindow() {
+		return window;
+	}
+	
 	class WindowCloser extends Thread{
 		private JOGLFWindow window;
 		
