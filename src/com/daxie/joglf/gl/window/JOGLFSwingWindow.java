@@ -2,6 +2,8 @@ package com.daxie.joglf.gl.window;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -195,6 +197,24 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 	}
 	public void HideWindow() {
 		frame.setVisible(false);
+	}
+	
+	public void SetWindowMode(WindowMode mode) {
+		GraphicsEnvironment environment=GraphicsEnvironment.getLocalGraphicsEnvironment();
+		GraphicsDevice device=environment.getDefaultScreenDevice();
+		
+		if(mode==WindowMode.WINDOW) {
+			device.setFullScreenWindow(null);
+		}
+		else {
+			if(device.isFullScreenSupported()==false) {
+				LogFile.WriteWarn("[JOGLFSwingWindow-SetWindowMode] Full screen mode is not supported on this system.", true);
+				return;
+			}
+			else {
+				device.setFullScreenWindow(frame);
+			}
+		}
 	}
 	
 	public void SetAlwaysOnTop(boolean flag) {
