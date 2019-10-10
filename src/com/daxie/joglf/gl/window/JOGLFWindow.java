@@ -16,6 +16,7 @@ import com.daxie.joglf.gl.input.mouse.MouseEnum;
 import com.daxie.joglf.gl.text.FormerTextMgr;
 import com.daxie.joglf.gl.text.TextMgr;
 import com.daxie.joglf.gl.texture.TextureMgr;
+import com.daxie.joglf.gl.wrapper.GLDrawFunctions2D;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.log.LogFile;
 import com.jogamp.newt.event.KeyEvent;
@@ -315,6 +316,7 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		TextureMgr.SetWindowSize(width, height);
 		TextMgr.SetWindowSize(width, height);
 		FormerTextMgr.SetWindowSize(width, height);
+		GLDrawFunctions2D.SetWindowSize(width, height);
 		
 		LightingFront.Update();
 		FogFront.Update();

@@ -80,7 +80,9 @@ public class GLDrawFunctions3D {
 		
 		//Draw
 		GLWrapper.glBindVertexArray(vao.get(0));
+		GLWrapper.glEnable(GL4.GL_BLEND);
 		GLWrapper.glDrawArrays(GL4.GL_LINES, 0, 2);
+		GLWrapper.glDisable(GL4.GL_BLEND);
 		GLWrapper.glBindVertexArray(0);
 		
 		//Delete buffers
@@ -210,7 +212,9 @@ public class GLDrawFunctions3D {
 		
 		//Draw
 		GLWrapper.glBindVertexArray(vao.get(0));
+		GLWrapper.glEnable(GL4.GL_BLEND);
 		GLWrapper.glDrawArrays(GL4.GL_LINE_LOOP, 0, 3);
+		GLWrapper.glDisable(GL4.GL_BLEND);
 		GLWrapper.glBindVertexArray(0);
 		
 		//Delete buffers
@@ -367,10 +371,12 @@ public class GLDrawFunctions3D {
 		GLWrapper.glEnableVertexAttribArray(1);
 		GLWrapper.glVertexAttribPointer(1, 4, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*4, 0);
 		
-		GLWrapper.glDrawElements(GL4.GL_LINES,indices_size,GL4.GL_UNSIGNED_INT,0);
-		
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
 		GLWrapper.glBindVertexArray(0);
+		
+		GLWrapper.glEnable(GL4.GL_BLEND);
+		GLWrapper.glDrawElements(GL4.GL_LINES,indices_size,GL4.GL_UNSIGNED_INT,0);
+		GLWrapper.glDisable(GL4.GL_BLEND);
 		
 		GLWrapper.glDeleteBuffers(1, indices_vbo);
 		GLWrapper.glDeleteBuffers(1, pos_vbo);
@@ -555,7 +561,9 @@ public class GLDrawFunctions3D {
 		GLWrapper.glEnableVertexAttribArray(1);
 		GLWrapper.glVertexAttribPointer(1, 4, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*4, 0);
 		
+		GLWrapper.glEnable(GL4.GL_BLEND);
 		GLWrapper.glDrawElements(GL4.GL_LINES,indices_size,GL4.GL_UNSIGNED_INT,0);
+		GLWrapper.glDisable(GL4.GL_BLEND);
 		
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
 		GLWrapper.glBindVertexArray(0);
@@ -668,7 +676,9 @@ public class GLDrawFunctions3D {
 			TextureMgr.BindTexture(texture_handle);
 		}
 		
+		GLWrapper.glEnable(GL4.GL_BLEND);
 		GLWrapper.glDrawArrays(GL4.GL_TRIANGLES, 0, 3);
+		GLWrapper.glDisable(GL4.GL_BLEND);
 		
 		GLWrapper.glBindVertexArray(0);
 		

@@ -92,7 +92,7 @@ public class DynamicPointsDrawer {
 	}
 	public int DeletePoint(int point_id) {
 		if(points_map.containsKey(point_id)==false) {
-			LogFile.WriteWarn("[DynamicSegmentsDrawer-DeletePoint] No such point. point_id:"+point_id, true);
+			LogFile.WriteWarn("[DynamicPointsDrawer-DeletePoint] No such point. point_id:"+point_id, true);
 			return -1;
 		}
 		

@@ -102,7 +102,9 @@ public class GLDrawFunctions2D {
 		
 		//Draw
 		GLWrapper.glBindVertexArray(vao.get(0));
+		GLWrapper.glEnable(GL4.GL_BLEND);
 		GLWrapper.glDrawArrays(GL4.GL_LINES, 0, 2);
+		GLWrapper.glDisable(GL4.GL_BLEND);
 		GLWrapper.glBindVertexArray(0);
 		
 		//Delete buffers
@@ -188,7 +190,9 @@ public class GLDrawFunctions2D {
 		
 		//Draw
 		GLWrapper.glBindVertexArray(vao.get(0));
+		GLWrapper.glEnable(GL4.GL_BLEND);
 		GLWrapper.glDrawArrays(GL4.GL_LINE_LOOP, 0, 4);
+		GLWrapper.glDisable(GL4.GL_BLEND);
 		GLWrapper.glBindVertexArray(0);
 		
 		//Delete buffers
@@ -259,7 +263,9 @@ public class GLDrawFunctions2D {
 		
 		//Draw
 		GLWrapper.glBindVertexArray(vao.get(0));
+		GLWrapper.glEnable(GL4.GL_BLEND);
 		GLWrapper.glDrawArrays(GL4.GL_LINE_LOOP, 0, div_num);
+		GLWrapper.glDisable(GL4.GL_BLEND);
 		GLWrapper.glBindVertexArray(0);
 		
 		//Delete buffers
