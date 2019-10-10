@@ -371,12 +371,12 @@ public class GLDrawFunctions3D {
 		GLWrapper.glEnableVertexAttribArray(1);
 		GLWrapper.glVertexAttribPointer(1, 4, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*4, 0);
 		
-		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
-		GLWrapper.glBindVertexArray(0);
-		
 		GLWrapper.glEnable(GL4.GL_BLEND);
 		GLWrapper.glDrawElements(GL4.GL_LINES,indices_size,GL4.GL_UNSIGNED_INT,0);
 		GLWrapper.glDisable(GL4.GL_BLEND);
+		
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
+		GLWrapper.glBindVertexArray(0);
 		
 		GLWrapper.glDeleteBuffers(1, indices_vbo);
 		GLWrapper.glDeleteBuffers(1, pos_vbo);
