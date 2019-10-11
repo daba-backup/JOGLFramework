@@ -36,6 +36,12 @@ Download all required jars and add them to the classpath.
 </dependency>
 ```
 
+**Note**
+
+Version 3.0.0 has not been promoted yet due to continual errors in Maven.
+
+I'm going to try again some time later.
+
 ## Example
 
 ### MyWindow.java
