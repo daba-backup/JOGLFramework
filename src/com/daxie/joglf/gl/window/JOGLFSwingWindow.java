@@ -76,6 +76,7 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		adapter=new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
+				animator.stop();
 				destroyed_flag=true;
 			}
 		};
@@ -136,7 +137,9 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		adapter=new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
+				animator.stop();
 				LogFile.CloseLogFile();
+				
 				destroyed_flag=true;
 				
 				System.exit(0);
