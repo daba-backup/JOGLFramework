@@ -3,6 +3,7 @@ package com.daxie.joglf.gl.texture;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.HashMap;
@@ -196,9 +197,9 @@ public class TextureMgr {
 		uv_buffer.put(0.0f);
 		uv_buffer.put(1.0f);
 		
-		indices.flip();
-		pos_buffer.flip();
-		uv_buffer.flip();
+		((Buffer)indices).flip();
+		((Buffer)pos_buffer).flip();
+		((Buffer)uv_buffer).flip();
 		
 		GLShaderFunctions.EnableProgram("texture_drawer");
 		

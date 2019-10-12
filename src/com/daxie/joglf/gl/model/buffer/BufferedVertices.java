@@ -1,5 +1,6 @@
 package com.daxie.joglf.gl.model.buffer;
 
+import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
@@ -67,8 +68,8 @@ public class BufferedVertices {
 			ftemp=norm_buffer_1.get(i)*(1.0f-blend_ratio)+norm_buffer_2.get(i)*blend_ratio;
 			interpolated_norm_buffer.put(ftemp);
 		}
-		interpolated_pos_buffer.flip();
-		interpolated_norm_buffer.flip();
+		((Buffer)interpolated_pos_buffer).flip();
+		((Buffer)interpolated_norm_buffer).flip();
 		
 		interpolated.SetTextureHandle(texture_handle);
 		interpolated.SetIndices(indices);

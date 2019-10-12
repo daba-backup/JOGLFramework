@@ -1,6 +1,7 @@
 package com.daxie.joglf.gl.model.loader.bd1;
 
 import java.io.FileNotFoundException;
+import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
@@ -94,10 +95,10 @@ public class BD1Loader {
 				}
 			}
 			
-			indices.flip();
-			pos_buffer.flip();
-			uv_buffer.flip();
-			norm_buffer.flip();
+			((Buffer)indices).flip();
+			((Buffer)pos_buffer).flip();
+			((Buffer)uv_buffer).flip();
+			((Buffer)norm_buffer).flip();
 			
 			buffered_vertices.SetIndices(indices);
 			buffered_vertices.SetPosBuffer(pos_buffer);
@@ -174,10 +175,10 @@ public class BD1Loader {
 				norm_buffer.put(normal.GetZ());
 			}
 			
-			indices.flip();
-			pos_buffer.flip();
-			uv_buffer.flip();
-			norm_buffer.flip();
+			((Buffer)indices).flip();
+			((Buffer)pos_buffer).flip();
+			((Buffer)uv_buffer).flip();
+			((Buffer)norm_buffer).flip();
 			
 			buffered_vertices.SetIndices(indices);
 			buffered_vertices.SetPosBuffer(pos_buffer);

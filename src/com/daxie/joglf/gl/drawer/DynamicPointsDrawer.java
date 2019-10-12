@@ -1,5 +1,6 @@
 package com.daxie.joglf.gl.drawer;
 
+import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.Map;
@@ -56,8 +57,8 @@ public class DynamicPointsDrawer {
 			dif_buffer.put(dif.GetB());
 			dif_buffer.put(dif.GetA());
 		}
-		pos_buffer.flip();
-		dif_buffer.flip();
+		((Buffer)pos_buffer).flip();
+		((Buffer)dif_buffer).flip();
 		
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
 		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 

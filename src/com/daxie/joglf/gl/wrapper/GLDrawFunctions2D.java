@@ -1,5 +1,6 @@
 package com.daxie.joglf.gl.wrapper;
 
+import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
@@ -69,8 +70,8 @@ public class GLDrawFunctions2D {
 			color_buffer.put(color_a);
 		}
 		
-		pos_buffer.flip();
-		color_buffer.flip();
+		((Buffer)pos_buffer).flip();
+		((Buffer)color_buffer).flip();
 		
 		GLShaderFunctions.EnableProgram("line_drawer");
 		
@@ -157,8 +158,8 @@ public class GLDrawFunctions2D {
 			color_buffer.put(color_a);
 		}
 		
-		pos_buffer.flip();
-		color_buffer.flip();
+		((Buffer)pos_buffer).flip();
+		((Buffer)color_buffer).flip();
 		
 		GLShaderFunctions.EnableProgram("line_drawer");
 		
@@ -232,8 +233,8 @@ public class GLDrawFunctions2D {
 			color_buffer.put(color_a);
 		}
 		
-		pos_buffer.flip();
-		color_buffer.flip();
+		((Buffer)pos_buffer).flip();
+		((Buffer)color_buffer).flip();
 		
 		GLShaderFunctions.EnableProgram("line_drawer");
 		

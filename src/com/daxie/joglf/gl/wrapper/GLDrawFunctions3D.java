@@ -1,5 +1,6 @@
 package com.daxie.joglf.gl.wrapper;
 
+import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
@@ -47,8 +48,8 @@ public class GLDrawFunctions3D {
 		color_buffer.put(color_2.GetB());
 		color_buffer.put(color_2.GetA());
 		
-		pos_buffer.flip();
-		color_buffer.flip();
+		((Buffer)pos_buffer).flip();
+		((Buffer)color_buffer).flip();
 		
 		GLShaderFunctions.EnableProgram("color");
 		
@@ -179,8 +180,8 @@ public class GLDrawFunctions3D {
 			color_buffer.put(dif.GetB());
 			color_buffer.put(dif.GetA());
 		}
-		pos_buffer.flip();
-		color_buffer.flip();
+		((Buffer)pos_buffer).flip();
+		((Buffer)color_buffer).flip();
 		
 		GLShaderFunctions.EnableProgram("color");
 		
@@ -336,9 +337,9 @@ public class GLDrawFunctions3D {
 			color_buffer.put(color_a);
 		}
 		
-		indices_buffer.flip();
-		pos_buffer.flip();
-		color_buffer.flip();
+		((Buffer)indices_buffer).flip();
+		((Buffer)pos_buffer).flip();
+		((Buffer)color_buffer).flip();
 		
 		GLShaderFunctions.EnableProgram("color");
 		
@@ -526,9 +527,9 @@ public class GLDrawFunctions3D {
 			color_buffer.put(color_a);
 		}
 		
-		indices_buffer.flip();
-		pos_buffer.flip();
-		color_buffer.flip();
+		((Buffer)indices_buffer).flip();
+		((Buffer)pos_buffer).flip();
+		((Buffer)color_buffer).flip();
 		
 		GLShaderFunctions.EnableProgram("color");
 		
@@ -620,9 +621,9 @@ public class GLDrawFunctions3D {
 				norm_buffer.put(norm.GetZ());
 			}
 		}
-		pos_buffer.flip();
-		uv_buffer.flip();
-		norm_buffer.flip();
+		((Buffer)pos_buffer).flip();
+		((Buffer)uv_buffer).flip();
+		((Buffer)norm_buffer).flip();
 		
 		GLShaderFunctions.EnableProgram("texture");
 		

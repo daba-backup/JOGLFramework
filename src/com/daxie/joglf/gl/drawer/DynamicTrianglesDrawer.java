@@ -1,5 +1,6 @@
 package com.daxie.joglf.gl.drawer;
 
+import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.Map;
@@ -71,9 +72,9 @@ public class DynamicTrianglesDrawer {
 				norm_buffer.put(normal.GetZ());
 			}
 		}
-		pos_buffer.flip();
-		uv_buffer.flip();
-		norm_buffer.flip();
+		((Buffer)pos_buffer).flip();
+		((Buffer)uv_buffer).flip();
+		((Buffer)norm_buffer).flip();
 		
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
 		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 

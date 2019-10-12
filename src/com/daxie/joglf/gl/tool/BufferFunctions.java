@@ -1,5 +1,6 @@
 package com.daxie.joglf.gl.tool;
 
+import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -19,7 +20,7 @@ public class BufferFunctions {
 		byte[] byte_array=new byte[b.remaining()];
 		b.get(byte_array);
 		
-		b.flip();
+		((Buffer)b).flip();
 		
 		return new String(byte_array,0,byte_array.length-1);
 	}
@@ -31,7 +32,7 @@ public class BufferFunctions {
 		for(int i=0;i<cap;i++) {
 			copied.put(b.get(i));
 		}
-		copied.flip();
+		((Buffer)copied).flip();
 		
 		return copied;
 	}
@@ -42,7 +43,7 @@ public class BufferFunctions {
 		for(int i=0;i<cap;i++) {
 			copied.put(b.get(i));
 		}
-		copied.flip();
+		((Buffer)copied).flip();
 		
 		return copied;
 	}
@@ -55,7 +56,7 @@ public class BufferFunctions {
 		buffer.put(c.GetB());
 		buffer.put(c.GetA());
 		
-		buffer.flip();
+		((Buffer)buffer).flip();
 		
 		return buffer;
 	}
@@ -66,7 +67,7 @@ public class BufferFunctions {
 		buffer.put(v.GetY());
 		buffer.put(v.GetZ());
 		
-		buffer.flip();
+		((Buffer)buffer).flip();
 		
 		return buffer;
 	}
@@ -79,7 +80,7 @@ public class BufferFunctions {
 			}
 		}
 		
-		buffer.flip();
+		((Buffer)buffer).flip();
 		
 		return buffer;
 	}

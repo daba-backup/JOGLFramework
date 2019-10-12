@@ -1,5 +1,6 @@
 package com.daxie.joglf.gl.tinter;
 
+import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
@@ -57,7 +58,7 @@ public class Tinter {
 		pos_buffer.put(-1.0f);
 		pos_buffer.put(-1.0f);
 		
-		pos_buffer.flip();
+		((Buffer)pos_buffer).flip();
 		
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
 		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
