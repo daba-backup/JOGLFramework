@@ -5,7 +5,7 @@
 
 	<groupId>com.github.dabasan</groupId>
 	<artifactId>joglframework</artifactId>
-	<version>3.0.2</version>
+	<version>3.0.3-SNAPSHOT</version>
 
 	<name>JOGLFramework</name>
 	<description>Simplify OpenGL-relating processing by wrapping raw functions provided by JOGL.</description>

@@ -1,9 +1,11 @@
 package com.daxie.joglf.gl.window;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -285,10 +287,14 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		//Update input.
 		keyboard.Update();
 		
-		int x=frame.getX();
-		int y=frame.getY();
-		int width=frame.getWidth();
-		int height=frame.getHeight();
+		Point point=canvas.getLocationOnScreen();
+		Container content_pane=frame.getContentPane();
+		Dimension dimension=content_pane.getSize();
+		
+		int x=point.x;
+		int y=point.y;
+		int width=dimension.width;
+		int height=dimension.height;
 		mouse.SetWindowPosition(x, y);
 		mouse.SetFixMousePointerPosition(width/2, height/2);
 		mouse.Update();
