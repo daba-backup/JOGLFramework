@@ -89,6 +89,10 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		canvas=new GLCanvas(capabilities);
 		canvas.setPreferredSize(new Dimension(WindowCommonInfoStock.DEFAULT_WIDTH, WindowCommonInfoStock.DEFAULT_HEIGHT));
 		canvas.addGLEventListener(this);
+		canvas.addKeyListener(this);
+		canvas.addMouseListener(this);
+		canvas.addMouseMotionListener(this);
+		canvas.addMouseWheelListener(this);
 		
 		int fps=WindowCommonInfoStock.GetFPS();
 		animator=new FPSAnimator(fps);
