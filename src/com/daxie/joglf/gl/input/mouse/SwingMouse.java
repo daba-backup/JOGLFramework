@@ -105,8 +105,8 @@ public class SwingMouse implements MouseListener,MouseMotionListener,MouseWheelL
 	}
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		x=e.getX();
-		y=e.getY();
+		x=e.getXOnScreen();
+		y=e.getYOnScreen();
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
