@@ -1,5 +1,6 @@
 package com.daxie.joglf.gl.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -365,6 +366,24 @@ public class Model3D {
 	}
 	public static int RefreshCollInfo(int model_handle) {
 		return SetupCollInfo(model_handle);
+	}
+	public static List<CollTriangle> GetCollTriangles(int model_handle){
+		List<CollTriangle> ret=new ArrayList<>();
+		
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteWarn("[Model3D-GetCollTriangles] No such model. model_handle:"+model_handle, true);
+			return ret;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		if(model.IsCollInfoSetup()==false) {
+			LogFile.WriteWarn("[Model3D-GetCollTriangles] Collision info not set up. model_handle:"+model_handle, true);
+			return ret;
+		}
+		
+		ret=model.GetCollTriangles();
+		
+		return ret;
 	}
 	
 	public static CollResult CollCheck_Segment(int model_handle,Vector segment_pos_1,Vector segment_pos_2) {
