@@ -59,6 +59,7 @@ public class Vertex3D {
 	public void SetV(float v) {
 		this.v=v;
 	}
+	
 	public Vector GetPos() {
 		return new Vector(pos);
 	}
