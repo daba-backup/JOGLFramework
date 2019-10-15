@@ -101,6 +101,9 @@ public class DynamicPointsDrawer {
 		
 		return 0;
 	}
+	public void DeleteAllPoints() {
+		points_map.clear();
+	}
 	
 	public void Draw() {
 		GLShaderFunctions.EnableProgram("color");

@@ -107,6 +107,9 @@ public class DynamicSegmentsDrawer {
 		
 		return 0;
 	}
+	public void DeleteSegments() {
+		segments_map.clear();
+	}
 	
 	public void Draw() {
 		GLShaderFunctions.EnableProgram("color");

@@ -128,6 +128,9 @@ public class DynamicTrianglesDrawer {
 		
 		return 0;
 	}
+	public void DeleteAllTriangles() {
+		triangles_map.clear();
+	}
 	
 	public void Draw() {
 		GLShaderFunctions.EnableProgram("texture");

@@ -117,6 +117,9 @@ public class Dynamic2DSegmentsDrawer {
 		
 		return 0;
 	}
+	public void DeleteAllSegments() {
+		segments_map.clear();
+	}
 	
 	public void SetWindowSize(int width,int height) {
 		window_width=width;
