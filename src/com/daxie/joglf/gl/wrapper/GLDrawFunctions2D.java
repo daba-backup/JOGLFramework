@@ -201,6 +201,103 @@ public class GLDrawFunctions2D {
 		GLWrapper.glDeleteBuffers(1, color_vbo);
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
+	public static void DrawFilledRectangle2D(int x1,int y1,int x2,int y2,ColorU8 color) {
+		IntBuffer indices_vbo=Buffers.newDirectIntBuffer(1);
+		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);
+		IntBuffer color_vbo=Buffers.newDirectIntBuffer(1);
+		IntBuffer vao=Buffers.newDirectIntBuffer(1);
+		
+		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(2*4);
+		FloatBuffer color_buffer=Buffers.newDirectFloatBuffer(4*4);
+
+		float normalized_x1=NormalizeCoordinate(x1, window_width);
+		float normalized_y1=NormalizeCoordinate(y1, window_height);
+		float normalized_x2=NormalizeCoordinate(x2, window_width);
+		float normalized_y2=NormalizeCoordinate(y2, window_height);
+		
+		//Bottom left
+		pos_buffer.put(normalized_x1);
+		pos_buffer.put(normalized_y1);
+		//Bottom right
+		pos_buffer.put(normalized_x2);
+		pos_buffer.put(normalized_y1);
+		//Top right
+		pos_buffer.put(normalized_x2);
+		pos_buffer.put(normalized_y2);
+		//Top left
+		pos_buffer.put(normalized_x1);
+		pos_buffer.put(normalized_y2);
+		
+		float color_r=color.GetR();
+		float color_g=color.GetG();
+		float color_b=color.GetB();
+		float color_a=color.GetA();
+		for(int i=0;i<4;i++) {
+			color_buffer.put(color_r);
+			color_buffer.put(color_g);
+			color_buffer.put(color_b);
+			color_buffer.put(color_a);
+		}
+		
+		((Buffer)pos_buffer).flip();
+		((Buffer)color_buffer).flip();
+		
+		IntBuffer indices_buffer=Buffers.newDirectIntBuffer(3*2);
+		indices_buffer.put(0);
+		indices_buffer.put(1);
+		indices_buffer.put(2);
+		indices_buffer.put(2);
+		indices_buffer.put(3);
+		indices_buffer.put(0);
+		((Buffer)indices_buffer).flip();
+		
+		GLShaderFunctions.EnableProgram("line_drawer");
+		
+		GLWrapper.glGenBuffers(1, indices_vbo);
+		GLWrapper.glGenBuffers(1, pos_vbo);
+		GLWrapper.glGenBuffers(1, color_vbo);
+		
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*pos_buffer.capacity(),pos_buffer,GL4.GL_STATIC_DRAW);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, color_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*color_buffer.capacity(),color_buffer,GL4.GL_STATIC_DRAW);
+		
+		GLWrapper.glGenVertexArrays(1, vao);
+		GLWrapper.glBindVertexArray(vao.get(0));
+		
+		//Indices
+		GLWrapper.glBindBuffer(GL4.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ELEMENT_ARRAY_BUFFER, 
+				Buffers.SIZEOF_INT*indices_buffer.capacity(), indices_buffer, GL4.GL_STATIC_DRAW);
+		
+		//Position attribute
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(0);
+		GLWrapper.glVertexAttribPointer(0, 2, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*2, 0);
+		
+		//Color attribute
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, color_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(1);
+		GLWrapper.glVertexAttribPointer(1, 4, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*4, 0);
+		
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
+		GLWrapper.glBindVertexArray(0);
+		
+		//Draw
+		GLWrapper.glBindVertexArray(vao.get(0));
+		GLWrapper.glEnable(GL4.GL_BLEND);
+		GLWrapper.glDrawElements(GL4.GL_TRIANGLES, indices_buffer.capacity(), GL4.GL_UNSIGNED_INT, 0);
+		GLWrapper.glDisable(GL4.GL_BLEND);
+		GLWrapper.glBindVertexArray(0);
+		
+		//Delete buffers
+		GLWrapper.glDeleteBuffers(1, indices_vbo);
+		GLWrapper.glDeleteBuffers(1, pos_vbo);
+		GLWrapper.glDeleteBuffers(1, color_vbo);
+		GLWrapper.glDeleteVertexArrays(1, vao);
+	}
 	public static void DrawCircle2D(int center_x,int center_y,int radius,int div_num,ColorU8 color) {
 		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);
 		IntBuffer color_vbo=Buffers.newDirectIntBuffer(1);

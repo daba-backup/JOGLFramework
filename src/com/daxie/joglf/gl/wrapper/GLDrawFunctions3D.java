@@ -15,7 +15,6 @@ import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.shape.Triangle;
 import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.texture.TextureMgr;
-import com.daxie.joglf.gl.wrapper.gl4.GL4Wrapper;
 import com.daxie.log.LogFile;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
@@ -358,8 +357,8 @@ public class GLDrawFunctions3D {
 		GLWrapper.glBindVertexArray(vao.get(0));
 		
 		//Indices
-		GL4Wrapper.glBindBuffer(GL4.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(0));
-		GL4Wrapper.glBufferData(GL4.GL_ELEMENT_ARRAY_BUFFER, 
+		GLWrapper.glBindBuffer(GL4.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ELEMENT_ARRAY_BUFFER, 
 				Buffers.SIZEOF_INT*indices_buffer.capacity(), indices_buffer, GL4.GL_STATIC_DRAW);
 		
 		//Position attribute
@@ -548,8 +547,8 @@ public class GLDrawFunctions3D {
 		GLWrapper.glBindVertexArray(vao.get(0));
 		
 		//Indices
-		GL4Wrapper.glBindBuffer(GL4.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(0));
-		GL4Wrapper.glBufferData(GL4.GL_ELEMENT_ARRAY_BUFFER, 
+		GLWrapper.glBindBuffer(GL4.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ELEMENT_ARRAY_BUFFER, 
 				Buffers.SIZEOF_INT*indices_buffer.capacity(), indices_buffer, GL4.GL_STATIC_DRAW);
 		
 		//Position attribute
