@@ -176,6 +176,36 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 	public int GetHeight() {
 		return frame.getHeight();
 	}
+	public Point GetCanvasLocation() {
+		Point point=canvas.getLocationOnScreen();
+		return point;
+	}
+	public int GetCanvasX() {
+		Point point=canvas.getLocationOnScreen();
+		return point.x;
+	}
+	public int GetCanvasY() {
+		Point point=canvas.getLocationOnScreen();
+		return point.y;
+	}
+	public Dimension GetCanvasSize() {
+		Container content_pane=frame.getContentPane();
+		Dimension dimension=content_pane.getSize();
+		
+		return dimension;
+	}
+	public int GetCanvasWidth() {
+		Container content_pane=frame.getContentPane();
+		Dimension dimension=content_pane.getSize();
+		
+		return dimension.width;
+	}
+	public int GetCanvasHeight() {
+		Container content_pane=frame.getContentPane();
+		Dimension dimension=content_pane.getSize();
+		
+		return dimension.height;
+	}
 	public ColorU8 GetBackgroundColor() {
 		return new ColorU8(background_color);
 	}
@@ -314,8 +344,11 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 	private void DefaultUpdate() {
 		this.ClearDrawScreen();
 		
-		int width=frame.getWidth();
-		int height=frame.getHeight();
+		Container content_pane=frame.getContentPane();
+		Dimension dimension=content_pane.getSize();
+		
+		int width=dimension.width;
+		int height=dimension.height;
 		
 		TextureMgr.SetWindowSize(width, height);
 		TextMgr.SetWindowSize(width, height);
