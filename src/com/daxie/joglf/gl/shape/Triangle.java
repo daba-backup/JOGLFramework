@@ -15,6 +15,7 @@ public class Triangle {
 	public void SetVertex(int index,Vertex3D v) {
 		vertices[index]=v;
 	}
+	
 	public Vertex3D GetVertex(int index) {
 		return new Vertex3D(vertices[index]);
 	}
