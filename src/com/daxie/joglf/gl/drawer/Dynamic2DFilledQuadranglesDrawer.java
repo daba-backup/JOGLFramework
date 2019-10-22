@@ -55,8 +55,8 @@ public class Dynamic2DFilledQuadranglesDrawer implements DynamicDrawer{
 		int point_num=quadrangle_num*4;
 		
 		IntBuffer indices_buffer=Buffers.newDirectIntBuffer(triangle_num*3);
-		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(point_num*2*2);
-		FloatBuffer dif_buffer=Buffers.newDirectFloatBuffer(point_num*4*2);
+		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(point_num*2);
+		FloatBuffer dif_buffer=Buffers.newDirectFloatBuffer(point_num*4);
 		
 		int count=0;
 		for(Vertex2D[] quadrangle:quadrangles_map.values()) {
