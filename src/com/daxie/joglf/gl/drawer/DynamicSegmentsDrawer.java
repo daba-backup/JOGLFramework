@@ -20,7 +20,7 @@ import com.jogamp.opengl.GL4;
  * @author Daba
  *
  */
-public class DynamicSegmentsDrawer {
+public class DynamicSegmentsDrawer implements DynamicDrawer{
 	private Map<Integer, Vertex3D[]> segments_map;
 	
 	private IntBuffer pos_vbo;
@@ -39,6 +39,7 @@ public class DynamicSegmentsDrawer {
 		GLWrapper.glGenVertexArrays(1, vao);
 	}
 	
+	@Override
 	public void UpdateBuffers() {
 		int point_num=segments_map.size()*2;
 		
@@ -84,6 +85,7 @@ public class DynamicSegmentsDrawer {
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
 		GLWrapper.glBindVertexArray(0);
 	}
+	@Override
 	public void DeleteBuffers() {
 		GLWrapper.glDeleteBuffers(1, pos_vbo);
 		GLWrapper.glDeleteBuffers(1, dif_vbo);
@@ -111,6 +113,7 @@ public class DynamicSegmentsDrawer {
 		segments_map.clear();
 	}
 	
+	@Override
 	public void Draw() {
 		GLShaderFunctions.EnableProgram("color");
 		

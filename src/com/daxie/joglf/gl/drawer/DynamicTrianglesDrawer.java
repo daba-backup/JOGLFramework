@@ -21,7 +21,7 @@ import com.jogamp.opengl.GL4;
  * @author Daba
  *
  */
-public class DynamicTrianglesDrawer {
+public class DynamicTrianglesDrawer implements DynamicDrawer{
 	private int texture_handle;
 	private Map<Integer, Triangle> triangles_map;
 	
@@ -45,6 +45,7 @@ public class DynamicTrianglesDrawer {
 		GLWrapper.glGenVertexArrays(1, vao);
 	}
 	
+	@Override
 	public void UpdateBuffers() {
 		int triangle_num=triangles_map.size();
 		int vertex_num=triangle_num*3;
@@ -105,6 +106,7 @@ public class DynamicTrianglesDrawer {
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
 		GLWrapper.glBindVertexArray(0);
 	}
+	@Override
 	public void DeleteBuffers() {
 		GLWrapper.glDeleteBuffers(1, pos_vbo);
 		GLWrapper.glDeleteBuffers(1, uv_vbo);
@@ -132,6 +134,7 @@ public class DynamicTrianglesDrawer {
 		triangles_map.clear();
 	}
 	
+	@Override
 	public void Draw() {
 		GLShaderFunctions.EnableProgram("texture");
 		

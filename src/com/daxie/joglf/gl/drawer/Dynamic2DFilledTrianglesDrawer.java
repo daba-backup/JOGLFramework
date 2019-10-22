@@ -20,7 +20,7 @@ import com.jogamp.opengl.GL4;
  * @author Daba
  *
  */
-public class Dynamic2DFilledTrianglesDrawer {
+public class Dynamic2DFilledTrianglesDrawer implements DynamicDrawer{
 	private Map<Integer, Vertex2D[]>triangles_map;
 	
 	private IntBuffer pos_vbo;
@@ -45,6 +45,7 @@ public class Dynamic2DFilledTrianglesDrawer {
 		window_height=480;
 	}
 	
+	@Override
 	public void UpdateBuffers() {
 		int triangle_num=triangles_map.size();
 		int point_num=triangle_num*3;
@@ -96,6 +97,7 @@ public class Dynamic2DFilledTrianglesDrawer {
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
 		GLWrapper.glBindVertexArray(0);
 	}
+	@Override
 	public void DeleteBuffers() {
 		GLWrapper.glDeleteBuffers(1, pos_vbo);
 		GLWrapper.glDeleteBuffers(1, dif_vbo);
@@ -131,6 +133,7 @@ public class Dynamic2DFilledTrianglesDrawer {
 		window_height=height;
 	}
 	
+	@Override
 	public void Draw() {
 		GLShaderFunctions.EnableProgram("line_drawer");
 		

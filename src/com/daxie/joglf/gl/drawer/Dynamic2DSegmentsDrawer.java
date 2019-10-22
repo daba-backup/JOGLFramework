@@ -20,7 +20,7 @@ import com.jogamp.opengl.GL4;
  * @author Daba
  *
  */
-public class Dynamic2DSegmentsDrawer {
+public class Dynamic2DSegmentsDrawer implements DynamicDrawer{
 	private Map<Integer, Vertex2D[]> segments_map;
 	
 	private IntBuffer pos_vbo;
@@ -45,6 +45,7 @@ public class Dynamic2DSegmentsDrawer {
 		window_height=480;
 	}
 	
+	@Override
 	public void UpdateBuffers() {
 		int point_num=segments_map.size()*2;
 		
@@ -94,6 +95,7 @@ public class Dynamic2DSegmentsDrawer {
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
 		GLWrapper.glBindVertexArray(0);
 	}
+	@Override
 	public void DeleteBuffers() {
 		GLWrapper.glDeleteBuffers(1, pos_vbo);
 		GLWrapper.glDeleteBuffers(1, dif_vbo);
@@ -126,6 +128,7 @@ public class Dynamic2DSegmentsDrawer {
 		window_height=height;
 	}
 	
+	@Override
 	public void Draw() {
 		GLShaderFunctions.EnableProgram("line_drawer");
 		
