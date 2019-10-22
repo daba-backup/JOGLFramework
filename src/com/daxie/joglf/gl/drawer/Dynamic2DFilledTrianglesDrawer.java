@@ -17,7 +17,7 @@ import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
 /**
- * Draws filled triangles.
+ * Draws filled 2D triangles.
  * @author Daba
  *
  */

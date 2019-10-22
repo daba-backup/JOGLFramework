@@ -18,7 +18,7 @@ import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
 /**
- * Draws filled circles.
+ * Draws 2D filled circles.
  * @author Daba
  *
  */
