@@ -20,7 +20,7 @@ import com.jogamp.opengl.GL4;
  * @author Daba
  *
  */
-public class DynamicSegmentsDrawer implements DynamicDrawer{
+public class DynamicSegmentsDrawer implements Dynamic3DDrawer{
 	private Map<Integer, Vertex3D[]> segments_map;
 	
 	private IntBuffer pos_vbo;

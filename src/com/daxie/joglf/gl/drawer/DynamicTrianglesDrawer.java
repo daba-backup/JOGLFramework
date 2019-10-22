@@ -21,7 +21,7 @@ import com.jogamp.opengl.GL4;
  * @author Daba
  *
  */
-public class DynamicTrianglesDrawer implements DynamicDrawer{
+public class DynamicTrianglesDrawer implements Dynamic3DDrawer{
 	private int texture_handle;
 	private Map<Integer, Triangle> triangles_map;
 	

@@ -50,12 +50,12 @@ public class Dynamic2DFilledCirclesDrawer implements Dynamic2DDrawer{
 	public void UpdateBuffers() {
 		int circle_num=circles_map.size();
 		
+		if(buffer_num!=0)this.DeleteBuffers();
+		
 		indices_vbo=Buffers.newDirectIntBuffer(circle_num);
 		pos_vbo=Buffers.newDirectIntBuffer(circle_num);
 		dif_vbo=Buffers.newDirectIntBuffer(circle_num);
 		vao=Buffers.newDirectIntBuffer(circle_num);
-		
-		if(buffer_num!=0)this.DeleteBuffers();
 		
 		GLWrapper.glGenBuffers(circle_num, indices_vbo);
 		GLWrapper.glGenBuffers(circle_num, pos_vbo);
@@ -162,6 +162,8 @@ public class Dynamic2DFilledCirclesDrawer implements Dynamic2DDrawer{
 		GLWrapper.glDeleteBuffers(buffer_num, pos_vbo);
 		GLWrapper.glDeleteBuffers(buffer_num, dif_vbo);
 		GLWrapper.glDeleteVertexArrays(buffer_num, vao);
+		
+		buffer_num=0;
 	}
 	
 	public void AddCircle(int circle_id,Circle2D circle) {

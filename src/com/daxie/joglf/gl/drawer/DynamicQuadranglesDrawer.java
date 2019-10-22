@@ -21,7 +21,7 @@ import com.jogamp.opengl.GL4;
  * @author Daba
  *
  */
-public class DynamicQuadranglesDrawer implements DynamicDrawer{
+public class DynamicQuadranglesDrawer implements Dynamic3DDrawer{
 	private int texture_handle;
 	private Map<Integer, Quadrangle> quadrangles_map;
 	
