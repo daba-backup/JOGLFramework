@@ -10,9 +10,11 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.daxie.basis.coloru8.ColorU8;
+import com.daxie.basis.matrix.Matrix;
+import com.daxie.basis.matrix.MatrixFunctions;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
-import com.daxie.joglf.gl.shape.Sphere;
+import com.daxie.joglf.gl.shape.Capsule;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.log.LogFile;
@@ -20,12 +22,12 @@ import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
 /**
- * Draws spheres.
+ * Draws capsules.
  * @author Daba
  *
  */
-public class DynamicSpheresDrawer implements Dynamic3DDrawer{
-	private Map<Integer, Sphere> spheres_map;
+public class DynamicCapsulesDrawer implements Dynamic3DDrawer{
+	private Map<Integer, Capsule> capsules_map;
 	private Map<Integer, Integer> indices_sizes_map;
 	
 	private int buffer_num;
@@ -35,8 +37,8 @@ public class DynamicSpheresDrawer implements Dynamic3DDrawer{
 	private IntBuffer dif_vbo;
 	private IntBuffer vao;
 	
-	public DynamicSpheresDrawer() {
-		spheres_map=new TreeMap<>();
+	public DynamicCapsulesDrawer() {
+		capsules_map=new TreeMap<>();
 		indices_sizes_map=new HashMap<>();
 		
 		buffer_num=0;
@@ -44,29 +46,40 @@ public class DynamicSpheresDrawer implements Dynamic3DDrawer{
 	
 	@Override
 	public void UpdateBuffers() {
-		int sphere_num=spheres_map.size();
+		int capsule_num=capsules_map.size();
 		
 		if(buffer_num!=0)this.DeleteBuffers();
 		
-		indices_vbo=Buffers.newDirectIntBuffer(sphere_num);
-		pos_vbo=Buffers.newDirectIntBuffer(sphere_num);
-		dif_vbo=Buffers.newDirectIntBuffer(sphere_num);
-		vao=Buffers.newDirectIntBuffer(sphere_num);
+		indices_vbo=Buffers.newDirectIntBuffer(capsule_num);
+		pos_vbo=Buffers.newDirectIntBuffer(capsule_num);
+		dif_vbo=Buffers.newDirectIntBuffer(capsule_num);
+		vao=Buffers.newDirectIntBuffer(capsule_num);
 		
-		GLWrapper.glGenBuffers(sphere_num, indices_vbo);
-		GLWrapper.glGenBuffers(sphere_num, pos_vbo);
-		GLWrapper.glGenBuffers(sphere_num, dif_vbo);
-		GLWrapper.glGenVertexArrays(sphere_num, vao);
+		GLWrapper.glGenBuffers(capsule_num, indices_vbo);
+		GLWrapper.glGenBuffers(capsule_num, pos_vbo);
+		GLWrapper.glGenBuffers(capsule_num, dif_vbo);
+		GLWrapper.glGenVertexArrays(capsule_num, vao);
 		
-		buffer_num=sphere_num;
+		buffer_num=capsule_num;
 		
 		int buffer_count=0;
-		for(Sphere sphere:spheres_map.values()) {
-			Vector center=sphere.GetCenter();
-			float radius=sphere.GetRadius();
-			int slice_num=sphere.GetSliceNum();
-			int stack_num=sphere.GetStackNum();
-			ColorU8 color=sphere.GetColor();
+		for(Capsule capsule:capsules_map.values()) {
+			Vector capsule_pos_1=capsule.GetCapsulePos1();
+			Vector capsule_pos_2=capsule.GetCapsulePos2();
+			float radius=capsule.GetRadius();
+			int slice_num=capsule.GetSliceNum();
+			int stack_num=capsule.GetStackNum();
+			ColorU8 color=capsule.GetColor();
+			
+			Vector capsule_axis=VectorFunctions.VSub(capsule_pos_2, capsule_pos_1);
+			float d=VectorFunctions.VSize(capsule_axis);
+			float half_d=d/2.0f;
+			
+			float th_v=VectorFunctions.VAngleV(capsule_axis);
+			float th_h=VectorFunctions.VAngleH(capsule_axis);
+			
+			Vector center_pos=VectorFunctions.VAdd(capsule_pos_1, capsule_pos_2);
+			center_pos=VectorFunctions.VScale(center_pos, 0.5f);
 			
 			List<Vector> vertices=new ArrayList<>();
 			List<Integer> indices=new ArrayList<>();
@@ -74,13 +87,26 @@ public class DynamicSpheresDrawer implements Dynamic3DDrawer{
 			int vertex_num=slice_num*(stack_num-1)+2;
 			
 			//North pole
-			vertices.add(VectorFunctions.VGet(0.0f, 1.0f, 0.0f));
+			vertices.add(VectorFunctions.VGet(0.0f, radius+half_d, 0.0f));
 			
 			//Middle
-			for(int i=1;i<stack_num;i++) {
+			for(int i=1;i<stack_num/2;i++) {
 				float ph=(float)Math.PI*(float)i/(float)stack_num;
-				float y=(float)Math.cos(ph);
-				float r=(float)Math.sin(ph);
+				float y=radius*(float)Math.cos(ph)+half_d;
+				float r=radius*(float)Math.sin(ph);
+				
+				for(int j=0;j<slice_num;j++) {
+					float th=2.0f*(float)Math.PI*(float)j/(float)slice_num;
+					float x=r*(float)Math.cos(th);
+					float z=r*(float)Math.sin(th);
+					
+					vertices.add(VectorFunctions.VGet(x, y, z));
+				}
+			}
+			for(int i=stack_num/2;i<stack_num;i++) {
+				float ph=(float)Math.PI*(float)i/(float)stack_num;
+				float y=radius*(float)Math.cos(ph)-half_d;
+				float r=radius*(float)Math.sin(ph);
 				
 				for(int j=0;j<slice_num;j++) {
 					float th=2.0f*(float)Math.PI*(float)j/(float)slice_num;
@@ -92,13 +118,17 @@ public class DynamicSpheresDrawer implements Dynamic3DDrawer{
 			}
 			
 			//South pole
-			vertices.add(VectorFunctions.VGet(0.0f,-1.0f, 0.0f));
+			vertices.add(VectorFunctions.VGet(0.0f,-radius-half_d, 0.0f));
+			
+			Matrix rot_z=MatrixFunctions.MGetRotZ(th_v-(float)Math.PI/2.0f);
+			Matrix rot_y=MatrixFunctions.MGetRotY(-th_h);
 			
 			for(int i=0;i<vertex_num;i++) {
 				Vector vertex=vertices.get(i);
 				
-				vertex=VectorFunctions.VScale(vertex, radius);
-				vertex=VectorFunctions.VAdd(vertex, center);
+				vertex=VectorFunctions.VTransform(vertex, rot_z);
+				vertex=VectorFunctions.VTransform(vertex, rot_y);
+				vertex=VectorFunctions.VAdd(vertex,center_pos);
 				
 				vertices.set(i, vertex);
 			}
@@ -220,21 +250,21 @@ public class DynamicSpheresDrawer implements Dynamic3DDrawer{
 		buffer_num=0;
 	}
 	
-	public void AddSphere(int sphere_id,Sphere sphere) {
-		spheres_map.put(sphere_id, sphere);
+	public void AddCapsule(int capsule_id,Capsule capsule) {
+		capsules_map.put(capsule_id, capsule);
 	}
-	public int DeleteSphere(int sphere_id) {
-		if(spheres_map.containsKey(sphere_id)==false) {
-			LogFile.WriteWarn("[DynamicSpheresDrawer-DeleteSphere] No such sphere. sphere_id:"+sphere_id, true);
+	public int DeleteCapsule(int capsule_id) {
+		if(capsules_map.containsKey(capsule_id)==false) {
+			LogFile.WriteWarn("[DynamicCapsulesDrawer-DeleteCapsule] No such capsule. capsule_id:"+capsule_id, true);
 			return -1;
 		}
 		
-		spheres_map.remove(sphere_id);
+		capsules_map.remove(capsule_id);
 		
 		return 0;
 	}
-	public void DeleteAllSpheres() {
-		spheres_map.clear();
+	public void DeleteAllCapsules() {
+		capsules_map.clear();
 	}
 	
 	@Override

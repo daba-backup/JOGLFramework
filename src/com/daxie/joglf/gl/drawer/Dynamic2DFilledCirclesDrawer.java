@@ -155,7 +155,6 @@ public class Dynamic2DFilledCirclesDrawer implements Dynamic2DDrawer{
 			count++;
 		}
 	}
-	
 	@Override
 	public void DeleteBuffers() {
 		GLWrapper.glDeleteBuffers(buffer_num, indices_vbo);
