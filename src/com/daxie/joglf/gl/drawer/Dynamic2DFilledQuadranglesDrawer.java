@@ -9,6 +9,7 @@ import java.util.TreeMap;
 
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.joglf.gl.shape.Vertex2D;
+import com.daxie.joglf.gl.window.WindowCommonInfoStock;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.log.LogFile;
@@ -20,7 +21,7 @@ import com.jogamp.opengl.GL4;
  * @author Daba
  *
  */
-public class Dynamic2DFilledQuadranglesDrawer implements DynamicDrawer{
+public class Dynamic2DFilledQuadranglesDrawer implements Dynamic2DDrawer{
 	private Map<Integer, Vertex2D[]> quadrangles_map;
 	
 	private IntBuffer indices_vbo;
@@ -44,8 +45,8 @@ public class Dynamic2DFilledQuadranglesDrawer implements DynamicDrawer{
 		GLWrapper.glGenBuffers(1, dif_vbo);
 		GLWrapper.glGenVertexArrays(1, vao);
 		
-		window_width=640;
-		window_height=480;
+		window_width=WindowCommonInfoStock.DEFAULT_WIDTH;
+		window_height=WindowCommonInfoStock.DEFAULT_HEIGHT;
 	}
 	
 	@Override
@@ -150,6 +151,7 @@ public class Dynamic2DFilledQuadranglesDrawer implements DynamicDrawer{
 		quadrangles_map.clear();
 	}
 	
+	@Override
 	public void SetWindowSize(int width,int height) {
 		window_width=width;
 		window_height=height;
