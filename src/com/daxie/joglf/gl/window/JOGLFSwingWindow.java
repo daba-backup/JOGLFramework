@@ -120,6 +120,9 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 	protected JFrame GetFrame() {
 		return frame;
 	}
+	protected GLCanvas GetCanvas() {
+		return canvas;
+	}
 	
 	class WindowCloser extends Thread{
 		private JFrame frame;
