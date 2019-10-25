@@ -109,7 +109,7 @@ public class DynamicSegmentsDrawer implements Dynamic3DDrawer{
 		
 		return 0;
 	}
-	public void DeleteSegments() {
+	public void DeleteAllSegments() {
 		segments_map.clear();
 	}
 	
