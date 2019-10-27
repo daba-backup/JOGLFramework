@@ -151,7 +151,12 @@ public class TextureMgr {
 		DisableTexture(default_texture_handle);
 	}
 	
-	public static int DrawTexture(int texture_handle,int x,int y,int width,int height) {
+	public static int DrawTexture(
+			int texture_handle,int x,int y,int width,int height,
+			float bottom_left_u,float bottom_left_v,
+			float bottom_right_u,float bottom_right_v,
+			float top_right_u,float top_right_v,
+			float top_left_u,float top_left_v) {
 		if(textures_map.containsKey(texture_handle)==false) {
 			LogFile.WriteWarn("[TextureMgr-DrawTexture] No such texture. texture_handle:"+texture_handle, true);
 			return -1;
@@ -179,23 +184,23 @@ public class TextureMgr {
 		//Bottom left
 		pos_buffer.put(normalized_x);
 		pos_buffer.put(normalized_y);
-		uv_buffer.put(0.0f);
-		uv_buffer.put(0.0f);
+		uv_buffer.put(bottom_left_u);
+		uv_buffer.put(bottom_left_v);
 		//Bottom right
 		pos_buffer.put(normalized_x+normalized_width);
 		pos_buffer.put(normalized_y);
-		uv_buffer.put(1.0f);
-		uv_buffer.put(0.0f);
+		uv_buffer.put(bottom_right_u);
+		uv_buffer.put(bottom_right_v);
 		//Top right
 		pos_buffer.put(normalized_x+normalized_width);
 		pos_buffer.put(normalized_y+normalized_height);
-		uv_buffer.put(1.0f);
-		uv_buffer.put(1.0f);
+		uv_buffer.put(top_right_u);
+		uv_buffer.put(top_right_v);
 		//Top left
 		pos_buffer.put(normalized_x);
 		pos_buffer.put(normalized_y+normalized_height);
-		uv_buffer.put(0.0f);
-		uv_buffer.put(1.0f);
+		uv_buffer.put(top_left_u);
+		uv_buffer.put(top_left_v);
 		
 		((Buffer)indices).flip();
 		((Buffer)pos_buffer).flip();
@@ -253,5 +258,12 @@ public class TextureMgr {
 		GLWrapper.glDeleteVertexArrays(1, vao);
 		
 		return 0;
+	}
+	public static int DrawTexture(int texture_handle,int x,int y,int width,int height) {
+		int ret=DrawTexture(
+				texture_handle, x, y, width, height, 
+				0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f);
+		
+		return ret;
 	}
 }
