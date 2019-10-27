@@ -140,6 +140,10 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		closer.start();
 	}
 	
+	public void AddChildWindow(JOGLFSwingWindow child) {
+		frame.add(child.frame);
+	}
+	
 	public void SetExitProcessWhenDestroyed() {
 		frame.removeWindowListener(adapter);
 		
