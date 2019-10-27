@@ -80,6 +80,8 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 			public void windowClosing(WindowEvent e) {
 				animator.stop();
 				destroyed_flag=true;
+				
+				onWindowClosing();
 			}
 		};
 		frame.addWindowListener(adapter);
@@ -151,10 +153,16 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 				
 				destroyed_flag=true;
 				
+				onWindowClosing();
+				
 				System.exit(0);
 			}
 		};
 		frame.addWindowListener(adapter);
+	}
+	
+	protected void onWindowClosing() {
+		
 	}
 	
 	protected void ClearDrawScreen() {

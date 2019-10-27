@@ -70,6 +70,8 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 			public void windowDestroyed(WindowEvent e) {
 				animator.stop();
 				destroyed_flag=true;
+				
+				onWindowClosing();
 			}
 		};
 		window.addWindowListener(adapter);
@@ -127,10 +129,16 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 				
 				destroyed_flag=true;
 				
+				onWindowClosing();
+				
 				System.exit(0);
 			}
 		};
 		window.addWindowListener(adapter);
+	}
+	
+	protected void onWindowClosing() {
+		
 	}
 	
 	protected void ClearDrawScreen() {
