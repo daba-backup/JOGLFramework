@@ -127,18 +127,19 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 	}
 	
 	class WindowCloser extends Thread{
-		private JOGLFSwingWindow window;
+		private JFrame frame;
 		
-		public WindowCloser(JOGLFSwingWindow window) {
-			this.window=window;
+		public WindowCloser(JFrame frame) {
+			this.frame=frame;
 		}
 		@Override
 		public void run() {
-			window.CloseWindow();
+			frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+			frame.dispose();
 		}
 	}
 	public void CloseWindow() {
-		WindowCloser closer=new WindowCloser(this);
+		WindowCloser closer=new WindowCloser(frame);
 		closer.start();
 	}
 	

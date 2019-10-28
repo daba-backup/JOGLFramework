@@ -99,18 +99,18 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 	}
 	
 	class WindowCloser extends Thread{
-		private JOGLFWindow window;
+		private GLWindow window;
 		
-		public WindowCloser(JOGLFWindow window) {
+		public WindowCloser(GLWindow window) {
 			this.window=window;
 		}
 		@Override
 		public void run() {
-			window.CloseWindow();
+			window.destroy();
 		}
 	}
 	public void CloseWindow() {
-		WindowCloser closer=new WindowCloser(this);
+		WindowCloser closer=new WindowCloser(window);
 		closer.start();
 	}
 	
