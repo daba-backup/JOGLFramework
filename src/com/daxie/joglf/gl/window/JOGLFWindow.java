@@ -313,9 +313,6 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		
 		LightingFront.Update();
 		FogFront.Update();
-		
-		TextureMgr.SetWindowSize(width, height);
-		TextMgr.SetWindowSize(width, height);
 	}
 	protected void Update() {
 		CameraFront.SetCameraPositionAndTarget_UpVecY(
