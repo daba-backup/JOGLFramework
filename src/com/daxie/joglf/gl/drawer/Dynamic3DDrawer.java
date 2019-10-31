@@ -1,10 +1,10 @@
 package com.daxie.joglf.gl.drawer;
 
 /**
- * All 3D drawers have to implement these methods.
+ * All 3D drawers have to extend these methods.
  * @author Daba
  *
  */
-public interface Dynamic3DDrawer extends DynamicDrawer{
+public abstract class Dynamic3DDrawer extends DynamicDrawer{
 
 }

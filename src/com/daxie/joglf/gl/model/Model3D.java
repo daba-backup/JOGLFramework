@@ -117,6 +117,51 @@ public class Model3D {
 		return ret;
 	}
 	
+	public static int AddShader(int model_handle,String shader_name) {
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteWarn("[Model3D-AddShader] No such model. model_handle:"+model_handle, true);
+			return -1;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		model.AddShader(shader_name);
+		
+		return 0;
+	}
+	public static int RemoveShader(int model_handle,String shader_name) {
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteWarn("[Model3D-RemoveShader] No such model. model_handle:"+model_handle, true);
+			return -1;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		model.RemoveShader(shader_name);
+		
+		return 0;
+	}
+	public static int SetDefaultShader(int model_handle) {
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteWarn("[Model3D-SetDefaultShader] No such model. model_handle:"+model_handle, true);
+			return -1;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		model.SetDefaultShader();
+		
+		return 0;
+	}
+	public static int RemoveAllShaders(int model_handle) {
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteWarn("[Model3D-RemoveAllShaders] No such model. model_handle:"+model_handle, true);
+			return -1;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		model.RemoveAllShaders();
+		
+		return 0;
+	}
+	
 	public static int DrawModel(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
 			LogFile.WriteWarn("[Model3D-DrawModel] No such model. model_handle:"+model_handle, true);

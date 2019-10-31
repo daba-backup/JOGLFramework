@@ -4,12 +4,12 @@ import java.awt.Point;
 import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.joglf.gl.shape.Vertex2D;
-import com.daxie.joglf.gl.window.WindowCommonInfoStock;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.log.LogFile;
@@ -21,16 +21,13 @@ import com.jogamp.opengl.GL4;
  * @author Daba
  *
  */
-public class Dynamic2DFilledQuadranglesDrawer implements Dynamic2DDrawer{
+public class Dynamic2DFilledQuadranglesDrawer extends Dynamic2DDrawer{
 	private Map<Integer, Vertex2D[]> quadrangles_map;
 	
 	private IntBuffer indices_vbo;
 	private IntBuffer pos_vbo;
 	private IntBuffer dif_vbo;
 	private IntBuffer vao;
-	
-	private int window_width;
-	private int window_height;
 	
 	public Dynamic2DFilledQuadranglesDrawer() {
 		quadrangles_map=new TreeMap<>();
@@ -44,9 +41,12 @@ public class Dynamic2DFilledQuadranglesDrawer implements Dynamic2DDrawer{
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, dif_vbo);
 		GLWrapper.glGenVertexArrays(1, vao);
-		
-		window_width=WindowCommonInfoStock.DEFAULT_WIDTH;
-		window_height=WindowCommonInfoStock.DEFAULT_HEIGHT;
+	}
+	
+	@Override
+	public void SetDefaultShader() {
+		this.RemoveAllShaders();
+		this.AddShader("line_drawer");
 	}
 	
 	@Override
@@ -58,6 +58,9 @@ public class Dynamic2DFilledQuadranglesDrawer implements Dynamic2DDrawer{
 		IntBuffer indices_buffer=Buffers.newDirectIntBuffer(triangle_num*3);
 		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(point_num*2);
 		FloatBuffer dif_buffer=Buffers.newDirectFloatBuffer(point_num*4);
+		
+		int window_width=this.GetWindowWidth();
+		int window_height=this.GetWindowHeight();
 		
 		int count=0;
 		for(Vertex2D[] quadrangle:quadrangles_map.values()) {
@@ -152,25 +155,23 @@ public class Dynamic2DFilledQuadranglesDrawer implements Dynamic2DDrawer{
 	}
 	
 	@Override
-	public void SetWindowSize(int width,int height) {
-		window_width=width;
-		window_height=height;
-	}
-	
-	@Override
 	public void Draw() {
-		GLShaderFunctions.EnableProgram("line_drawer");
+		List<String> shader_names=this.GetShaderNames();
 		
-		GLWrapper.glBindVertexArray(vao.get(0));
-		
-		int quadrangle_num=quadrangles_map.size();
-		int triangle_num=quadrangle_num*2;
-		int indices_size=triangle_num*3;
-		
-		GLWrapper.glEnable(GL4.GL_BLEND);
-		GLWrapper.glDrawElements(GL4.GL_TRIANGLES, indices_size, GL4.GL_UNSIGNED_INT, 0);
-		GLWrapper.glDisable(GL4.GL_BLEND);
-		
-		GLWrapper.glBindVertexArray(0);
+		for(String shader_name:shader_names) {
+			GLShaderFunctions.EnableProgram(shader_name);
+			
+			GLWrapper.glBindVertexArray(vao.get(0));
+			
+			int quadrangle_num=quadrangles_map.size();
+			int triangle_num=quadrangle_num*2;
+			int indices_size=triangle_num*3;
+			
+			GLWrapper.glEnable(GL4.GL_BLEND);
+			GLWrapper.glDrawElements(GL4.GL_TRIANGLES, indices_size, GL4.GL_UNSIGNED_INT, 0);
+			GLWrapper.glDisable(GL4.GL_BLEND);
+			
+			GLWrapper.glBindVertexArray(0);
+		}
 	}
 }

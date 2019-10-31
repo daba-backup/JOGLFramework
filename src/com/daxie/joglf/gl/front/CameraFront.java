@@ -14,6 +14,16 @@ import com.daxie.joglf.gl.camera.Camera;
 public class CameraFront {
 	private static Camera camera=new Camera();
 	
+	public static void AddUserShader(String user_shader_name) {
+		camera.AddUserShader(user_shader_name);
+	}
+	public static void RemoveUserShader(String user_shader_name) {
+		camera.RemoveUserShader(user_shader_name);
+	}
+	public static void RemoveAllUserShaders() {
+		camera.RemoveAllUserShaders();
+	}
+	
 	public static void SetCameraNearFar(float near,float far) {
 		camera.SetCameraNearFar(near, far);
 	}

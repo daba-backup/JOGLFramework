@@ -5,12 +5,12 @@ import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.joglf.gl.shape.Circle2D;
-import com.daxie.joglf.gl.window.WindowCommonInfoStock;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.log.LogFile;
@@ -22,7 +22,7 @@ import com.jogamp.opengl.GL4;
  * @author Daba
  *
  */
-public class Dynamic2DFilledCirclesDrawer implements Dynamic2DDrawer{
+public class Dynamic2DFilledCirclesDrawer extends Dynamic2DDrawer{
 	private Map<Integer, Circle2D> circles_map;
 	private Map<Integer, Integer> indices_sizes_map;
 	
@@ -33,17 +33,17 @@ public class Dynamic2DFilledCirclesDrawer implements Dynamic2DDrawer{
 	private IntBuffer dif_vbo;
 	private IntBuffer vao;
 	
-	private int window_width;
-	private int window_height;
-	
 	public Dynamic2DFilledCirclesDrawer() {
 		circles_map=new TreeMap<>();
 		indices_sizes_map=new HashMap<>();
 		
 		buffer_num=0;
-		
-		window_width=WindowCommonInfoStock.DEFAULT_WIDTH;
-		window_height=WindowCommonInfoStock.DEFAULT_HEIGHT;
+	}
+	
+	@Override
+	public void SetDefaultShader() {
+		this.RemoveAllShaders();
+		this.AddShader("line_drawer");
 	}
 	
 	@Override
@@ -63,6 +63,9 @@ public class Dynamic2DFilledCirclesDrawer implements Dynamic2DDrawer{
 		GLWrapper.glGenVertexArrays(circle_num, vao);
 		
 		buffer_num=circle_num;
+		
+		int window_width=this.GetWindowWidth();
+		int window_height=this.GetWindowHeight();
 		
 		int count=0;
 		for(Circle2D circle:circles_map.values()) {
@@ -119,8 +122,6 @@ public class Dynamic2DFilledCirclesDrawer implements Dynamic2DDrawer{
 			indices_buffer.put(0);
 			
 			((Buffer)indices_buffer).flip();
-			
-			GLShaderFunctions.EnableProgram("line_drawer");
 			
 			GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(count));
 			GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
@@ -183,24 +184,22 @@ public class Dynamic2DFilledCirclesDrawer implements Dynamic2DDrawer{
 	}
 	
 	@Override
-	public void SetWindowSize(int width,int height) {
-		window_width=width;
-		window_height=height;
-	}
-	
-	@Override
 	public void Draw() {
-		GLShaderFunctions.EnableProgram("line_drawer");
+		List<String> shader_names=this.GetShaderNames();
 		
-		for(int i=0;i<buffer_num;i++) {
-			GLWrapper.glBindVertexArray(vao.get(i));
+		for(String shader_name:shader_names) {
+			GLShaderFunctions.EnableProgram(shader_name);
 			
-			int indices_size=indices_sizes_map.get(i);
-			GLWrapper.glEnable(GL4.GL_BLEND);
-			GLWrapper.glDrawElements(GL4.GL_TRIANGLES, indices_size, GL4.GL_UNSIGNED_INT, 0);
-			GLWrapper.glDisable(GL4.GL_BLEND);
-			
-			GLWrapper.glBindVertexArray(0);
+			for(int i=0;i<buffer_num;i++) {
+				GLWrapper.glBindVertexArray(vao.get(i));
+				
+				int indices_size=indices_sizes_map.get(i);
+				GLWrapper.glEnable(GL4.GL_BLEND);
+				GLWrapper.glDrawElements(GL4.GL_TRIANGLES, indices_size, GL4.GL_UNSIGNED_INT, 0);
+				GLWrapper.glDisable(GL4.GL_BLEND);
+				
+				GLWrapper.glBindVertexArray(0);
+			}
 		}
 	}
 }

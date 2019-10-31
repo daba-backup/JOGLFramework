@@ -1,6 +1,8 @@
 package com.daxie.joglf.gl.camera;
 
 import java.nio.FloatBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.daxie.basis.matrix.Matrix;
 import com.daxie.basis.vector.Vector;
@@ -30,6 +32,8 @@ public class Camera {
 	private Matrix projection_matrix;
 	private Matrix view_transformation_matrix;
 	
+	private List<String> user_shader_names;
+	
 	public Camera() {
 		near=1.0f;
 		far=1000.0f;
@@ -41,6 +45,18 @@ public class Camera {
 		position=VectorFunctions.VGet(-50.0f, 50.0f, -50.0f);
 		target=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
 		up=VectorFunctions.VGet(0.0f, 1.0f, 0.0f);
+		
+		user_shader_names=new ArrayList<>();
+	}
+	
+	public void AddUserShader(String user_shader_name) {
+		user_shader_names.add(user_shader_name);
+	}
+	public void RemoveUserShader(String user_shader_name) {
+		user_shader_names.remove(user_shader_name);
+	}
+	public void RemoveAllUserShaders() {
+		user_shader_names.clear();
 	}
 	
 	public void SetCameraNearFar(float near,float far) {
@@ -137,6 +153,26 @@ public class Camera {
 		
 		GLWrapper.glUniformMatrix4fv(projection_location, 1, true, projection);
 		GLWrapper.glUniformMatrix4fv(view_transformation_location,1,true,view_transformation);
+		
+		//User shaders
+		for(String user_shader_name:user_shader_names) {
+			GLShaderFunctions.EnableProgram(user_shader_name);
+			program_id=GLShaderFunctions.GetProgramID(user_shader_name);
+			
+			camera_position_location=GLWrapper.glGetUniformLocation(program_id, "camera_position");
+			camera_target_location=GLWrapper.glGetUniformLocation(program_id, "camera_target");
+			projection_location=GLWrapper.glGetUniformLocation(program_id, "projection");
+			view_transformation_location=GLWrapper.glGetUniformLocation(program_id, "view_transformation");
+			camera_near_location=GLWrapper.glGetUniformLocation(program_id, "camera_near");
+			camera_far_location=GLWrapper.glGetUniformLocation(program_id, "camera_far");
+			
+			GLWrapper.glUniform3fv(camera_position_location, 1, camera_position);
+			GLWrapper.glUniform3fv(camera_target_location, 1, camera_target);
+			GLWrapper.glUniformMatrix4fv(projection_location, 1, true, projection);
+			GLWrapper.glUniformMatrix4fv(view_transformation_location,1,true,view_transformation);
+			GLWrapper.glUniform1f(camera_near_location, near);
+			GLWrapper.glUniform1f(camera_far_location, far);
+		}
 		
 		view_transformation_matrix=null;
 	}

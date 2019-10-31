@@ -3,6 +3,7 @@ package com.daxie.joglf.gl.drawer;
 import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -21,7 +22,7 @@ import com.jogamp.opengl.GL4;
  * @author Daba
  *
  */
-public class DynamicQuadranglesDrawer implements Dynamic3DDrawer{
+public class DynamicQuadranglesDrawer extends Dynamic3DDrawer{
 	private int texture_handle;
 	private Map<Integer, Quadrangle> quadrangles_map;
 	
@@ -46,6 +47,12 @@ public class DynamicQuadranglesDrawer implements Dynamic3DDrawer{
 		GLWrapper.glGenBuffers(1, uv_vbo);
 		GLWrapper.glGenBuffers(1, norm_vbo);
 		GLWrapper.glGenVertexArrays(1, vao);
+	}
+	
+	@Override
+	public void SetDefaultShader() {
+		this.RemoveAllShaders();
+		this.AddShader("texture");
 	}
 	
 	@Override
@@ -158,33 +165,37 @@ public class DynamicQuadranglesDrawer implements Dynamic3DDrawer{
 	
 	@Override
 	public void Draw() {
-		GLShaderFunctions.EnableProgram("texture");
+		List<String> shader_names=this.GetShaderNames();
 		
-		int sampler=GLShaderFunctions.GetSampler();
-		GLWrapper.glBindSampler(0, sampler);
-		
-		GLWrapper.glBindVertexArray(vao.get(0));
-		
-		if(texture_handle<0) {
-			TextureMgr.EnableDefaultTexture();
-			TextureMgr.BindDefaultTexture();
+		for(String shader_name:shader_names) {
+			GLShaderFunctions.EnableProgram(shader_name);
+			
+			int sampler=GLShaderFunctions.GetSampler();
+			GLWrapper.glBindSampler(0, sampler);
+			
+			GLWrapper.glBindVertexArray(vao.get(0));
+			
+			if(texture_handle<0) {
+				TextureMgr.EnableDefaultTexture();
+				TextureMgr.BindDefaultTexture();
+			}
+			else {
+				TextureMgr.EnableTexture(texture_handle);
+				TextureMgr.BindTexture(texture_handle);
+			}
+			
+			int quadrangle_num=quadrangles_map.size();
+			int triangle_num=quadrangle_num*2;
+			int indices_size=triangle_num*3;
+			
+			GLWrapper.glEnable(GL4.GL_BLEND);
+			GLWrapper.glDrawElements(GL4.GL_TRIANGLES, indices_size, GL4.GL_UNSIGNED_INT, 0);
+			GLWrapper.glDisable(GL4.GL_BLEND);
+			
+			if(texture_handle<0)TextureMgr.DisableDefaultTexture();
+			else TextureMgr.DisableTexture(texture_handle);
+			
+			GLWrapper.glBindVertexArray(0);	
 		}
-		else {
-			TextureMgr.EnableTexture(texture_handle);
-			TextureMgr.BindTexture(texture_handle);
-		}
-		
-		int quadrangle_num=quadrangles_map.size();
-		int triangle_num=quadrangle_num*2;
-		int indices_size=triangle_num*3;
-		
-		GLWrapper.glEnable(GL4.GL_BLEND);
-		GLWrapper.glDrawElements(GL4.GL_TRIANGLES, indices_size, GL4.GL_UNSIGNED_INT, 0);
-		GLWrapper.glDisable(GL4.GL_BLEND);
-		
-		if(texture_handle<0)TextureMgr.DisableDefaultTexture();
-		else TextureMgr.DisableTexture(texture_handle);
-		
-		GLWrapper.glBindVertexArray(0);
 	}
 }

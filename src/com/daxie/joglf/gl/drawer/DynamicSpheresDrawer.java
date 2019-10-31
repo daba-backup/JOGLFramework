@@ -24,7 +24,7 @@ import com.jogamp.opengl.GL4;
  * @author Daba
  *
  */
-public class DynamicSpheresDrawer implements Dynamic3DDrawer{
+public class DynamicSpheresDrawer extends Dynamic3DDrawer{
 	private Map<Integer, Sphere> spheres_map;
 	private Map<Integer, Integer> indices_sizes_map;
 	
@@ -40,6 +40,12 @@ public class DynamicSpheresDrawer implements Dynamic3DDrawer{
 		indices_sizes_map=new HashMap<>();
 		
 		buffer_num=0;
+	}
+	
+	@Override
+	public void SetDefaultShader() {
+		this.RemoveAllShaders();
+		this.AddShader("color");
 	}
 	
 	@Override
@@ -239,17 +245,21 @@ public class DynamicSpheresDrawer implements Dynamic3DDrawer{
 	
 	@Override
 	public void Draw() {
-		GLShaderFunctions.EnableProgram("color");
+		List<String> shader_names=this.GetShaderNames();
 		
-		for(int i=0;i<buffer_num;i++) {
-			GLWrapper.glBindVertexArray(vao.get(i));
+		for(String shader_name:shader_names) {
+			GLShaderFunctions.EnableProgram(shader_name);
 			
-			int indices_size=indices_sizes_map.get(i);
-			GLWrapper.glEnable(GL4.GL_BLEND);
-			GLWrapper.glDrawElements(GL4.GL_LINES, indices_size, GL4.GL_UNSIGNED_INT, 0);
-			GLWrapper.glDisable(GL4.GL_BLEND);
-			
-			GLWrapper.glBindVertexArray(0);
+			for(int i=0;i<buffer_num;i++) {
+				GLWrapper.glBindVertexArray(vao.get(i));
+				
+				int indices_size=indices_sizes_map.get(i);
+				GLWrapper.glEnable(GL4.GL_BLEND);
+				GLWrapper.glDrawElements(GL4.GL_LINES, indices_size, GL4.GL_UNSIGNED_INT, 0);
+				GLWrapper.glDisable(GL4.GL_BLEND);
+				
+				GLWrapper.glBindVertexArray(0);
+			}	
 		}
 	}
 }

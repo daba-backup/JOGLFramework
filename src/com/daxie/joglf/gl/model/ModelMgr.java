@@ -24,7 +24,7 @@ import com.jogamp.opengl.GL4;
  * @author Daba
  *
  */
-class ModelMgr {
+public class ModelMgr {
 	private List<BufferedVertices> buffered_vertices_list;
 	private CollInfo coll_info;
 	
@@ -43,6 +43,8 @@ class ModelMgr {
 	private IntBuffer norm_vbo;
 	private IntBuffer vao;
 	
+	private List<String> shader_names;
+	
 	public ModelMgr(List<BufferedVertices> buffered_vertices_list) {
 		this.buffered_vertices_list=buffered_vertices_list;
 		
@@ -54,7 +56,24 @@ class ModelMgr {
 		
 		property_updated_flag=false;
 		
+		shader_names=new ArrayList<>();
+		shader_names.add("texture");
+		
 		this.GenerateBuffers();
+	}
+	
+	public void AddShader(String shader_name) {
+		shader_names.add(shader_name);
+	}
+	public void RemoveShader(String shader_name) {
+		shader_names.remove(shader_name);
+	}
+	public void SetDefaultShader() {
+		shader_names.clear();
+		shader_names.add("texture");
+	}
+	public void RemoveAllShaders() {
+		shader_names.clear();
 	}
 	
 	public void Interpolate(ModelMgr frame1,ModelMgr frame2,float blend_ratio) {
@@ -197,35 +216,37 @@ class ModelMgr {
 		
 		int element_num=buffered_vertices_list.size();
 		
-		GLShaderFunctions.EnableProgram("texture");
-		
-		int sampler=GLShaderFunctions.GetSampler();
-		GLWrapper.glBindSampler(0, sampler);
-		
-		for(int i=0;i<element_num;i++) {
-			BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
-			int texture_handle=buffered_vertices.GetTextureHandle();
-			int count=buffered_vertices.GetCount();
+		for(String shader_name:shader_names) {
+			GLShaderFunctions.EnableProgram(shader_name);
 			
-			GLWrapper.glBindVertexArray(vao.get(i));
+			int sampler=GLShaderFunctions.GetSampler();
+			GLWrapper.glBindSampler(0, sampler);
 			
-			if(texture_handle<0) {
-				TextureMgr.EnableDefaultTexture();
-				TextureMgr.BindDefaultTexture();
+			for(int i=0;i<element_num;i++) {
+				BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
+				int texture_handle=buffered_vertices.GetTextureHandle();
+				int count=buffered_vertices.GetCount();
+				
+				GLWrapper.glBindVertexArray(vao.get(i));
+				
+				if(texture_handle<0) {
+					TextureMgr.EnableDefaultTexture();
+					TextureMgr.BindDefaultTexture();
+				}
+				else {
+					TextureMgr.EnableTexture(texture_handle);
+					TextureMgr.BindTexture(texture_handle);
+				}
+				
+				GLWrapper.glEnable(GL4.GL_BLEND);
+				GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
+				GLWrapper.glDisable(GL4.GL_BLEND);
+				
+				if(texture_handle<0)TextureMgr.DisableDefaultTexture();
+				else TextureMgr.DisableTexture(texture_handle);
+				
+				GLWrapper.glBindVertexArray(0);
 			}
-			else {
-				TextureMgr.EnableTexture(texture_handle);
-				TextureMgr.BindTexture(texture_handle);
-			}
-			
-			GLWrapper.glEnable(GL4.GL_BLEND);
-			GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
-			GLWrapper.glDisable(GL4.GL_BLEND);
-			
-			if(texture_handle<0)TextureMgr.DisableDefaultTexture();
-			else TextureMgr.DisableTexture(texture_handle);
-			
-			GLWrapper.glBindVertexArray(0);
 		}
 	}
 	public void DrawElements(int bound) {
@@ -240,35 +261,37 @@ class ModelMgr {
 		else if(bound<element_num)clamped_bound=bound;
 		else clamped_bound=element_num;
 		
-		GLShaderFunctions.EnableProgram("texture");
-		
-		int sampler=GLShaderFunctions.GetSampler();
-		GLWrapper.glBindSampler(0, sampler);
-		
-		for(int i=0;i<clamped_bound;i++) {
-			BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
-			int texture_handle=buffered_vertices.GetTextureHandle();
-			int count=buffered_vertices.GetCount();
+		for(String shader_name:shader_names) {
+			GLShaderFunctions.EnableProgram(shader_name);
 			
-			GLWrapper.glBindVertexArray(vao.get(i));
+			int sampler=GLShaderFunctions.GetSampler();
+			GLWrapper.glBindSampler(0, sampler);
 			
-			if(texture_handle<0) {
-				TextureMgr.EnableDefaultTexture();
-				TextureMgr.BindDefaultTexture();
+			for(int i=0;i<clamped_bound;i++) {
+				BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
+				int texture_handle=buffered_vertices.GetTextureHandle();
+				int count=buffered_vertices.GetCount();
+				
+				GLWrapper.glBindVertexArray(vao.get(i));
+				
+				if(texture_handle<0) {
+					TextureMgr.EnableDefaultTexture();
+					TextureMgr.BindDefaultTexture();
+				}
+				else {
+					TextureMgr.EnableTexture(texture_handle);
+					TextureMgr.BindTexture(texture_handle);
+				}
+				
+				GLWrapper.glEnable(GL4.GL_BLEND);
+				GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
+				GLWrapper.glDisable(GL4.GL_BLEND);
+				
+				if(texture_handle<0)TextureMgr.DisableDefaultTexture();
+				else TextureMgr.DisableTexture(texture_handle);
+				
+				GLWrapper.glBindVertexArray(0);
 			}
-			else {
-				TextureMgr.EnableTexture(texture_handle);
-				TextureMgr.BindTexture(texture_handle);
-			}
-			
-			GLWrapper.glEnable(GL4.GL_BLEND);
-			GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
-			GLWrapper.glDisable(GL4.GL_BLEND);
-			
-			if(texture_handle<0)TextureMgr.DisableDefaultTexture();
-			else TextureMgr.DisableTexture(texture_handle);
-			
-			GLWrapper.glBindVertexArray(0);
 		}
 	}
 	

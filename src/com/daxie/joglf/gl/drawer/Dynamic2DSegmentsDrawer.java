@@ -4,12 +4,12 @@ import java.awt.Point;
 import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.joglf.gl.shape.Vertex2D;
-import com.daxie.joglf.gl.window.WindowCommonInfoStock;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.log.LogFile;
@@ -21,15 +21,12 @@ import com.jogamp.opengl.GL4;
  * @author Daba
  *
  */
-public class Dynamic2DSegmentsDrawer implements Dynamic2DDrawer{
+public class Dynamic2DSegmentsDrawer extends Dynamic2DDrawer{
 	private Map<Integer, Vertex2D[]> segments_map;
 	
 	private IntBuffer pos_vbo;
 	private IntBuffer dif_vbo;
 	private IntBuffer vao;
-	
-	private int window_width;
-	private int window_height;
 	
 	public Dynamic2DSegmentsDrawer() {
 		segments_map=new TreeMap<>();
@@ -41,9 +38,12 @@ public class Dynamic2DSegmentsDrawer implements Dynamic2DDrawer{
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, dif_vbo);
 		GLWrapper.glGenVertexArrays(1, vao);
-		
-		window_width=WindowCommonInfoStock.DEFAULT_WIDTH;
-		window_height=WindowCommonInfoStock.DEFAULT_HEIGHT;
+	}
+	
+	@Override
+	public void SetDefaultShader() {
+		this.RemoveAllShaders();
+		this.AddShader("line_drawer");
 	}
 	
 	@Override
@@ -52,6 +52,9 @@ public class Dynamic2DSegmentsDrawer implements Dynamic2DDrawer{
 		
 		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(point_num*2*2);
 		FloatBuffer dif_buffer=Buffers.newDirectFloatBuffer(point_num*4*2);
+		
+		int window_width=this.GetWindowWidth();
+		int window_height=this.GetWindowHeight();
 		
 		for(Vertex2D[] segment:segments_map.values()) {
 			for(int i=0;i<2;i++) {
@@ -125,22 +128,20 @@ public class Dynamic2DSegmentsDrawer implements Dynamic2DDrawer{
 	}
 	
 	@Override
-	public void SetWindowSize(int width,int height) {
-		window_width=width;
-		window_height=height;
-	}
-	
-	@Override
 	public void Draw() {
-		GLShaderFunctions.EnableProgram("line_drawer");
+		List<String> shader_names=this.GetShaderNames();
 		
-		GLWrapper.glBindVertexArray(vao.get(0));
-		
-		int point_num=segments_map.size()*2;
-		GLWrapper.glEnable(GL4.GL_BLEND);
-		GLWrapper.glDrawArrays(GL4.GL_LINES, 0, point_num);
-		GLWrapper.glDisable(GL4.GL_BLEND);
-		
-		GLWrapper.glBindVertexArray(0);
+		for(String shader_name:shader_names) {
+			GLShaderFunctions.EnableProgram(shader_name);
+			
+			GLWrapper.glBindVertexArray(vao.get(0));
+			
+			int point_num=segments_map.size()*2;
+			GLWrapper.glEnable(GL4.GL_BLEND);
+			GLWrapper.glDrawArrays(GL4.GL_LINES, 0, point_num);
+			GLWrapper.glDisable(GL4.GL_BLEND);
+			
+			GLWrapper.glBindVertexArray(0);	
+		}
 	}
 }

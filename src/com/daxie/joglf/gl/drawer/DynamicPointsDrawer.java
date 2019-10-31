@@ -3,6 +3,7 @@ package com.daxie.joglf.gl.drawer;
 import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -20,7 +21,7 @@ import com.jogamp.opengl.GL4;
  * @author Daba
  *
  */
-public class DynamicPointsDrawer implements Dynamic3DDrawer{
+public class DynamicPointsDrawer extends Dynamic3DDrawer{
 	private Map<Integer, Vertex3D> points_map;
 	
 	private IntBuffer pos_vbo;
@@ -37,6 +38,12 @@ public class DynamicPointsDrawer implements Dynamic3DDrawer{
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, dif_vbo);
 		GLWrapper.glGenVertexArrays(1, vao);
+	}
+	
+	@Override
+	public void SetDefaultShader() {
+		this.RemoveAllShaders();
+		this.AddShader("color");
 	}
 	
 	@Override
@@ -109,15 +116,19 @@ public class DynamicPointsDrawer implements Dynamic3DDrawer{
 	
 	@Override
 	public void Draw() {
-		GLShaderFunctions.EnableProgram("color");
+		List<String> shader_names=this.GetShaderNames();
 		
-		GLWrapper.glBindVertexArray(vao.get(0));
-		
-		int point_num=points_map.size();
-		GLWrapper.glEnable(GL4.GL_BLEND);
-		GLWrapper.glDrawArrays(GL4.GL_POINTS, 0, point_num);
-		GLWrapper.glDisable(GL4.GL_BLEND);
-		
-		GLWrapper.glBindVertexArray(0);
+		for(String shader_name:shader_names) {
+			GLShaderFunctions.EnableProgram(shader_name);
+			
+			GLWrapper.glBindVertexArray(vao.get(0));
+			
+			int point_num=points_map.size();
+			GLWrapper.glEnable(GL4.GL_BLEND);
+			GLWrapper.glDrawArrays(GL4.GL_POINTS, 0, point_num);
+			GLWrapper.glDisable(GL4.GL_BLEND);
+			
+			GLWrapper.glBindVertexArray(0);
+		}
 	}
 }
