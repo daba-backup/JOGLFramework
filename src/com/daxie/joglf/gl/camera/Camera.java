@@ -24,6 +24,8 @@ public class Camera {
 	
 	private CameraMode camera_mode;
 	private float fov;
+	private float size;
+	
 	private float aspect;
 	
 	private Vector position;
@@ -41,6 +43,8 @@ public class Camera {
 		
 		camera_mode=CameraMode.PERSPECTIVE;
 		fov=MathFunctions.DegToRad(60.0f);
+		size=10.0f;
+		
 		aspect=WindowCommonInfoStock.DEFAULT_WIDTH/WindowCommonInfoStock.DEFAULT_HEIGHT;
 		
 		position=VectorFunctions.VGet(-50.0f, 50.0f, -50.0f);
@@ -97,10 +101,28 @@ public class Camera {
 		projection_matrix=ProjectionMatrix.GetOrthogonalMatrix(-size, size, -size, size, near, far);
 		
 		camera_mode=CameraMode.ORTHOGRAPHIC;
+		this.size=size;
 	}
 	
 	public void SetCameraViewMatrix(Matrix m) {
 		view_transformation_matrix=m;
+	}
+	
+	public Matrix GetProjectionMatrix() {
+		Matrix ret;
+		
+		if(camera_mode==CameraMode.PERSPECTIVE) {
+			ret=ProjectionMatrix.GetPerspectiveMatrix(fov, aspect, near, far);
+		}
+		else {
+			ret=ProjectionMatrix.GetOrthogonalMatrix(-size, size, -size, size, near, far);
+		}
+		
+		return ret;
+	}
+	public Matrix GetViewTransformationMatrix() {
+		Matrix ret=ViewTransformationMatrix.GetViewTransformationMatrix(position, target, up);
+		return ret;
 	}
 	
 	public void UpdateAspect(int width,int height) {

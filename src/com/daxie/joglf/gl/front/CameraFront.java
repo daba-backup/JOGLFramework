@@ -5,6 +5,9 @@ import com.daxie.basis.matrix.MatrixFunctions;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.camera.Camera;
+import com.daxie.joglf.gl.tool.CoordinateFunctions;
+import com.daxie.joglf.gl.window.WindowCommonInfoStock;
+import com.daxie.tool.MathFunctions;
 
 /**
  * Offers methods for camera operations.
@@ -13,6 +16,9 @@ import com.daxie.joglf.gl.camera.Camera;
  */
 public class CameraFront {
 	private static Camera camera=new Camera();
+	
+	private static int window_width=WindowCommonInfoStock.DEFAULT_WIDTH;
+	private static int window_height=WindowCommonInfoStock.DEFAULT_HEIGHT;
 	
 	public static void AddUserShader(String user_shader_name) {
 		camera.AddUserShader(user_shader_name);
@@ -63,8 +69,89 @@ public class CameraFront {
 		camera.SetupCamera_Ortho(size);
 	}
 	
+	/**
+	 * Converts a world position to a screen position.<br>
+	 * This method returns a screen position with an origin located at the bottom left of the screen.
+	 * @param world_pos World position
+	 * @return Screen position
+	 */
+	public static Vector ConvertWorldPosToScreenPos(Vector world_pos) {
+		Matrix projection=camera.GetProjectionMatrix();
+		Matrix view_transformation=camera.GetViewTransformationMatrix();
+		
+		Matrix camera_matrix=MatrixFunctions.MMult(projection, view_transformation);
+		
+		Matrix world_pos_matrix=new Matrix();
+		world_pos_matrix.SetValue(0, 0, world_pos.GetX());
+		world_pos_matrix.SetValue(1, 0, world_pos.GetY());
+		world_pos_matrix.SetValue(2, 0, world_pos.GetZ());
+		world_pos_matrix.SetValue(3, 0, 1.0f);
+		Matrix clip_space_matrix=MatrixFunctions.MMult(camera_matrix, world_pos_matrix);
+		float w=clip_space_matrix.GetValue(3, 0);
+		
+		Vector ret=VectorFunctions.VGet(
+				clip_space_matrix.GetValue(0, 0), 
+				clip_space_matrix.GetValue(1, 0),
+				clip_space_matrix.GetValue(2, 0));
+		ret=VectorFunctions.VScale(ret, 1.0f/w);
+		
+		float x=ret.GetX();
+		float y=ret.GetY();
+		
+		x=CoordinateFunctions.ExpandNormalizedCoordinate(x, window_width);
+		y=CoordinateFunctions.ExpandNormalizedCoordinate(y, window_height);
+		ret.SetX(x);
+		ret.SetY(y);
+		
+		return ret;
+	}
+	/**
+	 * Converts a screen position to a world position.<br>
+	 * This method takes the OpenGL coordinate system which has an origin at the bottom left of the screen.<br>
+	 * <br>
+	 * Z-coordinate of the screen position denotes the distance of the returned value.<br>
+	 * If z==-1.0 then the distance between the camera and the point is equal to the near value of the camera.<br>
+	 * If z==1.0 then the distance is equal to the far value.<br>
+	 * The distance linearly increases in proportion to z.
+	 * @param screen_pos Screen position
+	 * @return World position
+	 */
+	public static Vector ConvertScreenPosToWorldPos(Vector screen_pos) {
+		Vector normalized_screen_pos=new Vector();
+		float x=CoordinateFunctions.NormalizeCoordinate(screen_pos.GetX(), window_width);
+		float y=CoordinateFunctions.NormalizeCoordinate(screen_pos.GetY(), window_height);
+		float z=MathFunctions.Clamp(screen_pos.GetZ(), -1.0f, 1.0f);
+		normalized_screen_pos.SetVector(x, y, z);
+		
+		System.out.println(normalized_screen_pos);
+		
+		Matrix projection=camera.GetProjectionMatrix();
+		Matrix view_transformation=camera.GetViewTransformationMatrix();
+		
+		Matrix camera_matrix=MatrixFunctions.MMult(projection, view_transformation);
+		Matrix inv_camera_matrix=MatrixFunctions.MInverse(camera_matrix);
+		
+		Matrix screen_pos_matrix=new Matrix();
+		screen_pos_matrix.SetValue(0, 0, normalized_screen_pos.GetX());
+		screen_pos_matrix.SetValue(1, 0, normalized_screen_pos.GetY());
+		screen_pos_matrix.SetValue(2, 0, normalized_screen_pos.GetZ());
+		screen_pos_matrix.SetValue(3, 0, 1.0f);
+		Matrix world_pos_matrix=MatrixFunctions.MMult(inv_camera_matrix, screen_pos_matrix);
+		float w=world_pos_matrix.GetValue(3, 0);
+		
+		Vector ret=VectorFunctions.VGet(
+				world_pos_matrix.GetValue(0, 0),
+				world_pos_matrix.GetValue(1, 0),
+				world_pos_matrix.GetValue(2, 0));
+		ret=VectorFunctions.VScale(ret, 1.0f/w);
+		
+		return ret;
+	}
+	
 	public static void UpdateAspect(int width,int height) {
 		camera.UpdateAspect(width, height);
+		window_width=width;
+		window_height=height;
 	}
 	public static void Update() {
 		camera.Update();

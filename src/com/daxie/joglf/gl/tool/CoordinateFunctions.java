@@ -26,12 +26,22 @@ public class CoordinateFunctions {
 	}
 	
 	/**
-	 * Converts a window y-coordinate to an OpenGL y-coordinate.
+	 * Converts a normalized value to a expanded value.
+	 * @param value Normalized value
+	 * @param max Maximum
+	 * @return Expanded value
+	 */
+	public static int ExpandNormalizedCoordinate(float value,int max) {
+		return (int)Math.round(max*(value+1.0)*0.5f);
+	}
+	
+	/**
+	 * Mutual conversion between a window y-coordinate and an OpenGL y-coordinate.
 	 * @param y Window y-coordinate
 	 * @param height Window height
 	 * @return OpenGL y-coordinate
 	 */
-	public static int ConvertWindowCoordinateToOpenGLCoordinate_Y(int y,int height) {
+	public static int ConvertWindowCoordinateAndOpenGLCoordinate_Y(int y,int height) {
 		return height-y;
 	}
 }
