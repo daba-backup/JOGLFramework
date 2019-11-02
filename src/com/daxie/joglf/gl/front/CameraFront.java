@@ -63,7 +63,10 @@ public class CameraFront {
 		camera.SetupCamera_Ortho(size);
 	}
 	
-	public static void Update(int width,int height) {
-		camera.Update(width,height);
+	public static void UpdateAspect(int width,int height) {
+		camera.UpdateAspect(width, height);
+	}
+	public static void Update() {
+		camera.Update();
 	}
 }

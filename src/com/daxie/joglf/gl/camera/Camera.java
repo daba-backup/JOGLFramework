@@ -8,6 +8,7 @@ import com.daxie.basis.matrix.Matrix;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.tool.BufferFunctions;
+import com.daxie.joglf.gl.window.WindowCommonInfoStock;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.tool.MathFunctions;
@@ -40,7 +41,7 @@ public class Camera {
 		
 		camera_mode=CameraMode.PERSPECTIVE;
 		fov=MathFunctions.DegToRad(60.0f);
-		aspect=640.0f/480.0f;
+		aspect=WindowCommonInfoStock.DEFAULT_WIDTH/WindowCommonInfoStock.DEFAULT_HEIGHT;
 		
 		position=VectorFunctions.VGet(-50.0f, 50.0f, -50.0f);
 		target=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
@@ -102,14 +103,16 @@ public class Camera {
 		view_transformation_matrix=m;
 	}
 	
-	public void Update(int width,int height) {
+	public void UpdateAspect(int width,int height) {
 		aspect=(float)width/height;
+	}
+	public void Update() {
 		if(camera_mode==CameraMode.PERSPECTIVE) {
 			projection_matrix=ProjectionMatrix.GetPerspectiveMatrix(fov, aspect, near, far);
 		}
 		
 		if(view_transformation_matrix==null) {
-			view_transformation_matrix=ViewTransformation.GetViewTransformationMatrix(position, target, up);
+			view_transformation_matrix=ViewTransformationMatrix.GetViewTransformationMatrix(position, target, up);
 		}
 		
 		FloatBuffer camera_position=BufferFunctions.MakeFloatBufferFromVector(position);

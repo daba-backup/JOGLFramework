@@ -349,7 +349,7 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		if(destroyed_flag==false) {
 			this.Draw();
 			TinterFront.Tint();
-			CameraFront.Update(width, height);
+			CameraFront.Update();
 		}
 		GLFront.Unlock();
 	}
@@ -361,6 +361,8 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		
 		int width=dimension.width;
 		int height=dimension.height;
+		
+		CameraFront.UpdateAspect(width, height);
 		
 		TextureMgr.SetWindowSize(width, height);
 		TextMgr.SetWindowSize(width, height);

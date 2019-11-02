@@ -296,7 +296,7 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		if(destroyed_flag==false) {
 			this.Draw();
 			TinterFront.Tint();
-			CameraFront.Update(width, height);
+			CameraFront.Update();
 		}
 		GLFront.Unlock();
 	}
@@ -305,6 +305,8 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		
 		int width=window.getWidth();
 		int height=window.getHeight();
+		
+		CameraFront.UpdateAspect(width, height);
 		
 		TextureMgr.SetWindowSize(width, height);
 		TextMgr.SetWindowSize(width, height);

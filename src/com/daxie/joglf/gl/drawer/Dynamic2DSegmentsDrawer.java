@@ -10,6 +10,7 @@ import java.util.TreeMap;
 
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.joglf.gl.shape.Vertex2D;
+import com.daxie.joglf.gl.tool.CoordinateFunctions;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.log.LogFile;
@@ -63,8 +64,8 @@ public class Dynamic2DSegmentsDrawer extends Dynamic2DDrawer{
 				
 				int x=point.x;
 				int y=point.y;
-				float normalized_x=2.0f*x/window_width-1.0f;
-				float normalized_y=2.0f*y/window_height-1.0f;
+				float normalized_x=CoordinateFunctions.NormalizeCoordinate(x, window_width);
+				float normalized_y=CoordinateFunctions.NormalizeCoordinate(y, window_height);
 				
 				pos_buffer.put(normalized_x);
 				pos_buffer.put(normalized_y);

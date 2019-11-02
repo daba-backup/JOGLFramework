@@ -11,6 +11,7 @@ import java.util.TreeMap;
 
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.joglf.gl.shape.Circle2D;
+import com.daxie.joglf.gl.tool.CoordinateFunctions;
 import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.log.LogFile;
@@ -79,8 +80,8 @@ public class Dynamic2DFilledCirclesDrawer extends Dynamic2DDrawer{
 			
 			int center_x=center.x;
 			int center_y=center.y;
-			float normalized_center_x=2.0f*center_x/window_width-1.0f;
-			float normalized_center_y=2.0f*center_y/window_height-1.0f;
+			float normalized_center_x=CoordinateFunctions.NormalizeCoordinate(center_x, window_width);
+			float normalized_center_y=CoordinateFunctions.NormalizeCoordinate(center_y, window_height);
 			pos_buffer.put(normalized_center_x);
 			pos_buffer.put(normalized_center_y);
 			
@@ -90,8 +91,8 @@ public class Dynamic2DFilledCirclesDrawer extends Dynamic2DDrawer{
 				float x=radius*(float)Math.cos(th)+center_x;
 				float y=radius*(float)Math.sin(th)+center_y;
 				
-				float normalized_x=2.0f*x/window_width-1.0f;
-				float normalized_y=2.0f*y/window_height-1.0f;
+				float normalized_x=CoordinateFunctions.NormalizeCoordinate(x, window_width);
+				float normalized_y=CoordinateFunctions.NormalizeCoordinate(y, window_height);
 				
 				pos_buffer.put(normalized_x);
 				pos_buffer.put(normalized_y);

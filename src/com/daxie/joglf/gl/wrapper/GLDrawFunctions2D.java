@@ -5,6 +5,8 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import com.daxie.basis.coloru8.ColorU8;
+import com.daxie.joglf.gl.tool.CoordinateFunctions;
+import com.daxie.joglf.gl.window.WindowCommonInfoStock;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -14,31 +16,12 @@ import com.jogamp.opengl.GL4;
  *
  */
 public class GLDrawFunctions2D {
-	private static int window_width=640;
-	private static int window_height=480;
+	private static int window_width=WindowCommonInfoStock.DEFAULT_WIDTH;
+	private static int window_height=WindowCommonInfoStock.DEFAULT_HEIGHT;
 	
 	public static void SetWindowSize(int width,int height) {
 		window_width=width;
 		window_height=height;
-	}
-	
-	/**
-	 * Returns a normalized value ranged between -1.0 and 1.0.
-	 * @param value Value
-	 * @param max Maximum
-	 * @return Normalized value
-	 */
-	private static float NormalizeCoordinate(int value,int max) {
-		return 2.0f*value/max-1.0f;
-	}
-	/**
-	 * Returns a normalized value ranged between -1.0 and 1.0.
-	 * @param value Value
-	 * @param max Maximum
-	 * @return Normalized value
-	 */
-	private static float NormalizeCoordinate(float value,int max) {
-		return 2.0f*value/max-1.0f;
 	}
 	
 	public static void DrawLine2D(int x1,int y1,int x2,int y2,ColorU8 color) {
@@ -49,10 +32,10 @@ public class GLDrawFunctions2D {
 		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(4);
 		FloatBuffer color_buffer=Buffers.newDirectFloatBuffer(8);
 		
-		float normalized_x1=NormalizeCoordinate(x1, window_width);
-		float normalized_y1=NormalizeCoordinate(y1, window_height);
-		float normalized_x2=NormalizeCoordinate(x2, window_width);
-		float normalized_y2=NormalizeCoordinate(y2, window_height);
+		float normalized_x1=CoordinateFunctions.NormalizeCoordinate(x1, window_width);
+		float normalized_y1=CoordinateFunctions.NormalizeCoordinate(y1, window_height);
+		float normalized_x2=CoordinateFunctions.NormalizeCoordinate(x2, window_width);
+		float normalized_y2=CoordinateFunctions.NormalizeCoordinate(y2, window_height);
 		
 		pos_buffer.put(normalized_x1);
 		pos_buffer.put(normalized_y1);
@@ -129,10 +112,10 @@ public class GLDrawFunctions2D {
 		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(2*4);
 		FloatBuffer color_buffer=Buffers.newDirectFloatBuffer(4*4);
 
-		float normalized_x1=NormalizeCoordinate(x1, window_width);
-		float normalized_y1=NormalizeCoordinate(y1, window_height);
-		float normalized_x2=NormalizeCoordinate(x2, window_width);
-		float normalized_y2=NormalizeCoordinate(y2, window_height);
+		float normalized_x1=CoordinateFunctions.NormalizeCoordinate(x1, window_width);
+		float normalized_y1=CoordinateFunctions.NormalizeCoordinate(y1, window_height);
+		float normalized_x2=CoordinateFunctions.NormalizeCoordinate(x2, window_width);
+		float normalized_y2=CoordinateFunctions.NormalizeCoordinate(y2, window_height);
 		
 		//Bottom left
 		pos_buffer.put(normalized_x1);
@@ -210,10 +193,10 @@ public class GLDrawFunctions2D {
 		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(2*4);
 		FloatBuffer color_buffer=Buffers.newDirectFloatBuffer(4*4);
 
-		float normalized_x1=NormalizeCoordinate(x1, window_width);
-		float normalized_y1=NormalizeCoordinate(y1, window_height);
-		float normalized_x2=NormalizeCoordinate(x2, window_width);
-		float normalized_y2=NormalizeCoordinate(y2, window_height);
+		float normalized_x1=CoordinateFunctions.NormalizeCoordinate(x1, window_width);
+		float normalized_y1=CoordinateFunctions.NormalizeCoordinate(y1, window_height);
+		float normalized_x2=CoordinateFunctions.NormalizeCoordinate(x2, window_width);
+		float normalized_y2=CoordinateFunctions.NormalizeCoordinate(y2, window_height);
 		
 		//Bottom left
 		pos_buffer.put(normalized_x1);
@@ -312,8 +295,8 @@ public class GLDrawFunctions2D {
 			float x=radius*(float)Math.cos(th)+center_x;
 			float y=radius*(float)Math.sin(th)+center_y;
 			
-			float normalized_x=NormalizeCoordinate(x, window_width);
-			float normalized_y=NormalizeCoordinate(y, window_height);
+			float normalized_x=CoordinateFunctions.NormalizeCoordinate(x, window_width);
+			float normalized_y=CoordinateFunctions.NormalizeCoordinate(y, window_height);
 			
 			pos_buffer.put(normalized_x);
 			pos_buffer.put(normalized_y);
@@ -382,8 +365,8 @@ public class GLDrawFunctions2D {
 		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(2*(div_num+1));
 		FloatBuffer color_buffer=Buffers.newDirectFloatBuffer(4*(div_num+1));
 		
-		float normalized_center_x=NormalizeCoordinate(center_x, window_width);
-		float normalized_center_y=NormalizeCoordinate(center_y, window_height);
+		float normalized_center_x=CoordinateFunctions.NormalizeCoordinate(center_x, window_width);
+		float normalized_center_y=CoordinateFunctions.NormalizeCoordinate(center_y, window_height);
 		pos_buffer.put(normalized_center_x);
 		pos_buffer.put(normalized_center_y);
 		
@@ -393,8 +376,8 @@ public class GLDrawFunctions2D {
 			float x=radius*(float)Math.cos(th)+center_x;
 			float y=radius*(float)Math.sin(th)+center_y;
 			
-			float normalized_x=NormalizeCoordinate(x, window_width);
-			float normalized_y=NormalizeCoordinate(y, window_height);
+			float normalized_x=CoordinateFunctions.NormalizeCoordinate(x, window_width);
+			float normalized_y=CoordinateFunctions.NormalizeCoordinate(y, window_height);
 			
 			pos_buffer.put(normalized_x);
 			pos_buffer.put(normalized_y);
