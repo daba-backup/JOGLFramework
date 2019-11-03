@@ -109,10 +109,10 @@ public class CameraFront {
 	 * Converts a screen position to a world position.<br>
 	 * This method takes the OpenGL coordinate system which has an origin at the bottom left of the screen.<br>
 	 * <br>
-	 * Z-coordinate of the screen position denotes the distance of the returned value.<br>
+	 * Z-coordinate of the screen position denotes the depth of the returned value.<br>
 	 * If z==-1.0 then the distance between the camera and the point is equal to the near value of the camera.<br>
 	 * If z==1.0 then the distance is equal to the far value.<br>
-	 * The distance linearly increases in proportion to z.
+	 * The distance shows non-linear increase when a perspective matrix is used for projection.
 	 * @param screen_pos Screen position
 	 * @return World position
 	 */
@@ -123,20 +123,18 @@ public class CameraFront {
 		float z=MathFunctions.Clamp(screen_pos.GetZ(), -1.0f, 1.0f);
 		normalized_screen_pos.SetVector(x, y, z);
 		
-		System.out.println(normalized_screen_pos);
-		
 		Matrix projection=camera.GetProjectionMatrix();
 		Matrix view_transformation=camera.GetViewTransformationMatrix();
 		
 		Matrix camera_matrix=MatrixFunctions.MMult(projection, view_transformation);
 		Matrix inv_camera_matrix=MatrixFunctions.MInverse(camera_matrix);
 		
-		Matrix screen_pos_matrix=new Matrix();
-		screen_pos_matrix.SetValue(0, 0, normalized_screen_pos.GetX());
-		screen_pos_matrix.SetValue(1, 0, normalized_screen_pos.GetY());
-		screen_pos_matrix.SetValue(2, 0, normalized_screen_pos.GetZ());
-		screen_pos_matrix.SetValue(3, 0, 1.0f);
-		Matrix world_pos_matrix=MatrixFunctions.MMult(inv_camera_matrix, screen_pos_matrix);
+		Matrix clip_space_matrix=new Matrix();
+		clip_space_matrix.SetValue(0, 0, normalized_screen_pos.GetX());
+		clip_space_matrix.SetValue(1, 0, normalized_screen_pos.GetY());
+		clip_space_matrix.SetValue(2, 0, normalized_screen_pos.GetZ());
+		clip_space_matrix.SetValue(3, 0, 1.0f);
+		Matrix world_pos_matrix=MatrixFunctions.MMult(inv_camera_matrix, clip_space_matrix);
 		float w=world_pos_matrix.GetValue(3, 0);
 		
 		Vector ret=VectorFunctions.VGet(
