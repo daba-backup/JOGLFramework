@@ -8,10 +8,10 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.daxie.basis.vector.Vector;
+import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shape.Quadrangle;
 import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.texture.TextureMgr;
-import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.log.LogFile;
 import com.jogamp.common.nio.Buffers;

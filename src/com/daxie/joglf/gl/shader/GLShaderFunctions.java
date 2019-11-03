@@ -1,4 +1,4 @@
-package com.daxie.joglf.gl.wrapper;
+package com.daxie.joglf.gl.shader;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.daxie.joglf.gl.tool.BufferFunctions;
+import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.log.LogFile;
 import com.daxie.tool.ExceptionFunctions;
 import com.daxie.tool.FileFunctions;

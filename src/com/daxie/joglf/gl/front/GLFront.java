@@ -3,9 +3,9 @@ package com.daxie.joglf.gl.front;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.text.TextMgr;
 import com.daxie.joglf.gl.texture.TextureMgr;
-import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.GLVersion;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.log.LogFile;

@@ -7,9 +7,9 @@ import java.util.List;
 import com.daxie.basis.matrix.Matrix;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
+import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.tool.BufferFunctions;
 import com.daxie.joglf.gl.window.WindowCommonInfoStock;
-import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.tool.MathFunctions;
 

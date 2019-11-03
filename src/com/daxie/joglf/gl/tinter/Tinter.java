@@ -6,8 +6,8 @@ import java.nio.IntBuffer;
 
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.basis.coloru8.ColorU8Functions;
+import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.tool.BufferFunctions;
-import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;

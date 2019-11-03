@@ -5,6 +5,7 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import com.daxie.basis.coloru8.ColorU8;
+import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.tool.CoordinateFunctions;
 import com.daxie.joglf.gl.window.WindowCommonInfoStock;
 import com.jogamp.common.nio.Buffers;

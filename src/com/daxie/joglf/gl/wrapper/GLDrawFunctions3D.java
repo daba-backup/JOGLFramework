@@ -12,6 +12,7 @@ import com.daxie.basis.matrix.Matrix;
 import com.daxie.basis.matrix.MatrixFunctions;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
+import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shape.Triangle;
 import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.texture.TextureMgr;

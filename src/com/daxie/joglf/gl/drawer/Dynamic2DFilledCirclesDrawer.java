@@ -10,9 +10,9 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.daxie.basis.coloru8.ColorU8;
+import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shape.Circle2D;
 import com.daxie.joglf.gl.tool.CoordinateFunctions;
-import com.daxie.joglf.gl.wrapper.GLShaderFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.log.LogFile;
 import com.jogamp.common.nio.Buffers;
