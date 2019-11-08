@@ -146,7 +146,3 @@ They are mostly licensed under the New BSD 2-Clause License.
 - [JOGL - Java Binding for the OpenGL API](https://jogamp.org/jogl/www/)
   Official website of JOGL
 
-------
-
-- [Twitter](https://twitter.com/Daxie_tksm6)
-  My twitter account
