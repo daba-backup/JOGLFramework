@@ -6,14 +6,6 @@ It also provides several wrapper functions for Java OpenAL (JOAL).
 
 # Overview
 
-## Features
-
-- 3D model management
-- 3D hitcheck functions
-- Texture management
-- Play WAV and MP3
-- Multiwindow support
-
 ## Install
 
 Locate the *Data* folder at the current directory of your program.
