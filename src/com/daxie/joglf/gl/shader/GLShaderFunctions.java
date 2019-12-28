@@ -90,7 +90,7 @@ public class GLShaderFunctions {
 			GLWrapper.glGetShaderInfoLog(vertex_shader_id,info_log_length.get(0),null,error_message);
 			error_message_str=BufferFunctions.GetStringFromByteBuffer(error_message);
 			
-			LogFile.WriteWarn("[Shaders-LoadShaders] Vertex shader compilation failed. Below is the information log.",true);
+			LogFile.WriteWarn("[GLShaderFunctions-CreateProgram] Vertex shader compilation failed. Below is the information log.",true);
 			LogFile.WriteWarn(error_message_str,false);
 			
 			return -1;
@@ -108,7 +108,7 @@ public class GLShaderFunctions {
 			GLWrapper.glGetShaderInfoLog(fragment_shader_id,info_log_length.get(0),null,error_message);
 			error_message_str=BufferFunctions.GetStringFromByteBuffer(error_message);
 			
-			LogFile.WriteWarn("[Shaders-LoadShaders] Fragment shader compilation failed. Below is the information log.",true);
+			LogFile.WriteWarn("[GLShaderFunctions-CreateProgram] Fragment shader compilation failed. Below is the information log.",true);
 			LogFile.WriteWarn(error_message_str,false);
 			
 			return -1;
@@ -129,7 +129,7 @@ public class GLShaderFunctions {
 			GLWrapper.glGetProgramInfoLog(program_id, info_log_length.get(0), null, error_message);
 			error_message_str=BufferFunctions.GetStringFromByteBuffer(error_message);
 			
-			LogFile.WriteWarn("[Shaders-LoadShaders] Program link failed. Below is the information log.",true);
+			LogFile.WriteWarn("[GLShaderFunctions-CreateProgram] Program link failed. Below is the information log.",true);
 			LogFile.WriteWarn(error_message_str,false);
 			
 			return -1;
