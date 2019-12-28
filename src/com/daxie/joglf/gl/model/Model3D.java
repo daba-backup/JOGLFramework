@@ -309,7 +309,7 @@ public class Model3D {
 			LogFile.WriteWarn("[Model3D-AttachAnimation] No such model. model_handle:"+model_handle, true);
 			return -1;
 		}
-		if(models_map.containsKey(model_handle)==false) {
+		if(models_map.containsKey(anim_src_handle)==false) {
 			LogFile.WriteWarn("[Model3D-AttachAnimation] No such model. anim_src_handle:"+model_handle, true);
 			return -1;
 		}
