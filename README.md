@@ -1,6 +1,6 @@
 # JOGLFramework
 
-JOGLFramework aims to simplify OpenGL-relating processing by wrapping raw functions provided by Java OpenGL (JOGL).
+JOGLFramework (abbr. JOGLF) aims to simplify OpenGL-relating processing by wrapping raw functions provided by Java OpenGL (JOGL).
 
 It also provides several wrapper functions for Java OpenAL (JOAL).
 
