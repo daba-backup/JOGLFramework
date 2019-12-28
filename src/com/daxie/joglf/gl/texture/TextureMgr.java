@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
+import com.daxie.joglf.gl.window.WindowCommonInfoStock;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.log.LogFile;
 import com.daxie.tool.ExceptionFunctions;
@@ -35,8 +36,8 @@ public class TextureMgr {
 	
 	private static int default_texture_handle=-1;
 	
-	private static int window_width=640;
-	private static int window_height=480;
+	private static int window_width=WindowCommonInfoStock.DEFAULT_WIDTH;
+	private static int window_height=WindowCommonInfoStock.DEFAULT_HEIGHT;
 	
 	public static void Initialize() {
 		default_texture_handle=LoadTexture("./Data/Texture/white.bmp");
