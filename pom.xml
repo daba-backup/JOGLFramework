@@ -5,10 +5,10 @@
 
 	<groupId>com.github.dabasan</groupId>
 	<artifactId>joglframework</artifactId>
-	<version>4.0.0</version>
+	<version>4.0.1</version>
 
 	<name>JOGLFramework</name>
-	<description>Simplify OpenGL-relating processing by wrapping raw functions provided by JOGL.</description>
+	<description>Simplify OpenGL-relating code by wrapping functions provided by JOGL.</description>
 	<url>https://github.com/Dabasan/JOGLFramework</url>
 
 	<licenses>
