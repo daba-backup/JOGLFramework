@@ -24,7 +24,7 @@ Download all required jars and add them to the classpath.
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework</artifactId>
-    <version>4.0.0</version>
+    <version>4.0.1</version>
 </dependency>
 ```
 
