@@ -8,7 +8,7 @@
 	<version>5.0.0-SNAPSHOT</version>
 
 	<name>JOGLFramework</name>
-	<description>Simplify OpenGL-relating code by wrapping functions provided by JOGL.</description>
+	<description>Simplifies OpenGL-relating code by wrapping functions provided by JOGL.</description>
 	<url>https://github.com/Dabasan/JOGLFramework</url>
 
 	<licenses>
