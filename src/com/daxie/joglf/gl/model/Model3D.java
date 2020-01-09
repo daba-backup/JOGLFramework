@@ -323,16 +323,16 @@ public class Model3D {
 		return 0;
 	}
 	
-	public static int SetAttachAnimationTime(int model_handle,int anim_index,float time) {
+	public static int SetAttachedAnimationTime(int model_handle,int anim_index,float time) {
 		if(animation_info_map.containsKey(model_handle)==false) {
-			LogFile.WriteWarn("[Model3D-SetAttachAnimationTime]", true);
+			LogFile.WriteWarn("[Model3D-SetAttachedAnimationTime]", true);
 			LogFile.WriteWarn("No animation info exists for this model. model_handle:"+model_handle,false);
 			return -1;
 		}
 		
 		AnimationInfoMap aim=animation_info_map.get(model_handle);
 		if(aim.AnimationInfoExists(anim_index)==false) {
-			LogFile.WriteWarn("[Model3D-SetAttachAnimationTime]", true);
+			LogFile.WriteWarn("[Model3D-SetAttachedAnimationTime]", true);
 			LogFile.WriteWarn("No corresponding animation for this index exists. anim_index:"+anim_index, false);
 			return -1;
 		}
@@ -344,7 +344,7 @@ public class Model3D {
 		int frame2_handle=blend_info.GetFrame2Handle();
 		float blend_ratio=blend_info.GetBlendRatio();
 		if(frame1_handle<0) {
-			LogFile.WriteWarn("[Model3D-SetAttachAnimationTime] No frames registered.", true);
+			LogFile.WriteWarn("[Model3D-SetAttachedAnimationTime] No frames registered.", true);
 			return -1;
 		}
 		
