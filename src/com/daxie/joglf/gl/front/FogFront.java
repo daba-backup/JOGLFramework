@@ -4,7 +4,7 @@ import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.joglf.gl.fog.Fog;
 
 /**
- * Offers methods for fog.
+ * Provides methods for fog.
  * @author Daba
  *
  */

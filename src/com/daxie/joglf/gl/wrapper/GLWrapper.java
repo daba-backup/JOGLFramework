@@ -12,7 +12,7 @@ import com.daxie.joglf.gl.wrapper.gles3.GLES3Wrapper;
 import com.daxie.log.LogFile;
 
 /**
- * Offers wrapper functions for several GL versions.
+ * Provides wrapper functions for several GL versions.
  * @author Daba
  *
  */

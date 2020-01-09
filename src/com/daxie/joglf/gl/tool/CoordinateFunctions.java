@@ -1,7 +1,7 @@
 package com.daxie.joglf.gl.tool;
 
 /**
- * Offers functions to handle coordinate systems.
+ * Provides functions to handle coordinate systems.
  * @author Daba
  *
  */

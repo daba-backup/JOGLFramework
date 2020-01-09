@@ -13,7 +13,7 @@ import com.jogamp.opengl.GL4;
 import com.jogamp.opengl.GLProfile;
 
 /**
- * Offers methods for GL operations.
+ * Provides methods for GL operations.
  * @author Daba
  *
  */

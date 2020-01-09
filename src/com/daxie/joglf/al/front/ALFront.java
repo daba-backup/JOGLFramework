@@ -7,7 +7,7 @@ import com.jogamp.openal.AL;
 import com.jogamp.openal.util.ALut;
 
 /**
- * Offers general functions relating to the audio library (AL).
+ * Provides general functions relating to the audio library (AL).
  * @author Daba
  *
  */

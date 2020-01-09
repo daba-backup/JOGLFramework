@@ -6,7 +6,7 @@ import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 
 /**
- * Offers methods for projection transformation.
+ * Provides methods for projection transformation.
  * @author Daba
  *
  */

@@ -11,7 +11,7 @@ import com.daxie.basis.vector.Vector;
 import com.jogamp.common.nio.Buffers;
 
 /**
- * Offers methods to handle buffers.
+ * Provides methods to handle buffers.
  * @author Daba
  *
  */

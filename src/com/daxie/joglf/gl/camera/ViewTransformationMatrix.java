@@ -6,7 +6,7 @@ import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 
 /**
- * Offers methods for view transformation.
+ * Provides methods for view transformation.
  * @author Daba
  *
  */

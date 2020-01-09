@@ -4,7 +4,7 @@ import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 
 /**
- * Offers functions to handle segments.
+ * Provides functions to handle segments.
  * @author Daba
  *
  */

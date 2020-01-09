@@ -10,7 +10,7 @@ import com.daxie.joglf.gl.window.WindowCommonInfoStock;
 import com.daxie.tool.MathFunctions;
 
 /**
- * Offers methods for camera operations.
+ * Provides methods for camera operations.
  * @author Daba
  *
  */

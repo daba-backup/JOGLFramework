@@ -5,7 +5,7 @@ import com.daxie.basis.vector.Vector;
 import com.daxie.joglf.gl.lighting.Lighting;
 
 /**
- * Offers methods for lighting.
+ * Provides methods for lighting.
  * @author Daba
  *
  */

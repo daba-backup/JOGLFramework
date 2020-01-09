@@ -4,7 +4,7 @@ import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.joglf.gl.tinter.Tinter;
 
 /**
- * Offers methods for tinter.
+ * Provides methods for tinter.
  * @author Daba
  *
  */

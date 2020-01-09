@@ -5,7 +5,7 @@ import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.tool.SegmentFunctions;
 
 /**
- * Offers functions for hitcheck.
+ * Provides functions for hitcheck.
  * @author Daba
  *
  */
