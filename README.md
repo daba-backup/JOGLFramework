@@ -12,11 +12,11 @@ Locate the *Data* folder at the current directory of your program.
 
 Direct link:https://github.com/Dabasan/JOGLFramework/releases/download/v4.0.0/Data.zip
 
-After setting up *Data*, you need to get required jars.
+After setting up *Data*, you need to get required JARs.
 
 ### Java project
 
-Download all required jars and add them to the classpath.
+Download all required JARs and add them to the classpath.
 
 ### Maven project
 
