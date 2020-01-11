@@ -1,4 +1,4 @@
-package com.daxie.joglf.al.player;
+package com.daxie.joglf.al.player.mp3;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
