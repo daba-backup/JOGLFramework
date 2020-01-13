@@ -17,7 +17,7 @@ import com.daxie.joglf.gl.model.collision.CollTriangle;
 import com.daxie.joglf.gl.model.loader.bd1.BD1Loader;
 import com.daxie.joglf.gl.model.loader.obj.OBJLoader;
 import com.daxie.joglf.hitcheck.HitCheckFunctions;
-import com.daxie.joglf.hitcheck.HitResult;
+import com.daxie.joglf.hitcheck.entity.HitResult;
 import com.daxie.log.LogFile;
 import com.daxie.tool.FilenameFunctions;
 

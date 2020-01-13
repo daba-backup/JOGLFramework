@@ -1,4 +1,4 @@
-package com.daxie.joglf.hitcheck;
+package com.daxie.joglf.hitcheck.entity;
 
 /**
  * Used when computing the distance between two lines.

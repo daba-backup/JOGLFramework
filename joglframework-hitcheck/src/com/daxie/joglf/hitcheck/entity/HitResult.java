@@ -1,4 +1,4 @@
-package com.daxie.joglf.hitcheck;
+package com.daxie.joglf.hitcheck.entity;
 
 import com.daxie.basis.vector.Vector;
 

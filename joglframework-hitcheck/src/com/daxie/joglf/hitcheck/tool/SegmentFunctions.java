@@ -1,4 +1,4 @@
-package com.daxie.joglf.gl.tool;
+package com.daxie.joglf.hitcheck.tool;
 
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;

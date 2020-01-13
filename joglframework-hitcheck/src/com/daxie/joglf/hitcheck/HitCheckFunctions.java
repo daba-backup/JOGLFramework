@@ -2,7 +2,9 @@ package com.daxie.joglf.hitcheck;
 
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
-import com.daxie.joglf.gl.tool.SegmentFunctions;
+import com.daxie.joglf.hitcheck.entity.HitResult;
+import com.daxie.joglf.hitcheck.entity.LineTInfo;
+import com.daxie.joglf.hitcheck.tool.SegmentFunctions;
 
 /**
  * Provides functions for hitcheck.
