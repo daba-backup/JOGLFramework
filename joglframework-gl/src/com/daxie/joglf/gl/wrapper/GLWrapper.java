@@ -21,7 +21,7 @@ public class GLWrapper{
 	
 	/**
 	 * Sets the GL version.<br>
-	 * This method is disabled after GL is setup.
+	 * This method is disabled after the framework is setup.
 	 * @param version Version
 	 */
 	public static void SetGLVersion(GLVersion version) {
@@ -32,6 +32,7 @@ public class GLWrapper{
 		
 		gl_version=version;
 	}
+	
 	public static GLVersion GetGLVersion() {
 		return gl_version;
 	}
@@ -52,10 +53,20 @@ public class GLWrapper{
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glBindBuffer(arg0, arg1);
 		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glBindBuffer(arg0, arg1);
 	}
+	public static void glBindFrameBuffer(int arg0,int arg1) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glBindFramebuffer(arg0, arg1);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glBindFramebuffer(arg0, arg1);
+		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glBindFramebuffer(arg0, arg1);
+	}
 	public static void glBindSampler(int arg0,int arg1) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glBindSampler(arg0, arg1);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glBindSampler(arg0, arg1);
 		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glBindSampler(arg0, arg1);
+	}
+	public static void glBindTexture(int arg0,int arg1) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glBindTexture(arg0, arg1);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glBindTexture(arg0, arg1);
+		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glBindTexture(arg0, arg1);
 	}
 	public static void glBindVertexArray(int arg0) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glBindVertexArray(arg0);
@@ -82,11 +93,18 @@ public class GLWrapper{
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glClearColor(arg0, arg1, arg2, arg3);
 		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glClearColor(arg0, arg1, arg2, arg3);
 	}
+	public static void glColorMask(boolean arg0,boolean arg1,boolean arg2,boolean arg3) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glColorMask(arg0, arg1, arg2, arg3);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glColorMask(arg0, arg1, arg2, arg3);
+		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glColorMask(arg0, arg1, arg2, arg3);
+	}
+	
 	public static void glCompileShader(int arg0) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glCompileShader(arg0);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glCompileShader(arg0);
 		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glCompileShader(arg0);
 	}
+	
 	public static int glCreateProgram() {
 		int ret=-1;
 		
@@ -150,6 +168,11 @@ public class GLWrapper{
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glDrawArrays(arg0, arg1, arg2);
 		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glDrawArrays(arg0, arg1, arg2);
 	}
+	public static void glDrawBuffers(int arg0,IntBuffer arg1) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glDrawBuffers(arg0, arg1);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glDrawBuffers(arg0, arg1);
+		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glDrawBuffers(arg0, arg1);
+	}
 	public static void glDrawElements(int arg0,int arg1,int arg2,int arg3) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glDrawElements(arg0, arg1, arg2, arg3);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glDrawElements(arg0, arg1, arg2, arg3);
@@ -170,15 +193,30 @@ public class GLWrapper{
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glFlush();
 		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glFlush();
 	}
+	public static void glFramebufferTexture2D(int arg0,int arg1,int arg2,int arg3,int arg4) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glFramebufferTexture2D(arg0, arg1, arg2, arg3, arg4);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glFramebufferTexture2D(arg0, arg1, arg2, arg3, arg4);
+		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glFramebufferTexture2D(arg0, arg1, arg2, arg3, arg4);
+	}
 	public static void glGenBuffers(int arg0,IntBuffer arg1) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glGenBuffers(arg0, arg1);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glGenBuffers(arg0, arg1);
 		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glGenBuffers(arg0, arg1);
 	}
+	public static void glGenFramebuffers(int arg0,IntBuffer arg1) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glGenFramebuffers(arg0, arg1);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glGenFramebuffers(arg0, arg1);
+		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glGenFramebuffers(arg0, arg1);
+	}
 	public static void glGenSamplers(int arg0,IntBuffer arg1) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glGenSamplers(arg0, arg1);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glGenSamplers(arg0, arg1);
 		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glGenSamplers(arg0, arg1);
+	}
+	public static void glGenTextures(int arg0,IntBuffer arg1) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glGenTextures(arg0, arg1);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glGenTextures(arg0, arg1);
+		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glGenTextures(arg0, arg1);
 	}
 	public static void glGenVertexArrays(int arg0,IntBuffer arg1) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glGenVertexArrays(arg0, arg1);
@@ -219,6 +257,11 @@ public class GLWrapper{
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glLinkProgram(arg0);
 		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glLinkProgram(arg0);
 	}
+	public static void glReadBuffer(int arg0) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glReadBuffer(arg0);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glReadBuffer(arg0);
+		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glReadBuffer(arg0);
+	}
 	public static void glSamplerParameteri(int arg0,int arg1,int arg2) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glSamplerParameteri(arg0, arg1, arg2);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glSamplerParameteri(arg0, arg1, arg2);
@@ -228,6 +271,21 @@ public class GLWrapper{
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glShaderSource(arg0, arg1, arg2, arg3);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glShaderSource(arg0, arg1, arg2, arg3);
 		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glShaderSource(arg0, arg1, arg2, arg3);
+	}
+	public static void glTexImage2D(int arg0,int arg1,int arg2,int arg3,int arg4,int arg5,int arg6,int arg7,Buffer arg8) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glTexImage2D(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glTexImage2D(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glTexImage2D(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+	}
+	public static void glTexParameterf(int arg0,int arg1,float arg2) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glTexParameterf(arg0, arg1, arg2);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glTexParameterf(arg0, arg1, arg2);
+		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glTexParameterf(arg0, arg1, arg2);
+	}
+	public static void glTexParameterfv(int arg0,int arg1,FloatBuffer arg2) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glTexParameterfv(arg0, arg1, arg2);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glTexParameterfv(arg0, arg1, arg2);
+		else if(gl_version==GLVersion.GLES3)GLES3Wrapper.glTexParameterfv(arg0, arg1, arg2);
 	}
 	public static void glTexParameteri(int arg0,int arg1,int arg2) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glTexParameteri(arg0, arg1, arg2);

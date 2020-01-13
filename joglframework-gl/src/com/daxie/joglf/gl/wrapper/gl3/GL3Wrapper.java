@@ -42,6 +42,15 @@ public class GL3Wrapper {
 			LogFile.WriteTrace("[GL3Wrapper-glBindBuffer] code:"+code,true);
 		}
 	}
+	public static void glBindFramebuffer(int arg0,int arg1) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glBindFramebuffer(arg0, arg1);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL3Wrapper-glBindFramebuffer] code:"+code,true);
+		}
+	}
 	public static void glBindSampler(int arg0,int arg1) {
 		GL3 gl3=GLContext.getCurrentGL().getGL3();
 		gl3.glBindSampler(arg0, arg1);
@@ -49,6 +58,15 @@ public class GL3Wrapper {
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
 			LogFile.WriteTrace("[GL3Wrapper-glBindSampler] code:"+code,true);
+		}
+	}
+	public static void glBindTexture(int arg0,int arg1) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glBindTexture(arg0, arg1);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL3Wrapper-glBindTexture] code:"+code,true);
 		}
 	}
 	public static void glBindVertexArray(int arg0) {
@@ -94,6 +112,15 @@ public class GL3Wrapper {
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
 			LogFile.WriteTrace("[GL3Wrapper-glClearColor] code:"+code,true);
+		}
+	}
+	public static void glColorMask(boolean arg0,boolean arg1,boolean arg2,boolean arg3) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glColorMask(arg0,arg1,arg2,arg3);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL3Wrapper-glColorMask] code:"+code,true);
 		}
 	}
 	public static void glCompileShader(int arg0) {
@@ -208,6 +235,15 @@ public class GL3Wrapper {
 			LogFile.WriteTrace("[GL3Wrapper-glDrawArrays] code:"+code,true);
 		}
 	}
+	public static void glDrawBuffers(int arg0,IntBuffer arg1) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glDrawBuffers(arg0,arg1);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL3Wrapper-glDrawBuffers] code:"+code,true);
+		}
+	}
 	public static void glDrawElements(int arg0,int arg1,int arg2,int arg3) {
 		GL3 gl3=GLContext.getCurrentGL().getGL3();
 		gl3.glDrawElements(arg0, arg1, arg2, arg3);
@@ -244,6 +280,15 @@ public class GL3Wrapper {
 			LogFile.WriteTrace("[GL3Wrapper-glFlush] code:"+code,true);
 		}
 	}
+	public static void glFramebufferTexture2D(int arg0,int arg1,int arg2,int arg3,int arg4) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glFramebufferTexture2D(arg0, arg1, arg2, arg3, arg4);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL3Wrapper-glFramebufferTexture2D] code:"+code,true);
+		}
+	}
 	public static void glGenBuffers(int arg0,IntBuffer arg1) {
 		GL3 gl3=GLContext.getCurrentGL().getGL3();
 		gl3.glGenBuffers(arg0, arg1);
@@ -253,6 +298,15 @@ public class GL3Wrapper {
 			LogFile.WriteTrace("[GL3Wrapper-glGenBuffers] code:"+code,true);
 		}
 	}
+	public static void glGenFramebuffers(int arg0,IntBuffer arg1) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glGenFramebuffers(arg0, arg1);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL3Wrapper-glGenFramebuffers] code:"+code,true);
+		}
+	}
 	public static void glGenSamplers(int arg0,IntBuffer arg1) {
 		GL3 gl3=GLContext.getCurrentGL().getGL3();
 		gl3.glGenSamplers(arg0, arg1);
@@ -260,6 +314,15 @@ public class GL3Wrapper {
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
 			LogFile.WriteTrace("[GL3Wrapper-glGenSamplers] code:"+code,true);
+		}
+	}
+	public static void glGenTextures(int arg0,IntBuffer arg1) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glGenTextures(arg0,arg1);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL3Wrapper-glGenTextures] code:"+code,true);
 		}
 	}
 	public static void glGenVertexArrays(int arg0,IntBuffer arg1) {
@@ -327,6 +390,15 @@ public class GL3Wrapper {
 			LogFile.WriteTrace("[GL3Wrapper-glLinkProgram] code:"+code,true);
 		}
 	}
+	public static void glReadBuffer(int arg0) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glReadBuffer(arg0);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL3Wrapper-glReadBuffer] code:"+code,true);
+		}
+	}
 	public static void glSamplerParameteri(int arg0,int arg1,int arg2) {
 		GL3 gl3=GLContext.getCurrentGL().getGL3();
 		gl3.glSamplerParameteri(arg0, arg1, arg2);
@@ -343,6 +415,33 @@ public class GL3Wrapper {
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
 			LogFile.WriteTrace("[GL3Wrapper-glShaderSource] code:"+code,true);
+		}
+	}
+	public static void glTexImage2D(int arg0,int arg1,int arg2,int arg3,int arg4,int arg5,int arg6,int arg7,Buffer arg8) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glTexImage2D(arg0,arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL3Wrapper-glTexImage2D] code:"+code,true);
+		}
+	}
+	public static void glTexParameterf(int arg0,int arg1,float arg2) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glTexParameterf(arg0, arg1, arg2);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL3Wrapper-glTexParameterf] code:"+code,true);
+		}
+	}
+	public static void glTexParameterfv(int arg0,int arg1,FloatBuffer arg2) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glTexParameterfv(arg0,arg1,arg2);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL3Wrapper-glTexParameterfv] code:"+code,true);
 		}
 	}
 	public static void glTexParameteri(int arg0,int arg1,int arg2) {
