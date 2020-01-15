@@ -10,7 +10,7 @@ import com.daxie.basis.vector.VectorFunctions;
  * @author Daba
  *
  */
-class ViewTransformationMatrix {
+public class ViewTransformationMatrix {
 	public static Matrix GetViewTransformationMatrix(Vector pos,Vector target,Vector up) {
 		Matrix view_transformation_matrix;
 		

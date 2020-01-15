@@ -342,7 +342,7 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		mouse.Update();
 		
 		//Update shader-relating properties with lock
-		//in order to avoid interference from concurrent display() in other windows.
+		//in order to avoid interference from concurrent display() methods in other windows.
 		GLFront.Lock();
 		this.DefaultUpdate();
 		this.Update();

@@ -10,7 +10,7 @@ import com.daxie.basis.vector.VectorFunctions;
  * @author Daba
  *
  */
-class ProjectionMatrix {
+public class ProjectionMatrix {
 	public static Matrix GetOrthogonalMatrix(float left,float right,float bottom,float top,float near,float far) {
 		Matrix orthogonal_matrix;
 		
