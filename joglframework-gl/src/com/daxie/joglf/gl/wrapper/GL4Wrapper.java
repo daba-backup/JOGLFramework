@@ -1,4 +1,4 @@
-package com.daxie.joglf.gl.wrapper.gl4;
+package com.daxie.joglf.gl.wrapper;
 
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
@@ -14,7 +14,7 @@ import com.jogamp.opengl.GLContext;
  * @author Daba
  *
  */
-public class GL4Wrapper {
+class GL4Wrapper {
 	public static void glActiveTexture(int arg0) {
 		GL4 gl4=GLContext.getCurrentGL().getGL4();
 		gl4.glActiveTexture(arg0);

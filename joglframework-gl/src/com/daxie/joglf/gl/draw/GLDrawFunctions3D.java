@@ -1,4 +1,4 @@
-package com.daxie.joglf.gl.wrapper;
+package com.daxie.joglf.gl.draw;
 
 import java.nio.Buffer;
 import java.nio.FloatBuffer;
@@ -16,6 +16,7 @@ import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shape.Triangle;
 import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.texture.TextureMgr;
+import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.log.LogFile;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;

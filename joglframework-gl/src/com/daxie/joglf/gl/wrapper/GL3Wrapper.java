@@ -1,4 +1,4 @@
-package com.daxie.joglf.gl.wrapper.gl3;
+package com.daxie.joglf.gl.wrapper;
 
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
@@ -14,7 +14,7 @@ import com.jogamp.opengl.GLContext;
  * @author Daba
  *
  */
-public class GL3Wrapper {
+class GL3Wrapper {
 	public static void glActiveTexture(int arg0) {
 		GL3 gl3=GLContext.getCurrentGL().getGL3();
 		gl3.glActiveTexture(arg0);

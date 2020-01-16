@@ -6,8 +6,6 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import com.daxie.joglf.gl.front.GLFront;
-import com.daxie.joglf.gl.wrapper.gl3.GL3Wrapper;
-import com.daxie.joglf.gl.wrapper.gl4.GL4Wrapper;
 import com.daxie.log.LogFile;
 
 /**

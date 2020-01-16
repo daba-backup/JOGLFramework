@@ -1,4 +1,4 @@
-package com.daxie.joglf.gl.wrapper;
+package com.daxie.joglf.gl.draw;
 
 import java.nio.Buffer;
 import java.nio.FloatBuffer;
@@ -8,6 +8,7 @@ import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.tool.CoordinateFunctions;
 import com.daxie.joglf.gl.window.WindowCommonInfoStock;
+import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
