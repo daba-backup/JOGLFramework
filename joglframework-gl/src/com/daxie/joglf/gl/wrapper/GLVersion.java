@@ -10,5 +10,4 @@ public enum GLVersion {
 	GL3bc,
 	GL4,
 	GL4bc,
-	GLES3
 }
