@@ -49,7 +49,6 @@ public class GLFront {
 		else if(gl_version==GLVersion.GL3)profile_str=GLProfile.GL3;
 		else if(gl_version==GLVersion.GL4bc)profile_str=GLProfile.GL4bc;
 		else if(gl_version==GLVersion.GL4)profile_str=GLProfile.GL4;
-		else if(gl_version==GLVersion.GLES3)profile_str=GLProfile.GLES3;
 	}
 	private static void LoadDefaultShaders() {
 		GLShaderFunctions.CreateProgram(
