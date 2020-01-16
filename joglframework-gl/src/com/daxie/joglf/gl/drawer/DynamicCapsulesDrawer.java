@@ -45,9 +45,9 @@ public class DynamicCapsulesDrawer extends Dynamic3DDrawer{
 	}
 	
 	@Override
-	public void SetDefaultShader() {
+	public void SetDefaultProgram() {
 		this.RemoveAllShaders();
-		this.AddShader("color");
+		this.AddProgram("color");
 	}
 	
 	@Override
@@ -275,10 +275,10 @@ public class DynamicCapsulesDrawer extends Dynamic3DDrawer{
 	
 	@Override
 	public void Draw() {
-		List<String> shader_names=this.GetShaderNames();
+		List<String> program_names=this.GetProgramNames();
 		
-		for(String shader_name:shader_names) {
-			GLShaderFunctions.EnableProgram(shader_name);
+		for(String program_name:program_names) {
+			GLShaderFunctions.EnableProgram(program_name);
 			
 			for(int i=0;i<buffer_num;i++) {
 				GLWrapper.glBindVertexArray(vao.get(i));

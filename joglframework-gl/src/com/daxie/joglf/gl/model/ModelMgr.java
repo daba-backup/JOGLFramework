@@ -219,9 +219,6 @@ public class ModelMgr {
 		for(String program_name:program_names) {
 			GLShaderFunctions.EnableProgram(program_name);
 			
-			int sampler=GLShaderFunctions.GetSampler();
-			GLWrapper.glBindSampler(0, sampler);
-			
 			for(int i=0;i<element_num;i++) {
 				BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
 				int texture_handle=buffered_vertices.GetTextureHandle();
@@ -263,9 +260,6 @@ public class ModelMgr {
 		
 		for(String program_name:program_names) {
 			GLShaderFunctions.EnableProgram(program_name);
-			
-			int sampler=GLShaderFunctions.GetSampler();
-			GLWrapper.glBindSampler(0, sampler);
 			
 			for(int i=0;i<clamped_bound;i++) {
 				BufferedVertices buffered_vertices=buffered_vertices_list.get(i);

@@ -47,9 +47,9 @@ public class DynamicTrianglesDrawer extends Dynamic3DDrawer{
 	}
 	
 	@Override
-	public void SetDefaultShader() {
+	public void SetDefaultProgram() {
 		this.RemoveAllShaders();
-		this.AddShader("texture");
+		this.AddProgram("texture");
 	}
 	
 	@Override
@@ -143,13 +143,10 @@ public class DynamicTrianglesDrawer extends Dynamic3DDrawer{
 	
 	@Override
 	public void Draw() {
-		List<String> shader_names=this.GetShaderNames();
+		List<String> program_names=this.GetProgramNames();
 		
-		for(String shader_name:shader_names) {
-			GLShaderFunctions.EnableProgram(shader_name);
-			
-			int sampler=GLShaderFunctions.GetSampler();
-			GLWrapper.glBindSampler(0, sampler);
+		for(String program_name:program_names) {
+			GLShaderFunctions.EnableProgram(program_name);
 			
 			GLWrapper.glBindVertexArray(vao.get(0));
 			

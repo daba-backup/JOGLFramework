@@ -73,8 +73,6 @@ public class GLFront {
 				"./Data/Shader/330/tinter/vshader.glsl", 
 				"./Data/Shader/330/tinter/fshader.glsl");
 		
-		GLShaderFunctions.InitializeSampler();
-		
 		LogFile.WriteInfo("[GLFront-LoadDefaultShaders] Default shaders loaded.",true);
 	}
 	private static void SetDefaultGLProperties() {

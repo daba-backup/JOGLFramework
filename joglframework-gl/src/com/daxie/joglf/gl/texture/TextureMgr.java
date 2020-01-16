@@ -208,9 +208,11 @@ public class TextureMgr {
 		((Buffer)uv_buffer).flip();
 		
 		GLShaderFunctions.EnableProgram("texture_drawer");
+		int program_id=GLShaderFunctions.GetProgramID("texture_drawer");
 		
-		int sampler=GLShaderFunctions.GetSampler();
-		GLWrapper.glBindSampler(0, sampler);
+		int sampler_location=GLWrapper.glGetUniformLocation(program_id, "texture_sampler");
+		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0);
+		GLWrapper.glUniform1i(sampler_location, 0);
 		
 		IntBuffer indices_vbo=Buffers.newDirectIntBuffer(1);
 		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);

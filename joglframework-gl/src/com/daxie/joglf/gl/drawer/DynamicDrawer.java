@@ -9,27 +9,27 @@ import java.util.List;
  *
  */
 public abstract class DynamicDrawer {
-	private List<String> shader_names;
+	private List<String> program_names;
 	
 	public DynamicDrawer() {
-		shader_names=new ArrayList<>();
+		program_names=new ArrayList<>();
 		
-		this.SetDefaultShader();
+		this.SetDefaultProgram();
 	}
 	
-	protected List<String> GetShaderNames() {
-		return shader_names;
+	protected List<String> GetProgramNames() {
+		return program_names;
 	}
 	
-	public void AddShader(String shader_name) {
-		shader_names.add(shader_name);
+	public void AddProgram(String program_name) {
+		program_names.add(program_name);
 	}
-	public void RemoveShader(String shader_name) {
-		shader_names.remove(shader_name);
+	public void RemoveProgram(String program_name) {
+		program_names.remove(program_name);
 	}
-	public abstract void SetDefaultShader();
+	public abstract void SetDefaultProgram();
 	public void RemoveAllShaders() {
-		shader_names.clear();
+		program_names.clear();
 	}
 	
 	public abstract void UpdateBuffers();

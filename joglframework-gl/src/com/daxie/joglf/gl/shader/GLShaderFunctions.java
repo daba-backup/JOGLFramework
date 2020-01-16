@@ -23,7 +23,6 @@ import com.jogamp.opengl.GL4;
  */
 public class GLShaderFunctions {
 	private static Map<String, Integer> program_ids_map=new HashMap<>();
-	private static IntBuffer sampler=Buffers.newDirectIntBuffer(1);
 	
 	/**
 	 * Creates a program after compiling shaders.
@@ -142,25 +141,10 @@ public class GLShaderFunctions {
 		
 		return 0;
 	}
-	/**
-	 * Initializes a sampler.
-	 */
-	public static void InitializeSampler() {
-		GLWrapper.glGenSamplers(1, sampler);
-		
-		GLWrapper.glSamplerParameteri(sampler.get(0),GL4.GL_TEXTURE_MAG_FILTER,GL4.GL_NEAREST);
-		GLWrapper.glSamplerParameteri(sampler.get(0),GL4.GL_TEXTURE_MIN_FILTER,GL4.GL_NEAREST);
-		
-		GLWrapper.glSamplerParameteri(sampler.get(0),GL4.GL_TEXTURE_WRAP_S,GL4.GL_REPEAT);
-		GLWrapper.glSamplerParameteri(sampler.get(0),GL4.GL_TEXTURE_WRAP_T,GL4.GL_REPEAT);
-	}
 	
 	public static int GetProgramID(String program_name) {
 		if(program_ids_map.containsKey(program_name)==false)return -1;
 		return program_ids_map.get(program_name);
-	}
-	public static int GetSampler() {
-		return sampler.get(0);
 	}
 	
 	public static int EnableProgram(String program_name) {
