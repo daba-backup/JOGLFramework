@@ -117,47 +117,47 @@ public class Model3D {
 		return ret;
 	}
 	
-	public static int AddShader(int model_handle,String shader_name) {
+	public static int AddProgram(int model_handle,String program_name) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogFile.WriteWarn("[Model3D-AddShader] No such model. model_handle:"+model_handle, true);
+			LogFile.WriteWarn("[Model3D-AddProgram] No such model. model_handle:"+model_handle, true);
 			return -1;
 		}
 		
 		ModelMgr model=models_map.get(model_handle);
-		model.AddShader(shader_name);
+		model.AddProgram(program_name);
 		
 		return 0;
 	}
-	public static int RemoveShader(int model_handle,String shader_name) {
+	public static int RemoveProgram(int model_handle,String program_name) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogFile.WriteWarn("[Model3D-RemoveShader] No such model. model_handle:"+model_handle, true);
+			LogFile.WriteWarn("[Model3D-RemoveProgram] No such model. model_handle:"+model_handle, true);
 			return -1;
 		}
 		
 		ModelMgr model=models_map.get(model_handle);
-		model.RemoveShader(shader_name);
+		model.RemoveProgram(program_name);
 		
 		return 0;
 	}
-	public static int SetDefaultShader(int model_handle) {
+	public static int SetDefaultProgram(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogFile.WriteWarn("[Model3D-SetDefaultShader] No such model. model_handle:"+model_handle, true);
+			LogFile.WriteWarn("[Model3D-SetDefaultProgram] No such model. model_handle:"+model_handle, true);
 			return -1;
 		}
 		
 		ModelMgr model=models_map.get(model_handle);
-		model.SetDefaultShader();
+		model.SetDefaultProgram();
 		
 		return 0;
 	}
-	public static int RemoveAllShaders(int model_handle) {
+	public static int RemoveAllPrograms(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogFile.WriteWarn("[Model3D-RemoveAllShaders] No such model. model_handle:"+model_handle, true);
+			LogFile.WriteWarn("[Model3D-RemoveAllPrograms] No such model. model_handle:"+model_handle, true);
 			return -1;
 		}
 		
 		ModelMgr model=models_map.get(model_handle);
-		model.RemoveAllShaders();
+		model.RemoveAllPrograms();
 		
 		return 0;
 	}

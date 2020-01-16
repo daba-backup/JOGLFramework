@@ -37,7 +37,7 @@ public class Camera {
 	private Matrix projection_matrix;
 	private Matrix view_transformation_matrix;
 	
-	private List<String> user_shader_names;
+	private List<String> program_names;
 	
 	public Camera() {
 		near=1.0f;
@@ -53,17 +53,17 @@ public class Camera {
 		target=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
 		up=VectorFunctions.VGet(0.0f, 1.0f, 0.0f);
 		
-		user_shader_names=new ArrayList<>();
+		program_names=new ArrayList<>();
 	}
 	
-	public void AddUserShader(String user_shader_name) {
-		user_shader_names.add(user_shader_name);
+	public void AddProgram(String program_name) {
+		program_names.add(program_name);
 	}
-	public void RemoveUserShader(String user_shader_name) {
-		user_shader_names.remove(user_shader_name);
+	public void RemoveProgram(String program_name) {
+		program_names.remove(program_name);
 	}
-	public void RemoveAllUserShaders() {
-		user_shader_names.clear();
+	public void RemoveAllPrograms() {
+		program_names.clear();
 	}
 	
 	public void SetCameraNearFar(float near,float far) {
@@ -181,10 +181,10 @@ public class Camera {
 		GLWrapper.glUniformMatrix4fv(projection_location, 1, true, projection);
 		GLWrapper.glUniformMatrix4fv(view_transformation_location,1,true,view_transformation);
 		
-		//User shaders
-		for(String user_shader_name:user_shader_names) {
-			GLShaderFunctions.EnableProgram(user_shader_name);
-			program_id=GLShaderFunctions.GetProgramID(user_shader_name);
+		//User programs
+		for(String program_name:program_names) {
+			GLShaderFunctions.EnableProgram(program_name);
+			program_id=GLShaderFunctions.GetProgramID(program_name);
 			
 			camera_position_location=GLWrapper.glGetUniformLocation(program_id, "camera_position");
 			camera_target_location=GLWrapper.glGetUniformLocation(program_id, "camera_target");

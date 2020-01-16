@@ -20,14 +20,14 @@ public class CameraFront {
 	private static int window_width=WindowCommonInfoStock.DEFAULT_WIDTH;
 	private static int window_height=WindowCommonInfoStock.DEFAULT_HEIGHT;
 	
-	public static void AddUserShader(String user_shader_name) {
-		camera.AddUserShader(user_shader_name);
+	public static void AddProgram(String program_name) {
+		camera.AddProgram(program_name);
 	}
-	public static void RemoveUserShader(String user_shader_name) {
-		camera.RemoveUserShader(user_shader_name);
+	public static void RemoveProgram(String program_name) {
+		camera.RemoveProgram(program_name);
 	}
-	public static void RemoveAllUserShaders() {
-		camera.RemoveAllUserShaders();
+	public static void RemoveAllPrograms() {
+		camera.RemoveAllPrograms();
 	}
 	
 	public static void SetCameraNearFar(float near,float far) {

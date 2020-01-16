@@ -43,7 +43,7 @@ public class ModelMgr {
 	private IntBuffer norm_vbo;
 	private IntBuffer vao;
 	
-	private List<String> shader_names;
+	private List<String> program_names;
 	
 	public ModelMgr(List<BufferedVertices> buffered_vertices_list) {
 		this.buffered_vertices_list=buffered_vertices_list;
@@ -56,24 +56,24 @@ public class ModelMgr {
 		
 		property_updated_flag=false;
 		
-		shader_names=new ArrayList<>();
-		shader_names.add("texture");
+		program_names=new ArrayList<>();
+		program_names.add("texture");
 		
 		this.GenerateBuffers();
 	}
 	
-	public void AddShader(String shader_name) {
-		shader_names.add(shader_name);
+	public void AddProgram(String program_name) {
+		program_names.add(program_name);
 	}
-	public void RemoveShader(String shader_name) {
-		shader_names.remove(shader_name);
+	public void RemoveProgram(String program_name) {
+		program_names.remove(program_name);
 	}
-	public void SetDefaultShader() {
-		shader_names.clear();
-		shader_names.add("texture");
+	public void SetDefaultProgram() {
+		program_names.clear();
+		program_names.add("texture");
 	}
-	public void RemoveAllShaders() {
-		shader_names.clear();
+	public void RemoveAllPrograms() {
+		program_names.clear();
 	}
 	
 	public void Interpolate(ModelMgr frame1,ModelMgr frame2,float blend_ratio) {
@@ -216,8 +216,8 @@ public class ModelMgr {
 		
 		int element_num=buffered_vertices_list.size();
 		
-		for(String shader_name:shader_names) {
-			GLShaderFunctions.EnableProgram(shader_name);
+		for(String program_name:program_names) {
+			GLShaderFunctions.EnableProgram(program_name);
 			
 			int sampler=GLShaderFunctions.GetSampler();
 			GLWrapper.glBindSampler(0, sampler);
@@ -261,8 +261,8 @@ public class ModelMgr {
 		else if(bound<element_num)clamped_bound=bound;
 		else clamped_bound=element_num;
 		
-		for(String shader_name:shader_names) {
-			GLShaderFunctions.EnableProgram(shader_name);
+		for(String program_name:program_names) {
+			GLShaderFunctions.EnableProgram(program_name);
 			
 			int sampler=GLShaderFunctions.GetSampler();
 			GLWrapper.glBindSampler(0, sampler);
