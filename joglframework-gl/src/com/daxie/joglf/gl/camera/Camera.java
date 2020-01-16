@@ -9,6 +9,8 @@ import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.tool.BufferFunctions;
+import com.daxie.joglf.gl.tool.matrix.ProjectionMatrixFunctions;
+import com.daxie.joglf.gl.tool.matrix.TransformationMatrixFunctions;
 import com.daxie.joglf.gl.window.WindowCommonInfoStock;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.tool.MathFunctions;
@@ -92,13 +94,13 @@ public class Camera {
 	}
 	
 	public void SetupCamera_Perspective(float fov) {
-		projection_matrix=ProjectionMatrix.GetPerspectiveMatrix(fov, aspect, near, far);
+		projection_matrix=ProjectionMatrixFunctions.GetPerspectiveMatrix(fov, aspect, near, far);
 		
 		camera_mode=CameraMode.PERSPECTIVE;
 		this.fov=fov;
 	}
 	public void SetupCamera_Ortho(float size) {
-		projection_matrix=ProjectionMatrix.GetOrthogonalMatrix(-size, size, -size, size, near, far);
+		projection_matrix=ProjectionMatrixFunctions.GetOrthogonalMatrix(-size, size, -size, size, near, far);
 		
 		camera_mode=CameraMode.ORTHOGRAPHIC;
 		this.size=size;
@@ -112,16 +114,16 @@ public class Camera {
 		Matrix ret;
 		
 		if(camera_mode==CameraMode.PERSPECTIVE) {
-			ret=ProjectionMatrix.GetPerspectiveMatrix(fov, aspect, near, far);
+			ret=ProjectionMatrixFunctions.GetPerspectiveMatrix(fov, aspect, near, far);
 		}
 		else {
-			ret=ProjectionMatrix.GetOrthogonalMatrix(-size, size, -size, size, near, far);
+			ret=ProjectionMatrixFunctions.GetOrthogonalMatrix(-size, size, -size, size, near, far);
 		}
 		
 		return ret;
 	}
 	public Matrix GetViewTransformationMatrix() {
-		Matrix ret=ViewTransformationMatrix.GetViewTransformationMatrix(position, target, up);
+		Matrix ret=TransformationMatrixFunctions.GetViewTransformationMatrix(position, target, up);
 		return ret;
 	}
 	
@@ -130,11 +132,11 @@ public class Camera {
 	}
 	public void Update() {
 		if(camera_mode==CameraMode.PERSPECTIVE) {
-			projection_matrix=ProjectionMatrix.GetPerspectiveMatrix(fov, aspect, near, far);
+			projection_matrix=ProjectionMatrixFunctions.GetPerspectiveMatrix(fov, aspect, near, far);
 		}
 		
 		if(view_transformation_matrix==null) {
-			view_transformation_matrix=ViewTransformationMatrix.GetViewTransformationMatrix(position, target, up);
+			view_transformation_matrix=TransformationMatrixFunctions.GetViewTransformationMatrix(position, target, up);
 		}
 		
 		FloatBuffer camera_position=BufferFunctions.MakeFloatBufferFromVector(position);

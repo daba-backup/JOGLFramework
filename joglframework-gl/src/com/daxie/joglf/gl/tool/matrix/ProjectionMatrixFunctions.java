@@ -1,4 +1,4 @@
-package com.daxie.joglf.gl.camera;
+package com.daxie.joglf.gl.tool.matrix;
 
 import com.daxie.basis.matrix.Matrix;
 import com.daxie.basis.matrix.MatrixFunctions;
@@ -10,7 +10,7 @@ import com.daxie.basis.vector.VectorFunctions;
  * @author Daba
  *
  */
-public class ProjectionMatrix {
+public class ProjectionMatrixFunctions {
 	public static Matrix GetOrthogonalMatrix(float left,float right,float bottom,float top,float near,float far) {
 		Matrix orthogonal_matrix;
 		
