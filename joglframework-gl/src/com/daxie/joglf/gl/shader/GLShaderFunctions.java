@@ -158,4 +158,8 @@ public class GLShaderFunctions {
 		
 		return 0;
 	}
+	public static int EnableProgram(int program_id) {
+		GLWrapper.glUseProgram(program_id);
+		return 0;
+	}
 }

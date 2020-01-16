@@ -15,11 +15,9 @@ import com.daxie.log.LogFile;
  *
  */
 public class ShaderProgram {
-	private String program_name;
 	private int program_id;
 	
 	public ShaderProgram(String program_name) {
-		this.program_name=program_name;
 		program_id=GLShaderFunctions.GetProgramID(program_name);
 		if(program_id<0) {
 			LogFile.WriteWarn("[ShaderProgram-<init>] This program is invalid. program_name:"+program_name, true);
@@ -33,7 +31,11 @@ public class ShaderProgram {
 	
 	public void Enable() {
 		if(program_id<0)return;
-		GLShaderFunctions.EnableProgram(program_name);
+		GLShaderFunctions.EnableProgram(program_id);
+	}
+	public void Disable() {
+		if(program_id<0)return;
+		GLShaderFunctions.EnableProgram(0);
 	}
 	
 	public int SetUniform(String name,int value) {
