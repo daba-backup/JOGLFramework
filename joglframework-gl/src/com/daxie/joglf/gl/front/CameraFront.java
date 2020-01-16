@@ -30,13 +30,6 @@ public class CameraFront {
 		camera.RemoveAllUserShaders();
 	}
 	
-	public static Matrix GetProjectionMatrix() {
-		return camera.GetProjectionMatrix();
-	}
-	public static Matrix GetViewTransformationMatrix() {
-		return camera.GetViewTransformationMatrix();
-	}
-	
 	public static void SetCameraNearFar(float near,float far) {
 		camera.SetCameraNearFar(near, far);
 	}
