@@ -219,12 +219,22 @@ public class ModelMgr {
 		for(String program_name:program_names) {
 			GLShaderFunctions.EnableProgram(program_name);
 			
+			int program_id=GLShaderFunctions.GetProgramID(program_name);
+			int sampler_location=GLWrapper.glGetUniformLocation(program_id, "texture_sampler");
+			
 			for(int i=0;i<element_num;i++) {
 				BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
 				int texture_handle=buffered_vertices.GetTextureHandle();
 				int count=buffered_vertices.GetCount();
 				
 				GLWrapper.glBindVertexArray(vao.get(i));
+				
+				GLWrapper.glActiveTexture(GL4.GL_TEXTURE0);
+				
+				GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_S, GL4.GL_REPEAT);
+				GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_T, GL4.GL_REPEAT);
+				GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);
+				GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
 				
 				if(texture_handle<0) {
 					TextureMgr.EnableDefaultTexture();
@@ -235,6 +245,8 @@ public class ModelMgr {
 					TextureMgr.BindTexture(texture_handle);
 				}
 				
+				GLWrapper.glUniform1i(sampler_location, 0);
+				
 				GLWrapper.glEnable(GL4.GL_BLEND);
 				GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
 				GLWrapper.glDisable(GL4.GL_BLEND);
@@ -244,6 +256,8 @@ public class ModelMgr {
 				
 				GLWrapper.glBindVertexArray(0);
 			}
+			
+			GLShaderFunctions.EnableProgram(0);
 		}
 	}
 	public void DrawElements(int bound) {

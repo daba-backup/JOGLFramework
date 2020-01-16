@@ -298,6 +298,15 @@ class GL4Wrapper {
 			LogFile.WriteTrace("[GL4Wrapper-glGenBuffers] code:"+code,true);
 		}
 	}
+	public static void glGenerateMipmap(int arg0) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glGenerateMipmap(arg0);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL4Wrapper-glGenerateMipmap] code:"+code,true);
+		}
+	}
 	public static void glGenFramebuffers(int arg0,IntBuffer arg1) {
 		GL4 gl4=GLContext.getCurrentGL().getGL4();
 		gl4.glGenFramebuffers(arg0, arg1);

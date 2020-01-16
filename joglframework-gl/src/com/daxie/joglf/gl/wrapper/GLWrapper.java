@@ -167,6 +167,10 @@ public class GLWrapper{
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glGenBuffers(arg0, arg1);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glGenBuffers(arg0, arg1);
 	}
+	public static void glGenerateMipmap(int arg0) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glGenerateMipmap(arg0);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glGenerateMipmap(arg0);
+	}
 	public static void glGenFramebuffers(int arg0,IntBuffer arg1) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glGenFramebuffers(arg0, arg1);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glGenFramebuffers(arg0, arg1);

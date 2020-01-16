@@ -298,6 +298,15 @@ class GL3Wrapper {
 			LogFile.WriteTrace("[GL3Wrapper-glGenBuffers] code:"+code,true);
 		}
 	}
+	public static void glGenerateMipmap(int arg0) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glGenerateMipmap(arg0);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL3Wrapper-glGenerateMipmap] code:"+code,true);
+		}
+	}
 	public static void glGenFramebuffers(int arg0,IntBuffer arg1) {
 		GL3 gl3=GLContext.getCurrentGL().getGL3();
 		gl3.glGenFramebuffers(arg0, arg1);
