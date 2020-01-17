@@ -251,8 +251,6 @@ public class ModelMgr {
 				
 				GLWrapper.glBindVertexArray(0);
 			}
-			
-			GLWrapper.glUseProgram(0);
 		}
 	}
 	public void Draw() {
@@ -290,8 +288,6 @@ public class ModelMgr {
 			}
 			
 			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
-			
-			GLWrapper.glUseProgram(0);
 		}
 	}
 	public void DrawElements(int texture_unit,String sampler_name,int bound) {
@@ -341,8 +337,6 @@ public class ModelMgr {
 				
 				GLWrapper.glBindVertexArray(0);
 			}
-			
-			GLWrapper.glUseProgram(0);
 		}
 	}
 	public void DrawElements(int bound) {
@@ -385,8 +379,6 @@ public class ModelMgr {
 			}
 			
 			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
-			
-			GLWrapper.glUseProgram(0);
 		}
 	}
 	

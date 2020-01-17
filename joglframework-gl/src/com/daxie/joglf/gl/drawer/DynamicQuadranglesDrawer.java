@@ -203,8 +203,6 @@ public class DynamicQuadranglesDrawer extends Dynamic3DDrawer{
 			else TextureMgr.DisableTexture(texture_handle);
 			
 			GLWrapper.glBindVertexArray(0);	
-			
-			GLWrapper.glUseProgram(0);
 		}
 	}
 	public void Draw(int texture_unit,String sampler_name,int texture_id) {
@@ -234,8 +232,6 @@ public class DynamicQuadranglesDrawer extends Dynamic3DDrawer{
 			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 			
 			GLWrapper.glBindVertexArray(0);	
-			
-			GLWrapper.glUseProgram(0);
 		}
 	}
 }
