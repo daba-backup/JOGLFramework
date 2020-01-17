@@ -419,6 +419,17 @@ class GL4Wrapper {
 			LogFile.WriteTrace("[GL4Wrapper-glLinkProgram] code:"+code,true);
 		}
 	}
+	public static ByteBuffer glMapBuffer(int arg0,int arg1) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		ByteBuffer ret=gl4.glMapBuffer(arg0, arg1);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL4Wrapper-glMapBuffer] code:"+code,true);
+		}
+		
+		return ret;
+	}
 	public static void glReadBuffer(int arg0) {
 		GL4 gl4=GLContext.getCurrentGL().getGL4();
 		gl4.glReadBuffer(arg0);
@@ -426,6 +437,15 @@ class GL4Wrapper {
 		int code=gl4.glGetError();
 		if(code!=GL4.GL_NO_ERROR) {
 			LogFile.WriteTrace("[GL4Wrapper-glReadBuffer] code:"+code,true);
+		}
+	}
+	public static void glReadPixels(int arg0,int arg1,int arg2,int arg3,int arg4,int arg5,Buffer arg6) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glReadPixels(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL4Wrapper-glReadPixels] code:"+code,true);
 		}
 	}
 	public static void glSamplerParameteri(int arg0,int arg1,int arg2) {
@@ -526,6 +546,17 @@ class GL4Wrapper {
 		if(code!=GL4.GL_NO_ERROR) {
 			LogFile.WriteTrace("[GL4Wrapper-glUniformMatrix4fv] code:"+code,true);
 		}
+	}
+	public static boolean glUnmapBuffer(int arg0) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		boolean ret=gl4.glUnmapBuffer(arg0);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL4Wrapper-glUnmapBuffer] code:"+code,true);
+		}
+		
+		return ret;
 	}
 	public static void glUseProgram(int arg0) {
 		GL4 gl4=GLContext.getCurrentGL().getGL4();

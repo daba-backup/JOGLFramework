@@ -227,9 +227,21 @@ public class GLWrapper{
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glLinkProgram(arg0);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glLinkProgram(arg0);
 	}
+	public static ByteBuffer glMapBuffer(int arg0,int arg1) {
+		ByteBuffer ret=null;
+		
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)ret=GL3Wrapper.glMapBuffer(arg0, arg1);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)ret=GL4Wrapper.glMapBuffer(arg0, arg1);
+		
+		return ret;
+	}
 	public static void glReadBuffer(int arg0) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glReadBuffer(arg0);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glReadBuffer(arg0);
+	}
+	public static void glReadPixels(int arg0,int arg1,int arg2,int arg3,int arg4,int arg5,Buffer arg6) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glReadPixels(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glReadPixels(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
 	}
 	public static void glSamplerParameteri(int arg0,int arg1,int arg2) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glSamplerParameteri(arg0, arg1, arg2);
@@ -274,6 +286,14 @@ public class GLWrapper{
 	public static void glUniformMatrix4fv(int arg0,int arg1,boolean arg2,FloatBuffer arg3) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUniformMatrix4fv(arg0, arg1, arg2, arg3);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glUniformMatrix4fv(arg0, arg1, arg2, arg3);
+	}
+	public static boolean glUnmapBuffer(int arg0) {
+		boolean ret=false;
+		
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUnmapBuffer(arg0);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glUnmapBuffer(arg0);
+		
+		return ret;
 	}
 	public static void glUseProgram(int arg0) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUseProgram(arg0);
