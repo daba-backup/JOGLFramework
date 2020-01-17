@@ -146,7 +146,7 @@ public class DynamicTrianglesDrawer extends Dynamic3DDrawer{
 		List<String> program_names=this.GetProgramNames();
 		
 		for(String program_name:program_names) {
-			GLShaderFunctions.EnableProgram(program_name);
+			GLShaderFunctions.UseProgram(program_name);
 			
 			GLWrapper.glBindVertexArray(vao.get(0));
 			

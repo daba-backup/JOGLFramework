@@ -49,7 +49,7 @@ public class Fog {
 		int fog_end_location;
 		int fog_color_location;
 		
-		GLShaderFunctions.EnableProgram("texture");
+		GLShaderFunctions.UseProgram("texture");
 		program_id=GLShaderFunctions.GetProgramID("texture");
 		
 		fog_start_location=GLWrapper.glGetUniformLocation(program_id, "fog_start");

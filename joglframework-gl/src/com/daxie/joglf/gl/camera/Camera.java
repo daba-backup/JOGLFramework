@@ -154,7 +154,7 @@ public class Camera {
 		int camera_far_location;
 		
 		//Texture program
-		GLShaderFunctions.EnableProgram("texture");
+		GLShaderFunctions.UseProgram("texture");
 		program_id=GLShaderFunctions.GetProgramID("texture");
 		
 		camera_position_location=GLWrapper.glGetUniformLocation(program_id, "camera_position");
@@ -172,7 +172,7 @@ public class Camera {
 		GLWrapper.glUniform1f(camera_far_location, far);
 		
 		//Color program
-		GLShaderFunctions.EnableProgram("color");
+		GLShaderFunctions.UseProgram("color");
 		program_id=GLShaderFunctions.GetProgramID("color");
 		
 		projection_location=GLWrapper.glGetUniformLocation(program_id, "projection");
@@ -183,7 +183,7 @@ public class Camera {
 		
 		//User programs
 		for(String program_name:program_names) {
-			GLShaderFunctions.EnableProgram(program_name);
+			GLShaderFunctions.UseProgram(program_name);
 			program_id=GLShaderFunctions.GetProgramID(program_name);
 			
 			camera_position_location=GLWrapper.glGetUniformLocation(program_id, "camera_position");

@@ -147,9 +147,9 @@ public class GLShaderFunctions {
 		return program_ids_map.get(program_name);
 	}
 	
-	public static int EnableProgram(String program_name) {
+	public static int UseProgram(String program_name) {
 		if(program_ids_map.containsKey(program_name)==false) {
-			LogFile.WriteWarn("[GLShaderFunctions-EnableProgram] Invalid program name. name:"+program_name,true);
+			LogFile.WriteWarn("[GLShaderFunctions-UseProgram] Invalid program name. name:"+program_name,true);
 			return -1;
 		}
 		
@@ -158,7 +158,7 @@ public class GLShaderFunctions {
 		
 		return 0;
 	}
-	public static int EnableProgram(int program_id) {
+	public static int UseProgram(int program_id) {
 		GLWrapper.glUseProgram(program_id);
 		return 0;
 	}

@@ -278,7 +278,7 @@ public class DynamicCapsulesDrawer extends Dynamic3DDrawer{
 		List<String> program_names=this.GetProgramNames();
 		
 		for(String program_name:program_names) {
-			GLShaderFunctions.EnableProgram(program_name);
+			GLShaderFunctions.UseProgram(program_name);
 			
 			for(int i=0;i<buffer_num;i++) {
 				GLWrapper.glBindVertexArray(vao.get(i));

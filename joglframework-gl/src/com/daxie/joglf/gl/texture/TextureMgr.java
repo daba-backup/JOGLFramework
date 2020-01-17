@@ -217,7 +217,7 @@ public class TextureMgr {
 		((Buffer)pos_buffer).flip();
 		((Buffer)uv_buffer).flip();
 		
-		GLShaderFunctions.EnableProgram("texture_drawer");
+		GLShaderFunctions.UseProgram("texture_drawer");
 		int program_id=GLShaderFunctions.GetProgramID("texture_drawer");
 		
 		int sampler_location=GLWrapper.glGetUniformLocation(program_id, "texture_sampler");

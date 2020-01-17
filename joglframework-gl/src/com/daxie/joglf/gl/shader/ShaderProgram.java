@@ -31,11 +31,11 @@ public class ShaderProgram {
 	
 	public void Enable() {
 		if(program_id<0)return;
-		GLShaderFunctions.EnableProgram(program_id);
+		GLShaderFunctions.UseProgram(program_id);
 	}
 	public void Disable() {
 		if(program_id<0)return;
-		GLShaderFunctions.EnableProgram(0);
+		GLShaderFunctions.UseProgram(0);
 	}
 	
 	public int SetUniform(String name,int value) {

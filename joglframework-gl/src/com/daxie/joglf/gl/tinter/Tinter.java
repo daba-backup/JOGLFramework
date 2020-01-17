@@ -87,7 +87,7 @@ public class Tinter {
 		int tint_color_location;
 		
 		//Tinter program
-		GLShaderFunctions.EnableProgram("tinter");
+		GLShaderFunctions.UseProgram("tinter");
 		program_id=GLShaderFunctions.GetProgramID("tinter");
 		
 		tint_color_location=GLWrapper.glGetUniformLocation(program_id, "tint_color");

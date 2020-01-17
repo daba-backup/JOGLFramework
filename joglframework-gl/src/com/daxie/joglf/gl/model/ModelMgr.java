@@ -217,7 +217,7 @@ public class ModelMgr {
 		int element_num=buffered_vertices_list.size();
 		
 		for(String program_name:program_names) {
-			GLShaderFunctions.EnableProgram(program_name);
+			GLShaderFunctions.UseProgram(program_name);
 			
 			for(int i=0;i<element_num;i++) {
 				BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
@@ -245,7 +245,7 @@ public class ModelMgr {
 				GLWrapper.glBindVertexArray(0);
 			}
 			
-			GLShaderFunctions.EnableProgram(0);
+			GLShaderFunctions.UseProgram(0);
 		}
 	}
 	public void DrawElements(int bound) {
@@ -261,7 +261,7 @@ public class ModelMgr {
 		else clamped_bound=element_num;
 		
 		for(String program_name:program_names) {
-			GLShaderFunctions.EnableProgram(program_name);
+			GLShaderFunctions.UseProgram(program_name);
 			
 			for(int i=0;i<clamped_bound;i++) {
 				BufferedVertices buffered_vertices=buffered_vertices_list.get(i);

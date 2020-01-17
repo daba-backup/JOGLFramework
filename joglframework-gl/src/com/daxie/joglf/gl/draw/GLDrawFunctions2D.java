@@ -58,7 +58,7 @@ public class GLDrawFunctions2D {
 		((Buffer)pos_buffer).flip();
 		((Buffer)color_buffer).flip();
 		
-		GLShaderFunctions.EnableProgram("line_drawer");
+		GLShaderFunctions.UseProgram("line_drawer");
 		
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
@@ -146,7 +146,7 @@ public class GLDrawFunctions2D {
 		((Buffer)pos_buffer).flip();
 		((Buffer)color_buffer).flip();
 		
-		GLShaderFunctions.EnableProgram("line_drawer");
+		GLShaderFunctions.UseProgram("line_drawer");
 		
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
@@ -236,7 +236,7 @@ public class GLDrawFunctions2D {
 		indices_buffer.put(0);
 		((Buffer)indices_buffer).flip();
 		
-		GLShaderFunctions.EnableProgram("line_drawer");
+		GLShaderFunctions.UseProgram("line_drawer");
 		
 		GLWrapper.glGenBuffers(1, indices_vbo);
 		GLWrapper.glGenBuffers(1, pos_vbo);
@@ -318,7 +318,7 @@ public class GLDrawFunctions2D {
 		((Buffer)pos_buffer).flip();
 		((Buffer)color_buffer).flip();
 		
-		GLShaderFunctions.EnableProgram("line_drawer");
+		GLShaderFunctions.UseProgram("line_drawer");
 		
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
@@ -411,7 +411,7 @@ public class GLDrawFunctions2D {
 		
 		((Buffer)indices_buffer).flip();
 		
-		GLShaderFunctions.EnableProgram("line_drawer");
+		GLShaderFunctions.UseProgram("line_drawer");
 		
 		GLWrapper.glGenBuffers(1, indices_vbo);
 		GLWrapper.glGenBuffers(1, pos_vbo);

@@ -64,7 +64,7 @@ public class Lighting {
 		int diffuse_power_location;
 		int specular_power_location;
 		
-		GLShaderFunctions.EnableProgram("texture");
+		GLShaderFunctions.UseProgram("texture");
 		program_id=GLShaderFunctions.GetProgramID("texture");
 		
 		light_direction_location=GLWrapper.glGetUniformLocation(program_id, "light_direction");

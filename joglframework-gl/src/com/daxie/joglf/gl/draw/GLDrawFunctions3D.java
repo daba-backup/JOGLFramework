@@ -52,7 +52,7 @@ public class GLDrawFunctions3D {
 		((Buffer)pos_buffer).flip();
 		((Buffer)color_buffer).flip();
 		
-		GLShaderFunctions.EnableProgram("color");
+		GLShaderFunctions.UseProgram("color");
 		
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
@@ -184,7 +184,7 @@ public class GLDrawFunctions3D {
 		((Buffer)pos_buffer).flip();
 		((Buffer)color_buffer).flip();
 		
-		GLShaderFunctions.EnableProgram("color");
+		GLShaderFunctions.UseProgram("color");
 		
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
@@ -342,7 +342,7 @@ public class GLDrawFunctions3D {
 		((Buffer)pos_buffer).flip();
 		((Buffer)color_buffer).flip();
 		
-		GLShaderFunctions.EnableProgram("color");
+		GLShaderFunctions.UseProgram("color");
 		
 		GLWrapper.glGenBuffers(1, indices_vbo);
 		GLWrapper.glGenBuffers(1, pos_vbo);
@@ -532,7 +532,7 @@ public class GLDrawFunctions3D {
 		((Buffer)pos_buffer).flip();
 		((Buffer)color_buffer).flip();
 		
-		GLShaderFunctions.EnableProgram("color");
+		GLShaderFunctions.UseProgram("color");
 		
 		GLWrapper.glGenBuffers(1, indices_vbo);
 		GLWrapper.glGenBuffers(1, pos_vbo);
@@ -626,7 +626,7 @@ public class GLDrawFunctions3D {
 		((Buffer)uv_buffer).flip();
 		((Buffer)norm_buffer).flip();
 		
-		GLShaderFunctions.EnableProgram("texture");
+		GLShaderFunctions.UseProgram("texture");
 		int program_id=GLShaderFunctions.GetProgramID("texture");
 		
 		GLWrapper.glGenBuffers(1, pos_vbo);
