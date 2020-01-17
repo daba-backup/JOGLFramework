@@ -245,7 +245,7 @@ public class ModelMgr {
 				GLWrapper.glBindVertexArray(0);
 			}
 			
-			GLShaderFunctions.UseProgram(0);
+			GLWrapper.glUseProgram(0);
 		}
 	}
 	public void DrawElements(int bound) {
