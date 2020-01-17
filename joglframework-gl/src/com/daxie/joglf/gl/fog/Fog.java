@@ -1,6 +1,8 @@
 package com.daxie.joglf.gl.fog;
 
 import java.nio.FloatBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.basis.coloru8.ColorU8Functions;
@@ -18,14 +20,24 @@ public class Fog {
 	private float fog_end;
 	private ColorU8 fog_color;
 	
-	private boolean fog_enabled_flag;
+	private List<String> program_names;
 	
 	public Fog() {
 		fog_start=100.0f;
 		fog_end=200.0f;
 		fog_color=ColorU8Functions.GetColorU8(0.0f, 0.0f, 0.0f, 1.0f);
 		
-		fog_enabled_flag=true;
+		program_names=new ArrayList<>();
+	}
+	
+	public void AddProgram(String program_name) {
+		program_names.add(program_name);
+	}
+	public void RemoveProgram(String program_name) {
+		program_names.remove(program_name);
+	}
+	public void RemoveAllPrograms() {
+		program_names.clear();
 	}
 	
 	public void SetFogStartEnd(float start,float end) {
@@ -35,35 +47,22 @@ public class Fog {
 	public void SetFogColor(ColorU8 color) {
 		fog_color=color;
 	}
-	public void SetFogEnabledFlag(boolean fog_enabled_flag) {
-		this.fog_enabled_flag=fog_enabled_flag;
-	}
 	
 	public void Update() {
 		FloatBuffer fog_color_buf=BufferFunctions.MakeFloatBufferFromColorU8(fog_color);
 		
-		//Texture program
-		int program_id;
-		
-		int fog_start_location;
-		int fog_end_location;
-		int fog_color_location;
-		
-		GLShaderFunctions.UseProgram("texture");
-		program_id=GLShaderFunctions.GetProgramID("texture");
-		
-		fog_start_location=GLWrapper.glGetUniformLocation(program_id, "fog_start");
-		fog_end_location=GLWrapper.glGetUniformLocation(program_id, "fog_end");
-		fog_color_location=GLWrapper.glGetUniformLocation(program_id, "fog_color");
-		
-		if(fog_enabled_flag==true) {
+		for(String program_name:program_names) {
+			GLShaderFunctions.UseProgram(program_name);
+			int program_id=GLShaderFunctions.GetProgramID(program_name);
+			
+			int fog_start_location=GLWrapper.glGetUniformLocation(program_id, "fog_start");
+			int fog_end_location=GLWrapper.glGetUniformLocation(program_id, "fog_end");
+			int fog_color_location=GLWrapper.glGetUniformLocation(program_id, "fog_color");
+			
 			GLWrapper.glUniform1f(fog_start_location, fog_start);
 			GLWrapper.glUniform1f(fog_end_location, fog_end);
+			
+			GLWrapper.glUniform4fv(fog_color_location, 1, fog_color_buf);
 		}
-		else {
-			GLWrapper.glUniform1f(fog_start_location, Float.MAX_VALUE);
-			GLWrapper.glUniform1f(fog_end_location, Float.MAX_VALUE);
-		}
-		GLWrapper.glUniform4fv(fog_color_location, 1, fog_color_buf);
 	}
 }

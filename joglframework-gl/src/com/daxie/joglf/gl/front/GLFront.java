@@ -32,6 +32,7 @@ public class GLFront {
 	public static void Initialize() {
 		LoadDefaultShaders();
 		SetDefaultGLProperties();
+		AddProgramsToFronts();
 		
 		TextureMgr.Initialize();
 		TextMgr.Initialize();
@@ -85,6 +86,16 @@ public class GLFront {
 		GLWrapper.glBlendFunc(GL4.GL_SRC_ALPHA, GL4.GL_ONE_MINUS_SRC_ALPHA);
 		
 		LogFile.WriteInfo("[GLFront-SetDefaultGLProperties] Default properties set.",true);
+	}
+	private static void AddProgramsToFronts() {
+		CameraFront.AddProgram("texture");
+		CameraFront.AddProgram("color");
+		
+		FogFront.AddProgram("texture");
+		
+		LightingFront.AddProgram("texture");
+		
+		TinterFront.AddProgram("tinter");
 	}
 	
 	public static void Lock() {

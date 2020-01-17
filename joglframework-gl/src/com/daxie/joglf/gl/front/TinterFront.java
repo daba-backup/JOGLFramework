@@ -11,6 +11,16 @@ import com.daxie.joglf.gl.tinter.Tinter;
 public class TinterFront {
 	private static Tinter tinter=new Tinter();
 	
+	public static void AddProgram(String program_name) {
+		tinter.AddProgram(program_name);
+	}
+	public static void RemoveProgram(String program_name) {
+		tinter.RemoveProgram(program_name);
+	}
+	public static void RemoveAllPrograms() {
+		tinter.RemoveAllPrograms();
+	}
+	
 	public static void SetTintColor(ColorU8 color) {
 		tinter.SetTintColor(color);
 	}

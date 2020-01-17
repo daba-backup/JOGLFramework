@@ -144,54 +144,16 @@ public class Camera {
 		FloatBuffer projection=BufferFunctions.MakeFloatBufferFromMatrix(projection_matrix);
 		FloatBuffer view_transformation=BufferFunctions.MakeFloatBufferFromMatrix(view_transformation_matrix);
 		
-		int program_id;
-		
-		int camera_position_location;
-		int camera_target_location;
-		int projection_location;
-		int view_transformation_location;
-		int camera_near_location;
-		int camera_far_location;
-		
-		//Texture program
-		GLShaderFunctions.UseProgram("texture");
-		program_id=GLShaderFunctions.GetProgramID("texture");
-		
-		camera_position_location=GLWrapper.glGetUniformLocation(program_id, "camera_position");
-		camera_target_location=GLWrapper.glGetUniformLocation(program_id, "camera_target");
-		projection_location=GLWrapper.glGetUniformLocation(program_id, "projection");
-		view_transformation_location=GLWrapper.glGetUniformLocation(program_id, "view_transformation");
-		camera_near_location=GLWrapper.glGetUniformLocation(program_id, "camera_near");
-		camera_far_location=GLWrapper.glGetUniformLocation(program_id, "camera_far");
-		
-		GLWrapper.glUniform3fv(camera_position_location, 1, camera_position);
-		GLWrapper.glUniform3fv(camera_target_location, 1, camera_target);
-		GLWrapper.glUniformMatrix4fv(projection_location, 1, true, projection);
-		GLWrapper.glUniformMatrix4fv(view_transformation_location,1,true,view_transformation);
-		GLWrapper.glUniform1f(camera_near_location, near);
-		GLWrapper.glUniform1f(camera_far_location, far);
-		
-		//Color program
-		GLShaderFunctions.UseProgram("color");
-		program_id=GLShaderFunctions.GetProgramID("color");
-		
-		projection_location=GLWrapper.glGetUniformLocation(program_id, "projection");
-		view_transformation_location=GLWrapper.glGetUniformLocation(program_id, "view_transformation");
-		
-		GLWrapper.glUniformMatrix4fv(projection_location, 1, true, projection);
-		GLWrapper.glUniformMatrix4fv(view_transformation_location,1,true,view_transformation);
-		
-		//User programs
 		for(String program_name:program_names) {
 			GLShaderFunctions.UseProgram(program_name);
-			program_id=GLShaderFunctions.GetProgramID(program_name);
+			int program_id=GLShaderFunctions.GetProgramID(program_name);
 			
-			camera_position_location=GLWrapper.glGetUniformLocation(program_id, "camera_position");
-			camera_target_location=GLWrapper.glGetUniformLocation(program_id, "camera_target");
-			projection_location=GLWrapper.glGetUniformLocation(program_id, "projection");
-			view_transformation_location=GLWrapper.glGetUniformLocation(program_id, "view_transformation");
-			camera_near_location=GLWrapper.glGetUniformLocation(program_id, "camera_near");
-			camera_far_location=GLWrapper.glGetUniformLocation(program_id, "camera_far");
+			int camera_position_location=GLWrapper.glGetUniformLocation(program_id, "camera_position");
+			int camera_target_location=GLWrapper.glGetUniformLocation(program_id, "camera_target");
+			int projection_location=GLWrapper.glGetUniformLocation(program_id, "projection");
+			int view_transformation_location=GLWrapper.glGetUniformLocation(program_id, "view_transformation");
+			int camera_near_location=GLWrapper.glGetUniformLocation(program_id, "camera_near");
+			int camera_far_location=GLWrapper.glGetUniformLocation(program_id, "camera_far");
 			
 			GLWrapper.glUniform3fv(camera_position_location, 1, camera_position);
 			GLWrapper.glUniform3fv(camera_target_location, 1, camera_target);

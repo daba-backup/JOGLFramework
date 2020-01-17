@@ -11,12 +11,16 @@ import com.daxie.joglf.gl.fog.Fog;
 public class FogFront {
 	private static Fog fog=new Fog();
 	
-	public static void EnableFog() {
-		fog.SetFogEnabledFlag(true);
+	public static void AddProgram(String program_name) {
+		fog.AddProgram(program_name);
 	}
-	public static void DisableFog() {
-		fog.SetFogEnabledFlag(false);
+	public static void RemoveProgram(String program_name) {
+		fog.RemoveProgram(program_name);
 	}
+	public static void RemoveAllPrograms() {
+		fog.RemoveAllPrograms();
+	}
+	
 	public static void SetFogColor(ColorU8 color) {
 		fog.SetFogColor(color);
 	}

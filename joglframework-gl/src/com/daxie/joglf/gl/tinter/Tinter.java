@@ -3,6 +3,8 @@ package com.daxie.joglf.gl.tinter;
 import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.basis.coloru8.ColorU8Functions;
@@ -23,8 +25,22 @@ public class Tinter {
 	private IntBuffer pos_vbo;
 	private IntBuffer vao;
 	
+	private List<String> program_names;
+	
 	public Tinter() {
 		tint_color=ColorU8Functions.GetColorU8(0.0f, 0.0f, 0.0f, 0.0f);
+		
+		program_names=new ArrayList<>();
+	}
+	
+	public void AddProgram(String program_name) {
+		program_names.add(program_name);
+	}
+	public void RemoveProgram(String program_name) {
+		program_names.remove(program_name);
+	}
+	public void RemoveAllPrograms() {
+		program_names.clear();
 	}
 	
 	public void SetTintColor(ColorU8 color) {
@@ -83,21 +99,19 @@ public class Tinter {
 	public void Tint() {
 		FloatBuffer tint_color_buffer=BufferFunctions.MakeFloatBufferFromColorU8(tint_color);
 		
-		int program_id;
-		int tint_color_location;
-		
-		//Tinter program
-		GLShaderFunctions.UseProgram("tinter");
-		program_id=GLShaderFunctions.GetProgramID("tinter");
-		
-		tint_color_location=GLWrapper.glGetUniformLocation(program_id, "tint_color");
-		
-		GLWrapper.glUniform4fv(tint_color_location, 1, tint_color_buffer);
-		
-		GLWrapper.glBindVertexArray(vao.get(0));
-		GLWrapper.glEnable(GL4.GL_BLEND);
-		GLWrapper.glDrawArrays(GL4.GL_TRIANGLES, 0, 6);
-		GLWrapper.glDisable(GL4.GL_BLEND);
-		GLWrapper.glBindVertexArray(0);
+		for(String program_name:program_names) {
+			GLShaderFunctions.UseProgram(program_name);
+			int program_id=GLShaderFunctions.GetProgramID(program_name);
+			
+			int tint_color_location=GLWrapper.glGetUniformLocation(program_id, "tint_color");
+			
+			GLWrapper.glUniform4fv(tint_color_location, 1, tint_color_buffer);
+			
+			GLWrapper.glBindVertexArray(vao.get(0));
+			GLWrapper.glEnable(GL4.GL_BLEND);
+			GLWrapper.glDrawArrays(GL4.GL_TRIANGLES, 0, 6);
+			GLWrapper.glDisable(GL4.GL_BLEND);
+			GLWrapper.glBindVertexArray(0);
+		}
 	}
 }

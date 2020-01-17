@@ -12,12 +12,16 @@ import com.daxie.joglf.gl.lighting.Lighting;
 public class LightingFront {
 	private static Lighting lighting=new Lighting();
 	
-	public static void EnableLighting() {
-		lighting.SetLightingEnabledFlag(true);
+	public static void AddProgram(String program_name) {
+		lighting.AddProgram(program_name);
 	}
-	public static void DisableLighting() {
-		lighting.SetLightingEnabledFlag(false);
+	public static void RemoveProgram(String program_name) {
+		lighting.RemoveProgram(program_name);
 	}
+	public static void RemoveAllPrograms() {
+		lighting.RemoveAllPrograms();
+	}
+	
 	public static void SetAmbientColor(ColorU8 color) {
 		lighting.SetAmbientColor(color);
 	}
