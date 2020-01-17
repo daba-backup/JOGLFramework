@@ -3,7 +3,7 @@ package com.daxie.joglf.gl.drawer;
 import com.daxie.joglf.gl.window.WindowCommonInfoStock;
 
 /**
- * All 2D drawers have to extend these methods.
+ * All 2D drawers have to extend this class.
  * @author Daba
  *
  */

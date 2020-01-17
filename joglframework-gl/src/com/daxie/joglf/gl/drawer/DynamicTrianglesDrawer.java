@@ -143,10 +143,18 @@ public class DynamicTrianglesDrawer extends Dynamic3DDrawer{
 	
 	@Override
 	public void Draw() {
+		this.Draw(0, "texture_sampler");
+	}
+	public void Draw(int texture_unit,String sampler_name) {
 		List<String> program_names=this.GetProgramNames();
+		
+		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);
 		
 		for(String program_name:program_names) {
 			GLShaderFunctions.UseProgram(program_name);
+			
+			int program_id=GLShaderFunctions.GetProgramID(program_name);
+			int sampler_location=GLWrapper.glGetUniformLocation(program_id, sampler_name);
 			
 			GLWrapper.glBindVertexArray(vao.get(0));
 			
@@ -159,6 +167,8 @@ public class DynamicTrianglesDrawer extends Dynamic3DDrawer{
 				TextureMgr.BindTexture(texture_handle);
 			}
 			
+			GLWrapper.glUniform1i(sampler_location, texture_unit);
+			
 			int triangle_num=triangles_map.size();
 			int vertex_num=triangle_num*3;
 			
@@ -170,6 +180,38 @@ public class DynamicTrianglesDrawer extends Dynamic3DDrawer{
 			else TextureMgr.DisableTexture(texture_handle);
 			
 			GLWrapper.glBindVertexArray(0);	
+			
+			GLWrapper.glUseProgram(0);
+		}
+	}
+	public void Draw(int texture_unit,String sampler_name,int texture_id) {
+		List<String> program_names=this.GetProgramNames();
+		
+		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);
+		
+		for(String program_name:program_names) {
+			GLShaderFunctions.UseProgram(program_name);
+			
+			int program_id=GLShaderFunctions.GetProgramID(program_name);
+			int sampler_location=GLWrapper.glGetUniformLocation(program_id, sampler_name);
+			
+			GLWrapper.glBindVertexArray(vao.get(0));
+			
+			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_id);
+			GLWrapper.glUniform1i(sampler_location, texture_unit);
+			
+			int triangle_num=triangles_map.size();
+			int vertex_num=triangle_num*3;
+			
+			GLWrapper.glEnable(GL4.GL_BLEND);
+			GLWrapper.glDrawArrays(GL4.GL_TRIANGLES, 0, vertex_num);
+			GLWrapper.glDisable(GL4.GL_BLEND);
+			
+			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
+			
+			GLWrapper.glBindVertexArray(0);	
+			
+			GLWrapper.glUseProgram(0);
 		}
 	}
 }

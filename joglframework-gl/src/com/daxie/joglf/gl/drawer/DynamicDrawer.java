@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * All dynamic drawers have to extend these methods.
+ * All dynamic drawers have to extend this class.
  * @author Daba
  *
  */

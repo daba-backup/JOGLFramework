@@ -1,7 +1,7 @@
 package com.daxie.joglf.gl.drawer;
 
 /**
- * All 3D drawers have to extend these methods.
+ * All 3D drawers have to extend this class.
  * @author Daba
  *
  */
