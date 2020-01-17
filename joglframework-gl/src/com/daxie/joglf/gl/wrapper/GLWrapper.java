@@ -71,6 +71,14 @@ public class GLWrapper{
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glBufferData(arg0, arg1, arg2, arg3);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glBufferData(arg0, arg1, arg2, arg3);
 	}
+	public static int glCheckFramebufferStatus(int arg0) {
+		int ret=-1;
+		
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glCheckFramebufferStatus(arg0);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glCheckFramebufferStatus(arg0);
+		
+		return ret;
+	}
 	public static void glClear(int arg0) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glClear(arg0);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glClear(arg0);
@@ -138,6 +146,10 @@ public class GLWrapper{
 	public static void glDrawArrays(int arg0,int arg1,int arg2) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glDrawArrays(arg0, arg1, arg2);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glDrawArrays(arg0, arg1, arg2);
+	}
+	public static void glDrawBuffer(int arg0) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glDrawBuffer(arg0);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glDrawBuffer(arg0);
 	}
 	public static void glDrawBuffers(int arg0,IntBuffer arg1) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glDrawBuffers(arg0, arg1);

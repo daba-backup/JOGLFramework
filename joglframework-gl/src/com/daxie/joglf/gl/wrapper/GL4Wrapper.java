@@ -96,6 +96,17 @@ class GL4Wrapper {
 			LogFile.WriteTrace("[GL4Wrapper-glBufferData] code:"+code,true);
 		}
 	}
+	public static int glCheckFramebufferStatus(int arg0) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		int ret=gl4.glCheckFramebufferStatus(arg0);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL4Wrapper-glCheckFramebufferStatus] code:"+code,true);
+		}
+		
+		return ret;
+	}
 	public static void glClear(int arg0) {
 		GL4 gl4=GLContext.getCurrentGL().getGL4();
 		gl4.glClear(arg0);
@@ -233,6 +244,15 @@ class GL4Wrapper {
 		int code=gl4.glGetError();
 		if(code!=GL4.GL_NO_ERROR) {
 			LogFile.WriteTrace("[GL4Wrapper-glDrawArrays] code:"+code,true);
+		}
+	}
+	public static void glDrawBuffer(int arg0) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glDrawBuffer(arg0);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL4Wrapper-glDrawBuffer] code:"+code,true);
 		}
 	}
 	public static void glDrawBuffers(int arg0,IntBuffer arg1) {
