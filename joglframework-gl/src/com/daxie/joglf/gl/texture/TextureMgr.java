@@ -53,8 +53,9 @@ public class TextureMgr {
 		}
 		
 		int texture_handle=count;
+		Texture texture=null;
 		try {
-			Texture texture=TextureIO.newTexture(file,true);
+			texture=TextureIO.newTexture(file,true);
 			if(texture.getMustFlipVertically()==true) {
 				BufferedImage image=ImageIO.read(file);
 				ImageUtil.flipImageVertically(image);
@@ -62,8 +63,6 @@ public class TextureMgr {
 				GL gl=GLContext.getCurrentGL();
 				texture=AWTTextureIO.newTexture(gl.getGLProfile(), image, true);
 			}
-			
-			textures_map.put(texture_handle, texture);
 		}
 		catch(IOException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
@@ -74,6 +73,17 @@ public class TextureMgr {
 			return -1;
 		}
 		
+		GL gl=GLContext.getCurrentGL();
+		texture.enable(gl);
+		texture.bind(gl);
+		GLWrapper.glGenerateMipmap(GL4.GL_TEXTURE_2D);
+		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_S, GL4.GL_REPEAT);
+		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_T, GL4.GL_REPEAT);
+		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST_MIPMAP_NEAREST);
+		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
+		texture.disable(gl);
+		
+		textures_map.put(texture_handle, texture);
 		count++;
 		
 		return texture_handle;
