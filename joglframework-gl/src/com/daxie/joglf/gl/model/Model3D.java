@@ -173,6 +173,28 @@ public class Model3D {
 		
 		return 0;
 	}
+	public static int DrawModel(int model_handle,int texture_unit,String sampler_name) {
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteWarn("[Model3D-DrawModel] No such model. model_handle:"+model_handle, true);
+			return -1;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		model.Draw(texture_unit, sampler_name);
+		
+		return 0;
+	}
+	public static int DrawModel(int model_handle,int texture_unit,String sampler_name,int texture_id) {
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteWarn("[Model3D-DrawModel] No such model. model_handle:"+model_handle, true);
+			return -1;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		model.Draw(texture_unit, sampler_name, texture_id);
+		
+		return 0;
+	}
 	public static int DrawModelElements(int model_handle,int bound) {
 		if(models_map.containsKey(model_handle)==false) {
 			LogFile.WriteWarn("[Model3D-DrawModelElements] No such model. model_handle:"+model_handle, true);
@@ -181,6 +203,28 @@ public class Model3D {
 		
 		ModelMgr model=models_map.get(model_handle);
 		model.DrawElements(bound);
+		
+		return 0;
+	}
+	public static int DrawModelElements(int model_handle,int texture_unit,String sampler_name,int bound) {
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteWarn("[Model3D-DrawModelElements] No such model. model_handle:"+model_handle, true);
+			return -1;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		model.DrawElements(texture_unit, sampler_name, bound);
+		
+		return 0;
+	}
+	public static int DrawModelElements(int model_handle,int texture_unit,String sampler_name,int texture_id,int bound) {
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteWarn("[Model3D-DrawModelElements] No such model. model_handle:"+model_handle, true);
+			return -1;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		model.DrawElements(texture_unit, sampler_name, texture_id, bound);
 		
 		return 0;
 	}

@@ -209,15 +209,20 @@ public class ModelMgr {
 		}
 	}
 	
-	public void Draw() {
+	public void Draw(int texture_unit,String sampler_name) {
 		if(property_updated_flag==true) {
 			this.UpdateBuffers();
 		}
 		
 		int element_num=buffered_vertices_list.size();
 		
+		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);
+		
 		for(String program_name:program_names) {
 			GLShaderFunctions.UseProgram(program_name);
+			
+			int program_id=GLShaderFunctions.GetProgramID(program_name);
+			int sampler_location=GLWrapper.glGetUniformLocation(program_id, sampler_name);
 			
 			for(int i=0;i<element_num;i++) {
 				BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
@@ -235,6 +240,8 @@ public class ModelMgr {
 					TextureMgr.BindTexture(texture_handle);
 				}
 				
+				GLWrapper.glUniform1i(sampler_location, texture_unit);
+				
 				GLWrapper.glEnable(GL4.GL_BLEND);
 				GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
 				GLWrapper.glDisable(GL4.GL_BLEND);
@@ -248,7 +255,46 @@ public class ModelMgr {
 			GLWrapper.glUseProgram(0);
 		}
 	}
-	public void DrawElements(int bound) {
+	public void Draw() {
+		this.Draw(0, "texture_sampler");
+	}
+	public void Draw(int texture_unit,String sampler_name,int texture_id) {
+		if(property_updated_flag==true) {
+			this.UpdateBuffers();
+		}
+		
+		int element_num=buffered_vertices_list.size();
+		
+		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);
+		
+		for(String program_name:program_names) {
+			GLShaderFunctions.UseProgram(program_name);
+			
+			int program_id=GLShaderFunctions.GetProgramID(program_name);
+			int sampler_location=GLWrapper.glGetUniformLocation(program_id, sampler_name);
+			
+			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_id);
+			GLWrapper.glUniform1i(sampler_location, texture_unit);
+			
+			for(int i=0;i<element_num;i++) {
+				BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
+				int count=buffered_vertices.GetCount();
+				
+				GLWrapper.glBindVertexArray(vao.get(i));
+				
+				GLWrapper.glEnable(GL4.GL_BLEND);
+				GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
+				GLWrapper.glDisable(GL4.GL_BLEND);
+				
+				GLWrapper.glBindVertexArray(0);
+			}
+			
+			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
+			
+			GLWrapper.glUseProgram(0);
+		}
+	}
+	public void DrawElements(int texture_unit,String sampler_name,int bound) {
 		if(property_updated_flag==true) {
 			this.UpdateBuffers();
 		}
@@ -260,8 +306,13 @@ public class ModelMgr {
 		else if(bound<element_num)clamped_bound=bound;
 		else clamped_bound=element_num;
 		
+		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);
+		
 		for(String program_name:program_names) {
 			GLShaderFunctions.UseProgram(program_name);
+			
+			int program_id=GLShaderFunctions.GetProgramID(program_name);
+			int sampler_location=GLWrapper.glGetUniformLocation(program_id, sampler_name);
 			
 			for(int i=0;i<clamped_bound;i++) {
 				BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
@@ -279,6 +330,8 @@ public class ModelMgr {
 					TextureMgr.BindTexture(texture_handle);
 				}
 				
+				GLWrapper.glUniform1i(sampler_location, texture_unit);
+				
 				GLWrapper.glEnable(GL4.GL_BLEND);
 				GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
 				GLWrapper.glDisable(GL4.GL_BLEND);
@@ -288,6 +341,52 @@ public class ModelMgr {
 				
 				GLWrapper.glBindVertexArray(0);
 			}
+			
+			GLWrapper.glUseProgram(0);
+		}
+	}
+	public void DrawElements(int bound) {
+		this.DrawElements(0, "texture_sampler",bound);
+	}
+	public void DrawElements(int texture_unit,String sampler_name,int texture_id,int bound) {
+		if(property_updated_flag==true) {
+			this.UpdateBuffers();
+		}
+		
+		int element_num=buffered_vertices_list.size();
+		
+		int clamped_bound=0;
+		if(bound<0)clamped_bound=0;
+		else if(bound<element_num)clamped_bound=bound;
+		else clamped_bound=element_num;
+		
+		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);
+		
+		for(String program_name:program_names) {
+			GLShaderFunctions.UseProgram(program_name);
+			
+			int program_id=GLShaderFunctions.GetProgramID(program_name);
+			int sampler_location=GLWrapper.glGetUniformLocation(program_id, sampler_name);
+			
+			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, sampler_location);
+			GLWrapper.glUniform1i(sampler_location, texture_unit);
+			
+			for(int i=0;i<clamped_bound;i++) {
+				BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
+				int count=buffered_vertices.GetCount();
+				
+				GLWrapper.glBindVertexArray(vao.get(i));
+				
+				GLWrapper.glEnable(GL4.GL_BLEND);
+				GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
+				GLWrapper.glDisable(GL4.GL_BLEND);
+				
+				GLWrapper.glBindVertexArray(0);
+			}
+			
+			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
+			
+			GLWrapper.glUseProgram(0);
 		}
 	}
 	
