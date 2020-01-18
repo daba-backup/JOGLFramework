@@ -171,6 +171,10 @@ public class GLWrapper{
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glFlush();
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glFlush();
 	}
+	public static void glFramebufferTexture(int arg0,int arg1,int arg2,int arg3) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glFramebufferTexture(arg0, arg1, arg2, arg3);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glFramebufferTexture(arg0, arg1, arg2, arg3);
+	}
 	public static void glFramebufferTexture2D(int arg0,int arg1,int arg2,int arg3,int arg4) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glFramebufferTexture2D(arg0, arg1, arg2, arg3, arg4);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glFramebufferTexture2D(arg0, arg1, arg2, arg3, arg4);
