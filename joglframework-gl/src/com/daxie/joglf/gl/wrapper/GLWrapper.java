@@ -74,8 +74,8 @@ public class GLWrapper{
 	public static int glCheckFramebufferStatus(int arg0) {
 		int ret=-1;
 		
-		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glCheckFramebufferStatus(arg0);
-		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glCheckFramebufferStatus(arg0);
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)ret=GL3Wrapper.glCheckFramebufferStatus(arg0);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)ret=GL4Wrapper.glCheckFramebufferStatus(arg0);
 		
 		return ret;
 	}
