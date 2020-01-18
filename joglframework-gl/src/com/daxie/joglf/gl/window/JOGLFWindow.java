@@ -82,7 +82,7 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		animator.start();
 		WindowCommonInfoStock.FinalizeFPS();
 		
-		LogFile.WriteInfo("[NEWTWindow-<init>] Window created.", true);
+		LogFile.WriteInfo("[JOGLFWindow-<init>] Window created.", true);
 		
 		keyboard=new Keyboard();
 		mouse=new Mouse();
