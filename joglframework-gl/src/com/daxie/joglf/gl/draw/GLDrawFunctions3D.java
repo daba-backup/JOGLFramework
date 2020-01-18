@@ -628,6 +628,9 @@ public class GLDrawFunctions3D {
 		
 		GLShaderFunctions.UseProgram("texture");
 		
+		int program_id=GLShaderFunctions.GetProgramID("texture");
+		int sampler_location=GLWrapper.glGetUniformLocation(program_id, "texture_sampler");
+		
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, uv_vbo);
 		GLWrapper.glGenBuffers(1, norm_vbo);
@@ -674,6 +677,9 @@ public class GLDrawFunctions3D {
 			TextureMgr.EnableTexture(texture_handle);
 			TextureMgr.BindTexture(texture_handle);
 		}
+		
+		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0);
+		GLWrapper.glUniform1i(sampler_location, 0);
 		
 		GLWrapper.glEnable(GL4.GL_BLEND);
 		GLWrapper.glDrawArrays(GL4.GL_TRIANGLES, 0, 3);
