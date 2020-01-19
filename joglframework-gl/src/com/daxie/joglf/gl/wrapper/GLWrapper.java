@@ -307,4 +307,8 @@ public class GLWrapper{
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glVertexAttribPointer(arg0, arg1, arg2, arg3, arg4, arg5);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glVertexAttribPointer(arg0, arg1, arg2, arg3, arg4, arg5);
 	}
+	public static void glViewport(int arg0,int arg1,int arg2,int arg3) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glViewport(arg0, arg1, arg2, arg3);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glViewport(arg0, arg1, arg2, arg3);
+	}
 }

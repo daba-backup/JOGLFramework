@@ -585,4 +585,13 @@ class GL3Wrapper {
 			LogFile.WriteTrace("[GL3Wrapper-glVertexAttribPointer] code:"+code,true);
 		}
 	}
+	public static void glViewport(int arg0,int arg1,int arg2,int arg3) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glViewport(arg0, arg1, arg2, arg3);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL3Wrapper-glViewport] code:"+code,true);
+		}
+	}
 }

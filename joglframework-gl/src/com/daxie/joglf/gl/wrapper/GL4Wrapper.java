@@ -585,4 +585,13 @@ class GL4Wrapper {
 			LogFile.WriteTrace("[GL4Wrapper-glVertexAttribPointer] code:"+code,true);
 		}
 	}
+	public static void glViewport(int arg0,int arg1,int arg2,int arg3) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glViewport(arg0, arg1, arg2, arg3);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL4Wrapper-glViewport] code:"+code,true);
+		}
+	}
 }
