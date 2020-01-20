@@ -216,8 +216,6 @@ public class ModelMgr {
 		
 		int element_num=buffered_vertices_list.size();
 		
-		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);
-		
 		for(String program_name:program_names) {
 			GLShaderFunctions.UseProgram(program_name);
 			
@@ -231,6 +229,7 @@ public class ModelMgr {
 				
 				GLWrapper.glBindVertexArray(vao.get(i));
 				
+				GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);
 				if(texture_handle<0) {
 					TextureMgr.EnableDefaultTexture();
 					TextureMgr.BindDefaultTexture();
@@ -239,7 +238,6 @@ public class ModelMgr {
 					TextureMgr.EnableTexture(texture_handle);
 					TextureMgr.BindTexture(texture_handle);
 				}
-				
 				GLWrapper.glUniform1i(sampler_location, texture_unit);
 				
 				GLWrapper.glEnable(GL4.GL_BLEND);
@@ -288,8 +286,6 @@ public class ModelMgr {
 		else if(bound<element_num)clamped_bound=bound;
 		else clamped_bound=element_num;
 		
-		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);
-		
 		for(String program_name:program_names) {
 			GLShaderFunctions.UseProgram(program_name);
 			
@@ -303,6 +299,7 @@ public class ModelMgr {
 				
 				GLWrapper.glBindVertexArray(vao.get(i));
 				
+				GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);
 				if(texture_handle<0) {
 					TextureMgr.EnableDefaultTexture();
 					TextureMgr.BindDefaultTexture();
@@ -311,7 +308,6 @@ public class ModelMgr {
 					TextureMgr.EnableTexture(texture_handle);
 					TextureMgr.BindTexture(texture_handle);
 				}
-				
 				GLWrapper.glUniform1i(sampler_location, texture_unit);
 				
 				GLWrapper.glEnable(GL4.GL_BLEND);

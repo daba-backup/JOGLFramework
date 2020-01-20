@@ -170,8 +170,6 @@ public class DynamicQuadranglesDrawer extends Dynamic3DDrawer{
 	public void Draw(int texture_unit,String sampler_name) {
 		List<String> program_names=this.GetProgramNames();
 		
-		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);
-		
 		for(String program_name:program_names) {
 			GLShaderFunctions.UseProgram(program_name);
 			
@@ -180,6 +178,7 @@ public class DynamicQuadranglesDrawer extends Dynamic3DDrawer{
 			
 			GLWrapper.glBindVertexArray(vao.get(0));
 			
+			GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);
 			if(texture_handle<0) {
 				TextureMgr.EnableDefaultTexture();
 				TextureMgr.BindDefaultTexture();
@@ -187,8 +186,7 @@ public class DynamicQuadranglesDrawer extends Dynamic3DDrawer{
 			else {
 				TextureMgr.EnableTexture(texture_handle);
 				TextureMgr.BindTexture(texture_handle);
-			}
-			
+			}	
 			GLWrapper.glUniform1i(sampler_location, texture_unit);
 			
 			int quadrangle_num=quadrangles_map.size();
