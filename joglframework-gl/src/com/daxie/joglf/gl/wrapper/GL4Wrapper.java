@@ -152,6 +152,15 @@ class GL4Wrapper {
 			LogFile.WriteTrace("[GL4Wrapper-glCompileShader] code:"+code,true);
 		}
 	}
+	public static void glCopyTexImage2D(int arg0,int arg1,int arg2,int arg3,int arg4,int arg5,int arg6,int arg7) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glCopyTexImage2D(arg0,arg1,arg2,arg3,arg4,arg5,arg6,arg7);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL4Wrapper-glCopyTexImage2D] code:"+code,true);
+		}
+	}
 	public static int glCreateProgram() {
 		GL4 gl4=GLContext.getCurrentGL().getGL4();
 		int ret=gl4.glCreateProgram();

@@ -152,6 +152,15 @@ class GL3Wrapper {
 			LogFile.WriteTrace("[GL3Wrapper-glCompileShader] code:"+code,true);
 		}
 	}
+	public static void glCopyTexImage2D(int arg0,int arg1,int arg2,int arg3,int arg4,int arg5,int arg6,int arg7) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glCopyTexImage2D(arg0,arg1,arg2,arg3,arg4,arg5,arg6,arg7);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL3Wrapper-glCopyTexImage2D] code:"+code,true);
+		}
+	}
 	public static int glCreateProgram() {
 		GL3 gl3=GLContext.getCurrentGL().getGL3();
 		int ret=gl3.glCreateProgram();
