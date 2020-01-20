@@ -318,6 +318,15 @@ class GL4Wrapper {
 			LogFile.WriteTrace("[GL4Wrapper-glFramebufferTexture] code:"+code,true);
 		}
 	}
+	public static void glFramebufferRenderbuffer(int arg0,int arg1,int arg2,int arg3) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glFramebufferRenderbuffer(arg0,arg1,arg2,arg3);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL4Wrapper-glFramebufferRenderbuffer] code:"+code,true);
+		}
+	}
 	public static void glFramebufferTexture2D(int arg0,int arg1,int arg2,int arg3,int arg4) {
 		GL4 gl4=GLContext.getCurrentGL().getGL4();
 		gl4.glFramebufferTexture2D(arg0, arg1, arg2, arg3, arg4);
