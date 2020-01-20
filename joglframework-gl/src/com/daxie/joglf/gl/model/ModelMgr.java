@@ -256,6 +256,26 @@ public class ModelMgr {
 	public void Draw() {
 		this.Draw(0, "texture_sampler");
 	}
+	public void Transfer() {
+		if(property_updated_flag==true) {
+			this.UpdateBuffers();
+		}
+		
+		int element_num=buffered_vertices_list.size();
+			
+		for(int i=0;i<element_num;i++) {
+			BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
+			int count=buffered_vertices.GetCount();
+			
+			GLWrapper.glBindVertexArray(vao.get(i));
+			
+			GLWrapper.glEnable(GL4.GL_BLEND);
+			GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
+			GLWrapper.glDisable(GL4.GL_BLEND);
+			
+			GLWrapper.glBindVertexArray(0);
+		}
+	}
 	public void DrawElements(int texture_unit,String sampler_name,int bound) {
 		if(property_updated_flag==true) {
 			this.UpdateBuffers();

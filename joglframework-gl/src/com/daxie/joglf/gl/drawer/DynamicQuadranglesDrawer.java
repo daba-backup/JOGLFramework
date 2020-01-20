@@ -205,4 +205,17 @@ public class DynamicQuadranglesDrawer extends Dynamic3DDrawer{
 			GLWrapper.glBindVertexArray(0);	
 		}
 	}
+	public void Transfer() {
+		GLWrapper.glBindVertexArray(vao.get(0));
+		
+		int quadrangle_num=quadrangles_map.size();
+		int triangle_num=quadrangle_num*2;
+		int indices_size=triangle_num*3;
+		
+		GLWrapper.glEnable(GL4.GL_BLEND);
+		GLWrapper.glDrawElements(GL4.GL_TRIANGLES, indices_size, GL4.GL_UNSIGNED_INT, 0);
+		GLWrapper.glDisable(GL4.GL_BLEND);
+		
+		GLWrapper.glBindVertexArray(0);	
+	}
 }

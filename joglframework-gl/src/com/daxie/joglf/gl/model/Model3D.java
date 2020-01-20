@@ -184,6 +184,17 @@ public class Model3D {
 		
 		return 0;
 	}
+	public static int TransferModel(int model_handle) {
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteWarn("[Model3D-TransferModel] No such model. model_handle:"+model_handle, true);
+			return -1;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		model.Transfer();
+		
+		return 0;
+	}
 	public static int DrawModelElements(int model_handle,int bound) {
 		if(models_map.containsKey(model_handle)==false) {
 			LogFile.WriteWarn("[Model3D-DrawModelElements] No such model. model_handle:"+model_handle, true);

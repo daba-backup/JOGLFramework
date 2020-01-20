@@ -182,4 +182,16 @@ public class DynamicTrianglesDrawer extends Dynamic3DDrawer{
 			GLWrapper.glBindVertexArray(0);	
 		}
 	}
+	public void Transfer() {
+		GLWrapper.glBindVertexArray(vao.get(0));
+		
+		int triangle_num=triangles_map.size();
+		int vertex_num=triangle_num*3;
+		
+		GLWrapper.glEnable(GL4.GL_BLEND);
+		GLWrapper.glDrawArrays(GL4.GL_TRIANGLES, 0, vertex_num);
+		GLWrapper.glDisable(GL4.GL_BLEND);
+		
+		GLWrapper.glBindVertexArray(0);	
+	}
 }
