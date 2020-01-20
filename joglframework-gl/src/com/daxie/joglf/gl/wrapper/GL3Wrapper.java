@@ -51,6 +51,15 @@ class GL3Wrapper {
 			LogFile.WriteTrace("[GL3Wrapper-glBindFramebuffer] code:"+code,true);
 		}
 	}
+	public static void glBindRenderbuffer(int arg0,int arg1) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glBindRenderbuffer(arg0, arg1);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL3Wrapper-glBindRenderbuffer] code:"+code,true);
+		}
+	}
 	public static void glBindSampler(int arg0,int arg1) {
 		GL3 gl3=GLContext.getCurrentGL().getGL3();
 		gl3.glBindSampler(arg0, arg1);
@@ -345,6 +354,15 @@ class GL3Wrapper {
 			LogFile.WriteTrace("[GL3Wrapper-glGenFramebuffers] code:"+code,true);
 		}
 	}
+	public static void glGenRenderbuffers(int arg0,IntBuffer arg1) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glGenRenderbuffers(arg0, arg1);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL3Wrapper-glGenRenderbuffers] code:"+code,true);
+		}
+	}
 	public static void glGenSamplers(int arg0,IntBuffer arg1) {
 		GL3 gl3=GLContext.getCurrentGL().getGL3();
 		gl3.glGenSamplers(arg0, arg1);
@@ -455,6 +473,15 @@ class GL3Wrapper {
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
 			LogFile.WriteTrace("[GL3Wrapper-glReadPixels] code:"+code,true);
+		}
+	}
+	public static void glRenderbufferStorage(int arg0,int arg1,int arg2,int arg3) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glRenderbufferStorage(arg0,arg1,arg2,arg3);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL3Wrapper-glRenderbufferStorage] code:"+code,true);
 		}
 	}
 	public static void glSamplerParameteri(int arg0,int arg1,int arg2) {

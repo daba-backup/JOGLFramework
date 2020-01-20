@@ -47,9 +47,13 @@ public class GLWrapper{
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glBindBuffer(arg0, arg1);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glBindBuffer(arg0, arg1);
 	}
-	public static void glBindFrameBuffer(int arg0,int arg1) {
+	public static void glBindFramebuffer(int arg0,int arg1) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glBindFramebuffer(arg0, arg1);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glBindFramebuffer(arg0, arg1);
+	}
+	public static void glBindRenderbuffer(int arg0,int arg1) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glBindRenderbuffer(arg0, arg1);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glBindRenderbuffer(arg0, arg1);
 	}
 	public static void glBindSampler(int arg0,int arg1) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glBindSampler(arg0, arg1);
@@ -191,6 +195,10 @@ public class GLWrapper{
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glGenFramebuffers(arg0, arg1);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glGenFramebuffers(arg0, arg1);
 	}
+	public static void glGenRenderbuffers(int arg0,IntBuffer arg1) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glGenRenderbuffers(arg0, arg1);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glGenRenderbuffers(arg0, arg1);
+	}
 	public static void glGenSamplers(int arg0,IntBuffer arg1) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glGenSamplers(arg0, arg1);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glGenSamplers(arg0, arg1);
@@ -246,6 +254,10 @@ public class GLWrapper{
 	public static void glReadPixels(int arg0,int arg1,int arg2,int arg3,int arg4,int arg5,Buffer arg6) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glReadPixels(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glReadPixels(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+	}
+	public static void glRenderbufferStorage(int arg0,int arg1,int arg2,int arg3) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glRenderbufferStorage(arg0, arg1, arg2, arg3);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glRenderbufferStorage(arg0, arg1, arg2, arg3);
 	}
 	public static void glSamplerParameteri(int arg0,int arg1,int arg2) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glSamplerParameteri(arg0, arg1, arg2);
