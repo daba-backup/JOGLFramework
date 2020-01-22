@@ -235,6 +235,10 @@ public class GLWrapper{
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glGetShaderiv(arg0, arg1, arg2);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glGetShaderiv(arg0, arg1, arg2);
 	}
+	public static void glGetTexImage(int arg0,int arg1,int arg2,int arg3,Buffer arg4) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glGetTexImage(arg0, arg1, arg2, arg3, arg4);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glGetTexImage(arg0, arg1, arg2, arg3, arg4);
+	}
 	public static int glGetUniformLocation(int arg0,String arg1) {
 		int ret=-1;
 		

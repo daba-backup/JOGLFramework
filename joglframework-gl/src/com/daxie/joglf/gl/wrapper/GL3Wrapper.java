@@ -444,6 +444,15 @@ class GL3Wrapper {
 			LogFile.WriteTrace("[GL3Wrapper-glGetShaderiv] code:"+code,true);
 		}
 	}
+	public static void glGetTexImage(int arg0,int arg1,int arg2,int arg3,Buffer arg4) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glGetTexImage(arg0,arg1,arg2,arg3,arg4);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL3Wrapper-glGetTexImage] code:"+code,true);
+		}
+	}
 	public static int glGetUniformLocation(int arg0,String arg1) {
 		GL3 gl3=GLContext.getCurrentGL().getGL3();
 		int ret=gl3.glGetUniformLocation(arg0, arg1);
