@@ -293,11 +293,9 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		GLFront.Lock();
 		this.DefaultUpdate();
 		this.Update();
-		if(destroyed_flag==false) {
-			this.Draw();
-			TinterFront.Tint();
-			CameraFront.Update();
-		}
+		CameraFront.Update();
+		this.Draw();
+		TinterFront.Tint();
 		GLFront.Unlock();
 	}
 	private void DefaultUpdate() {
