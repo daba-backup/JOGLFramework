@@ -55,13 +55,13 @@ Download all required JARs and add them to the classpath.
 ### MyWindow.java
 
 ```java
+import com.daxie.basis.coloru8.ColorU8Functions;
+import com.daxie.basis.vector.VectorFunctions;
+import com.daxie.joglf.gl.draw.GLDrawFunctions3D;
+import com.daxie.joglf.gl.front.CameraFront;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 
 public class MyWindow extends JOGLFWindow{
-	public MyWindow() {
-		
-	}
-	
 	@Override
 	protected void Init() {
 		System.out.println("Init");
@@ -72,11 +72,16 @@ public class MyWindow extends JOGLFWindow{
 	}
 	@Override
 	protected void Update() {
-		System.out.println("Update");
+		CameraFront.SetCameraPositionAndTarget_UpVecY(
+				VectorFunctions.VGet(30.0f, 30.0f, 30.0f), 
+				VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
 	}
 	@Override
 	protected void Draw() {
-		System.out.println("Draw");
+		GLDrawFunctions3D.DrawAxes(100.0f);
+		GLDrawFunctions3D.DrawSphere3D(
+				VectorFunctions.VGet(0.0f, 0.0f, 0.0f), 10.0f, 32, 32, 
+				ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f));
 	}
 	@Override
 	protected void Dispose() {
@@ -89,6 +94,7 @@ public class MyWindow extends JOGLFWindow{
 
 ```java
 import com.daxie.joglf.gl.front.GLFront;
+import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.joglf.gl.wrapper.GLVersion;
 
 public class Main {
