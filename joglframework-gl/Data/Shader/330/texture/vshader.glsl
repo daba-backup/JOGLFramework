@@ -13,7 +13,6 @@ uniform float camera_far;
 
 uniform vec3 light_direction;
 uniform vec4 ambient_color;
-
 uniform float diffuse_power;
 uniform float specular_power;
 
