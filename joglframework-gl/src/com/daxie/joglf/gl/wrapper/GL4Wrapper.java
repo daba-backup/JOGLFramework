@@ -143,6 +143,15 @@ class GL4Wrapper {
 			LogFile.WriteTrace("[GL4Wrapper-glColorMask] code:"+code,true);
 		}
 	}
+	public static void glClearStencil(int arg0) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glClearStencil(arg0);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL4Wrapper-glClearStencil] code:"+code,true);
+		}
+	}
 	public static void glCompileShader(int arg0) {
 		GL4 gl4=GLContext.getCurrentGL().getGL4();
 		gl4.glCompileShader(arg0);
@@ -527,6 +536,24 @@ class GL4Wrapper {
 		int code=gl4.glGetError();
 		if(code!=GL4.GL_NO_ERROR) {
 			LogFile.WriteTrace("[GL4Wrapper-glShaderSource] code:"+code,true);
+		}
+	}
+	public static void glStencilFunc(int arg0,int arg1,int arg2) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glStencilFunc(arg0,arg1,arg2);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL4Wrapper-glStencilFunc] code:"+code,true);
+		}
+	}
+	public static void glStencilOp(int arg0,int arg1,int arg2) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glStencilOp(arg0,arg1,arg2);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL4Wrapper-glStencilOp] code:"+code,true);
 		}
 	}
 	public static void glTexImage2D(int arg0,int arg1,int arg2,int arg3,int arg4,int arg5,int arg6,int arg7,Buffer arg8) {

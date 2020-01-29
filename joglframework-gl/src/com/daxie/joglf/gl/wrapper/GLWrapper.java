@@ -91,6 +91,10 @@ public class GLWrapper{
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glClearColor(arg0, arg1, arg2, arg3);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glClearColor(arg0, arg1, arg2, arg3);
 	}
+	public static void glClearStencil(int arg0) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glClearStencil(arg0);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glClearStencil(arg0);
+	}
 	public static void glColorMask(boolean arg0,boolean arg1,boolean arg2,boolean arg3) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glColorMask(arg0, arg1, arg2, arg3);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glColorMask(arg0, arg1, arg2, arg3);
@@ -278,6 +282,14 @@ public class GLWrapper{
 	public static void glShaderSource(int arg0,int arg1,String[] arg2,IntBuffer arg3) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glShaderSource(arg0, arg1, arg2, arg3);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glShaderSource(arg0, arg1, arg2, arg3);
+	}
+	public static void glStencilFunc(int arg0,int arg1,int arg2) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glStencilFunc(arg0, arg1, arg2);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glStencilFunc(arg0, arg1, arg2);
+	}
+	public static void glStencilOp(int arg0,int arg1,int arg2) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glStencilOp(arg0, arg1, arg2);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glStencilOp(arg0, arg1, arg2);
 	}
 	public static void glTexImage2D(int arg0,int arg1,int arg2,int arg3,int arg4,int arg5,int arg6,int arg7,Buffer arg8) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glTexImage2D(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);

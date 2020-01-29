@@ -134,6 +134,15 @@ class GL3Wrapper {
 			LogFile.WriteTrace("[GL3Wrapper-glClearColor] code:"+code,true);
 		}
 	}
+	public static void glClearStencil(int arg0) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glClearStencil(arg0);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL3Wrapper-glClearStencil] code:"+code,true);
+		}
+	}
 	public static void glColorMask(boolean arg0,boolean arg1,boolean arg2,boolean arg3) {
 		GL3 gl3=GLContext.getCurrentGL().getGL3();
 		gl3.glColorMask(arg0,arg1,arg2,arg3);
@@ -527,6 +536,24 @@ class GL3Wrapper {
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
 			LogFile.WriteTrace("[GL3Wrapper-glShaderSource] code:"+code,true);
+		}
+	}
+	public static void glStencilFunc(int arg0,int arg1,int arg2) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glStencilFunc(arg0,arg1,arg2);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL3Wrapper-glStencilFunc] code:"+code,true);
+		}
+	}
+	public static void glStencilOp(int arg0,int arg1,int arg2) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glStencilOp(arg0,arg1,arg2);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogFile.WriteTrace("[GL3Wrapper-glStencilOp] code:"+code,true);
 		}
 	}
 	public static void glTexImage2D(int arg0,int arg1,int arg2,int arg3,int arg4,int arg5,int arg6,int arg7,Buffer arg8) {
