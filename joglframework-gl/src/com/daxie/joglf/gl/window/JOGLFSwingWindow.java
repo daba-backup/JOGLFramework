@@ -27,7 +27,6 @@ import com.daxie.joglf.gl.front.CameraFront;
 import com.daxie.joglf.gl.front.FogFront;
 import com.daxie.joglf.gl.front.GLFront;
 import com.daxie.joglf.gl.front.LightingFront;
-import com.daxie.joglf.gl.front.TinterFront;
 import com.daxie.joglf.gl.input.keyboard.KeyboardEnum;
 import com.daxie.joglf.gl.input.keyboard.SwingKeyboard;
 import com.daxie.joglf.gl.input.mouse.MouseEnum;
@@ -308,7 +307,6 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		GLFront.Initialize();
 		
 		GLFront.Lock();
-		TinterFront.Initialize();
 		this.Init();
 		GLFront.Unlock();
 	}
@@ -348,7 +346,6 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		this.Update();
 		CameraFront.Update();
 		this.Draw();
-		TinterFront.Tint();
 		GLFront.Unlock();
 	}
 	private void DefaultUpdate() {

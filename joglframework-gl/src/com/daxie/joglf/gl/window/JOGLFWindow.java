@@ -9,7 +9,6 @@ import com.daxie.joglf.gl.front.CameraFront;
 import com.daxie.joglf.gl.front.FogFront;
 import com.daxie.joglf.gl.front.GLFront;
 import com.daxie.joglf.gl.front.LightingFront;
-import com.daxie.joglf.gl.front.TinterFront;
 import com.daxie.joglf.gl.input.keyboard.Keyboard;
 import com.daxie.joglf.gl.input.keyboard.KeyboardEnum;
 import com.daxie.joglf.gl.input.mouse.Mouse;
@@ -258,7 +257,6 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		GLFront.Initialize();
 		
 		GLFront.Lock();
-		TinterFront.Initialize();
 		this.Init();
 		GLFront.Unlock();
 	}
@@ -295,7 +293,6 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		this.Update();
 		CameraFront.Update();
 		this.Draw();
-		TinterFront.Tint();
 		GLFront.Unlock();
 	}
 	private void DefaultUpdate() {
