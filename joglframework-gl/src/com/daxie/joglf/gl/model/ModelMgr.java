@@ -54,10 +54,6 @@ public class ModelMgr {
 	public void RemoveProgram(String program_name) {
 		program_names.remove(program_name);
 	}
-	public void SetDefaultProgram() {
-		program_names.clear();
-		program_names.add("texture");
-	}
 	public void RemoveAllPrograms() {
 		program_names.clear();
 	}

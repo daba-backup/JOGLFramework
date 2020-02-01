@@ -147,7 +147,8 @@ public class Model3D {
 		}
 		
 		ModelMgr model=models_map.get(model_handle);
-		model.SetDefaultProgram();
+		model.RemoveAllPrograms();
+		model.AddProgram("texture");
 		
 		return 0;
 	}
