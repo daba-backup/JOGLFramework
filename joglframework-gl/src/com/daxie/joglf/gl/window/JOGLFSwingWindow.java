@@ -323,6 +323,8 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 	}
 	@Override
 	public void display(GLAutoDrawable drawable) {
+		if(destroyed_flag==true)return;
+		
 		//Update input.
 		keyboard.Update();
 		

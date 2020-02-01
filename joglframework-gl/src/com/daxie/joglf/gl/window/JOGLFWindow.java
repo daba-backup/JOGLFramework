@@ -274,6 +274,8 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 	}
 	@Override
 	public void display(GLAutoDrawable drawable) {
+		if(destroyed_flag==true)return;
+		
 		//Update input.
 		keyboard.Update();
 		
