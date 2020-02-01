@@ -304,9 +304,8 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 	
 	@Override
 	public void init(GLAutoDrawable drawable) {
-		GLFront.Initialize();
-		
 		GLFront.Lock();
+		GLFront.Initialize();
 		this.Init();
 		GLFront.Unlock();
 	}

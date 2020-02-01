@@ -254,9 +254,8 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 	
 	@Override
 	public void init(GLAutoDrawable drawable) {
-		GLFront.Initialize();
-		
 		GLFront.Lock();
+		GLFront.Initialize();
 		this.Init();
 		GLFront.Unlock();
 	}
