@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.daxie.basis.matrix.Matrix;
-import com.daxie.basis.matrix.MatrixFunctions;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.model.buffer.BufferedVertices;
@@ -28,13 +27,6 @@ public class ModelMgr {
 	private List<BufferedVertices> buffered_vertices_list;
 	private CollInfo coll_info;
 	
-	private Vector position;
-	private Vector rotation;
-	private Vector scale;
-	
-	private boolean mat_enabled_flag;
-	private Matrix mat;
-	
 	private boolean property_updated_flag;
 	
 	private IntBuffer indices_vbo;
@@ -47,12 +39,6 @@ public class ModelMgr {
 	
 	public ModelMgr(List<BufferedVertices> buffered_vertices_list) {
 		this.buffered_vertices_list=buffered_vertices_list;
-		
-		position=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
-		rotation=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
-		scale=VectorFunctions.VGet(1.0f, 1.0f, 1.0f);
-		
-		mat_enabled_flag=false;
 		
 		property_updated_flag=false;
 		
@@ -77,9 +63,6 @@ public class ModelMgr {
 	}
 	
 	public void Interpolate(ModelMgr frame1,ModelMgr frame2,float blend_ratio) {
-		Vector orig_position=VectorFunctions.VGet(position.GetX(), position.GetY(), position.GetZ());
-		Vector orig_rotation=VectorFunctions.VGet(rotation.GetX(), rotation.GetY(), rotation.GetZ());
-		
 		List<BufferedVertices> interpolated_bv_list=new ArrayList<>();
 		List<BufferedVertices> frame1_bv_list=frame1.buffered_vertices_list;
 		List<BufferedVertices> frame2_bv_list=frame2.buffered_vertices_list;
@@ -94,9 +77,6 @@ public class ModelMgr {
 		}
 		
 		this.buffered_vertices_list=interpolated_bv_list;
-		
-		this.SetPosition(orig_position);
-		this.SetRotation(orig_rotation);
 	}
 	
 	public ModelMgr Duplicate() {
@@ -325,175 +305,11 @@ public class ModelMgr {
 		this.DrawElements(0, "texture_sampler",bound);
 	}
 	
-	public Vector GetPosition() {
-		return new Vector(position);
-	}
-	public Vector GetRotation() {
-		return new Vector(rotation);
-	}
-	public Vector GetScale() {
-		return new Vector(scale);
-	}
-	public Matrix GetMatrix() {
-		if(mat_enabled_flag==false) {
-			LogFile.WriteWarn("[ModelMgr-GetMatrix] Matrix is disabled.", true);
-			return new Matrix();
-		}
-		
-		return new Matrix(mat);
-	}
-	
 	public int GetElementNum() {
 		return buffered_vertices_list.size();
 	}
 	
-	public void SetPosition(Vector position) {
-		if(mat_enabled_flag==true) {
-			LogFile.WriteWarn("[ModelMgr-SetPosition] This method is disabled due to matrix operations.", true);
-			return;
-		}
-		
-		Vector translate=VectorFunctions.VSub(position, this.position);
-		
-		float translate_x=translate.GetX();
-		float translate_y=translate.GetY();
-		float translate_z=translate.GetZ();
-		
-		for(BufferedVertices buffered_vertices:buffered_vertices_list) {
-			FloatBuffer pos_buffer=buffered_vertices.GetPosBuffer();
-			int capacity=pos_buffer.capacity();
-			
-			for(int i=0;i<capacity;i++) {
-				float value=pos_buffer.get(i);
-				
-				if(i%3==0)pos_buffer.put(i,value+translate_x);
-				else if(i%3==1)pos_buffer.put(i,value+translate_y);
-				else pos_buffer.put(i,value+translate_z);
-			}
-			
-			buffered_vertices.SetPosBuffer(pos_buffer);
-		}
-		
-		this.position=position;
-		property_updated_flag=true;
-	}
-	public void SetRotation(Vector rotation) {
-		if(mat_enabled_flag==true) {
-			LogFile.WriteWarn("[ModelMgr-SetRotation] This method is disabled due to matrix operations.", true);
-			return;
-		}
-		
-		Vector original_position=this.GetPosition();
-		this.SetPosition(VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
-		
-		Vector displacement=VectorFunctions.VSub(rotation, this.rotation);
-		
-		Matrix rot_x=MatrixFunctions.MGetRotX(displacement.GetX());
-		Matrix rot_y=MatrixFunctions.MGetRotY(displacement.GetY());
-		Matrix rot_z=MatrixFunctions.MGetRotZ(displacement.GetZ());
-		
-		for(BufferedVertices buffered_vertices:buffered_vertices_list) {
-			FloatBuffer pos_buffer=buffered_vertices.GetPosBuffer();
-			FloatBuffer norm_buffer=buffered_vertices.GetNormBuffer();
-			
-			int capacity;
-			
-			capacity=pos_buffer.capacity();
-			for(int i=0;i<capacity;i+=3) {
-				Vector vtemp=new Vector();
-				
-				vtemp.SetX(pos_buffer.get(i));
-				vtemp.SetY(pos_buffer.get(i+1));
-				vtemp.SetZ(pos_buffer.get(i+2));
-				
-				vtemp=VectorFunctions.VTransform(vtemp, rot_x);
-				vtemp=VectorFunctions.VTransform(vtemp, rot_y);
-				vtemp=VectorFunctions.VTransform(vtemp, rot_z);
-				
-				pos_buffer.put(i,vtemp.GetX());
-				pos_buffer.put(i+1,vtemp.GetY());
-				pos_buffer.put(i+2,vtemp.GetZ());
-			}
-			
-			capacity=norm_buffer.capacity();
-			for(int i=0;i<capacity;i+=3) {
-				Vector vtemp=new Vector();
-				
-				vtemp.SetX(norm_buffer.get(i));
-				vtemp.SetY(norm_buffer.get(i+1));
-				vtemp.SetZ(norm_buffer.get(i+2));
-				
-				vtemp=VectorFunctions.VTransform(vtemp, rot_x);
-				vtemp=VectorFunctions.VTransform(vtemp, rot_y);
-				vtemp=VectorFunctions.VTransform(vtemp, rot_z);
-				
-				norm_buffer.put(i,vtemp.GetX());
-				norm_buffer.put(i+1,vtemp.GetY());
-				norm_buffer.put(i+2,vtemp.GetZ());
-			}
-			
-			buffered_vertices.SetPosBuffer(pos_buffer);
-			buffered_vertices.SetNormBuffer(norm_buffer);
-		}
-		
-		this.SetPosition(original_position);
-		
-		this.rotation=rotation;
-		property_updated_flag=true;
-	}
-	public void SetScale(Vector scale) {
-		if(mat_enabled_flag==true) {
-			LogFile.WriteWarn("[ModelMgr-SetScale] This method is disabled due to matrix operations.", true);
-			return;
-		}
-		
-		Vector original_position=this.GetPosition();
-		Vector original_rotation=this.GetRotation();
-		this.SetPosition(VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
-		this.SetRotation(VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
-		
-		float displacement_x=scale.GetX()/this.scale.GetX();
-		float displacement_y=scale.GetY()/this.scale.GetY();
-		float displacement_z=scale.GetZ()/this.scale.GetZ();
-		
-		for(BufferedVertices buffered_vertices:buffered_vertices_list) {
-			FloatBuffer pos_buffer=buffered_vertices.GetPosBuffer();
-			int capacity=pos_buffer.capacity();
-			
-			for(int i=0;i<capacity;i++) {
-				float value=pos_buffer.get(i);
-				
-				if(i%3==0)pos_buffer.put(i,value*displacement_x);
-				else if(i%3==1)pos_buffer.put(i,value*displacement_y);
-				else pos_buffer.put(i,value*displacement_z);
-			}
-			
-			buffered_vertices.SetPosBuffer(pos_buffer);
-		}
-		
-		this.SetPosition(original_position);
-		this.SetRotation(original_rotation);
-		
-		this.scale=scale;
-		property_updated_flag=true;
-	}
 	public void SetMatrix(Matrix m) {
-		final float EPSILON=1.0E-8f;
-		boolean identity_matrix_flag=true;
-		for(int i=0;i<4;i++) {
-			for(int j=0;j<4;j++) {
-				if(Math.abs(1.0f-m.GetValue(i, j))>EPSILON) {
-					identity_matrix_flag=false;
-					break;
-				}
-			}
-		}
-		
-		if(identity_matrix_flag==true) {
-			mat_enabled_flag=false;
-			return;
-		}
-		
 		for(BufferedVertices buffered_vertices:buffered_vertices_list) {
 			FloatBuffer pos_buffer=buffered_vertices.GetPosBuffer();
 			FloatBuffer norm_buffer=buffered_vertices.GetNormBuffer();
@@ -535,8 +351,6 @@ public class ModelMgr {
 			buffered_vertices.SetNormBuffer(norm_buffer);
 		}
 		
-		mat=m;
-		mat_enabled_flag=true;
 		property_updated_flag=true;
 	}
 	

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.daxie.basis.matrix.Matrix;
+import com.daxie.basis.matrix.MatrixFunctions;
 import com.daxie.basis.vector.Vector;
 import com.daxie.joglf.gl.model.animation.AnimationBlendInfo;
 import com.daxie.joglf.gl.model.animation.AnimationInfo;
@@ -218,45 +219,6 @@ public class Model3D {
 		return 0;
 	}
 	
-	public static Vector GetModelPosition(int model_handle) {
-		Vector ret=new Vector();
-		
-		if(models_map.containsKey(model_handle)==false) {
-			LogFile.WriteWarn("[Model3D-GetModelPosition] No such model. model_handle:"+model_handle, true);
-			return ret;
-		}
-		
-		ModelMgr model=models_map.get(model_handle);
-		ret=model.GetPosition();
-		
-		return ret;
-	}
-	public static Vector GetModelRotation(int model_handle) {
-		Vector ret=new Vector();
-		
-		if(models_map.containsKey(model_handle)==false) {
-			LogFile.WriteWarn("[Model3D-GetModelRotation] No such model. model_handle:"+model_handle, true);
-			return ret;
-		}
-		
-		ModelMgr model=models_map.get(model_handle);
-		ret=model.GetRotation();
-		
-		return ret;
-	}
-	public static Vector GetModelScale(int model_handle) {
-		Vector ret=new Vector();
-		
-		if(models_map.containsKey(model_handle)==false) {
-			LogFile.WriteWarn("[Model3D-GetModelScale] No such model. model_handle:"+model_handle, true);
-			return ret;
-		}
-		
-		ModelMgr model=models_map.get(model_handle);
-		ret=model.GetScale();
-		
-		return ret;
-	}
 	public static int GetModelElementNum(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
 			LogFile.WriteWarn("[Model3D-GetModelElementNum] No such model. model_handle:"+model_handle, true);
@@ -270,44 +232,8 @@ public class Model3D {
 		return ret;
 	}
 	
-	public static int SetModelPosition(int model_handle,Vector position) {
-		if(models_map.containsKey(model_handle)==false) {
-			LogFile.WriteWarn("[Model3D-SetModelPosition] No such model. model_handle:"+model_handle, true);
-			return -1;
-		}
-		
-		ModelMgr model=models_map.get(model_handle);
-		model.SetPosition(position);
-		
-		return 0;
-	}
-	public static int SetModelRotation(int model_handle,Vector rotation) {
-		if(models_map.containsKey(model_handle)==false) {
-			LogFile.WriteWarn("[Model3D-SetModelRotation] No such model. model_handle:"+model_handle, true);
-			return -1;
-		}
-		
-		ModelMgr model=models_map.get(model_handle);
-		model.SetRotation(rotation);
-		
-		return 0;
-	}
-	public static int SetModelScale(int model_handle,Vector scale) {
-		if(models_map.containsKey(model_handle)==false) {
-			LogFile.WriteWarn("[Model3D-SetModelScale] No such model. model_handle:"+model_handle, true);
-			return -1;
-		}
-		
-		ModelMgr model=models_map.get(model_handle);
-		model.SetScale(scale);
-		
-		return 0;
-	}
 	/**
-	 * Applies a matrix to manipulate a model.<br>
-	 * Once this method is called with a non-identity matrix,
-	 * {@link #SetModelPosition(int, Vector)}, {@link #SetModelRotation(int, Vector)} and {@link #SetModelScale(int, Vector)} are disabled.<br>
-	 * Pass an identity matrix to this method in order to re-enable those methods.
+	 * Applies a matrix to manipulate a model.
 	 * @param model_handle Model handle
 	 * @param m Matrix
 	 * @return -1 on error and 0 on success
@@ -320,6 +246,70 @@ public class Model3D {
 		
 		ModelMgr model=models_map.get(model_handle);
 		model.SetMatrix(m);
+		
+		return 0;
+	}
+	
+	/**
+	 * Translates a model.
+	 * @param model_handle Model handle
+	 * @param translate Translation vector
+	 * @return -1 on error and 0 on success
+	 */
+	public static int TranslateModel(int model_handle,Vector translate) {
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteWarn("[Model3D-TranslateModel] No such model. model_handle:"+model_handle, true);
+			return -1;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		
+		Matrix translate_mat=MatrixFunctions.MGetTranslate(translate);
+		model.SetMatrix(translate_mat);
+		
+		return 0;
+	}
+	/**
+	 * Rotates a model.<br>
+	 * The order of rotation:X→Y→Z
+	 * @param model_handle Model handle
+	 * @param rotate Rotation angles
+	 * @return -1 on error and 0 on success
+	 */
+	public static int RotateModel(int model_handle,Vector rotate) {
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteWarn("[Model3D-RotateModel] No such model. model_handle:"+model_handle, true);
+			return -1;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		
+		Matrix rot_x=MatrixFunctions.MGetRotX(rotate.GetX());
+		Matrix rot_y=MatrixFunctions.MGetRotX(rotate.GetY());
+		Matrix rot_z=MatrixFunctions.MGetRotX(rotate.GetZ());
+		Matrix rot=MatrixFunctions.MMult(rot_y, rot_x);
+		rot=MatrixFunctions.MMult(rot_z, rot);
+		
+		model.SetMatrix(rot);
+		
+		return 0;
+	}
+	/**
+	 * Rescales a model.
+	 * @param model_handle Model handle
+	 * @param scale Scale
+	 * @return -1 on error and 0 on success
+	 */
+	public static int RescaleModel(int model_handle,Vector scale) {
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteWarn("[Model3D-RescaleModel] No such model. model_handle:"+model_handle, true);
+			return -1;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		
+		Matrix scale_mat=MatrixFunctions.MGetScale(scale);
+		model.SetMatrix(scale_mat);
 		
 		return 0;
 	}
