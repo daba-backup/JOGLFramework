@@ -458,4 +458,85 @@ public class GLDrawFunctions2D {
 		GLWrapper.glDeleteBuffers(1, color_vbo);
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
+	
+	public static void TransferFullscreenQuad() {
+		IntBuffer indices=Buffers.newDirectIntBuffer(6);
+		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(8);
+		FloatBuffer uv_buffer=Buffers.newDirectFloatBuffer(8);
+		
+		indices.put(0);
+		indices.put(1);
+		indices.put(2);
+		indices.put(2);
+		indices.put(3);
+		indices.put(0);
+		
+		//Bottom left
+		pos_buffer.put(-1.0f);
+		pos_buffer.put(-1.0f);
+		uv_buffer.put(0.0f);
+		uv_buffer.put(0.0f);
+		//Bottom right
+		pos_buffer.put(1.0f);
+		pos_buffer.put(-1.0f);
+		uv_buffer.put(1.0f);
+		uv_buffer.put(0.0f);
+		//Top right
+		pos_buffer.put(1.0f);
+		pos_buffer.put(1.0f);
+		uv_buffer.put(1.0f);
+		uv_buffer.put(1.0f);
+		//Top left
+		pos_buffer.put(-1.0f);
+		pos_buffer.put(1.0f);
+		uv_buffer.put(0.0f);
+		uv_buffer.put(1.0f);
+		
+		((Buffer)indices).flip();
+		((Buffer)pos_buffer).flip();
+		((Buffer)uv_buffer).flip();
+		
+		IntBuffer indices_vbo=Buffers.newDirectIntBuffer(1);
+		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);
+		IntBuffer uv_vbo=Buffers.newDirectIntBuffer(1);
+		IntBuffer vao=Buffers.newDirectIntBuffer(1);
+		
+		GLWrapper.glGenBuffers(1, indices_vbo);
+		GLWrapper.glGenBuffers(1, pos_vbo);
+		GLWrapper.glGenBuffers(1, uv_vbo);
+		GLWrapper.glGenVertexArrays(1, vao);
+		
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*pos_buffer.capacity(), pos_buffer, GL4.GL_STATIC_DRAW);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, uv_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*uv_buffer.capacity(), uv_buffer, GL4.GL_STATIC_DRAW);
+		
+		GLWrapper.glBindVertexArray(vao.get(0));
+		
+		GLWrapper.glBindBuffer(GL4.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ELEMENT_ARRAY_BUFFER, 
+				Buffers.SIZEOF_INT*indices.capacity(), indices, GL4.GL_STATIC_DRAW);
+		
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(0);
+		GLWrapper.glVertexAttribPointer(0, 2, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*2, 0);
+		
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, uv_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(1);
+		GLWrapper.glVertexAttribPointer(1, 2, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*2, 0);
+		
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
+		
+		GLWrapper.glEnable(GL4.GL_BLEND);
+		GLWrapper.glDrawElements(GL4.GL_TRIANGLES, 6, GL4.GL_UNSIGNED_INT, 0);
+		GLWrapper.glDisable(GL4.GL_BLEND);
+		
+		GLWrapper.glBindVertexArray(0);
+		
+		GLWrapper.glDeleteBuffers(1, pos_vbo);
+		GLWrapper.glDeleteBuffers(1, uv_vbo);
+		GLWrapper.glDeleteVertexArrays(1, vao);
+	}
 }
