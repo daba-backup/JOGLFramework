@@ -286,8 +286,8 @@ public class Model3D {
 		ModelMgr model=models_map.get(model_handle);
 		
 		Matrix rot_x=MatrixFunctions.MGetRotX(rotate.GetX());
-		Matrix rot_y=MatrixFunctions.MGetRotX(rotate.GetY());
-		Matrix rot_z=MatrixFunctions.MGetRotX(rotate.GetZ());
+		Matrix rot_y=MatrixFunctions.MGetRotY(rotate.GetY());
+		Matrix rot_z=MatrixFunctions.MGetRotZ(rotate.GetZ());
 		Matrix rot=MatrixFunctions.MMult(rot_y, rot_x);
 		rot=MatrixFunctions.MMult(rot_z, rot);
 		
