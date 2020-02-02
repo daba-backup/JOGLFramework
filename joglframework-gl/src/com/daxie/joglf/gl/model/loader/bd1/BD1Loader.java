@@ -44,6 +44,8 @@ public class BD1Loader {
 			int texture_id=entry.getKey();
 			
 			String texture_filename=entry.getValue();
+			if(texture_filename.equals(""))continue;
+			
 			texture_filename=bd1_directory+"/"+texture_filename;
 			
 			int texture_handle=TextureMgr.LoadTexture(texture_filename);
