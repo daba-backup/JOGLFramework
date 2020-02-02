@@ -39,6 +39,8 @@ public class TextureMgr {
 	private static int window_width=WindowCommonInfoStock.DEFAULT_WIDTH;
 	private static int window_height=WindowCommonInfoStock.DEFAULT_HEIGHT;
 	
+	private static boolean use_mipmap_flag=true;
+	
 	public static void Initialize() {
 		default_texture_handle=LoadTexture("./Data/Texture/white.bmp");
 		
@@ -76,10 +78,15 @@ public class TextureMgr {
 		GL gl=GLContext.getCurrentGL();
 		texture.enable(gl);
 		texture.bind(gl);
-		GLWrapper.glGenerateMipmap(GL4.GL_TEXTURE_2D);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_S, GL4.GL_REPEAT);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_T, GL4.GL_REPEAT);
-		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST_MIPMAP_NEAREST);
+		if(use_mipmap_flag==true) {
+			GLWrapper.glGenerateMipmap(GL4.GL_TEXTURE_2D);
+			GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST_MIPMAP_NEAREST);
+		}
+		else {
+			GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);
+		}
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
 		texture.disable(gl);
 		
@@ -110,6 +117,10 @@ public class TextureMgr {
 	public static void SetWindowSize(int width,int height) {
 		window_width=width;
 		window_height=height;
+	}
+	
+	public static void SetUseMipmapFlag(boolean flag) {
+		use_mipmap_flag=flag;
 	}
 	
 	public static int EnableTexture(int texture_handle) {
