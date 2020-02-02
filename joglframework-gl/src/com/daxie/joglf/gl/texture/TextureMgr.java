@@ -39,7 +39,7 @@ public class TextureMgr {
 	private static int window_width=WindowCommonInfoStock.DEFAULT_WIDTH;
 	private static int window_height=WindowCommonInfoStock.DEFAULT_HEIGHT;
 	
-	private static boolean use_mipmap_flag=true;
+	private static boolean generate_mipmap_flag=true;
 	
 	public static void Initialize() {
 		default_texture_handle=LoadTexture("./Data/Texture/white.bmp");
@@ -80,7 +80,7 @@ public class TextureMgr {
 		texture.bind(gl);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_S, GL4.GL_REPEAT);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_T, GL4.GL_REPEAT);
-		if(use_mipmap_flag==true) {
+		if(generate_mipmap_flag==true) {
 			GLWrapper.glGenerateMipmap(GL4.GL_TEXTURE_2D);
 			GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST_MIPMAP_NEAREST);
 		}
@@ -119,8 +119,8 @@ public class TextureMgr {
 		window_height=height;
 	}
 	
-	public static void SetUseMipmapFlag(boolean flag) {
-		use_mipmap_flag=flag;
+	public static void SetGenerateMipmapFlag(boolean flag) {
+		generate_mipmap_flag=flag;
 	}
 	
 	public static int EnableTexture(int texture_handle) {
