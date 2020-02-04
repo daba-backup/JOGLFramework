@@ -10,6 +10,8 @@ import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.model.buffer.BufferedVertices;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
+import com.daxie.joglf.gl.shape.Triangle;
+import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.log.LogFile;
@@ -308,40 +310,40 @@ public class ModelMgr {
 			FloatBuffer pos_buffer=buffered_vertices.GetPosBuffer();
 			FloatBuffer norm_buffer=buffered_vertices.GetNormBuffer();
 			
-			int capacity;
-			
-			capacity=indices.capacity();
+			int capacity=indices.capacity();
 			for(int i=0;i<capacity;i+=3) {
-				Vector vtemp=new Vector();
-				
-				int[] indices_temp=new int[] {indices.get(),indices.get(),indices.get()};
+				int index=indices.get()*3;
 				
 				//pos_buffer
-				vtemp.SetX(pos_buffer.get(indices_temp[0]));
-				vtemp.SetY(pos_buffer.get(indices_temp[1]));
-				vtemp.SetZ(pos_buffer.get(indices_temp[2]));
+				Vector pos=new Vector();
+				pos.SetX(pos_buffer.get(index));
+				pos.SetY(pos_buffer.get(index+1));
+				pos.SetZ(pos_buffer.get(index+2));
 				
-				vtemp=VectorFunctions.VTransform(vtemp, m);
+				pos=VectorFunctions.VTransform(pos, m);
 				
-				pos_buffer.put(indices_temp[0],vtemp.GetX());
-				pos_buffer.put(indices_temp[1],vtemp.GetY());
-				pos_buffer.put(indices_temp[2],vtemp.GetZ());
+				pos_buffer.put(index,pos.GetX());
+				pos_buffer.put(index+1,pos.GetY());
+				pos_buffer.put(index+2,pos.GetZ());
 				
 				//norm_buffer
-				vtemp.SetX(norm_buffer.get(indices_temp[0]));
-				vtemp.SetY(norm_buffer.get(indices_temp[1]));
-				vtemp.SetZ(norm_buffer.get(indices_temp[2]));
+				Vector norm=new Vector();
+				norm.SetX(norm_buffer.get(index));
+				norm.SetY(norm_buffer.get(index+1));
+				norm.SetZ(norm_buffer.get(index+2));
 				
-				vtemp=VectorFunctions.VTransform(vtemp, m);
-				vtemp=VectorFunctions.VNorm(vtemp);
+				norm=VectorFunctions.VTransform(norm, m);
+				norm=VectorFunctions.VNorm(norm);
 				
-				norm_buffer.put(indices_temp[0],vtemp.GetX());
-				norm_buffer.put(indices_temp[1],vtemp.GetY());
-				norm_buffer.put(indices_temp[2],vtemp.GetZ());
+				norm_buffer.put(index,norm.GetX());
+				norm_buffer.put(index+1,norm.GetY());
+				norm_buffer.put(index+2,norm.GetZ());
 			}
 			
 			buffered_vertices.SetPosBuffer(pos_buffer);
 			buffered_vertices.SetNormBuffer(norm_buffer);
+			
+			indices.flip();
 		}
 		
 		property_updated_flag=true;
@@ -355,5 +357,58 @@ public class ModelMgr {
 		
 		BufferedVertices buffered_vertices=buffered_vertices_list.get(material_index);
 		buffered_vertices.SetTextureHandle(new_texture_handle);
+	}
+	
+	public List<Triangle> GetFaces(){
+		List<Triangle> ret=new ArrayList<>();
+		
+		for(BufferedVertices buffered_vertices:buffered_vertices_list) {
+			IntBuffer indices=buffered_vertices.GetIndices();
+			FloatBuffer pos_buffer=buffered_vertices.GetPosBuffer();
+			FloatBuffer norm_buffer=buffered_vertices.GetNormBuffer();
+			FloatBuffer uv_buffer=buffered_vertices.GetUVBuffer();
+			
+			int capacity=indices.capacity();
+			int triangle_num=capacity/3;
+			
+			for(int i=0;i<triangle_num;i++) {
+				Triangle triangle=new Triangle();
+				
+				for(int j=0;j<3;j++) {
+					int index=indices.get()*3;
+					int uv_index=indices.get()*2;
+					
+					//pos_buffer
+					Vector pos=new Vector();
+					pos.SetX(pos_buffer.get(index));
+					pos.SetY(pos_buffer.get(index+1));
+					pos.SetZ(pos_buffer.get(index+2));
+					
+					//norm_buffer
+					Vector norm=new Vector();
+					norm.SetX(norm_buffer.get(index));
+					norm.SetY(norm_buffer.get(index+1));
+					norm.SetZ(norm_buffer.get(index+2));
+					
+					//uv buffer
+					float u=uv_buffer.get(uv_index);
+					float v=uv_buffer.get(uv_index+1);
+					
+					Vertex3D vertex=new Vertex3D();
+					vertex.SetPos(pos);
+					vertex.SetNorm(norm);
+					vertex.SetU(u);
+					vertex.SetV(v);
+					
+					triangle.SetVertex(j, vertex);
+				}
+				
+				ret.add(triangle);
+			}
+			
+			indices.flip();
+		}
+		
+		return ret;
 	}
 }
