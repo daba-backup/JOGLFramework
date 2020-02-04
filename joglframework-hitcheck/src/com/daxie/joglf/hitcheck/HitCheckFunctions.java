@@ -60,7 +60,7 @@ public class HitCheckFunctions {
 		final float SQUARE_EPSILON=EPSILON*EPSILON;
 		
 		//If two lines are parallel, 
-		//the distance of two lines equals the distance between line1_pos and line2.
+		//the distance of two lines is equal to the distance between line1_pos and line2.
 		Vector cr;
 		cr=VectorFunctions.VCross(line1_direction_vector, line2_direction_vector);
 		if(VectorFunctions.VSquareSize(cr)<SQUARE_EPSILON) {
@@ -329,7 +329,7 @@ public class HitCheckFunctions {
 		Vector segment_pos_1,segment_pos_2;
 		Vector line_direction_vector;
 		
-		line_direction_vector=normal;
+		line_direction_vector=new Vector(normal);
 		line_direction_vector=VectorFunctions.VScale(line_direction_vector, L);
 		
 		segment_pos_1=VectorFunctions.VAdd(point, VectorFunctions.VScale(line_direction_vector, -1.0f));
@@ -354,6 +354,7 @@ public class HitCheckFunctions {
 		Vector normal;
 		normal=VectorFunctions.VCross(edge1, edge2);
 		normal=VectorFunctions.VNorm(normal);
+		hit_result.SetNormal(normal);
 		
 		Vector v1,v2;
 		v1=VectorFunctions.VSub(segment_pos_1, triangle_pos_1);
@@ -388,7 +389,7 @@ public class HitCheckFunctions {
 			return hit_result;
 		}
 		
-		//Judge whether the intersection calculated is located on the triangle.
+		//Judge whether the intersection obtained is located on the triangle.
 		Vector v3,v4,v5;
 		v3=VectorFunctions.VSub(intersection,triangle_pos_2);
 		v4=VectorFunctions.VSub(intersection, triangle_pos_3);
