@@ -1,6 +1,5 @@
 package com.daxie.joglf.gl.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,13 +11,8 @@ import com.daxie.joglf.gl.model.animation.AnimationBlendInfo;
 import com.daxie.joglf.gl.model.animation.AnimationInfo;
 import com.daxie.joglf.gl.model.animation.AnimationInfoMap;
 import com.daxie.joglf.gl.model.buffer.BufferedVertices;
-import com.daxie.joglf.gl.model.collision.CollResult;
-import com.daxie.joglf.gl.model.collision.CollResultDim;
-import com.daxie.joglf.gl.model.collision.CollTriangle;
 import com.daxie.joglf.gl.model.loader.bd1.BD1Loader;
 import com.daxie.joglf.gl.model.loader.obj.OBJLoader;
-import com.daxie.joglf.hitcheck.HitCheckFunctions;
-import com.daxie.joglf.hitcheck.entity.HitResult;
 import com.daxie.log.LogFile;
 import com.daxie.tool.FilenameFunctions;
 
@@ -409,175 +403,5 @@ public class Model3D {
 		
 		float max_time=ai.GetMaxTime();
 		return max_time;
-	}
-	
-	public static boolean IsCollInfoSetup(int model_handle) {
-		if(models_map.containsKey(model_handle)==false) {
-			LogFile.WriteWarn("[Model3D-IsCollInfoSetup] No such model. model_handle:"+model_handle, true);
-			return false;
-		}
-		
-		ModelMgr model=models_map.get(model_handle);
-		
-		return model.IsCollInfoSetup();
-	}
-	public static int SetupCollInfo(int model_handle) {
-		if(models_map.containsKey(model_handle)==false) {
-			LogFile.WriteWarn("[Model3D-SetupCollInfo] No such model. model_handle:"+model_handle, true);
-			return -1;
-		}
-		
-		ModelMgr model=models_map.get(model_handle);
-		model.SetupCollInfo();
-		
-		return 0;
-	}
-	public static int RefreshCollInfo(int model_handle) {
-		return SetupCollInfo(model_handle);
-	}
-	public static List<CollTriangle> GetCollTriangles(int model_handle){
-		List<CollTriangle> ret=new ArrayList<>();
-		
-		if(models_map.containsKey(model_handle)==false) {
-			LogFile.WriteWarn("[Model3D-GetCollTriangles] No such model. model_handle:"+model_handle, true);
-			return ret;
-		}
-		
-		ModelMgr model=models_map.get(model_handle);
-		if(model.IsCollInfoSetup()==false) {
-			LogFile.WriteWarn("[Model3D-GetCollTriangles] Collision info not set up. model_handle:"+model_handle, true);
-			return ret;
-		}
-		
-		ret=model.GetCollTriangles();
-		
-		return ret;
-	}
-	
-	public static CollResult CollCheck_Segment(int model_handle,Vector segment_pos_1,Vector segment_pos_2) {
-		CollResult coll_result=new CollResult();
-		coll_result.SetHitFlag(false);
-		
-		if(models_map.containsKey(model_handle)==false) {
-			LogFile.WriteWarn("[Model3D-CollCheck_Segment] No such model. model_handle:"+model_handle, true);
-			return coll_result;
-		}
-		
-		ModelMgr model=models_map.get(model_handle);
-		if(model.IsCollInfoSetup()==false) {
-			LogFile.WriteWarn("[Model3D-CollCheck_Segment] Collision info not set up. model_handle:"+model_handle, true);
-			return coll_result;
-		}
-		
-		List<CollTriangle> coll_triangles=model.GetCollTriangles();
-		for(CollTriangle coll_triangle:coll_triangles) {
-			Vector[] vertices=coll_triangle.GetVertices();
-			Vector face_normal=coll_triangle.GetFaceNormal();
-			
-			HitResult hit_result=HitCheckFunctions.HitCheck_Segment_Triangle(
-					segment_pos_1, segment_pos_2, vertices[0],vertices[1],vertices[2]);
-			if(hit_result.GetHitFlag()==true) {
-				coll_result.SetHitFlag(true);
-				coll_result.SetHitPosition(hit_result.GetHitPosition());
-				coll_result.SetFaceNormal(face_normal);
-				
-				for(int i=0;i<3;i++) {
-					coll_result.SetVertex(i, vertices[i]);
-				}
-				
-				break;
-			}
-		}
-		
-		return coll_result;
-	}
-	/**
-	 * Collision check of a capsule against a model.<br>
-	 * Note that returned CollResultDim does not contain valid hit positions. 
-	 * @param model_handle Model handle
-	 * @param capsule_pos_1 Capsule pos 1
-	 * @param capsule_pos_2 Capsule pos 2
-	 * @param r Radius of the capsule
-	 * @return CollResultDim
-	 */
-	public static CollResultDim CollCheck_Capsule(int model_handle,Vector capsule_pos_1,Vector capsule_pos_2,float r) {
-		CollResultDim coll_result_dim=new CollResultDim();
-		
-		if(models_map.containsKey(model_handle)==false) {
-			LogFile.WriteWarn("[Model3D-CollCheck_Capsule] No such model. model_handle:"+model_handle, true);
-			return coll_result_dim;
-		}
-		
-		ModelMgr model=models_map.get(model_handle);
-		if(model.IsCollInfoSetup()==false) {
-			LogFile.WriteWarn("[Model3D-CollCheck_Capsule] Collision info not set up. model_handle:"+model_handle, true);
-			return coll_result_dim;
-		}
-		
-		List<CollTriangle> coll_triangles=model.GetCollTriangles();
-		for(CollTriangle coll_triangle:coll_triangles) {
-			Vector[] vertices=coll_triangle.GetVertices();
-			Vector face_normal=coll_triangle.GetFaceNormal();
-			
-			if(HitCheckFunctions.HitCheck_Capsule_Triangle(
-					capsule_pos_1, capsule_pos_2, r, vertices[0],vertices[1],vertices[2])==true) {
-				CollResult coll_result=new CollResult();
-				
-				coll_result.SetHitFlag(true);
-				coll_result.SetFaceNormal(face_normal);
-				
-				for(int i=0;i<3;i++) {
-					coll_result.SetVertex(i, vertices[i]);
-				}
-				
-				coll_result_dim.AddCollResult(coll_result);
-			}
-		}
-		
-		return coll_result_dim;
-	}
-	/**
-	 * Collision check of a sphere against a model.<br>
-	 * Note that returned CollResultDim does not contain valid hit positions. 
-	 * @param model_handle Model handle
-	 * @param center Center of the sphere
-	 * @param r Radius of the sphere
-	 * @return CollResultDim
-	 */
-	public static CollResultDim CollCheck_Sphere(int model_handle,Vector center,float r) {
-		CollResultDim coll_result_dim=new CollResultDim();
-		
-		if(models_map.containsKey(model_handle)==false) {
-			LogFile.WriteWarn("[Model3D-CollCheck_Sphere] No such model. model_handle:"+model_handle, true);
-			return coll_result_dim;
-		}
-		
-		ModelMgr model=models_map.get(model_handle);
-		if(model.IsCollInfoSetup()==false) {
-			LogFile.WriteWarn("[Model3D-CollCheck_Sphere] Collision info not set up. model_handle:"+model_handle, true);
-			return coll_result_dim;
-		}
-		
-		List<CollTriangle> coll_triangles=model.GetCollTriangles();
-		for(CollTriangle coll_triangle:coll_triangles) {
-			Vector[] vertices=coll_triangle.GetVertices();
-			Vector face_normal=coll_triangle.GetFaceNormal();
-			
-			if(HitCheckFunctions.HitCheck_Sphere_Triangle(
-					center, r, vertices[0],vertices[1],vertices[2])==true) {
-				CollResult coll_result=new CollResult();
-				
-				coll_result.SetHitFlag(true);
-				coll_result.SetFaceNormal(face_normal);
-				
-				for(int i=0;i<3;i++) {
-					coll_result.SetVertex(i, vertices[i]);
-				}
-				
-				coll_result_dim.AddCollResult(coll_result);
-			}
-		}
-		
-		return coll_result_dim;
 	}
 }
