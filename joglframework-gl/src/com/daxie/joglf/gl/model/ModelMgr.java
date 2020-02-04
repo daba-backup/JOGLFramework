@@ -395,20 +395,19 @@ public class ModelMgr {
 		for(int i=0;i<vertex_num;i+=3) {
 			Vector[] vertices_temp=new Vector[3];
 			Vector[] vertex_normals_temp=new Vector[3];
-			vertices_temp[0]=vertices.get(i);
-			vertices_temp[1]=vertices.get(i+1);
-			vertices_temp[2]=vertices.get(i+2);
-			vertex_normals_temp[0]=vertex_normals.get(i);
-			vertex_normals_temp[1]=vertex_normals.get(i+1);
-			vertex_normals_temp[2]=vertex_normals.get(i+2);
+			
+			for(int j=0;j<3;j++) {
+				vertices_temp[j]=vertices.get(i+j);
+				vertex_normals_temp[j]=vertex_normals.get(i+j);
+			}
 			
 			Vector face_normal=VectorFunctions.VAverage(vertex_normals_temp);
 			face_normal=VectorFunctions.VNorm(face_normal);
 			
 			CollTriangle coll_triangle=new CollTriangle();
-			coll_triangle.SetVertex(0, vertices_temp[0]);
-			coll_triangle.SetVertex(1, vertices_temp[1]);
-			coll_triangle.SetVertex(2, vertices_temp[2]);
+			for(int j=0;j<3;j++) {
+				coll_triangle.SetVertex(j, vertices_temp[j]);
+			}
 			coll_triangle.SetFaceNormal(face_normal);
 			
 			coll_info.AddTriangle(coll_triangle);
