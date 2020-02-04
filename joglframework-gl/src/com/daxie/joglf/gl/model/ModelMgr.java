@@ -304,40 +304,40 @@ public class ModelMgr {
 	
 	public void SetMatrix(Matrix m) {
 		for(BufferedVertices buffered_vertices:buffered_vertices_list) {
+			IntBuffer indices=buffered_vertices.GetIndices();
 			FloatBuffer pos_buffer=buffered_vertices.GetPosBuffer();
 			FloatBuffer norm_buffer=buffered_vertices.GetNormBuffer();
 			
 			int capacity;
 			
-			capacity=pos_buffer.capacity();
+			capacity=indices.capacity();
 			for(int i=0;i<capacity;i+=3) {
 				Vector vtemp=new Vector();
 				
-				vtemp.SetX(pos_buffer.get(i));
-				vtemp.SetY(pos_buffer.get(i+1));
-				vtemp.SetZ(pos_buffer.get(i+2));
+				int[] indices_temp=new int[] {indices.get(),indices.get(),indices.get()};
+				
+				//pos_buffer
+				vtemp.SetX(pos_buffer.get(indices_temp[0]));
+				vtemp.SetY(pos_buffer.get(indices_temp[1]));
+				vtemp.SetZ(pos_buffer.get(indices_temp[2]));
 				
 				vtemp=VectorFunctions.VTransform(vtemp, m);
 				
-				pos_buffer.put(i,vtemp.GetX());
-				pos_buffer.put(i+1,vtemp.GetY());
-				pos_buffer.put(i+2,vtemp.GetZ());
-			}
-			
-			capacity=norm_buffer.capacity();
-			for(int i=0;i<capacity;i+=3) {
-				Vector vtemp=new Vector();
+				pos_buffer.put(indices_temp[0],vtemp.GetX());
+				pos_buffer.put(indices_temp[1],vtemp.GetY());
+				pos_buffer.put(indices_temp[2],vtemp.GetZ());
 				
-				vtemp.SetX(norm_buffer.get(i));
-				vtemp.SetY(norm_buffer.get(i+1));
-				vtemp.SetZ(norm_buffer.get(i+2));
+				//norm_buffer
+				vtemp.SetX(norm_buffer.get(indices_temp[0]));
+				vtemp.SetY(norm_buffer.get(indices_temp[1]));
+				vtemp.SetZ(norm_buffer.get(indices_temp[2]));
 				
 				vtemp=VectorFunctions.VTransform(vtemp, m);
 				vtemp=VectorFunctions.VNorm(vtemp);
 				
-				norm_buffer.put(i,vtemp.GetX());
-				norm_buffer.put(i+1,vtemp.GetY());
-				norm_buffer.put(i+2,vtemp.GetZ());
+				norm_buffer.put(indices_temp[0],vtemp.GetX());
+				norm_buffer.put(indices_temp[1],vtemp.GetY());
+				norm_buffer.put(indices_temp[2],vtemp.GetZ());
 			}
 			
 			buffered_vertices.SetPosBuffer(pos_buffer);
