@@ -319,7 +319,8 @@ public class HitcheckFunctions {
 		
 		return hit_result;
 	}
-	public static HitResult Hitcheck_Segment_Triangle(Vector segment_pos_1,Vector segment_pos_2,
+	public static HitResult Hitcheck_Segment_Triangle(
+			Vector segment_pos_1,Vector segment_pos_2,
 			Vector triangle_pos_1,Vector triangle_pos_2,Vector triangle_pos_3) {
 		HitResult hit_result=new HitResult();
 		
@@ -333,6 +334,15 @@ public class HitcheckFunctions {
 		Vector normal;
 		normal=VectorFunctions.VCross(edge1, edge2);
 		normal=VectorFunctions.VNorm(normal);
+		
+		//Check whether two vertices of the segment
+		//are located on the same side of the plane formed by the triangle.
+		float dot1_temp=VectorFunctions.VDot(VectorFunctions.VSub(segment_pos_1, triangle_pos_1), normal);
+		float dot2_temp=VectorFunctions.VDot(VectorFunctions.VSub(segment_pos_2, triangle_pos_1), normal);
+		if(dot1_temp*dot2_temp>=0.0f) {
+			hit_result.SetHitFlag(false);
+			return hit_result;
+		}
 		
 		Vector v1,v2;
 		v1=VectorFunctions.VSub(segment_pos_1, triangle_pos_1);
