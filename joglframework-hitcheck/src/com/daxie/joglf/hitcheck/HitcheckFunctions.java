@@ -117,6 +117,30 @@ public class HitcheckFunctions {
 		
 		return line_t_info;
 	}
+	public static float GetSquareDistance_Point_OBB(Vector point,Vector center,Vector[] axes,Vector edge_half_lengths) {
+		Vector v=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
+		
+		float[] edge_half_lengths_arr=new float[3];
+		edge_half_lengths_arr[0]=edge_half_lengths.GetX();
+		edge_half_lengths_arr[1]=edge_half_lengths.GetY();
+		edge_half_lengths_arr[2]=edge_half_lengths.GetZ();
+		
+		for(int i=0;i<3;i++) {
+			float l=edge_half_lengths_arr[i];
+			if(l<=0.0f)continue;
+			
+			float dot=VectorFunctions.VDot(VectorFunctions.VSub(point, center), axes[i]);
+			
+			float s=dot/l;
+			s=Math.abs(s);
+			if(s>1.0f) {
+				v=VectorFunctions.VAdd(v, VectorFunctions.VScale(axes[i], (1.0f-s)*l));
+			}
+		}
+		
+		float distance=VectorFunctions.VSquareSize(v);
+		return distance;
+	}
 	public static float GetSquareDistance_Point_Segment(Vector point,Vector segment_pos_1,Vector segment_pos_2) {
 		float distance;
 		
@@ -290,6 +314,182 @@ public class HitcheckFunctions {
 		
 		if(min_distance<r*r)ret=true;
 		else ret=false;
+		
+		return ret;
+	}
+	/**
+	 * Hitcheck of an OBB against an OBB.
+	 * @param obb1_center Center of the OBB 1
+	 * @param obb1_axes Normalized axes of OBB 1
+	 * @param obb1_edge_half_lengths Half lengths of each edge that forms the OBB 1
+	 * @param obb2_center Center of the OBB 2
+	 * @param obb2_axes Normalized axes of OBB 2
+	 * @param obb2_edge_half_lengths Half lengths of each edge that forms the OBB 2
+	 * @return Hit:true Otherwise:false
+	 */
+	public static boolean HitCheck_OBB_OBB(
+			Vector obb1_center,Vector[] obb1_axes,Vector obb1_edge_half_lengths,
+			Vector obb2_center,Vector[] obb2_axes,Vector obb2_edge_half_lengths) {
+		Vector[] scaled_obb1_axes=new Vector[3];
+		Vector[] scaled_obb2_axes=new Vector[3];
+		scaled_obb1_axes[0]=VectorFunctions.VScale(obb1_axes[0],obb1_edge_half_lengths.GetX());
+		scaled_obb1_axes[1]=VectorFunctions.VScale(obb1_axes[1],obb1_edge_half_lengths.GetY());
+		scaled_obb1_axes[2]=VectorFunctions.VScale(obb1_axes[2],obb1_edge_half_lengths.GetZ());
+		scaled_obb2_axes[0]=VectorFunctions.VScale(obb2_axes[0],obb2_edge_half_lengths.GetX());
+		scaled_obb2_axes[1]=VectorFunctions.VScale(obb2_axes[1],obb2_edge_half_lengths.GetY());
+		scaled_obb2_axes[2]=VectorFunctions.VScale(obb2_axes[2],obb2_edge_half_lengths.GetZ());
+		
+		Vector interval=VectorFunctions.VSub(obb1_center, obb2_center);
+		
+		float ra,rb,l;
+		
+		ra=obb1_edge_half_lengths.GetX();
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], obb1_axes[0]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], obb1_axes[0]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], obb1_axes[0]));
+		l=Math.abs(VectorFunctions.VDot(interval, obb1_axes[0]));
+		if(l>ra+rb)return false;
+		
+		ra=obb1_edge_half_lengths.GetY();
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], obb1_axes[1]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], obb1_axes[1]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], obb1_axes[1]));
+		l=Math.abs(VectorFunctions.VDot(interval, obb1_axes[1]));
+		if(l>ra+rb)return false;
+		
+		ra=obb1_edge_half_lengths.GetZ();
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], obb1_axes[2]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], obb1_axes[2]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], obb1_axes[2]));
+		l=Math.abs(VectorFunctions.VDot(interval, obb1_axes[2]));
+		if(l>ra+rb)return false;
+		
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], obb2_axes[0]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], obb2_axes[0]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], obb2_axes[0]));
+		rb=obb2_edge_half_lengths.GetX();
+		l=Math.abs(VectorFunctions.VDot(interval, obb2_axes[0]));
+		if(l>ra+rb)return false;
+		
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], obb2_axes[1]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], obb2_axes[1]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], obb2_axes[1]));
+		rb=obb2_edge_half_lengths.GetY();
+		l=Math.abs(VectorFunctions.VDot(interval, obb2_axes[1]));
+		if(l>ra+rb)return false;
+		
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], obb2_axes[2]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], obb2_axes[2]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], obb2_axes[2]));
+		rb=obb2_edge_half_lengths.GetZ();
+		l=Math.abs(VectorFunctions.VDot(interval, obb2_axes[2]));
+		if(l>ra+rb)return false;
+		
+		Vector cross;
+		
+		cross=VectorFunctions.VCross(obb1_axes[0], obb2_axes[0]);
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], cross));
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], cross));
+		l=Math.abs(VectorFunctions.VDot(interval, cross));
+		if(l>ra+rb)return false;
+		
+		cross=VectorFunctions.VCross(obb1_axes[0], obb2_axes[1]);
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], cross));
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], cross));
+		l=Math.abs(VectorFunctions.VDot(interval, cross));
+		if(l>ra+rb)return false;
+		
+		cross=VectorFunctions.VCross(obb1_axes[0], obb2_axes[2]);
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], cross));
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], cross));
+		l=Math.abs(VectorFunctions.VDot(interval, cross));
+		if(l>ra+rb)return false;
+		
+		cross=VectorFunctions.VCross(obb1_axes[1], obb2_axes[0]);
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], cross));
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], cross));
+		l=Math.abs(VectorFunctions.VDot(interval, cross));
+		if(l>ra+rb)return false;
+		
+		cross=VectorFunctions.VCross(obb1_axes[1], obb2_axes[1]);
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], cross));
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], cross));
+		l=Math.abs(VectorFunctions.VDot(interval, cross));
+		if(l>ra+rb)return false;
+		
+		cross=VectorFunctions.VCross(obb1_axes[1], obb2_axes[2]);
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], cross));
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], cross));
+		l=Math.abs(VectorFunctions.VDot(interval, cross));
+		if(l>ra+rb)return false;
+		
+		cross=VectorFunctions.VCross(obb1_axes[2], obb2_axes[0]);
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], cross));
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], cross));
+		l=Math.abs(VectorFunctions.VDot(interval, cross));
+		if(l>ra+rb)return false;
+		
+		cross=VectorFunctions.VCross(obb1_axes[2], obb2_axes[1]);
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], cross));
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], cross));
+		l=Math.abs(VectorFunctions.VDot(interval, cross));
+		if(l>ra+rb)return false;
+		
+		cross=VectorFunctions.VCross(obb1_axes[2], obb2_axes[2]);
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], cross));
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], cross));
+		l=Math.abs(VectorFunctions.VDot(interval, cross));
+		if(l>ra+rb)return false;
+		
+		return true;
+	}
+	/**
+	 * Hitcheck of an OBB against a triangle.
+	 * @param center Center of the OBB
+	 * @param axes Normalized axes of the OBB
+	 * @param edge_half_lengths Half lengths of each edge that forms the OBB
+	 * @param triangle_pos_1 Vertex of the triangle
+	 * @param triangle_pos_2 Vertex of the triangle
+	 * @param triangle_pos_3 Vertex of the triangle
+	 * @return Hit:true Otherwise:false
+	 */
+	public static boolean Hitcheck_OBB_Triangle(
+			Vector center,Vector[] axes,Vector edge_half_lengths,
+			Vector triangle_pos_1,Vector triangle_pos_2,Vector triangle_pos_3) {
+		Vector triangle_edge1=VectorFunctions.VSub(triangle_pos_2, triangle_pos_1);
+		Vector triangle_edge3=VectorFunctions.VSub(triangle_pos_3, triangle_pos_1);
+		Vector triangle_normal=VectorFunctions.VCross(triangle_edge1, triangle_edge3);
+		triangle_normal=VectorFunctions.VNorm(triangle_normal);
+		
+		float dotx=VectorFunctions.VDot(VectorFunctions.VScale(axes[0], edge_half_lengths.GetX()), triangle_normal);
+		float doty=VectorFunctions.VDot(VectorFunctions.VScale(axes[1], edge_half_lengths.GetY()), triangle_normal);
+		float dotz=VectorFunctions.VDot(VectorFunctions.VScale(axes[2], edge_half_lengths.GetZ()), triangle_normal);
+		
+		float r=Math.abs(dotx)+Math.abs(doty)+Math.abs(dotz);
+		
+		float s=VectorFunctions.VDot(VectorFunctions.VSub(center, triangle_pos_1), triangle_normal);
+		
+		boolean ret;
+		if(r<s)ret=false;
+		else ret=true;
 		
 		return ret;
 	}
@@ -504,205 +704,5 @@ public class HitcheckFunctions {
 		else ret=false;
 		
 		return ret;
-	}
-	/**
-	 * Hitcheck of an OBB against a triangle.
-	 * @param center Center of the OBB
-	 * @param axes Normalized axes of the OBB
-	 * @param edge_half_lengths Half lengths of each edge that forms the OBB
-	 * @param triangle_pos_1 Vertex of the triangle
-	 * @param triangle_pos_2 Vertex of the triangle
-	 * @param triangle_pos_3 Vertex of the triangle
-	 * @return Hit:true Otherwise:false
-	 */
-	public static boolean Hitcheck_OBB_Triangle(
-			Vector center,Vector[] axes,Vector edge_half_lengths,
-			Vector triangle_pos_1,Vector triangle_pos_2,Vector triangle_pos_3) {
-		Vector triangle_edge1=VectorFunctions.VSub(triangle_pos_2, triangle_pos_1);
-		Vector triangle_edge3=VectorFunctions.VSub(triangle_pos_3, triangle_pos_1);
-		Vector triangle_normal=VectorFunctions.VCross(triangle_edge1, triangle_edge3);
-		triangle_normal=VectorFunctions.VNorm(triangle_normal);
-		
-		float dotx=VectorFunctions.VDot(VectorFunctions.VScale(axes[0], edge_half_lengths.GetX()), triangle_normal);
-		float doty=VectorFunctions.VDot(VectorFunctions.VScale(axes[1], edge_half_lengths.GetY()), triangle_normal);
-		float dotz=VectorFunctions.VDot(VectorFunctions.VScale(axes[2], edge_half_lengths.GetZ()), triangle_normal);
-		
-		float r=Math.abs(dotx)+Math.abs(doty)+Math.abs(dotz);
-		
-		float s=VectorFunctions.VDot(VectorFunctions.VSub(center, triangle_pos_1), triangle_normal);
-		
-		boolean ret;
-		if(r<s)ret=false;
-		else ret=true;
-		
-		return ret;
-	}
-	/**
-	 * Hitcheck of an OBB against an OBB.
-	 * @param obb1_center Center of the OBB 1
-	 * @param obb1_axes Normalized axes of OBB 1
-	 * @param obb1_edge_half_lengths Half lengths of each edge that forms the OBB 1
-	 * @param obb2_center Center of the OBB 2
-	 * @param obb2_axes Normalized axes of OBB 2
-	 * @param obb2_edge_half_lengths Half lengths of each edge that forms the OBB 2
-	 * @return Hit:true Otherwise:false
-	 */
-	public static boolean HitCheck_OBB_OBB(
-			Vector obb1_center,Vector[] obb1_axes,Vector obb1_edge_half_lengths,
-			Vector obb2_center,Vector[] obb2_axes,Vector obb2_edge_half_lengths) {
-		Vector[] scaled_obb1_axes=new Vector[3];
-		Vector[] scaled_obb2_axes=new Vector[3];
-		scaled_obb1_axes[0]=VectorFunctions.VScale(obb1_axes[0],obb1_edge_half_lengths.GetX());
-		scaled_obb1_axes[1]=VectorFunctions.VScale(obb1_axes[1],obb1_edge_half_lengths.GetY());
-		scaled_obb1_axes[2]=VectorFunctions.VScale(obb1_axes[2],obb1_edge_half_lengths.GetZ());
-		scaled_obb2_axes[0]=VectorFunctions.VScale(obb2_axes[0],obb2_edge_half_lengths.GetX());
-		scaled_obb2_axes[1]=VectorFunctions.VScale(obb2_axes[1],obb2_edge_half_lengths.GetY());
-		scaled_obb2_axes[2]=VectorFunctions.VScale(obb2_axes[2],obb2_edge_half_lengths.GetZ());
-		
-		Vector interval=VectorFunctions.VSub(obb1_center, obb2_center);
-		
-		float ra,rb,l;
-		
-		ra=obb1_edge_half_lengths.GetX();
-		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], obb1_axes[0]))
-				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], obb1_axes[0]))
-				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], obb1_axes[0]));
-		l=Math.abs(VectorFunctions.VDot(interval, obb1_axes[0]));
-		if(l>ra+rb)return false;
-		
-		ra=obb1_edge_half_lengths.GetY();
-		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], obb1_axes[1]))
-				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], obb1_axes[1]))
-				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], obb1_axes[1]));
-		l=Math.abs(VectorFunctions.VDot(interval, obb1_axes[1]));
-		if(l>ra+rb)return false;
-		
-		ra=obb1_edge_half_lengths.GetZ();
-		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], obb1_axes[2]))
-				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], obb1_axes[2]))
-				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], obb1_axes[2]));
-		l=Math.abs(VectorFunctions.VDot(interval, obb1_axes[2]));
-		if(l>ra+rb)return false;
-		
-		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], obb2_axes[0]))
-				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], obb2_axes[0]))
-				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], obb2_axes[0]));
-		rb=obb2_edge_half_lengths.GetX();
-		l=Math.abs(VectorFunctions.VDot(interval, obb2_axes[0]));
-		if(l>ra+rb)return false;
-		
-		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], obb2_axes[1]))
-				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], obb2_axes[1]))
-				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], obb2_axes[1]));
-		rb=obb2_edge_half_lengths.GetY();
-		l=Math.abs(VectorFunctions.VDot(interval, obb2_axes[1]));
-		if(l>ra+rb)return false;
-		
-		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], obb2_axes[2]))
-				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], obb2_axes[2]))
-				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], obb2_axes[2]));
-		rb=obb2_edge_half_lengths.GetZ();
-		l=Math.abs(VectorFunctions.VDot(interval, obb2_axes[2]));
-		if(l>ra+rb)return false;
-		
-		Vector cross;
-		
-		cross=VectorFunctions.VCross(obb1_axes[0], obb2_axes[0]);
-		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], cross))
-				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], cross));
-		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], cross))
-				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], cross));
-		l=Math.abs(VectorFunctions.VDot(interval, cross));
-		if(l>ra+rb)return false;
-		
-		cross=VectorFunctions.VCross(obb1_axes[0], obb2_axes[1]);
-		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], cross))
-				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], cross));
-		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], cross))
-				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], cross));
-		l=Math.abs(VectorFunctions.VDot(interval, cross));
-		if(l>ra+rb)return false;
-		
-		cross=VectorFunctions.VCross(obb1_axes[0], obb2_axes[2]);
-		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], cross))
-				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], cross));
-		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], cross))
-				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], cross));
-		l=Math.abs(VectorFunctions.VDot(interval, cross));
-		if(l>ra+rb)return false;
-		
-		cross=VectorFunctions.VCross(obb1_axes[1], obb2_axes[0]);
-		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], cross))
-				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], cross));
-		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], cross))
-				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], cross));
-		l=Math.abs(VectorFunctions.VDot(interval, cross));
-		if(l>ra+rb)return false;
-		
-		cross=VectorFunctions.VCross(obb1_axes[1], obb2_axes[1]);
-		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], cross))
-				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], cross));
-		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], cross))
-				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], cross));
-		l=Math.abs(VectorFunctions.VDot(interval, cross));
-		if(l>ra+rb)return false;
-		
-		cross=VectorFunctions.VCross(obb1_axes[1], obb2_axes[2]);
-		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], cross))
-				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], cross));
-		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], cross))
-				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], cross));
-		l=Math.abs(VectorFunctions.VDot(interval, cross));
-		if(l>ra+rb)return false;
-		
-		cross=VectorFunctions.VCross(obb1_axes[2], obb2_axes[0]);
-		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], cross))
-				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], cross));
-		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], cross))
-				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], cross));
-		l=Math.abs(VectorFunctions.VDot(interval, cross));
-		if(l>ra+rb)return false;
-		
-		cross=VectorFunctions.VCross(obb1_axes[2], obb2_axes[1]);
-		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], cross))
-				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], cross));
-		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], cross))
-				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], cross));
-		l=Math.abs(VectorFunctions.VDot(interval, cross));
-		if(l>ra+rb)return false;
-		
-		cross=VectorFunctions.VCross(obb1_axes[2], obb2_axes[2]);
-		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], cross))
-				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], cross));
-		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], cross))
-				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], cross));
-		l=Math.abs(VectorFunctions.VDot(interval, cross));
-		if(l>ra+rb)return false;
-		
-		return true;
-	}
-	public static float GetSquareDistance_Point_OBB(Vector point,Vector center,Vector[] axes,Vector edge_half_lengths) {
-		Vector v=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
-		
-		float[] edge_half_lengths_arr=new float[3];
-		edge_half_lengths_arr[0]=edge_half_lengths.GetX();
-		edge_half_lengths_arr[1]=edge_half_lengths.GetY();
-		edge_half_lengths_arr[2]=edge_half_lengths.GetZ();
-		
-		for(int i=0;i<3;i++) {
-			float l=edge_half_lengths_arr[i];
-			if(l<=0.0f)continue;
-			
-			float dot=VectorFunctions.VDot(VectorFunctions.VSub(point, center), axes[i]);
-			
-			float s=dot/l;
-			s=Math.abs(s);
-			if(s>1.0f) {
-				v=VectorFunctions.VAdd(v, VectorFunctions.VScale(axes[i], (1.0f-s)*l));
-			}
-		}
-		
-		float distance=VectorFunctions.VSquareSize(v);
-		return distance;
 	}
 }
