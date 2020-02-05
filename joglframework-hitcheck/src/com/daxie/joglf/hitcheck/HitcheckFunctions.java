@@ -671,4 +671,28 @@ public class HitcheckFunctions {
 		
 		return true;
 	}
+	public static float GetSquareDistance_Point_OBB(Vector point,Vector center,Vector[] axes,Vector edge_half_lengths) {
+		Vector v=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
+		
+		float[] edge_half_lengths_arr=new float[3];
+		edge_half_lengths_arr[0]=edge_half_lengths.GetX();
+		edge_half_lengths_arr[1]=edge_half_lengths.GetY();
+		edge_half_lengths_arr[2]=edge_half_lengths.GetZ();
+		
+		for(int i=0;i<3;i++) {
+			float l=edge_half_lengths_arr[i];
+			if(l<=0.0f)continue;
+			
+			float dot=VectorFunctions.VDot(VectorFunctions.VSub(point, center), axes[i]);
+			
+			float s=dot/l;
+			s=Math.abs(s);
+			if(s>1.0f) {
+				v=VectorFunctions.VAdd(v, VectorFunctions.VScale(axes[i], (1.0f-s)*l));
+			}
+		}
+		
+		float distance=VectorFunctions.VSquareSize(v);
+		return distance;
+	}
 }
