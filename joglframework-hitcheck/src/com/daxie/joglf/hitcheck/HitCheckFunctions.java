@@ -453,6 +453,23 @@ public class HitCheckFunctions {
 		Vector n2=VectorFunctions.VCross(triangle2_edge1,triangle2_edge3);
 		n2=VectorFunctions.VNorm(n2);
 		
+		//Check whether all three vertices of every triangle
+		//are located on the same side of the plane formed by another triangle.
+		float dot1,dot2,dot3;
+		int sign1,sign2,sign3;
+		dot1=VectorFunctions.VDot(VectorFunctions.VSub(triangle2_pos_1, triangle1_pos_1), n1);
+		dot2=VectorFunctions.VDot(VectorFunctions.VSub(triangle2_pos_2, triangle1_pos_1), n1);
+		dot3=VectorFunctions.VDot(VectorFunctions.VSub(triangle2_pos_3, triangle1_pos_1), n1);
+		if(dot1<0.0f)sign1=-1;
+		else sign1=1;
+		if(dot2<0.0f)sign2=-1;
+		else sign2=1;
+		if(dot3<0.0f)sign3=-1;
+		else sign3=1;
+		if((sign1==-1&&sign2==-1&&sign3==-1)||(sign1==1&&sign2==1&&sign3==1)) {
+			return false;
+		}
+		
 		float triangle1_d1=VectorFunctions.VDot(VectorFunctions.VSub(triangle2_pos_1, triangle1_pos_1), n2);
 		float triangle1_d2=VectorFunctions.VDot(VectorFunctions.VSub(triangle2_pos_2, triangle1_pos_2), n2);
 		triangle1_d1=Math.abs(triangle1_d1);
@@ -475,6 +492,28 @@ public class HitCheckFunctions {
 		final float EPSILON=1.0E-6f;
 		if(GetSquareDistance_Segment_Segment(p12, p13, p22, p23)<EPSILON)ret=true;
 		else ret=false;
+		
+		return ret;
+	}
+	public static boolean HitCheck_OBB_Triangle(
+			Vector center,Vector[] axes,Vector edge_half_lengths,
+			Vector triangle_pos_1,Vector triangle_pos_2,Vector triangle_pos_3) {
+		Vector triangle_edge1=VectorFunctions.VSub(triangle_pos_2, triangle_pos_1);
+		Vector triangle_edge3=VectorFunctions.VSub(triangle_pos_3, triangle_pos_1);
+		Vector triangle_normal=VectorFunctions.VCross(triangle_edge1, triangle_edge3);
+		triangle_normal=VectorFunctions.VNorm(triangle_normal);
+		
+		float dotx=VectorFunctions.VDot(VectorFunctions.VScale(axes[0], edge_half_lengths.GetX()), triangle_normal);
+		float doty=VectorFunctions.VDot(VectorFunctions.VScale(axes[1], edge_half_lengths.GetY()), triangle_normal);
+		float dotz=VectorFunctions.VDot(VectorFunctions.VScale(axes[2], edge_half_lengths.GetZ()), triangle_normal);
+		
+		float r=Math.abs(dotx)+Math.abs(doty)+Math.abs(dotz);
+		
+		float s=VectorFunctions.VDot(VectorFunctions.VSub(center, triangle_pos_1), triangle_normal);
+		
+		boolean ret;
+		if(r<s)ret=false;
+		else ret=true;
 		
 		return ret;
 	}
