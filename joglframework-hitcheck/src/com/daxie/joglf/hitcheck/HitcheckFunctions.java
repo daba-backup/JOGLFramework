@@ -11,7 +11,7 @@ import com.daxie.joglf.hitcheck.tool.SegmentFunctions;
  * @author Daba
  *
  */
-public class HitCheckFunctions {
+public class HitcheckFunctions {
 	public static float GetSquareDistance_Capsule_Triangle(
 			Vector capsule_pos_1,Vector capsule_pos_2,
 			Vector triangle_pos_1,Vector triangle_pos_2,Vector triangle_pos_3) {
@@ -24,8 +24,8 @@ public class HitCheckFunctions {
 		distance_c1c2_t1t2=GetSquareDistance_Segment_Segment(capsule_pos_1, capsule_pos_2, triangle_pos_1,triangle_pos_2);
 		distance_c1c2_t2t3=GetSquareDistance_Segment_Segment(capsule_pos_1, capsule_pos_2, triangle_pos_2,triangle_pos_3);
 		distance_c1c2_t3t1=GetSquareDistance_Segment_Segment(capsule_pos_1, capsule_pos_2, triangle_pos_3,triangle_pos_1);
-		hit_result_c1_t=HitCheck_PerpendicularFromPoint_Triangle(capsule_pos_1, triangle_pos_1, triangle_pos_2, triangle_pos_3);
-		hit_result_c2_t=HitCheck_PerpendicularFromPoint_Triangle(capsule_pos_2, triangle_pos_1, triangle_pos_2, triangle_pos_3);
+		hit_result_c1_t=Hitcheck_PerpendicularFromPoint_Triangle(capsule_pos_1, triangle_pos_1, triangle_pos_2, triangle_pos_3);
+		hit_result_c2_t=Hitcheck_PerpendicularFromPoint_Triangle(capsule_pos_2, triangle_pos_1, triangle_pos_2, triangle_pos_3);
 		
 		float min_distance=distance_c1c2_t1t2;
 		if(distance_c1c2_t2t3<min_distance)min_distance=distance_c1c2_t2t3;
@@ -246,7 +246,7 @@ public class HitCheckFunctions {
 		distance_c_t1t2=GetSquareDistance_Point_Segment(center, triangle_pos_1, triangle_pos_2);
 		distance_c_t2t3=GetSquareDistance_Point_Segment(center, triangle_pos_2, triangle_pos_3);
 		distance_c_t3t1=GetSquareDistance_Point_Segment(center, triangle_pos_3, triangle_pos_1);
-		hit_result_c_t=HitCheck_PerpendicularFromPoint_Triangle(center, triangle_pos_1, triangle_pos_2, triangle_pos_3);
+		hit_result_c_t=Hitcheck_PerpendicularFromPoint_Triangle(center, triangle_pos_1, triangle_pos_2, triangle_pos_3);
 		
 		float min_distance=distance_c_t1t2;
 		if(distance_c_t2t3<min_distance)min_distance=distance_c_t2t3;
@@ -263,7 +263,7 @@ public class HitCheckFunctions {
 		
 		return min_distance;
 	}
-	public static boolean HitCheck_Capsule_Capsule(
+	public static boolean Hitcheck_Capsule_Capsule(
 			Vector capsule1_pos_1,Vector capsule1_pos_2,float r1,
 			Vector capsule2_pos_1,Vector capsule2_pos_2,float r2) {
 		boolean ret;
@@ -279,7 +279,7 @@ public class HitCheckFunctions {
 		
 		return ret;
 	}
-	public static boolean HitCheck_Capsule_Triangle(
+	public static boolean Hitcheck_Capsule_Triangle(
 			Vector capsule_pos_1,Vector capsule_pos_2,float r,
 			Vector triangle_pos_1,Vector triangle_pos_2,Vector triangle_pos_3) {
 		boolean ret;
@@ -293,7 +293,7 @@ public class HitCheckFunctions {
 		
 		return ret;
 	}
-	public static HitResult HitCheck_PerpendicularFromPoint_Triangle(
+	public static HitResult Hitcheck_PerpendicularFromPoint_Triangle(
 			Vector point,Vector triangle_pos_1,Vector triangle_pos_2,Vector triangle_pos_3) {
 		HitResult hit_result;
 		
@@ -314,12 +314,12 @@ public class HitCheckFunctions {
 		segment_pos_1=VectorFunctions.VAdd(point, VectorFunctions.VScale(line_direction_vector, -1.0f));
 		segment_pos_2=VectorFunctions.VAdd(point, line_direction_vector);
 		
-		hit_result=HitCheck_Segment_Triangle(
+		hit_result=Hitcheck_Segment_Triangle(
 				segment_pos_1, segment_pos_2, triangle_pos_1, triangle_pos_2, triangle_pos_3);
 		
 		return hit_result;
 	}
-	public static HitResult HitCheck_Segment_Triangle(Vector segment_pos_1,Vector segment_pos_2,
+	public static HitResult Hitcheck_Segment_Triangle(Vector segment_pos_1,Vector segment_pos_2,
 			Vector triangle_pos_1,Vector triangle_pos_2,Vector triangle_pos_3) {
 		HitResult hit_result=new HitResult();
 		
@@ -402,7 +402,7 @@ public class HitCheckFunctions {
 		
 		return hit_result;
 	}
-	public static boolean HitCheck_Sphere_Capsule(
+	public static boolean Hitcheck_Sphere_Capsule(
 			Vector sphere_center,float sphere_r,
 			Vector capsule_pos_1,Vector capsule_pos_2,float capsule_r) {
 		boolean ret;
@@ -415,7 +415,7 @@ public class HitCheckFunctions {
 		
 		return ret;
 	}
-	public static boolean HitCheck_Sphere_Sphere(
+	public static boolean Hitcheck_Sphere_Sphere(
 			Vector sphere1_center,float sphere1_r,Vector sphere2_center,float sphere2_r) {
 		boolean ret;
 		
@@ -428,7 +428,7 @@ public class HitCheckFunctions {
 		
 		return ret;
 	}
-	public static boolean HitCheck_Sphere_Triangle(
+	public static boolean Hitcheck_Sphere_Triangle(
 			Vector center,float r,Vector triangle_pos_1,Vector triangle_pos_2,Vector triangle_pos_3) {
 		boolean ret;
 		
@@ -440,7 +440,7 @@ public class HitCheckFunctions {
 		
 		return ret;
 	}
-	public static boolean HitCheck_Triangle_Triangle(
+	public static boolean Hitcheck_Triangle_Triangle(
 			Vector triangle1_pos_1,Vector triangle1_pos_2,Vector triangle1_pos_3,
 			Vector triangle2_pos_1,Vector triangle2_pos_2,Vector triangle2_pos_3) {
 		Vector triangle1_edge1=VectorFunctions.VSub(triangle1_pos_2, triangle1_pos_1);
@@ -495,7 +495,17 @@ public class HitCheckFunctions {
 		
 		return ret;
 	}
-	public static boolean HitCheck_OBB_Triangle(
+	/**
+	 * Hitcheck of an OBB against a triangle.
+	 * @param center Center of the OBB
+	 * @param axes Normalized axes of the OBB
+	 * @param edge_half_lengths Half lengths of each edge that forms the OBB
+	 * @param triangle_pos_1 Vertex of the triangle
+	 * @param triangle_pos_2 Vertex of the triangle
+	 * @param triangle_pos_3 Vertex of the triangle
+	 * @return Hit:true Otherwise:false
+	 */
+	public static boolean Hitcheck_OBB_Triangle(
 			Vector center,Vector[] axes,Vector edge_half_lengths,
 			Vector triangle_pos_1,Vector triangle_pos_2,Vector triangle_pos_3) {
 		Vector triangle_edge1=VectorFunctions.VSub(triangle_pos_2, triangle_pos_1);
@@ -516,5 +526,149 @@ public class HitCheckFunctions {
 		else ret=true;
 		
 		return ret;
+	}
+	/**
+	 * Hitcheck of an OBB against an OBB.
+	 * @param obb1_center Center of the OBB 1
+	 * @param obb1_axes Normalized axes of OBB 1
+	 * @param obb1_edge_half_lengths Half lengths of each edge that forms the OBB 1
+	 * @param obb2_center Center of the OBB 2
+	 * @param obb2_axes Normalized axes of OBB 2
+	 * @param obb2_edge_half_lengths Half lengths of each edge that forms the OBB 2
+	 * @return Hit:true Otherwise:false
+	 */
+	public static boolean HitCheck_OBB_OBB(
+			Vector obb1_center,Vector[] obb1_axes,Vector obb1_edge_half_lengths,
+			Vector obb2_center,Vector[] obb2_axes,Vector obb2_edge_half_lengths) {
+		Vector[] scaled_obb1_axes=new Vector[3];
+		Vector[] scaled_obb2_axes=new Vector[3];
+		scaled_obb1_axes[0]=VectorFunctions.VScale(obb1_axes[0],obb1_edge_half_lengths.GetX());
+		scaled_obb1_axes[1]=VectorFunctions.VScale(obb1_axes[1],obb1_edge_half_lengths.GetY());
+		scaled_obb1_axes[2]=VectorFunctions.VScale(obb1_axes[2],obb1_edge_half_lengths.GetZ());
+		scaled_obb2_axes[0]=VectorFunctions.VScale(obb2_axes[0],obb2_edge_half_lengths.GetX());
+		scaled_obb2_axes[1]=VectorFunctions.VScale(obb2_axes[1],obb2_edge_half_lengths.GetY());
+		scaled_obb2_axes[2]=VectorFunctions.VScale(obb2_axes[2],obb2_edge_half_lengths.GetZ());
+		
+		Vector interval=VectorFunctions.VSub(obb1_center, obb2_center);
+		
+		float ra,rb,l;
+		
+		ra=obb1_edge_half_lengths.GetX();
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], obb1_axes[0]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], obb1_axes[0]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], obb1_axes[0]));
+		l=Math.abs(VectorFunctions.VDot(interval, obb1_axes[0]));
+		if(l>ra+rb)return false;
+		
+		ra=obb1_edge_half_lengths.GetY();
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], obb1_axes[1]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], obb1_axes[1]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], obb1_axes[1]));
+		l=Math.abs(VectorFunctions.VDot(interval, obb1_axes[1]));
+		if(l>ra+rb)return false;
+		
+		ra=obb1_edge_half_lengths.GetZ();
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], obb1_axes[2]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], obb1_axes[2]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], obb1_axes[2]));
+		l=Math.abs(VectorFunctions.VDot(interval, obb1_axes[2]));
+		if(l>ra+rb)return false;
+		
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], obb2_axes[0]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], obb2_axes[0]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], obb2_axes[0]));
+		rb=obb2_edge_half_lengths.GetX();
+		l=Math.abs(VectorFunctions.VDot(interval, obb2_axes[0]));
+		if(l>ra+rb)return false;
+		
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], obb2_axes[1]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], obb2_axes[1]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], obb2_axes[1]));
+		rb=obb2_edge_half_lengths.GetY();
+		l=Math.abs(VectorFunctions.VDot(interval, obb2_axes[1]));
+		if(l>ra+rb)return false;
+		
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], obb2_axes[2]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], obb2_axes[2]))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], obb2_axes[2]));
+		rb=obb2_edge_half_lengths.GetZ();
+		l=Math.abs(VectorFunctions.VDot(interval, obb2_axes[2]));
+		if(l>ra+rb)return false;
+		
+		Vector cross;
+		
+		cross=VectorFunctions.VCross(obb1_axes[0], obb2_axes[0]);
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], cross));
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], cross));
+		l=Math.abs(VectorFunctions.VDot(interval, cross));
+		if(l>ra+rb)return false;
+		
+		cross=VectorFunctions.VCross(obb1_axes[0], obb2_axes[1]);
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], cross));
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], cross));
+		l=Math.abs(VectorFunctions.VDot(interval, cross));
+		if(l>ra+rb)return false;
+		
+		cross=VectorFunctions.VCross(obb1_axes[0], obb2_axes[2]);
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], cross));
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], cross));
+		l=Math.abs(VectorFunctions.VDot(interval, cross));
+		if(l>ra+rb)return false;
+		
+		cross=VectorFunctions.VCross(obb1_axes[1], obb2_axes[0]);
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], cross));
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], cross));
+		l=Math.abs(VectorFunctions.VDot(interval, cross));
+		if(l>ra+rb)return false;
+		
+		cross=VectorFunctions.VCross(obb1_axes[1], obb2_axes[1]);
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], cross));
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], cross));
+		l=Math.abs(VectorFunctions.VDot(interval, cross));
+		if(l>ra+rb)return false;
+		
+		cross=VectorFunctions.VCross(obb1_axes[1], obb2_axes[2]);
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[2], cross));
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], cross));
+		l=Math.abs(VectorFunctions.VDot(interval, cross));
+		if(l>ra+rb)return false;
+		
+		cross=VectorFunctions.VCross(obb1_axes[2], obb2_axes[0]);
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], cross));
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], cross));
+		l=Math.abs(VectorFunctions.VDot(interval, cross));
+		if(l>ra+rb)return false;
+		
+		cross=VectorFunctions.VCross(obb1_axes[2], obb2_axes[1]);
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], cross));
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[2], cross));
+		l=Math.abs(VectorFunctions.VDot(interval, cross));
+		if(l>ra+rb)return false;
+		
+		cross=VectorFunctions.VCross(obb1_axes[2], obb2_axes[2]);
+		ra=Math.abs(VectorFunctions.VDot(scaled_obb1_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb1_axes[1], cross));
+		rb=Math.abs(VectorFunctions.VDot(scaled_obb2_axes[0], cross))
+				+Math.abs(VectorFunctions.VDot(scaled_obb2_axes[1], cross));
+		l=Math.abs(VectorFunctions.VDot(interval, cross));
+		if(l>ra+rb)return false;
+		
+		return true;
 	}
 }
