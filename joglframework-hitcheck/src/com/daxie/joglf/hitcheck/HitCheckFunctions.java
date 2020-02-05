@@ -354,7 +354,6 @@ public class HitCheckFunctions {
 		Vector normal;
 		normal=VectorFunctions.VCross(edge1, edge2);
 		normal=VectorFunctions.VNorm(normal);
-		hit_result.SetNormal(normal);
 		
 		Vector v1,v2;
 		v1=VectorFunctions.VSub(segment_pos_1, triangle_pos_1);
