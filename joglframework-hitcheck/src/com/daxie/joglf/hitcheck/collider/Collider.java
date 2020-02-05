@@ -5,7 +5,7 @@ package com.daxie.joglf.hitcheck.collider;
  * @author Daba
  *
  */
-public class Collider {
+public abstract class Collider {
 	private ColliderShape shape;
 	
 	public Collider() {
@@ -19,4 +19,6 @@ public class Collider {
 	public ColliderShape GetColliderShape() {
 		return shape;
 	}
+	
+	public abstract boolean CollideWith(Collider collider);
 }

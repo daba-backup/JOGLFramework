@@ -9,62 +9,71 @@ import com.daxie.basis.vector.VectorFunctions;
  *
  */
 public class CapsuleCollider extends Collider{
-	private Vector[] p;
-	private float r;
+	private Vector[] positions;
+	private float radius;
 	
 	public CapsuleCollider() {
 		this.SetColliderShape(ColliderShape.CAPSULE);
 		
-		p=new Vector[2];
-		p[0]=VectorFunctions.VGet(0.0f, 1.0f, 0.0f);
-		p[1]=VectorFunctions.VGet(0.0f, -1.0f, 0.0f);
+		positions=new Vector[2];
+		positions[0]=VectorFunctions.VGet(0.0f, 1.0f, 0.0f);
+		positions[1]=VectorFunctions.VGet(0.0f, -1.0f, 0.0f);
 		
-		r=1.0f;
+		radius=1.0f;
 	}
 	
-	public void SetCapsule(Vector[] p,float r) {
-		this.p=p;
-		this.r=r;
+	public void SetCapsule(Vector[] positions,float radius) {
+		this.positions=positions;
+		this.radius=radius;
 	}
-	public Vector[] GetPoints() {
+	public Vector[] GetPositions() {
 		Vector[] ret=new Vector[2];
 		
 		for(int i=0;i<2;i++) {
-			ret[i]=new Vector(p[i]);
+			ret[i]=new Vector(positions[i]);
 		}
 		
 		return ret;
 	}
 	public float GetRadius() {
-		return r;
+		return radius;
 	}
 	
-	public void CollideWith(Collider collider) {
+	@Override
+	public boolean CollideWith(Collider collider) {
+		boolean ret;
 		ColliderShape shape=collider.GetColliderShape();
 		
 		switch(shape) {
-		case NONE:
+		case TRIANGLE:
+			ret=this.CollideWithTriangle((TriangleCollider)collider);
 			break;
 		case BOX:
-			this.CollideWithBox((BoxCollider)collider);
+			ret=this.CollideWithBox((BoxCollider)collider);
 			break;
 		case SPHERE:
-			this.CollideWithSphere((SphereCollider)collider);
+			ret=this.CollideWithSphere((SphereCollider)collider);
 			break;
 		case CAPSULE:
-			this.CollideWithCapsule((CapsuleCollider)collider);
+			ret=this.CollideWithCapsule((CapsuleCollider)collider);
 			break;
 		default:
+			ret=false;
 			break;
 		}
-	}
-	private void CollideWithBox(BoxCollider collider) {
 		
+		return ret;
 	}
-	private void CollideWithSphere(SphereCollider collider) {
-		
+	private boolean CollideWithTriangle(TriangleCollider collider) {
+		return false;
 	}
-	private void CollideWithCapsule(CapsuleCollider collider) {
-		
+	private boolean CollideWithBox(BoxCollider collider) {
+		return false;
+	}
+	private boolean CollideWithSphere(SphereCollider collider) {
+		return false;
+	}
+	private boolean CollideWithCapsule(CapsuleCollider collider) {
+		return false;
 	}
 }

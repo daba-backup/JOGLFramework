@@ -7,6 +7,7 @@ package com.daxie.joglf.hitcheck.collider;
  */
 public enum ColliderShape {
 	NONE,
+	TRIANGLE,
 	BOX,
 	SPHERE,
 	CAPSULE

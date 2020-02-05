@@ -4,30 +4,33 @@ import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 
 /**
- * Sphere collider
+ * Triangle collider
  * @author Daba
  *
  */
-public class SphereCollider extends Collider{
-	private Vector center;
-	private float radius;
+public class TriangleCollider extends Collider{
+	private Vector[] vertices;
 	
-	public SphereCollider() {
-		this.SetColliderShape(ColliderShape.SPHERE);
+	public TriangleCollider() {
+		this.SetColliderShape(ColliderShape.TRIANGLE);
 		
-		center=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
-		radius=1.0f;
+		vertices=new Vector[3];
+		vertices[0]=VectorFunctions.VGet(0.0f, 0.0f, -1.0f);
+		vertices[1]=VectorFunctions.VGet(-1.0f, 0.0f, 1.0f);
+		vertices[2]=VectorFunctions.VGet(1.0f, 0.0f, 1.0f);
 	}
 	
-	public void SetSphere(Vector center,float radius) {
-		this.center=center;
-		this.radius=radius;
+	public void SetTriangle(Vector[] vertices) {
+		this.vertices=vertices;
 	}
-	public Vector GetCenter() {
-		return new Vector(center);
-	}
-	public float GetRadius() {
-		return radius;
+	public Vector[] GetVertices() {
+		Vector[] ret=new Vector[3];
+		
+		for(int i=0;i<3;i++) {
+			ret[i]=new Vector(vertices[i]);
+		}
+		
+		return ret;
 	}
 	
 	@Override
