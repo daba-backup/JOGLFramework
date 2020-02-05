@@ -54,7 +54,6 @@ public class HitCheckFunctions {
 	public static LineTInfo GetSquareDistance_Line_Line(
 			Vector line1_pos,Vector line1_direction_vector,Vector line2_pos,Vector line2_direction_vector) {
 		LineTInfo line_t_info=new LineTInfo();
-		float distance;
 		
 		final float EPSILON=1.0E-6f;
 		final float SQUARE_EPSILON=EPSILON*EPSILON;
@@ -68,45 +67,25 @@ public class HitCheckFunctions {
 			return line_t_info;
 		}
 		
-		Vector p11,p21;
-		Vector v1,v2;
-		p11=line1_pos;
-		p21=line2_pos;
-		v1=line1_direction_vector;
-		v2=line2_direction_vector;
+		Vector v1=VectorFunctions.VNorm(line1_direction_vector);
+		Vector v2=VectorFunctions.VNorm(line2_direction_vector);
 		
-		Vector p1121;
-		p1121=VectorFunctions.VSub(p11, p21);
+		Vector p12=VectorFunctions.VSub(line2_pos, line1_pos);
 		
-		float dot1,dot2,dot3,dot4,dot5;
-		dot1=VectorFunctions.VDot(v1, v1);
-		dot2=VectorFunctions.VDot(v2, v2);
-		dot3=VectorFunctions.VDot(v1, v2);
-		dot4=VectorFunctions.VDot(v1, p1121);
-		dot5=VectorFunctions.VDot(v2, p1121);
+		float dot1=VectorFunctions.VDot(p12, v1);
+		float dot2=VectorFunctions.VDot(p12, v2);
+		float dotv=VectorFunctions.VDot(v1, v2);
 		
-		float numerator,denominator;
-		float t1;
-		numerator=dot3*dot5-dot2*dot4;
-		denominator=dot1*dot2-dot3*dot3;
-		t1=numerator/denominator;
+		float t1=(dot1-dot2)*dotv/(1.0f-dotv*dotv);
+		float t2=(dot2-dot1)*dotv/(dotv*dotv-1.0f);
 		
-		Vector vtemp;
-		float dot6;
-		float t2;
-		vtemp=VectorFunctions.VSub(p11, p21);
-		vtemp=VectorFunctions.VAdd(vtemp, VectorFunctions.VScale(v1,t1));
-		dot6=VectorFunctions.VDot(v2, vtemp);
-		t2=dot6/dot2;
+		Vector q1=VectorFunctions.VAdd(line1_pos, VectorFunctions.VScale(v1, t1));
+		Vector q2=VectorFunctions.VAdd(line2_pos, VectorFunctions.VScale(v2, t2));
 		
-		Vector p1,p2;
-		Vector p12;
-		p1=VectorFunctions.VAdd(p11, VectorFunctions.VScale(v1, t1));
-		p2=VectorFunctions.VAdd(p21, VectorFunctions.VScale(v2, t2));
-		p12=VectorFunctions.VSub(p1, p2);
+		Vector d=VectorFunctions.VSub(q2, q1);
+		float distance=VectorFunctions.VSquareSize(d);
 		
-		distance=VectorFunctions.VSquareSize(p12);
-		line_t_info.SetDistance(distance);	
+		line_t_info.SetDistance(distance);
 		line_t_info.SetT1(t1);
 		line_t_info.SetT2(t2);
 		
@@ -117,7 +96,7 @@ public class HitCheckFunctions {
 		float distance;
 		
 		Vector p1,p2,v2;
-		Vector p12;
+		Vector p21;
 		float t;
 		Vector h;
 		Vector perpendicular_line;
@@ -125,9 +104,9 @@ public class HitCheckFunctions {
 		p1=point;
 		p2=line_point;
 		v2=line_direction_vector;
-		p12=VectorFunctions.VSub(p1, p2);
+		p21=VectorFunctions.VSub(p1, p2);
 		
-		t=VectorFunctions.VDot(v2, p12)/VectorFunctions.VDot(v2, v2);
+		t=VectorFunctions.VDot(v2, p21)/VectorFunctions.VDot(v2, v2);
 		
 		h=VectorFunctions.VAdd(p2, VectorFunctions.VScale(v2, t));
 		perpendicular_line=VectorFunctions.VSub(h, p1);
@@ -402,7 +381,7 @@ public class HitCheckFunctions {
 		n2=VectorFunctions.VNorm(n2);
 		n3=VectorFunctions.VNorm(n3);
 		
-		//Check whether calculated normals "n1", "n2" and "n3" are identical to "normal".
+		//Check whether calculated normals "n1", "n2" and "n3" are identical to "normal."
 		Vector sub_1,sub_2,sub_3;
 		sub_1=VectorFunctions.VSub(n1, normal);
 		sub_2=VectorFunctions.VSub(n2, normal);
