@@ -44,4 +44,12 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>cz.advel.jbullet</groupId>
+			<artifactId>jbullet</artifactId>
+			<version>20101010-1</version>
+		</dependency>
+	</dependencies>
 </project>

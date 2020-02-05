@@ -2,7 +2,6 @@ package com.daxie.joglf.hitcheck.collider;
 
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
-import com.daxie.joglf.hitcheck.HitcheckFunctions;
 
 /**
  * Box collider
@@ -80,31 +79,13 @@ public class BoxCollider extends Collider{
 		return ret;
 	}
 	private boolean CollideWithTriangle(TriangleCollider collider) {
-		Vector[] vertices=collider.GetVertices();
-		
-		boolean ret=HitcheckFunctions.Hitcheck_OBB_Triangle(
-				center, axes, edge_half_lengths, vertices[0], vertices[1], vertices[2]);
-		
-		return ret;
+		return false;
 	}
 	private boolean CollideWithBox(BoxCollider collider) {
-		boolean ret=HitcheckFunctions.HitCheck_OBB_OBB(
-				center, axes, edge_half_lengths, 
-				collider.GetCenter(), collider.GetAxes(), collider.GetEdgeHalfLengths());
-		
-		return ret;
+		return false;
 	}
 	private boolean CollideWithSphere(SphereCollider collider) {
-		Vector sphere_center=collider.GetCenter();
-		float sphere_radius=collider.GetRadius();
-		
-		float square_distance=HitcheckFunctions.GetSquareDistance_Point_OBB(sphere_center, center, axes, edge_half_lengths);
-		
-		boolean ret;
-		if(square_distance<=sphere_radius*sphere_radius)ret=true;
-		else ret=false;
-		
-		return ret;
+		return false;
 	}
 	private boolean CollideWithCapsule(CapsuleCollider collider) {
 		return false;
