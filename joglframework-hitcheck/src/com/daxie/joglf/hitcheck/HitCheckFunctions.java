@@ -440,4 +440,42 @@ public class HitCheckFunctions {
 		
 		return ret;
 	}
+	public static boolean HitCheck_Triangle_Triangle(
+			Vector triangle1_pos_1,Vector triangle1_pos_2,Vector triangle1_pos_3,
+			Vector triangle2_pos_1,Vector triangle2_pos_2,Vector triangle2_pos_3) {
+		Vector triangle1_edge1=VectorFunctions.VSub(triangle1_pos_2, triangle1_pos_1);
+		Vector triangle1_edge3=VectorFunctions.VSub(triangle1_pos_3, triangle1_pos_1);
+		Vector triangle2_edge1=VectorFunctions.VSub(triangle2_pos_2, triangle2_pos_1);
+		Vector triangle2_edge3=VectorFunctions.VSub(triangle2_pos_3, triangle2_pos_1);
+		
+		Vector n1=VectorFunctions.VCross(triangle1_edge1,triangle1_edge3);
+		n1=VectorFunctions.VNorm(n1);
+		Vector n2=VectorFunctions.VCross(triangle2_edge1,triangle2_edge3);
+		n2=VectorFunctions.VNorm(n2);
+		
+		float triangle1_d1=VectorFunctions.VDot(VectorFunctions.VSub(triangle2_pos_1, triangle1_pos_1), n2);
+		float triangle1_d2=VectorFunctions.VDot(VectorFunctions.VSub(triangle2_pos_2, triangle1_pos_2), n2);
+		triangle1_d1=Math.abs(triangle1_d1);
+		triangle1_d2=Math.abs(triangle1_d2);
+		float triangle1_div_ratio=triangle1_d1/(triangle1_d1+triangle1_d2);
+		
+		Vector p12=VectorFunctions.VAdd(triangle1_pos_1, VectorFunctions.VScale(triangle1_edge1, triangle1_div_ratio));
+		Vector p13=VectorFunctions.VAdd(triangle1_pos_1, VectorFunctions.VScale(triangle1_edge3, triangle1_div_ratio));
+		
+		float triangle2_d1=VectorFunctions.VDot(VectorFunctions.VSub(triangle2_pos_1, triangle1_pos_1), n1);
+		float triangle2_d2=VectorFunctions.VDot(VectorFunctions.VSub(triangle2_pos_2, triangle1_pos_2), n1);
+		triangle2_d1=Math.abs(triangle2_d1);
+		triangle2_d2=Math.abs(triangle2_d2);
+		float triangle2_div_ratio=triangle2_d1/(triangle2_d1+triangle2_d2);
+		
+		Vector p22=VectorFunctions.VAdd(triangle2_pos_1, VectorFunctions.VScale(triangle2_edge1, triangle2_div_ratio));
+		Vector p23=VectorFunctions.VAdd(triangle2_pos_1, VectorFunctions.VScale(triangle2_edge3, triangle2_div_ratio));
+		
+		boolean ret;
+		final float EPSILON=1.0E-6f;
+		if(GetSquareDistance_Segment_Segment(p12, p13, p22, p23)<EPSILON)ret=true;
+		else ret=false;
+		
+		return ret;
+	}
 }
