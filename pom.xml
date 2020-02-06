@@ -134,6 +134,5 @@
 	<modules>
 		<module>joglframework-gl</module>
 		<module>joglframework-al</module>
-		<module>joglframework-hitcheck</module>
 	</modules>
 </project>

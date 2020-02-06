@@ -1,5 +1,6 @@
 package com.daxie.joglf.gl.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import com.daxie.joglf.gl.model.animation.AnimationInfoMap;
 import com.daxie.joglf.gl.model.buffer.BufferedVertices;
 import com.daxie.joglf.gl.model.loader.bd1.BD1Loader;
 import com.daxie.joglf.gl.model.loader.obj.OBJLoader;
+import com.daxie.joglf.gl.shape.Triangle;
 import com.daxie.log.LogFile;
 import com.daxie.tool.FilenameFunctions;
 
@@ -319,6 +321,18 @@ public class Model3D {
 		model.ChangeTexture(material_index, new_texture_handle);
 		
 		return 0;
+	}
+	
+	public static List<Triangle> GetModelFaces(int model_handle){
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteWarn("[Model3D-GetModelFaces] No such model. model_handle:"+model_handle, true);
+			return new ArrayList<Triangle>();
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		List<Triangle> ret=model.GetFaces();
+		
+		return ret;
 	}
 	
 	public static int AttachAnimation(int model_handle,int anim_index,int anim_src_handle,float time) {
