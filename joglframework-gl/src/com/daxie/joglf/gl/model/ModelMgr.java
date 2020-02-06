@@ -312,38 +312,34 @@ public class ModelMgr {
 			
 			int capacity=indices.capacity();
 			for(int i=0;i<capacity;i+=3) {
-				int index=indices.get()*3;
-				
 				//pos_buffer
 				Vector pos=new Vector();
-				pos.SetX(pos_buffer.get(index));
-				pos.SetY(pos_buffer.get(index+1));
-				pos.SetZ(pos_buffer.get(index+2));
+				pos.SetX(pos_buffer.get(i));
+				pos.SetY(pos_buffer.get(i+1));
+				pos.SetZ(pos_buffer.get(i+2));
 				
 				pos=VectorFunctions.VTransform(pos, m);
 				
-				pos_buffer.put(index,pos.GetX());
-				pos_buffer.put(index+1,pos.GetY());
-				pos_buffer.put(index+2,pos.GetZ());
+				pos_buffer.put(i,pos.GetX());
+				pos_buffer.put(i+1,pos.GetY());
+				pos_buffer.put(i+2,pos.GetZ());
 				
 				//norm_buffer
 				Vector norm=new Vector();
-				norm.SetX(norm_buffer.get(index));
-				norm.SetY(norm_buffer.get(index+1));
-				norm.SetZ(norm_buffer.get(index+2));
+				norm.SetX(norm_buffer.get(i));
+				norm.SetY(norm_buffer.get(i+1));
+				norm.SetZ(norm_buffer.get(i+2));
 				
 				norm=VectorFunctions.VTransform(norm, m);
 				norm=VectorFunctions.VNorm(norm);
 				
-				norm_buffer.put(index,norm.GetX());
-				norm_buffer.put(index+1,norm.GetY());
-				norm_buffer.put(index+2,norm.GetZ());
+				norm_buffer.put(i,norm.GetX());
+				norm_buffer.put(i+1,norm.GetY());
+				norm_buffer.put(i+2,norm.GetZ());
 			}
 			
 			buffered_vertices.SetPosBuffer(pos_buffer);
 			buffered_vertices.SetNormBuffer(norm_buffer);
-			
-			indices.flip();
 		}
 		
 		property_updated_flag=true;
@@ -375,24 +371,24 @@ public class ModelMgr {
 				Triangle triangle=new Triangle();
 				
 				for(int j=0;j<3;j++) {
-					int index=indices.get()*3;
-					int uv_index=indices.get()*2;
+					int vec_base_index=i*9+j*3;
+					int uv_base_index=i*6+j*2;
 					
 					//pos_buffer
 					Vector pos=new Vector();
-					pos.SetX(pos_buffer.get(index));
-					pos.SetY(pos_buffer.get(index+1));
-					pos.SetZ(pos_buffer.get(index+2));
+					pos.SetX(pos_buffer.get(vec_base_index));
+					pos.SetY(pos_buffer.get(vec_base_index+1));
+					pos.SetZ(pos_buffer.get(vec_base_index+2));
 					
 					//norm_buffer
 					Vector norm=new Vector();
-					norm.SetX(norm_buffer.get(index));
-					norm.SetY(norm_buffer.get(index+1));
-					norm.SetZ(norm_buffer.get(index+2));
+					norm.SetX(norm_buffer.get(vec_base_index));
+					norm.SetY(norm_buffer.get(vec_base_index+1));
+					norm.SetZ(norm_buffer.get(vec_base_index+2));
 					
 					//uv buffer
-					float u=uv_buffer.get(uv_index);
-					float v=uv_buffer.get(uv_index+1);
+					float u=uv_buffer.get(uv_base_index);
+					float v=uv_buffer.get(uv_base_index+1);
 					
 					Vertex3D vertex=new Vertex3D();
 					vertex.SetPos(pos);
@@ -405,8 +401,6 @@ public class ModelMgr {
 				
 				ret.add(triangle);
 			}
-			
-			indices.flip();
 		}
 		
 		return ret;
