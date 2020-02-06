@@ -8,6 +8,7 @@ import java.util.Map;
 import com.daxie.basis.matrix.Matrix;
 import com.daxie.basis.matrix.MatrixFunctions;
 import com.daxie.basis.vector.Vector;
+import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.model.animation.AnimationBlendInfo;
 import com.daxie.joglf.gl.model.animation.AnimationInfo;
 import com.daxie.joglf.gl.model.animation.AnimationInfoMap;
@@ -288,6 +289,37 @@ public class Model3D {
 		rot=MatrixFunctions.MMult(rot_z, rot);
 		
 		model.SetMatrix(rot);
+		
+		return 0;
+	}
+	/**
+	 * Rotates a model around the specified origin.
+	 * @param model_handle Model handle
+	 * @param origin Origin (world space)
+	 * @param rotate Rotation angles
+	 * @return -1 on error and 0 on success
+	 */
+	public static int RotateModelLocally(int model_handle,Vector origin,Vector rotate) {
+		if(models_map.containsKey(model_handle)==false) {
+			LogFile.WriteWarn("[Model3D-RotateModelLocally] No such model. model_handle:"+model_handle, true);
+			return -1;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		
+		Vector to_world_origin_vec=VectorFunctions.VSub(VectorFunctions.VGet(0.0f, 0.0f, 0.0f), origin);
+		Matrix to_world_origin_mat=MatrixFunctions.MGetTranslate(to_world_origin_vec);
+		Matrix rot_x=MatrixFunctions.MGetRotX(rotate.GetX());
+		Matrix rot_y=MatrixFunctions.MGetRotY(rotate.GetY());
+		Matrix rot_z=MatrixFunctions.MGetRotZ(rotate.GetZ());
+		Matrix to_local_origin_mat=MatrixFunctions.MGetTranslate(origin);
+		
+		Matrix mat=MatrixFunctions.MMult(rot_x, to_world_origin_mat);
+		mat=MatrixFunctions.MMult(rot_y, mat);
+		mat=MatrixFunctions.MMult(rot_z, mat);
+		mat=MatrixFunctions.MMult(to_local_origin_mat, mat);
+		
+		model.SetMatrix(mat);
 		
 		return 0;
 	}
