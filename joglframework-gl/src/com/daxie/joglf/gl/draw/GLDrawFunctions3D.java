@@ -13,6 +13,7 @@ import com.daxie.basis.matrix.MatrixFunctions;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
+import com.daxie.joglf.gl.shape.Quadrangle;
 import com.daxie.joglf.gl.shape.Triangle;
 import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.texture.TextureMgr;
@@ -216,6 +217,95 @@ public class GLDrawFunctions3D {
 		GLWrapper.glBindVertexArray(vao.get(0));
 		GLWrapper.glEnable(GL4.GL_BLEND);
 		GLWrapper.glDrawArrays(GL4.GL_LINE_LOOP, 0, 3);
+		GLWrapper.glDisable(GL4.GL_BLEND);
+		GLWrapper.glBindVertexArray(0);
+		
+		//Delete buffers
+		GLWrapper.glDeleteBuffers(1, pos_vbo);
+		GLWrapper.glDeleteBuffers(1, color_vbo);
+		GLWrapper.glDeleteVertexArrays(1, vao);
+	}
+	public static void DrawQuadrangle3D(
+			Vector quadrangle_pos_1,Vector quadrangle_pos_2,
+			Vector quadrangle_pos_3,Vector quadrangle_pos_4,ColorU8 color) {
+		Quadrangle quadrangle=new Quadrangle();
+		
+		Vertex3D[] vertices=new Vertex3D[4];
+		for(int i=0;i<4;i++) {
+			vertices[i]=new Vertex3D();
+		}
+		
+		vertices[0].SetPos(quadrangle_pos_1);
+		vertices[1].SetPos(quadrangle_pos_2);
+		vertices[2].SetPos(quadrangle_pos_3);
+		vertices[3].SetPos(quadrangle_pos_4);
+		
+		for(int i=0;i<4;i++) {
+			vertices[i].SetDif(color);
+		}
+		
+		for(int i=0;i<4;i++) {
+			quadrangle.SetVertex(i, vertices[i]);
+		}
+		
+		DrawQuadrangle3D(quadrangle);
+	}
+	public static void DrawQuadrangle3D(Quadrangle quadrangle) {
+		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);
+		IntBuffer color_vbo=Buffers.newDirectIntBuffer(1);
+		IntBuffer vao=Buffers.newDirectIntBuffer(1);
+		
+		Vertex3D[] vertices=quadrangle.GetVertices();
+		
+		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(12);
+		FloatBuffer color_buffer=Buffers.newDirectFloatBuffer(16);
+		for(int i=0;i<4;i++) {
+			Vector pos=vertices[i].GetPos();
+			ColorU8 dif=vertices[i].GetDif();
+			
+			pos_buffer.put(pos.GetX());
+			pos_buffer.put(pos.GetY());
+			pos_buffer.put(pos.GetZ());
+			color_buffer.put(dif.GetR());
+			color_buffer.put(dif.GetG());
+			color_buffer.put(dif.GetB());
+			color_buffer.put(dif.GetA());
+		}
+		((Buffer)pos_buffer).flip();
+		((Buffer)color_buffer).flip();
+		
+		GLShaderFunctions.UseProgram("color");
+		
+		GLWrapper.glGenBuffers(1, pos_vbo);
+		GLWrapper.glGenBuffers(1, color_vbo);
+		
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*pos_buffer.capacity(),pos_buffer,GL4.GL_STATIC_DRAW);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, color_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*color_buffer.capacity(),color_buffer,GL4.GL_STATIC_DRAW);
+		
+		GLWrapper.glGenVertexArrays(1, vao);
+		GLWrapper.glBindVertexArray(vao.get(0));
+		
+		//Position attribute
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(0);
+		GLWrapper.glVertexAttribPointer(0, 3, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*3, 0);
+		
+		//Color attribute
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, color_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(1);
+		GLWrapper.glVertexAttribPointer(1, 4, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*4, 0);
+		
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
+		GLWrapper.glBindVertexArray(0);
+		
+		//Draw
+		GLWrapper.glBindVertexArray(vao.get(0));
+		GLWrapper.glEnable(GL4.GL_BLEND);
+		GLWrapper.glDrawArrays(GL4.GL_LINE_LOOP, 0, 4);
 		GLWrapper.glDisable(GL4.GL_BLEND);
 		GLWrapper.glBindVertexArray(0);
 		
