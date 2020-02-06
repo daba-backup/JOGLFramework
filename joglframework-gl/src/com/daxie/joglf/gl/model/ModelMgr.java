@@ -306,11 +306,10 @@ public class ModelMgr {
 	
 	public void SetMatrix(Matrix m) {
 		for(BufferedVertices buffered_vertices:buffered_vertices_list) {
-			IntBuffer indices=buffered_vertices.GetIndices();
 			FloatBuffer pos_buffer=buffered_vertices.GetPosBuffer();
 			FloatBuffer norm_buffer=buffered_vertices.GetNormBuffer();
 			
-			int capacity=indices.capacity();
+			int capacity=pos_buffer.capacity();
 			for(int i=0;i<capacity;i+=3) {
 				//pos_buffer
 				Vector pos=new Vector();
@@ -359,12 +358,11 @@ public class ModelMgr {
 		List<Triangle> ret=new ArrayList<>();
 		
 		for(BufferedVertices buffered_vertices:buffered_vertices_list) {
-			IntBuffer indices=buffered_vertices.GetIndices();
 			FloatBuffer pos_buffer=buffered_vertices.GetPosBuffer();
 			FloatBuffer norm_buffer=buffered_vertices.GetNormBuffer();
 			FloatBuffer uv_buffer=buffered_vertices.GetUVBuffer();
 			
-			int capacity=indices.capacity();
+			int capacity=pos_buffer.capacity();
 			int triangle_num=capacity/3;
 			
 			for(int i=0;i<triangle_num;i++) {
