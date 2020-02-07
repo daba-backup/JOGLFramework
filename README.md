@@ -26,7 +26,7 @@ Download all required JARs and add them to the classpath.
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework-gl</artifactId>
-    <version>8.0.0</version>
+    <version>8.1.0</version>
 </dependency>
 ```
 
@@ -36,7 +36,7 @@ Download all required JARs and add them to the classpath.
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework-al</artifactId>
-    <version>8.0.0</version>
+    <version>8.1.0</version>
 </dependency>
 ```
 
