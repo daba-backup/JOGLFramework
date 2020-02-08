@@ -363,7 +363,7 @@ public class ModelMgr {
 			FloatBuffer uv_buffer=buffered_vertices.GetUVBuffer();
 			
 			int capacity=pos_buffer.capacity();
-			int triangle_num=capacity/3;
+			int triangle_num=capacity/9;
 			
 			for(int i=0;i<triangle_num;i++) {
 				Triangle triangle=new Triangle();
