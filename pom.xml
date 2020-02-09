@@ -6,7 +6,7 @@
 
 	<groupId>com.github.dabasan</groupId>
 	<artifactId>joglframework</artifactId>
-	<version>8.1.2-SNAPSHOT</version>
+	<version>8.1.2</version>
 
 	<packaging>pom</packaging>
 
