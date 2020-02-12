@@ -10,6 +10,7 @@ import com.jogamp.opengl.util.awt.TextRenderer;
 
 /**
  * TextMgr that uses TextRenderer
+ * @deprecated
  * @author Daba
  *
  */
