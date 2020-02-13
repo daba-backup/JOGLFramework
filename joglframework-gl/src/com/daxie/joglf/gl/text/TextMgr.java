@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.daxie.basis.coloru8.ColorU8;
+import com.daxie.joglf.gl.window.WindowCommonInfoStock;
 import com.daxie.log.LogFile;
 import com.daxie.tool.ExceptionFunctions;
 import com.jogamp.graph.curve.Region;
@@ -35,8 +36,8 @@ public class TextMgr {
 	
 	private static int default_font_handle;
 	
-	private static int window_width=640;
-	private static int window_height=480;
+	private static int window_width=WindowCommonInfoStock.DEFAULT_WIDTH;
+	private static int window_height=WindowCommonInfoStock.DEFAULT_HEIGHT;
 	
 	public static void Initialize() {
 		render_state=RenderState.createRenderState(SVertex.factory());
