@@ -128,6 +128,10 @@ public class Dynamic2DSegmentsDrawer extends Dynamic2DDrawer{
 		segments_map.clear();
 	}
 	
+	public Vertex2D[] GetSegment(int segment_id) {
+		return segments_map.get(segment_id);
+	}
+	
 	@Override
 	public void Draw() {
 		List<String> program_names=this.GetProgramNames();

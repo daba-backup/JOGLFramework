@@ -114,6 +114,10 @@ public class DynamicPointsDrawer extends Dynamic3DDrawer{
 		points_map.clear();
 	}
 	
+	public Vertex3D GetPoint(int point_id) {
+		return points_map.get(point_id);
+	}
+	
 	@Override
 	public void Draw() {
 		List<String> program_names=this.GetProgramNames();

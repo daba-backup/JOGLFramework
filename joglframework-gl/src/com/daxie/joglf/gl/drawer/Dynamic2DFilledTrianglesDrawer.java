@@ -133,6 +133,10 @@ public class Dynamic2DFilledTrianglesDrawer extends Dynamic2DDrawer{
 		triangles_map.clear();
 	}
 	
+	public Vertex2D[] GetTriangle(int triangle_id) {
+		return triangles_map.get(triangle_id);
+	}
+	
 	@Override
 	public void Draw() {
 		List<String> program_names=this.GetProgramNames();

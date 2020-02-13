@@ -163,6 +163,10 @@ public class DynamicQuadranglesDrawer extends Dynamic3DDrawer{
 		quadrangles_map.clear();
 	}
 	
+	public Quadrangle GetQuadrangle(int quadrangle_id) {
+		return quadrangles_map.get(quadrangle_id);
+	}
+	
 	@Override
 	public void Draw() {
 		this.Draw(0, "texture_sampler");

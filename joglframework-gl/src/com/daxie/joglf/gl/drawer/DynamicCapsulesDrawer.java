@@ -273,6 +273,10 @@ public class DynamicCapsulesDrawer extends Dynamic3DDrawer{
 		capsules_map.clear();
 	}
 	
+	public Capsule GetCapsule(int capsule_id) {
+		return capsules_map.get(capsule_id);
+	}
+	
 	@Override
 	public void Draw() {
 		List<String> program_names=this.GetProgramNames();

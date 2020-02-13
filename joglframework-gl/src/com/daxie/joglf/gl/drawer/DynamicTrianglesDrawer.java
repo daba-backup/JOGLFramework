@@ -141,6 +141,10 @@ public class DynamicTrianglesDrawer extends Dynamic3DDrawer{
 		triangles_map.clear();
 	}
 	
+	public Triangle GetTriangle(int triangle_id) {
+		return triangles_map.get(triangle_id);
+	}
+	
 	@Override
 	public void Draw() {
 		this.Draw(0, "texture_sampler");

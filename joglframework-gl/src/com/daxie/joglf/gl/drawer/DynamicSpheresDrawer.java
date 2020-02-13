@@ -243,6 +243,10 @@ public class DynamicSpheresDrawer extends Dynamic3DDrawer{
 		spheres_map.clear();
 	}
 	
+	public Sphere GetSphere(int sphere_id) {
+		return spheres_map.get(sphere_id);
+	}
+	
 	@Override
 	public void Draw() {
 		List<String> program_names=this.GetProgramNames();

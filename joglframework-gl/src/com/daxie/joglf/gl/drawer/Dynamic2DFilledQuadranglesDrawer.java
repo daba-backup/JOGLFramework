@@ -155,6 +155,10 @@ public class Dynamic2DFilledQuadranglesDrawer extends Dynamic2DDrawer{
 		quadrangles_map.clear();
 	}
 	
+	public Vertex2D[] GetQuadrangle(int quadrangle_id) {
+		return quadrangles_map.get(quadrangle_id);
+	}
+	
 	@Override
 	public void Draw() {
 		List<String> program_names=this.GetProgramNames();

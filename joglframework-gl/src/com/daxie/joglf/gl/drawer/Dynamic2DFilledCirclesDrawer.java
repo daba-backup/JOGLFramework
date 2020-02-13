@@ -184,6 +184,10 @@ public class Dynamic2DFilledCirclesDrawer extends Dynamic2DDrawer{
 		circles_map.clear();
 	}
 	
+	public Circle2D GetCircle(int circle_id) {
+		return circles_map.get(circle_id);
+	}
+	
 	@Override
 	public void Draw() {
 		List<String> program_names=this.GetProgramNames();

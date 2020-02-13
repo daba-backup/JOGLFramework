@@ -120,6 +120,10 @@ public class DynamicSegmentsDrawer extends Dynamic3DDrawer{
 		segments_map.clear();
 	}
 	
+	public Vertex3D[] GetSegment(int segment_id) {
+		return segments_map.get(segment_id);
+	}
+	
 	@Override
 	public void Draw() {
 		List<String> program_names=this.GetProgramNames();
