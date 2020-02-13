@@ -3,7 +3,6 @@ package com.daxie.joglf.gl.model.loader.obj;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -31,29 +30,19 @@ import de.javagl.obj.ObjUtils;
  *
  */
 public class OBJLoader {
-	public static List<BufferedVertices> LoadOBJ(InputStream is,String obj_directory_name){
-		List<BufferedVertices> ret=innerLoadOBJ(is, obj_directory_name);
-		return ret;
-	}
 	public static List<BufferedVertices> LoadOBJ(String obj_filename){
 		List<BufferedVertices> ret=new ArrayList<>();
-		String obj_directory_name=FilenameFunctions.GetFileDirectory(obj_filename);
 		
-		try(FileInputStream fis=new FileInputStream(obj_filename)){
-			ret=innerLoadOBJ(fis, obj_directory_name);
-		}
-		catch(IOException e) {
-			String str=ExceptionFunctions.GetPrintStackTraceString(e);
-			
-			LogFile.WriteWarn("[OBJLoader-LoadOBJ] Below is the stack trace.", true);
-			LogFile.WriteWarn(str, false);
-		}
+		String obj_directory=FilenameFunctions.GetFileDirectory(obj_filename);
 		
-		return ret;
-	}
-	private static List<BufferedVertices> innerLoadOBJ(InputStream is,String obj_directory_name){
-		List<BufferedVertices> ret=new ArrayList<>();
-		InputStreamReader isr=new InputStreamReader(is);
+		InputStreamReader isr=null;
+		try {
+			isr=new InputStreamReader(new FileInputStream(obj_filename));
+		}
+		catch(FileNotFoundException e) {
+			LogFile.WriteWarn("[OBJLoader-LoadOBJ] File not found. filename:"+obj_filename,true);
+			return ret;
+		}
 		
 		Obj obj=null;
 		try {
@@ -72,7 +61,7 @@ public class OBJLoader {
 		
 		List<Mtl> all_mtls=new ArrayList<>();
 		for(String mtl_filename:obj.getMtlFileNames()) {
-			String mtl_filepath=obj_directory_name+"/"+mtl_filename;
+			String mtl_filepath=obj_directory+"/"+mtl_filename;
 			try {
 				isr=new InputStreamReader(new FileInputStream(mtl_filepath));
 			}
@@ -121,7 +110,7 @@ public class OBJLoader {
 			buffered_vertices.SetNormBuffer(norm_buffer);
 			
 			String texture_filename=mtl.getMapKd();
-			texture_filename=obj_directory_name+"/"+texture_filename;
+			texture_filename=obj_directory+"/"+texture_filename;
 			
 			int texture_handle=TextureMgr.LoadTexture(texture_filename);
 			buffered_vertices.SetTextureHandle(texture_handle);
