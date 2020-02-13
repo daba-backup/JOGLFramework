@@ -54,8 +54,8 @@ public class GLFront {
 	private static void LoadDefaultShaders() {
 		GLShaderFunctions.CreateProgram(
 				"texture", 
-				"./Data/Shader/330/texture/vshader.glsl",
-				"./Data/Shader/330/texture/fshader.glsl");
+				"./Data/Shader/330/texture/gouraud/vshader.glsl",
+				"./Data/Shader/330/texture/gouraud/fshader.glsl");
 		GLShaderFunctions.CreateProgram(
 				"color",
 				"./Data/Shader/330/color/vshader.glsl",
