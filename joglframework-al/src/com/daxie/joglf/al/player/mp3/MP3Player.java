@@ -2,7 +2,7 @@ package com.daxie.joglf.al.player.mp3;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,15 +27,16 @@ public class MP3Player{
 	 * @return Sound handle
 	 */
 	public static int LoadSound(String sound_filename) {
-		BufferedInputStream stream=null;
-		AdvancedPlayer player=null;
-		
-		try {
-			stream=new BufferedInputStream(new FileInputStream(sound_filename));
-			player=new AdvancedPlayer(stream);
+		AdvancedPlayer player;
+		try(BufferedInputStream bis=new BufferedInputStream(new FileInputStream(sound_filename))){
+			player=new AdvancedPlayer(bis);
 		}
-		catch(FileNotFoundException e) {
-			LogFile.WriteWarn("[MP3Player-LoadSound] File not found. filename:"+sound_filename, true);
+		catch(IOException e) {
+			String str=ExceptionFunctions.GetPrintStackTraceString(e);
+			
+			LogFile.WriteWarn("[MP3Player-LoadSound] Below is the stack trace.", true);
+			LogFile.WriteWarn(str, false);
+			
 			return -1;
 		}
 		catch(JavaLayerException e) {
