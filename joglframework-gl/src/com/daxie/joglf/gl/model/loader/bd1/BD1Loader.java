@@ -1,6 +1,6 @@
 package com.daxie.joglf.gl.model.loader.bd1;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -15,6 +15,7 @@ import com.daxie.joglf.gl.shape.Triangle;
 import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.log.LogFile;
+import com.daxie.tool.ExceptionFunctions;
 import com.daxie.tool.FilenameFunctions;
 import com.jogamp.common.nio.Buffers;
 
@@ -31,8 +32,12 @@ public class BD1Loader {
 		try {
 			bd1_parser=new BD1Parser(bd1_filename);
 		}
-		catch(FileNotFoundException e) {
-			LogFile.WriteWarn("[BD1Loader-LoadBD1] File not found. filename:"+bd1_filename, true);
+		catch(IOException e) {
+			String str=ExceptionFunctions.GetPrintStackTraceString(e);
+			
+			LogFile.WriteWarn("[BD1Loader-LoadBD1] Below is the stack trace.", true);
+			LogFile.WriteWarn(str, false);
+			
 			return ret;
 		}
 		
@@ -120,8 +125,12 @@ public class BD1Loader {
 		try {
 			bd1_parser=new BD1Parser(bd1_filename);
 		}
-		catch(FileNotFoundException e) {
-			LogFile.WriteWarn("[BD1Loader-LoadBD1] File not found. filename:"+bd1_filename, true);
+		catch(IOException e) {
+			String str=ExceptionFunctions.GetPrintStackTraceString(e);
+			
+			LogFile.WriteWarn("[BD1Loader-LoadBD1] Below is the stack trace.", true);
+			LogFile.WriteWarn(str, false);
+			
 			return ret;
 		}
 		

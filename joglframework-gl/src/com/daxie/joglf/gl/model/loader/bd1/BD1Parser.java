@@ -1,6 +1,6 @@
 package com.daxie.joglf.gl.model.loader.bd1;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +19,7 @@ class BD1Parser {
 	private Map<Integer, String> texture_filenames_map;//(texture_id,texture_filename)
 	private List<BD1Block> blocks;
 	
-	public BD1Parser(String bd1_filename)  throws FileNotFoundException{
+	public BD1Parser(String bd1_filename)  throws IOException{
 		texture_filenames_map=new HashMap<>();
 		blocks=new ArrayList<>();
 		

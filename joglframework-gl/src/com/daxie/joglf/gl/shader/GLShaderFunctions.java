@@ -1,7 +1,6 @@
 package com.daxie.joglf.gl.shader;
 
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.HashMap;
@@ -51,16 +50,12 @@ public class GLShaderFunctions {
 			vertex_shader_code_list.toArray(vertex_shader_code);
 			fragment_shader_code_list.toArray(fragment_shader_code);
 		}
-		catch(FileNotFoundException e) {
+		catch(IOException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
 			
-			LogFile.WriteWarn("[GLShaderFunctions-CreateProgram] Failed to load a file. Below is the stack trace.",true);
+			LogFile.WriteWarn("[GLShaderFunctions-CreateProgram] Below is the stack trace.",true);
 			LogFile.WriteWarn(str,false);
 			
-			return -1;
-		}
-		catch(UnsupportedEncodingException e) {
-			LogFile.WriteWarn("[GLShaderFunctions-CreateProgram] Internal error. Unknown encoding specified.",true);
 			return -1;
 		}
 		
