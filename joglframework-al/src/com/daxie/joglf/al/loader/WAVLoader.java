@@ -1,5 +1,6 @@
 package com.daxie.joglf.al.loader;
 
+import java.io.File;
 import java.nio.ByteBuffer;
 
 import com.daxie.joglf.al.buffer.SoundBuffer;
@@ -22,6 +23,12 @@ public class WAVLoader {
 	 */
 	public static SoundBuffer LoadWAV(String wav_filename) {
 		SoundBuffer sound_buffer=new SoundBuffer();
+		
+		File file=new File(wav_filename);
+		if(file.exists()==false) {
+			LogFile.WriteWarn("[WAVLoader-LoadWAV] File does not exist. filename:"+wav_filename, true);
+			return sound_buffer;
+		}
 		
 		if(ALFront.GetNoUseAlutFlag()==true) {
 			LogFile.WriteWarn("[WAVLoader-LoadWAV] ALUT is disabled.", true);
