@@ -11,6 +11,8 @@ import com.daxie.tool.ExceptionFunctions;
 
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.advanced.AdvancedPlayer;
+import javazoom.jl.player.advanced.PlaybackEvent;
+import javazoom.jl.player.advanced.PlaybackListener;
 
 /**
  * MP3 player
@@ -19,7 +21,7 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
  */
 public class MP3Player{
 	private static int count=0;
-	private static Map<Integer, AdvancedPlayer> players_map=new HashMap<>();
+	private static Map<Integer, PlayerThread> player_threads_map=new HashMap<>();
 	
 	/**
 	 * Loads a MP3 file.
@@ -51,7 +53,8 @@ public class MP3Player{
 		int sound_handle=count;
 		count++;
 		
-		players_map.put(sound_handle, player);
+		PlayerThread player_thread=new PlayerThread(player);
+		player_threads_map.put(sound_handle, player_thread);
 		
 		return sound_handle;
 	}
@@ -62,56 +65,62 @@ public class MP3Player{
 	 * @return -1 on error and 0 on success
 	 */
 	public static int DeleteSound(int sound_handle) {
-		if(players_map.containsKey(sound_handle)==false) {
+		if(player_threads_map.containsKey(sound_handle)==false) {
 			LogFile.WriteWarn("[MP3Player-DeleteSound] No such sound. sound_handle:"+sound_handle, true);
 			return -1;
 		}
 		
-		AdvancedPlayer player=players_map.get(sound_handle);
-		player.close();
+		PlayerThread player_thread=player_threads_map.get(sound_handle);
+		player_thread.Close();
 		
-		players_map.remove(sound_handle);
+		player_threads_map.remove(sound_handle);
 		
 		return 0;
 	}
 	
 	public static int PlaySound(int sound_handle) {
-		if(players_map.containsKey(sound_handle)==false) {
+		if(player_threads_map.containsKey(sound_handle)==false) {
 			LogFile.WriteWarn("[MP3Player-PlaySound] No such sound. sound_handle:"+sound_handle, true);
 			return -1;
 		}
 		
-		AdvancedPlayer player=players_map.get(sound_handle);
-		
-		PlayerThread player_thread=new PlayerThread(player);
+		PlayerThread player_thread=player_threads_map.get(sound_handle);
 		player_thread.start();
 		
 		return 0;
 	}
-	
-	/*
 	public static int StopSound(int sound_handle) {
-		if(players_map.containsKey(sound_handle)==false) {
+		if(player_threads_map.containsKey(sound_handle)==false) {
 			LogFile.WriteWarn("[MP3Player-StopSound] No such sound. sound_handle:"+sound_handle, true);
 			return -1;
 		}
 		
-		AdvancedPlayer player=players_map.get(sound_handle);
-		player.stop();
+		PlayerThread player_thread=player_threads_map.get(sound_handle);
+		player_thread.Stop();
 		
 		return 0;
 	}
-	*/
 	
 	static class PlayerThread extends Thread{
 		private AdvancedPlayer player;
+		private int frame;
 		
 		public PlayerThread(AdvancedPlayer player) {
 			this.player=player;
+			frame=0;
+			
+			player.setPlayBackListener(new PlaybackListener() {
+				@Override
+				public void playbackFinished(PlaybackEvent event) {
+					frame=event.getFrame();
+				}
+			});
 		}
+		
+		@Override
 		public void run() {
 			try {
-				player.play();
+				player.play(frame,Integer.MAX_VALUE);
 			}
 			catch(JavaLayerException e) {
 				String str=ExceptionFunctions.GetPrintStackTraceString(e);
@@ -119,6 +128,13 @@ public class MP3Player{
 				LogFile.WriteWarn("[MP3Player-PlayerThread-run] Below is the stack trace.", true);
 				LogFile.WriteWarn(str, false);
 			}
+		}
+		
+		public void Stop() {
+			player.stop();
+		}
+		public void Close() {
+			player.close();
 		}
 	}
 }
