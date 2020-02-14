@@ -59,8 +59,7 @@ public class MP3Player{
 		return sound_handle;
 	}
 	/**
-	 * Deletes a sound.<br>
-	 * Use this method to stop a sound.
+	 * Deletes a sound.
 	 * @param sound_handle Sound handle
 	 * @return -1 on error and 0 on success
 	 */
