@@ -459,7 +459,7 @@ public class GLDrawFunctions2D {
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
 	
-	public static void TransferFullscreenQuad() {
+	public static void TransferQuad(float bottom_left_x,float bottom_left_y,float top_right_x,float top_right_y) {
 		IntBuffer indices=Buffers.newDirectIntBuffer(6);
 		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(8);
 		FloatBuffer uv_buffer=Buffers.newDirectFloatBuffer(8);
@@ -472,23 +472,23 @@ public class GLDrawFunctions2D {
 		indices.put(0);
 		
 		//Bottom left
-		pos_buffer.put(-1.0f);
-		pos_buffer.put(-1.0f);
+		pos_buffer.put(bottom_left_x);
+		pos_buffer.put(bottom_left_y);
 		uv_buffer.put(0.0f);
 		uv_buffer.put(0.0f);
 		//Bottom right
-		pos_buffer.put(1.0f);
-		pos_buffer.put(-1.0f);
+		pos_buffer.put(top_right_x);
+		pos_buffer.put(bottom_left_y);
 		uv_buffer.put(1.0f);
 		uv_buffer.put(0.0f);
 		//Top right
-		pos_buffer.put(1.0f);
-		pos_buffer.put(1.0f);
+		pos_buffer.put(top_right_x);
+		pos_buffer.put(top_right_y);
 		uv_buffer.put(1.0f);
 		uv_buffer.put(1.0f);
 		//Top left
-		pos_buffer.put(-1.0f);
-		pos_buffer.put(1.0f);
+		pos_buffer.put(bottom_left_x);
+		pos_buffer.put(top_right_y);
 		uv_buffer.put(0.0f);
 		uv_buffer.put(1.0f);
 		
@@ -538,5 +538,8 @@ public class GLDrawFunctions2D {
 		GLWrapper.glDeleteBuffers(1, pos_vbo);
 		GLWrapper.glDeleteBuffers(1, uv_vbo);
 		GLWrapper.glDeleteVertexArrays(1, vao);
+	}
+	public static void TransferFullscreenQuad() {
+		TransferQuad(-1.0f, -1.0f, 1.0f, 1.0f);
 	}
 }
