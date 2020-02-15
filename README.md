@@ -10,7 +10,7 @@ It also provides several wrapper functions for Java OpenAL (JOAL).
 
 Locate the *Data* folder at the current directory of your program.
 
-Direct link:https://github.com/Dabasan/JOGLFramework/releases/download/v8.0.0/Data.zip
+Direct link:https://github.com/Dabasan/JOGLFramework/releases/download/v9.0.0/Data.zip
 
 After setting up *Data*, you need to get required JARs.
 
@@ -26,7 +26,7 @@ Download all required JARs and add them to the classpath.
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework-gl</artifactId>
-    <version>8.1.2</version>
+    <version>9.0.0</version>
 </dependency>
 ```
 
@@ -36,7 +36,7 @@ Download all required JARs and add them to the classpath.
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework-al</artifactId>
-    <version>8.1.2</version>
+    <version>9.0.0</version>
 </dependency>
 ```
 
