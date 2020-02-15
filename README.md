@@ -38,13 +38,11 @@ After setting up *Data*, you need to get required JARs.
 
 ## Demo (Runnable JAR)
 
-#### ShowTeapot
-
-This demo shows a Utah teapot.
+### ShowTeapot
 
 Download:[Google Drive](https://drive.google.com/open?id=1H20f_pgWRLw1lILl9wQkQIhLtOPMSQHo)
 
-<img src="https://i.imgur.com/Pqgv1u3.png" alt="Utah teapot" style="zoom: 67%;" />
+<img src="https://i.imgur.com/Pqgv1u3.png" alt="Utah teapot"  />
 
 ## Example
 
@@ -106,7 +104,7 @@ public class Main {
 }
 ```
 
-<img src="https://i.imgur.com/CvHyAIm.png" alt="MyWindow" style="zoom: 67%;" />
+<img src="https://i.imgur.com/CvHyAIm.png" alt="MyWindow"  />
 
 ## Samples
 
