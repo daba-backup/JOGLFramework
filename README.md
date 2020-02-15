@@ -14,10 +14,6 @@ Direct link:https://github.com/Dabasan/JOGLFramework/releases/download/v9.0.0/Da
 
 After setting up *Data*, you need to get required JARs.
 
-### Java project
-
-Download all required JARs and add them to the classpath.
-
 ### Maven project
 
 #### GL module
@@ -39,6 +35,16 @@ Download all required JARs and add them to the classpath.
     <version>9.0.0</version>
 </dependency>
 ```
+
+## Demo (Runnable JAR)
+
+#### ShowTeapot
+
+This demo shows a Utah teapot.
+
+Download:[Google Drive](https://drive.google.com/open?id=1H20f_pgWRLw1lILl9wQkQIhLtOPMSQHo)
+
+<img src="https://i.imgur.com/Pqgv1u3.png" alt="Utah teapot" style="zoom: 80%;" />
 
 ## Example
 
@@ -100,7 +106,9 @@ public class Main {
 }
 ```
 
-## Sample
+<img src="https://i.imgur.com/CvHyAIm.png" alt="MyWindow" style="zoom:80%;" />
+
+## Samples
 
 Samples are available in [JOGLFramework2Samples](https://github.com/Dabasan/JOGLFramework2Samples).
 
