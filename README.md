@@ -44,7 +44,7 @@ This demo shows a Utah teapot.
 
 Download:[Google Drive](https://drive.google.com/open?id=1H20f_pgWRLw1lILl9wQkQIhLtOPMSQHo)
 
-<img src="https://i.imgur.com/Pqgv1u3.png" alt="Utah teapot" style="zoom: 80%;" />
+<img src="https://i.imgur.com/Pqgv1u3.png" alt="Utah teapot" style="zoom: 67%;" />
 
 ## Example
 
@@ -106,7 +106,7 @@ public class Main {
 }
 ```
 
-<img src="https://i.imgur.com/CvHyAIm.png" alt="MyWindow" style="zoom:80%;" />
+<img src="https://i.imgur.com/CvHyAIm.png" alt="MyWindow" style="zoom: 67%;" />
 
 ## Samples
 
