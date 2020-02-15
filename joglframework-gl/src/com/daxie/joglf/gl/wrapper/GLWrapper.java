@@ -6,7 +6,7 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import com.daxie.joglf.gl.front.GLFront;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 
 /**
  * Provides wrapper functions for several GL versions.
@@ -23,7 +23,7 @@ public class GLWrapper{
 	 */
 	public static void SetGLVersion(GLVersion version) {
 		if(GLFront.IsSetup()==true) {
-			LogFile.WriteWarn("[GLWrapper-SetGLVersion] This method is disabled after GL is setup.", true);
+			LogWriter.WriteWarn("[GLWrapper-SetGLVersion] This method is disabled after GL is setup.", true);
 			return;
 		}
 		

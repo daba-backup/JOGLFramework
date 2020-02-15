@@ -8,7 +8,7 @@ import com.daxie.joglf.gl.text.TextMgr;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLVersion;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.jogamp.opengl.GL4;
 import com.jogamp.opengl.GLProfile;
 
@@ -69,7 +69,7 @@ public class GLFront {
 				"./Data/Shader/330/line_drawer/vshader.glsl", 
 				"./Data/Shader/330/line_drawer/fshader.glsl");
 		
-		LogFile.WriteInfo("[GLFront-LoadDefaultShaders] Default shaders loaded.",true);
+		LogWriter.WriteInfo("[GLFront-LoadDefaultShaders] Default shaders loaded.",true);
 	}
 	private static void SetDefaultGLProperties() {
 		GLWrapper.glEnable(GL4.GL_DEPTH_TEST);
@@ -81,7 +81,7 @@ public class GLFront {
 		GLWrapper.glEnable(GL4.GL_BLEND);
 		GLWrapper.glBlendFunc(GL4.GL_SRC_ALPHA, GL4.GL_ONE_MINUS_SRC_ALPHA);
 		
-		LogFile.WriteInfo("[GLFront-SetDefaultGLProperties] Default properties set.",true);
+		LogWriter.WriteInfo("[GLFront-SetDefaultGLProperties] Default properties set.",true);
 	}
 	private static void AddProgramsToFronts() {
 		CameraFront.AddProgram("texture");

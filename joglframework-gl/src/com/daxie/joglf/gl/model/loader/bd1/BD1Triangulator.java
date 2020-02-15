@@ -9,7 +9,7 @@ import com.daxie.basis.coloru8.ColorU8Functions;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.shape.Vertex3D;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 
 /**
  * Triangulates faces of BD1 blocks.
@@ -25,7 +25,7 @@ class BD1Triangulator {
 
 	public void TriangulateBlock(BD1Block block) {
 		if(block==null) {
-			LogFile.WriteWarn("[BD1Triangulator-TriangulateBlock] Null argument passed.",true);
+			LogWriter.WriteWarn("[BD1Triangulator-TriangulateBlock] Null argument passed.",true);
 			return;
 		}
 		
@@ -95,7 +95,7 @@ class BD1Triangulator {
 	}
 	public void TriangulateBlocks(List<BD1Block> blocks) {
 		if(blocks==null) {
-			LogFile.WriteWarn("[BD1Triangulator-TriangulateBlocks] Null argument passed.",true);
+			LogWriter.WriteWarn("[BD1Triangulator-TriangulateBlocks] Null argument passed.",true);
 			return;
 		}
 		

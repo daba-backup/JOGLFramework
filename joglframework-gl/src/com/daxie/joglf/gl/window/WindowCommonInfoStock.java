@@ -1,6 +1,6 @@
 package com.daxie.joglf.gl.window;
 
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 
 /**
  * Common information for windows
@@ -20,8 +20,8 @@ public class WindowCommonInfoStock {
 	}
 	public static void SetFPS(int a_fps) {
 		if(fps_finalized_flag==true) {
-			LogFile.WriteWarn("[WindowCommonInfoStock-SetFPS] ", true);
-			LogFile.WriteWarn("This method is disabled after the FPS is finalized.", false);
+			LogWriter.WriteWarn("[WindowCommonInfoStock-SetFPS] ", true);
+			LogWriter.WriteWarn("This method is disabled after the FPS is finalized.", false);
 			return;
 		}
 		fps=a_fps;

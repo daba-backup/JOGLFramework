@@ -13,7 +13,7 @@ import com.daxie.joglf.gl.shape.Quadrangle;
 import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -151,7 +151,7 @@ public class DynamicQuadranglesDrawer extends Dynamic3DDrawer{
 	}
 	public int DeleteQuadrangle(int quadrangle_id) {
 		if(quadrangles_map.containsKey(quadrangle_id)==false) {
-			LogFile.WriteWarn("[DynamicQuadranglesDrawer-DeleteTriangle] No such quadrangle. quadrangle_id:"+quadrangle_id, true);
+			LogWriter.WriteWarn("[DynamicQuadranglesDrawer-DeleteTriangle] No such quadrangle. quadrangle_id:"+quadrangle_id, true);
 			return -1;
 		}
 		

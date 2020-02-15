@@ -9,7 +9,7 @@ import java.util.Map;
 
 import com.daxie.joglf.gl.tool.BufferFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.daxie.tool.ExceptionFunctions;
 import com.daxie.tool.FileFunctions;
 import com.jogamp.common.nio.Buffers;
@@ -31,9 +31,9 @@ public class GLShaderFunctions {
 	 * @return -1 on error and 0 on success
 	 */
 	public static int CreateProgram(String program_name,String vertex_shader_filename,String fragment_shader_filename) {
-		LogFile.WriteInfo("[GLShaderFunctions-CreateProgram] Start creating a program.",true);
-		LogFile.WriteInfo("vertex_shader_filename:"+vertex_shader_filename,false);
-		LogFile.WriteInfo("fragment_shader_filename:"+fragment_shader_filename,false);
+		LogWriter.WriteInfo("[GLShaderFunctions-CreateProgram] Start creating a program.",true);
+		LogWriter.WriteInfo("vertex_shader_filename:"+vertex_shader_filename,false);
+		LogWriter.WriteInfo("fragment_shader_filename:"+fragment_shader_filename,false);
 		
 		int vertex_shader_id=GLWrapper.glCreateShader(GL4.GL_VERTEX_SHADER);
 		int fragment_shader_id=GLWrapper.glCreateShader(GL4.GL_FRAGMENT_SHADER);
@@ -53,8 +53,8 @@ public class GLShaderFunctions {
 		catch(IOException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
 			
-			LogFile.WriteWarn("[GLShaderFunctions-CreateProgram] Below is the stack trace.",true);
-			LogFile.WriteWarn(str,false);
+			LogWriter.WriteWarn("[GLShaderFunctions-CreateProgram] Below is the stack trace.",true);
+			LogWriter.WriteWarn(str,false);
 			
 			return -1;
 		}
@@ -84,8 +84,8 @@ public class GLShaderFunctions {
 			GLWrapper.glGetShaderInfoLog(vertex_shader_id,info_log_length.get(0),null,error_message);
 			error_message_str=BufferFunctions.GetStringFromByteBuffer(error_message);
 			
-			LogFile.WriteWarn("[GLShaderFunctions-CreateProgram] Vertex shader compilation failed. Below is the information log.",true);
-			LogFile.WriteWarn(error_message_str,false);
+			LogWriter.WriteWarn("[GLShaderFunctions-CreateProgram] Vertex shader compilation failed. Below is the information log.",true);
+			LogWriter.WriteWarn(error_message_str,false);
 			
 			return -1;
 		}
@@ -102,8 +102,8 @@ public class GLShaderFunctions {
 			GLWrapper.glGetShaderInfoLog(fragment_shader_id,info_log_length.get(0),null,error_message);
 			error_message_str=BufferFunctions.GetStringFromByteBuffer(error_message);
 			
-			LogFile.WriteWarn("[GLShaderFunctions-CreateProgram] Fragment shader compilation failed. Below is the information log.",true);
-			LogFile.WriteWarn(error_message_str,false);
+			LogWriter.WriteWarn("[GLShaderFunctions-CreateProgram] Fragment shader compilation failed. Below is the information log.",true);
+			LogWriter.WriteWarn(error_message_str,false);
 			
 			return -1;
 		}
@@ -123,8 +123,8 @@ public class GLShaderFunctions {
 			GLWrapper.glGetProgramInfoLog(program_id, info_log_length.get(0), null, error_message);
 			error_message_str=BufferFunctions.GetStringFromByteBuffer(error_message);
 			
-			LogFile.WriteWarn("[GLShaderFunctions-CreateProgram] Program link failed. Below is the information log.",true);
-			LogFile.WriteWarn(error_message_str,false);
+			LogWriter.WriteWarn("[GLShaderFunctions-CreateProgram] Program link failed. Below is the information log.",true);
+			LogWriter.WriteWarn(error_message_str,false);
 			
 			return -1;
 		}
@@ -144,7 +144,7 @@ public class GLShaderFunctions {
 	
 	public static int UseProgram(String program_name) {
 		if(program_ids_map.containsKey(program_name)==false) {
-			LogFile.WriteWarn("[GLShaderFunctions-UseProgram] Invalid program name. name:"+program_name,true);
+			LogWriter.WriteWarn("[GLShaderFunctions-UseProgram] Invalid program name. name:"+program_name,true);
 			return -1;
 		}
 		

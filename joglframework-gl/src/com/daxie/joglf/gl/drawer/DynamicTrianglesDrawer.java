@@ -13,7 +13,7 @@ import com.daxie.joglf.gl.shape.Triangle;
 import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -129,7 +129,7 @@ public class DynamicTrianglesDrawer extends Dynamic3DDrawer{
 	}
 	public int DeleteTriangle(int triangle_id) {
 		if(triangles_map.containsKey(triangle_id)==false) {
-			LogFile.WriteWarn("[DynamicTrianglesDrawer-DeleteTriangle] No such triangle. triangle_id:"+triangle_id, true);
+			LogWriter.WriteWarn("[DynamicTrianglesDrawer-DeleteTriangle] No such triangle. triangle_id:"+triangle_id, true);
 			return -1;
 		}
 		

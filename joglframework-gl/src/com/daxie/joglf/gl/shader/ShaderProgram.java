@@ -7,7 +7,7 @@ import com.daxie.basis.matrix.Matrix;
 import com.daxie.basis.vector.Vector;
 import com.daxie.joglf.gl.tool.BufferFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 
 /**
  * Shader program
@@ -20,7 +20,7 @@ public class ShaderProgram {
 	public ShaderProgram(String program_name) {
 		program_id=GLShaderFunctions.GetProgramID(program_name);
 		if(program_id<0) {
-			LogFile.WriteWarn("[ShaderProgram-<init>] This program is invalid. program_name:"+program_name, true);
+			LogWriter.WriteWarn("[ShaderProgram-<init>] This program is invalid. program_name:"+program_name, true);
 		}
 	}
 	

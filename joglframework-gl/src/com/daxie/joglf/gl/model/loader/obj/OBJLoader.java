@@ -1,7 +1,7 @@
 package com.daxie.joglf.gl.model.loader.obj;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.FloatBuffer;
@@ -12,7 +12,7 @@ import java.util.Map;
 
 import com.daxie.joglf.gl.model.buffer.BufferedVertices;
 import com.daxie.joglf.gl.texture.TextureMgr;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.daxie.tool.ExceptionFunctions;
 import com.daxie.tool.FilenameFunctions;
 
@@ -39,8 +39,8 @@ public class OBJLoader {
 		try {
 			isr=new InputStreamReader(new FileInputStream(obj_filename));
 		}
-		catch(FileNotFoundException e) {
-			LogFile.WriteWarn("[OBJLoader-LoadOBJ] File not found. filename:"+obj_filename,true);
+		catch(IOException e) {
+			LogWriter.WriteWarn("[OBJLoader-LoadOBJ] File not found. filename:"+obj_filename,true);
 			return ret;
 		}
 		
@@ -51,8 +51,8 @@ public class OBJLoader {
 		catch(IOException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
 			
-			LogFile.WriteWarn("[OBJLoader-LoadOBJ] Below is the stack trace.",true);
-			LogFile.WriteWarn(str,false);
+			LogWriter.WriteWarn("[OBJLoader-LoadOBJ] Below is the stack trace.",true);
+			LogWriter.WriteWarn(str,false);
 			
 			return ret;
 		}
@@ -65,8 +65,8 @@ public class OBJLoader {
 			try {
 				isr=new InputStreamReader(new FileInputStream(mtl_filepath));
 			}
-			catch(FileNotFoundException e) {
-				LogFile.WriteWarn("[OBJLoader-LoadOBJ] MTL file not found. filename:"+mtl_filepath,true);
+			catch(IOException e) {
+				LogWriter.WriteWarn("[OBJLoader-LoadOBJ] MTL file not found. filename:"+mtl_filepath,true);
 				continue;
 			}
 			
@@ -77,8 +77,8 @@ public class OBJLoader {
 			catch(IOException e) {
 				String str=ExceptionFunctions.GetPrintStackTraceString(e);
 				
-				LogFile.WriteWarn("[OBJLoader-LoadOBJ] Below is the stack trace.",true);
-				LogFile.WriteWarn(str,false);
+				LogWriter.WriteWarn("[OBJLoader-LoadOBJ] Below is the stack trace.",true);
+				LogWriter.WriteWarn(str,false);
 				
 				return ret;
 			}
@@ -96,7 +96,7 @@ public class OBJLoader {
 			
 			Mtl mtl=FindMTLByName(all_mtls, material_name);
 			if(mtl==null) {
-				LogFile.WriteWarn("[OBJLoader-LoadOBJ] No such material. name:"+material_name,true);
+				LogWriter.WriteWarn("[OBJLoader-LoadOBJ] No such material. name:"+material_name,true);
 				continue;
 			}
 			

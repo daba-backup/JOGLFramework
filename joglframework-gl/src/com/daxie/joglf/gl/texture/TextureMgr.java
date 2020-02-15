@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.window.WindowCommonInfoStock;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.daxie.tool.ExceptionFunctions;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL;
@@ -44,13 +44,13 @@ public class TextureMgr {
 	public static void Initialize() {
 		default_texture_handle=LoadTexture("./Data/Texture/white.bmp");
 		
-		LogFile.WriteInfo("[TextureMgr-Initialize] TextureMgr initialized.", true);
+		LogWriter.WriteInfo("[TextureMgr-Initialize] TextureMgr initialized.", true);
 	}
 	
 	public static int LoadTexture(String texture_filename) {
 		File file=new File(texture_filename);
 		if(!(file.isFile()&&file.canRead())) {
-			LogFile.WriteWarn("[TextureMgr-LoadTexture] Failed to load a texture. filename:"+texture_filename, true);
+			LogWriter.WriteWarn("[TextureMgr-LoadTexture] Failed to load a texture. filename:"+texture_filename, true);
 			return -1;
 		}
 		
@@ -69,8 +69,8 @@ public class TextureMgr {
 		catch(IOException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
 			
-			LogFile.WriteWarn("[TextureMgr-LoadTexture] Below is the stack trace.",true);
-			LogFile.WriteWarn(str,false);
+			LogWriter.WriteWarn("[TextureMgr-LoadTexture] Below is the stack trace.",true);
+			LogWriter.WriteWarn(str,false);
 			
 			return -1;
 		}
@@ -97,7 +97,7 @@ public class TextureMgr {
 	}
 	public static int DeleteTexture(int texture_handle) {
 		if(textures_map.containsKey(texture_handle)==false) {
-			LogFile.WriteWarn("[TextureMgr-DeleteTexture] No such texture. texture_handle:"+texture_handle, true);
+			LogWriter.WriteWarn("[TextureMgr-DeleteTexture] No such texture. texture_handle:"+texture_handle, true);
 			return -1;
 		}
 		
@@ -125,7 +125,7 @@ public class TextureMgr {
 	
 	public static int EnableTexture(int texture_handle) {
 		if(textures_map.containsKey(texture_handle)==false) {
-			LogFile.WriteWarn("[TextureMgr-EnableTexture] No such texture. texture_handle:"+texture_handle, true);
+			LogWriter.WriteWarn("[TextureMgr-EnableTexture] No such texture. texture_handle:"+texture_handle, true);
 			return -1;
 		}
 		
@@ -138,7 +138,7 @@ public class TextureMgr {
 	}
 	public static int BindTexture(int texture_handle) {
 		if(textures_map.containsKey(texture_handle)==false) {
-			LogFile.WriteWarn("[TextureMgr-BindTexture] No such texture. texture_handle:"+texture_handle, true);
+			LogWriter.WriteWarn("[TextureMgr-BindTexture] No such texture. texture_handle:"+texture_handle, true);
 			return -1;
 		}
 		
@@ -151,7 +151,7 @@ public class TextureMgr {
 	}
 	public static int DisableTexture(int texture_handle) {
 		if(textures_map.containsKey(texture_handle)==false) {
-			LogFile.WriteWarn("[TextureMgr-DisableTexture] No such texture. texture_handle:"+texture_handle, true);
+			LogWriter.WriteWarn("[TextureMgr-DisableTexture] No such texture. texture_handle:"+texture_handle, true);
 			return -1;
 		}
 		
@@ -180,7 +180,7 @@ public class TextureMgr {
 			float top_right_u,float top_right_v,
 			float top_left_u,float top_left_v) {
 		if(textures_map.containsKey(texture_handle)==false) {
-			LogFile.WriteWarn("[TextureMgr-DrawTexture] No such texture. texture_handle:"+texture_handle, true);
+			LogWriter.WriteWarn("[TextureMgr-DrawTexture] No such texture. texture_handle:"+texture_handle, true);
 			return -1;
 		}
 		

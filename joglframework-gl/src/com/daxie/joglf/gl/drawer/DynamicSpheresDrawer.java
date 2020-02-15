@@ -15,7 +15,7 @@ import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shape.Sphere;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -231,7 +231,7 @@ public class DynamicSpheresDrawer extends Dynamic3DDrawer{
 	}
 	public int DeleteSphere(int sphere_id) {
 		if(spheres_map.containsKey(sphere_id)==false) {
-			LogFile.WriteWarn("[DynamicSpheresDrawer-DeleteSphere] No such sphere. sphere_id:"+sphere_id, true);
+			LogWriter.WriteWarn("[DynamicSpheresDrawer-DeleteSphere] No such sphere. sphere_id:"+sphere_id, true);
 			return -1;
 		}
 		

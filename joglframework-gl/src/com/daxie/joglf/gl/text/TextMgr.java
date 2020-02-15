@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.joglf.gl.window.WindowCommonInfoStock;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.daxie.tool.ExceptionFunctions;
 import com.jogamp.graph.curve.Region;
 import com.jogamp.graph.curve.opengl.RegionRenderer;
@@ -54,7 +54,7 @@ public class TextMgr {
 		
 		default_font_handle=CreateDefaultFont();
 		
-		LogFile.WriteInfo("[TextMgr-Initialize] TextMgr initialized.", true);
+		LogWriter.WriteInfo("[TextMgr-Initialize] TextMgr initialized.", true);
 	}
 	private static int CreateDefaultFont() {
 		Font font=null;
@@ -64,8 +64,8 @@ public class TextMgr {
 		catch(IOException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
 			
-			LogFile.WriteWarn("[TextureMgr-CreateDefaultFont] Below is the stack trace.", true);
-			LogFile.WriteWarn(str, false);
+			LogWriter.WriteWarn("[TextureMgr-CreateDefaultFont] Below is the stack trace.", true);
+			LogWriter.WriteWarn(str, false);
 			
 			return -1;
 		}
@@ -86,8 +86,8 @@ public class TextMgr {
 		catch(IOException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
 			
-			LogFile.WriteWarn("[TextureMgr-LoadFont] Below is the stack trace.", true);
-			LogFile.WriteWarn(str, false);
+			LogWriter.WriteWarn("[TextureMgr-LoadFont] Below is the stack trace.", true);
+			LogWriter.WriteWarn(str, false);
 			
 			return -1;
 		}
@@ -102,11 +102,11 @@ public class TextMgr {
 	
 	public static int DeleteFont(int font_handle) {
 		if(fonts_map.containsKey(font_handle)==false) {
-			LogFile.WriteWarn("[FontMgr-DeleteFont] No such font. font_handle:"+font_handle, true);
+			LogWriter.WriteWarn("[FontMgr-DeleteFont] No such font. font_handle:"+font_handle, true);
 			return -1;
 		}
 		if(font_handle==default_font_handle) {
-			LogFile.WriteWarn("[FontMgr-DeleteFont] Cannot delete the default font.", true);
+			LogWriter.WriteWarn("[FontMgr-DeleteFont] Cannot delete the default font.", true);
 			return -1;
 		}
 		
@@ -128,7 +128,7 @@ public class TextMgr {
 	}
 	public static int DrawTextWithFont(int x,int y,String text,int font_handle,ColorU8 color,int size,int weight) {
 		if(fonts_map.containsKey(font_handle)==false) {
-			LogFile.WriteWarn("[TextMgr-DrawTextWithFont] No such font. font_handle:"+font_handle,true);
+			LogWriter.WriteWarn("[TextMgr-DrawTextWithFont] No such font. font_handle:"+font_handle,true);
 			return -1;
 		}
 		

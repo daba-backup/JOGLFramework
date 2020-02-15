@@ -14,7 +14,7 @@ import com.daxie.joglf.gl.model.buffer.BufferedVertices;
 import com.daxie.joglf.gl.shape.Triangle;
 import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.texture.TextureMgr;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.daxie.tool.ExceptionFunctions;
 import com.daxie.tool.FilenameFunctions;
 import com.jogamp.common.nio.Buffers;
@@ -35,8 +35,8 @@ public class BD1Loader {
 		catch(IOException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
 			
-			LogFile.WriteWarn("[BD1Loader-LoadBD1] Below is the stack trace.", true);
-			LogFile.WriteWarn(str, false);
+			LogWriter.WriteWarn("[BD1Loader-LoadBD1] Below is the stack trace.", true);
+			LogWriter.WriteWarn(str, false);
 			
 			return ret;
 		}
@@ -128,8 +128,8 @@ public class BD1Loader {
 		catch(IOException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
 			
-			LogFile.WriteWarn("[BD1Loader-LoadBD1] Below is the stack trace.", true);
-			LogFile.WriteWarn(str, false);
+			LogWriter.WriteWarn("[BD1Loader-LoadBD1] Below is the stack trace.", true);
+			LogWriter.WriteWarn(str, false);
 			
 			return ret;
 		}

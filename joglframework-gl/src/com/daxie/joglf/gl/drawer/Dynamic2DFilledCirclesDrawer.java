@@ -14,7 +14,7 @@ import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shape.Circle2D;
 import com.daxie.joglf.gl.tool.CoordinateFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -172,7 +172,7 @@ public class Dynamic2DFilledCirclesDrawer extends Dynamic2DDrawer{
 	}
 	public int DeleteCircle(int circle_id) {
 		if(circles_map.containsKey(circle_id)==false) {
-			LogFile.WriteWarn("[Dynamic2DFilledCirclesDrawer-DeleteCircle] No such circle. circle_id:"+circle_id, true);
+			LogWriter.WriteWarn("[Dynamic2DFilledCirclesDrawer-DeleteCircle] No such circle. circle_id:"+circle_id, true);
 			return -1;
 		}
 		

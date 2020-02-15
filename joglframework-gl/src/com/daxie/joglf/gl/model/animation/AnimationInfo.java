@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import com.daxie.joglf.gl.window.WindowCommonInfoStock;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 
 /**
  * Animation information
@@ -31,7 +31,7 @@ public class AnimationInfo {
 	
 	public float GetMaxTime() {
 		if(frames_map.size()==0) {
-			LogFile.WriteWarn("[AnimationInfo-GetTotalTime] No frames registered.", true);
+			LogWriter.WriteWarn("[AnimationInfo-GetTotalTime] No frames registered.", true);
 			return 0.0f;
 		}
 		
@@ -51,7 +51,7 @@ public class AnimationInfo {
 		AnimationBlendInfo abi=new AnimationBlendInfo();
 		
 		if(frames_map.size()==0) {
-			LogFile.WriteWarn("[AnimationInfo-GetBlendInfo] No frames registered.", true);
+			LogWriter.WriteWarn("[AnimationInfo-GetBlendInfo] No frames registered.", true);
 			return abi;
 		}
 		

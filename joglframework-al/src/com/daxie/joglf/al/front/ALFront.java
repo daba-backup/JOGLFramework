@@ -2,7 +2,7 @@ package com.daxie.joglf.al.front;
 
 import com.daxie.joglf.al.sound.Sound3D;
 import com.daxie.joglf.al.wrapper.ALWrapper;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.jogamp.openal.AL;
 import com.jogamp.openal.util.ALut;
 
@@ -35,11 +35,11 @@ public class ALFront {
 		Sound3D.SetupListenerProperties();
 		ALWrapper.alDistanceModel(AL.AL_INVERSE_DISTANCE);
 		
-		LogFile.WriteInfo("[ALFront-Initialize] Initialized.", true);
+		LogWriter.WriteInfo("[ALFront-Initialize] Initialized.", true);
 	}
 	public static void Dispose() {
 		if(no_use_alut_flag==false)ALut.alutExit();
 		
-		LogFile.WriteInfo("[ALFront-Dispose] Disposed.", true);
+		LogWriter.WriteInfo("[ALFront-Dispose] Disposed.", true);
 	}
 }

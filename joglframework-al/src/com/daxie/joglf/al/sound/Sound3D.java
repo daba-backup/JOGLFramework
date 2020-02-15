@@ -8,7 +8,7 @@ import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.al.buffer.SoundBuffer;
 import com.daxie.joglf.al.loader.WAVLoader;
 import com.daxie.joglf.al.wrapper.ALWrapper;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.daxie.tool.FilenameFunctions;
 import com.jogamp.openal.AL;
 
@@ -69,7 +69,7 @@ public class Sound3D {
 			sounds_map.put(sound_handle, sound);
 		}
 		else {
-			LogFile.WriteWarn("[Sound3D-LoadSound] Unsupported sound format. extension:"+extension, true);
+			LogWriter.WriteWarn("[Sound3D-LoadSound] Unsupported sound format. extension:"+extension, true);
 			return -1;
 		}
 		
@@ -79,7 +79,7 @@ public class Sound3D {
 	}
 	public static int DeleteSound(int sound_handle) {
 		if(sounds_map.containsKey(sound_handle)==false) {
-			LogFile.WriteWarn("[Sound3D-DeleteSound] No such sound. sound_handle:"+sound_handle, true);
+			LogWriter.WriteWarn("[Sound3D-DeleteSound] No such sound. sound_handle:"+sound_handle, true);
 			return -1;
 		}
 		
@@ -101,7 +101,7 @@ public class Sound3D {
 	
 	public static int SetSoundSourcePosition(int sound_handle,Vector position) {
 		if(sounds_map.containsKey(sound_handle)==false) {
-			LogFile.WriteWarn("[Sound3D-SetSoundSourcePosition] No such sound. sound_handle:"+sound_handle, true);
+			LogWriter.WriteWarn("[Sound3D-SetSoundSourcePosition] No such sound. sound_handle:"+sound_handle, true);
 			return -1;
 		}
 		
@@ -112,7 +112,7 @@ public class Sound3D {
 	}
 	public static int SetSoundSourceVelocity(int sound_handle,Vector velocity) {
 		if(sounds_map.containsKey(sound_handle)==false) {
-			LogFile.WriteWarn("[Sound3D-SetSoundSourceVelocity] No such sound. sound_handle:"+sound_handle, true);
+			LogWriter.WriteWarn("[Sound3D-SetSoundSourceVelocity] No such sound. sound_handle:"+sound_handle, true);
 			return -1;
 		}
 		
@@ -123,7 +123,7 @@ public class Sound3D {
 	}
 	public static int SetSoundLoopFlag(int sound_handle,boolean loop_flag) {
 		if(sounds_map.containsKey(sound_handle)==false) {
-			LogFile.WriteWarn("[Sound3D-SetSoundLoopFlag] No such sound. sound_handle:"+sound_handle, true);
+			LogWriter.WriteWarn("[Sound3D-SetSoundLoopFlag] No such sound. sound_handle:"+sound_handle, true);
 			return -1;
 		}
 		
@@ -134,7 +134,7 @@ public class Sound3D {
 	}
 	public static int SetSoundReferenceDistance(int sound_handle,float reference_distance) {
 		if(sounds_map.containsKey(sound_handle)==false) {
-			LogFile.WriteWarn("[Sound3D-SetSoundReferenceDistance] No such sound. sound_handle:"+sound_handle, true);
+			LogWriter.WriteWarn("[Sound3D-SetSoundReferenceDistance] No such sound. sound_handle:"+sound_handle, true);
 			return -1;
 		}
 		
@@ -145,7 +145,7 @@ public class Sound3D {
 	}
 	public static int SetSoundMaxDistance(int sound_handle,float max_distance) {
 		if(sounds_map.containsKey(sound_handle)==false) {
-			LogFile.WriteWarn("[Sound3D-SetSoundMaxDistance] No such sound. sound_handle:"+sound_handle, true);
+			LogWriter.WriteWarn("[Sound3D-SetSoundMaxDistance] No such sound. sound_handle:"+sound_handle, true);
 			return -1;
 		}
 		
@@ -157,7 +157,7 @@ public class Sound3D {
 	
 	public static int PlaySound(int sound_handle) {
 		if(sounds_map.containsKey(sound_handle)==false) {
-			LogFile.WriteWarn("[Sound3D-PlaySound] No such sound. sound_handle:"+sound_handle, true);
+			LogWriter.WriteWarn("[Sound3D-PlaySound] No such sound. sound_handle:"+sound_handle, true);
 			return -1;
 		}
 		
@@ -168,7 +168,7 @@ public class Sound3D {
 	}
 	public static int StopSound(int sound_handle) {
 		if(sounds_map.containsKey(sound_handle)==false) {
-			LogFile.WriteWarn("[Sound3D-StopSound] No such sound. sound_handle:"+sound_handle, true);
+			LogWriter.WriteWarn("[Sound3D-StopSound] No such sound. sound_handle:"+sound_handle, true);
 			return -1;
 		}
 		
@@ -179,7 +179,7 @@ public class Sound3D {
 	}
 	public static int PauseSound(int sound_handle) {
 		if(sounds_map.containsKey(sound_handle)==false) {
-			LogFile.WriteWarn("[Sound3D-PauseSound] No such sound. sound_handle:"+sound_handle, true);
+			LogWriter.WriteWarn("[Sound3D-PauseSound] No such sound. sound_handle:"+sound_handle, true);
 			return -1;
 		}
 		
@@ -191,7 +191,7 @@ public class Sound3D {
 	
 	public static boolean IsSoundPlaying(int sound_handle) {
 		if(sounds_map.containsKey(sound_handle)==false) {
-			LogFile.WriteWarn("[Sound3D-IsSoundPlaying] No such sound. sound_handle:"+sound_handle, true);
+			LogWriter.WriteWarn("[Sound3D-IsSoundPlaying] No such sound. sound_handle:"+sound_handle, true);
 			return false;
 		}
 		

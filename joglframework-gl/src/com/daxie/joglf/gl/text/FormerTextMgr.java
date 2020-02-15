@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.daxie.basis.coloru8.ColorU8;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.jogamp.opengl.util.awt.TextRenderer;
 
 /**
@@ -34,7 +34,7 @@ public class FormerTextMgr {
 	
 	public static int DeleteFont(int font_handle) {
 		if(fonts_map.containsKey(font_handle)==false) {
-			LogFile.WriteWarn("[FormerTextMgr-DeleteFont] No such font. font_handle:"+font_handle, true);
+			LogWriter.WriteWarn("[FormerTextMgr-DeleteFont] No such font. font_handle:"+font_handle, true);
 			return -1;
 		}
 		
@@ -50,7 +50,7 @@ public class FormerTextMgr {
 	
 	public static int DrawTextWithFont(int x,int y,String text,int font_handle,ColorU8 color) {
 		if(fonts_map.containsKey(font_handle)==false) {
-			LogFile.WriteWarn("[FormerTextMgr-DrawTextWithFont] No such font. font_handle:"+font_handle, true);
+			LogWriter.WriteWarn("[FormerTextMgr-DrawTextWithFont] No such font. font_handle:"+font_handle, true);
 			return -1;
 		}
 		

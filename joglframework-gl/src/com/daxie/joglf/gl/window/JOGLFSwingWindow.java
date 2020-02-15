@@ -35,7 +35,7 @@ import com.daxie.joglf.gl.text.FormerTextMgr;
 import com.daxie.joglf.gl.text.TextMgr;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.jogamp.opengl.GL4;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLCapabilities;
@@ -106,7 +106,7 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		frame.add(canvas,BorderLayout.CENTER);
 		frame.pack();
 		
-		LogFile.WriteInfo("[JOGLFSwingWindow-<init>] Window created.", true);
+		LogWriter.WriteInfo("[JOGLFSwingWindow-<init>] Window created.", true);
 		
 		keyboard=new SwingKeyboard();
 		mouse=new SwingMouse();
@@ -149,7 +149,7 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 			@Override
 			public void windowClosing(WindowEvent e) {
 				animator.stop();
-				LogFile.CloseLogFile();
+				LogWriter.CloseLogWriter();
 				
 				destroyed_flag=true;
 				
@@ -258,7 +258,7 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		}
 		else {
 			if(device.isFullScreenSupported()==false) {
-				LogFile.WriteWarn("[JOGLFSwingWindow-SetWindowMode] Full screen mode is not supported on this system.", true);
+				LogWriter.WriteWarn("[JOGLFSwingWindow-SetWindowMode] Full screen mode is not supported on this system.", true);
 				return;
 			}
 			else {

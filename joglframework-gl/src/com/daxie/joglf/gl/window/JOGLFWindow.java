@@ -17,7 +17,7 @@ import com.daxie.joglf.gl.text.FormerTextMgr;
 import com.daxie.joglf.gl.text.TextMgr;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.jogamp.newt.event.KeyEvent;
 import com.jogamp.newt.event.KeyListener;
 import com.jogamp.newt.event.MouseEvent;
@@ -81,7 +81,7 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		animator.start();
 		WindowCommonInfoStock.FinalizeFPS();
 		
-		LogFile.WriteInfo("[JOGLFWindow-<init>] Window created.", true);
+		LogWriter.WriteInfo("[JOGLFWindow-<init>] Window created.", true);
 		
 		keyboard=new Keyboard();
 		mouse=new Mouse();
@@ -124,7 +124,7 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 			@Override
 			public void windowDestroyed(WindowEvent e) {
 				animator.stop();
-				LogFile.CloseLogFile();
+				LogWriter.CloseLogWriter();
 				
 				destroyed_flag=true;
 				

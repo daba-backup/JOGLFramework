@@ -3,7 +3,7 @@ package com.daxie.joglf.al.wrapper;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.jogamp.openal.AL;
 import com.jogamp.openal.ALFactory;
 import com.jogamp.openal.util.ALut;
@@ -20,7 +20,7 @@ public class ALWrapper {
 		
 		int code=al.alGetError();
 		if(code!=AL.AL_NO_ERROR) {
-			LogFile.WriteTrace("[ALWrapper-alDistanceModel] code:"+code, true);
+			LogWriter.WriteTrace("[ALWrapper-alDistanceModel] code:"+code, true);
 		}
 	}
 	public static void alGenBuffers(int arg0,int[] arg1,int arg2) {
@@ -29,7 +29,7 @@ public class ALWrapper {
 		
 		int code=al.alGetError();
 		if(code!=AL.AL_NO_ERROR) {
-			LogFile.WriteTrace("[ALWrapper-alGenBuffers] code:"+code, true);
+			LogWriter.WriteTrace("[ALWrapper-alGenBuffers] code:"+code, true);
 		}
 	}
 	public static void alutLoadWAVFile(String arg0,int[] arg1,ByteBuffer[] arg2,int[] arg3,int[] arg4,int[] arg5) {
@@ -41,7 +41,7 @@ public class ALWrapper {
 		
 		int code=al.alGetError();
 		if(code!=AL.AL_NO_ERROR) {
-			LogFile.WriteTrace("[ALWrapper-alBufferData] code:"+code, true);
+			LogWriter.WriteTrace("[ALWrapper-alBufferData] code:"+code, true);
 		}
 	}
 	public static void alGenSources(int arg0,int[] arg1,int arg2) {
@@ -50,7 +50,7 @@ public class ALWrapper {
 		
 		int code=al.alGetError();
 		if(code!=AL.AL_NO_ERROR) {
-			LogFile.WriteTrace("[ALWrapper-alGenSources] code:"+code, true);
+			LogWriter.WriteTrace("[ALWrapper-alGenSources] code:"+code, true);
 		}
 	}
 	public static void alSourcei(int arg0,int arg1,int arg2) {
@@ -59,7 +59,7 @@ public class ALWrapper {
 		
 		int code=al.alGetError();
 		if(code!=AL.AL_NO_ERROR) {
-			LogFile.WriteTrace("[ALWrapper-alSourcei] code:"+code, true);
+			LogWriter.WriteTrace("[ALWrapper-alSourcei] code:"+code, true);
 		}
 	}
 	public static void alSourcef(int arg0,int arg1,float arg2) {
@@ -68,7 +68,7 @@ public class ALWrapper {
 		
 		int code=al.alGetError();
 		if(code!=AL.AL_NO_ERROR) {
-			LogFile.WriteTrace("[ALWrapper-alSourcef] code:"+code, true);
+			LogWriter.WriteTrace("[ALWrapper-alSourcef] code:"+code, true);
 		}
 	}
 	public static void alSource3f(int arg0,int arg1,float arg2,float arg3,float arg4) {
@@ -77,7 +77,7 @@ public class ALWrapper {
 		
 		int code=al.alGetError();
 		if(code!=AL.AL_NO_ERROR) {
-			LogFile.WriteTrace("[ALWrapper-alSource3f] code:"+code, true);
+			LogWriter.WriteTrace("[ALWrapper-alSource3f] code:"+code, true);
 		}
 	}
 	public static void alGetSourceiv(int arg0,int arg1,int[] arg2,int arg3) {
@@ -86,7 +86,7 @@ public class ALWrapper {
 		
 		int code=al.alGetError();
 		if(code!=AL.AL_NO_ERROR) {
-			LogFile.WriteTrace("[ALWrapper-alGetSourceiv] code:"+code, true);
+			LogWriter.WriteTrace("[ALWrapper-alGetSourceiv] code:"+code, true);
 		}
 	}
 	public static void alListener3f(int arg0,float arg1,float arg2,float arg3) {
@@ -95,7 +95,7 @@ public class ALWrapper {
 		
 		int code=al.alGetError();
 		if(code!=AL.AL_NO_ERROR) {
-			LogFile.WriteTrace("[ALWrapper-alListener3f] code:"+code, true);
+			LogWriter.WriteTrace("[ALWrapper-alListener3f] code:"+code, true);
 		}
 	}
 	public static void alListenerfv(int arg0,float[] arg1,int arg2) {
@@ -104,7 +104,7 @@ public class ALWrapper {
 		
 		int code=al.alGetError();
 		if(code!=AL.AL_NO_ERROR) {
-			LogFile.WriteTrace("[ALWrapper-alListenerfv] code:"+code, true);
+			LogWriter.WriteTrace("[ALWrapper-alListenerfv] code:"+code, true);
 		}
 	}
 	public static void alSourcePlay(int arg0) {
@@ -113,7 +113,7 @@ public class ALWrapper {
 		
 		int code=al.alGetError();
 		if(code!=AL.AL_NO_ERROR) {
-			LogFile.WriteTrace("[ALWrapper-alSourcePlay] code:"+code, true);
+			LogWriter.WriteTrace("[ALWrapper-alSourcePlay] code:"+code, true);
 		}
 	}
 	public static void alSourceStop(int arg0) {
@@ -122,7 +122,7 @@ public class ALWrapper {
 		
 		int code=al.alGetError();
 		if(code!=AL.AL_NO_ERROR) {
-			LogFile.WriteTrace("[ALWrapper-alSourceStop] code:"+code, true);
+			LogWriter.WriteTrace("[ALWrapper-alSourceStop] code:"+code, true);
 		}
 	}
 	public static void alSourcePause(int arg0) {
@@ -131,7 +131,7 @@ public class ALWrapper {
 		
 		int code=al.alGetError();
 		if(code!=AL.AL_NO_ERROR) {
-			LogFile.WriteTrace("[ALWrapper-alSourcePause] code:"+code, true);
+			LogWriter.WriteTrace("[ALWrapper-alSourcePause] code:"+code, true);
 		}
 	}
 	public static void alDeleteBuffers(int arg0,int[] arg1,int arg2) {
@@ -140,7 +140,7 @@ public class ALWrapper {
 		
 		int code=al.alGetError();
 		if(code!=AL.AL_NO_ERROR) {
-			LogFile.WriteTrace("[ALWrapper-alDeleteBuffers] code:"+code, true);
+			LogWriter.WriteTrace("[ALWrapper-alDeleteBuffers] code:"+code, true);
 		}
 	}
 	public static void alDeleteSources(int arg0,int[] arg1,int arg2) {
@@ -149,7 +149,7 @@ public class ALWrapper {
 		
 		int code=al.alGetError();
 		if(code!=AL.AL_NO_ERROR) {
-			LogFile.WriteTrace("[ALWrapper-alDeleteSources] code:"+code, true);
+			LogWriter.WriteTrace("[ALWrapper-alDeleteSources] code:"+code, true);
 		}
 	}
 }

@@ -12,7 +12,7 @@ import com.daxie.basis.vector.Vector;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -102,7 +102,7 @@ public class DynamicPointsDrawer extends Dynamic3DDrawer{
 	}
 	public int DeletePoint(int point_id) {
 		if(points_map.containsKey(point_id)==false) {
-			LogFile.WriteWarn("[DynamicPointsDrawer-DeletePoint] No such point. point_id:"+point_id, true);
+			LogWriter.WriteWarn("[DynamicPointsDrawer-DeletePoint] No such point. point_id:"+point_id, true);
 			return -1;
 		}
 		

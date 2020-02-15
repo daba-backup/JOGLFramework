@@ -18,7 +18,7 @@ import com.daxie.joglf.gl.shape.Triangle;
 import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -668,7 +668,7 @@ public class GLDrawFunctions3D {
 	
 	public static void DrawTexturedTriangle3D(Triangle triangle,int texture_handle,boolean use_face_normal_flag) {
 		if(TextureMgr.TextureExists(texture_handle)==false) {
-			LogFile.WriteWarn("[GLDrawFunctions-DrawTexturedTriangle3D] No such texture. texture_handle:"+texture_handle,true);
+			LogWriter.WriteWarn("[GLDrawFunctions-DrawTexturedTriangle3D] No such texture. texture_handle:"+texture_handle,true);
 			return;
 		}
 		

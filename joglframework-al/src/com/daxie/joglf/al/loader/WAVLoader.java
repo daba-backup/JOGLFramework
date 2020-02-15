@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
 import com.daxie.joglf.al.buffer.SoundBuffer;
 import com.daxie.joglf.al.front.ALFront;
 import com.daxie.joglf.al.wrapper.ALWrapper;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 
 /**
  * WAV loader
@@ -26,12 +26,12 @@ public class WAVLoader {
 		
 		File file=new File(wav_filename);
 		if(file.exists()==false) {
-			LogFile.WriteWarn("[WAVLoader-LoadWAV] File does not exist. filename:"+wav_filename, true);
+			LogWriter.WriteWarn("[WAVLoader-LoadWAV] File does not exist. filename:"+wav_filename, true);
 			return sound_buffer;
 		}
 		
 		if(ALFront.GetNoUseAlutFlag()==true) {
-			LogFile.WriteWarn("[WAVLoader-LoadWAV] ALUT is disabled.", true);
+			LogWriter.WriteWarn("[WAVLoader-LoadWAV] ALUT is disabled.", true);
 			return sound_buffer;
 		}
 		

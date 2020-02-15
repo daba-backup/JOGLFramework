@@ -17,7 +17,7 @@ import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shape.Capsule;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -261,7 +261,7 @@ public class DynamicCapsulesDrawer extends Dynamic3DDrawer{
 	}
 	public int DeleteCapsule(int capsule_id) {
 		if(capsules_map.containsKey(capsule_id)==false) {
-			LogFile.WriteWarn("[DynamicCapsulesDrawer-DeleteCapsule] No such capsule. capsule_id:"+capsule_id, true);
+			LogWriter.WriteWarn("[DynamicCapsulesDrawer-DeleteCapsule] No such capsule. capsule_id:"+capsule_id, true);
 			return -1;
 		}
 		

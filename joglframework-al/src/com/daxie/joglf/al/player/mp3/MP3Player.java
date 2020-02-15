@@ -2,11 +2,11 @@ package com.daxie.joglf.al.player.mp3;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.daxie.tool.ExceptionFunctions;
 
 import javazoom.jl.decoder.JavaLayerException;
@@ -34,15 +34,15 @@ public class MP3Player{
 			stream=new BufferedInputStream(new FileInputStream(sound_filename));
 			player=new AdvancedPlayer(stream);
 		}
-		catch(FileNotFoundException e) {
-			LogFile.WriteWarn("[MP3Player-LoadSound] File not found. filename:"+sound_filename, true);
+		catch(IOException e) {
+			LogWriter.WriteWarn("[MP3Player-LoadSound] File not found. filename:"+sound_filename, true);
 			return -1;
 		}
 		catch(JavaLayerException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
 			
-			LogFile.WriteWarn("[MP3Player-LoadSound] Below is the stack trace.", true);
-			LogFile.WriteWarn(str, false);
+			LogWriter.WriteWarn("[MP3Player-LoadSound] Below is the stack trace.", true);
+			LogWriter.WriteWarn(str, false);
 			
 			return -1;
 		}
@@ -62,7 +62,7 @@ public class MP3Player{
 	 */
 	public static int DeleteSound(int sound_handle) {
 		if(players_map.containsKey(sound_handle)==false) {
-			LogFile.WriteWarn("[MP3Player-DeleteSound] No such sound. sound_handle:"+sound_handle, true);
+			LogWriter.WriteWarn("[MP3Player-DeleteSound] No such sound. sound_handle:"+sound_handle, true);
 			return -1;
 		}
 		
@@ -76,7 +76,7 @@ public class MP3Player{
 	
 	public static int PlaySound(int sound_handle) {
 		if(players_map.containsKey(sound_handle)==false) {
-			LogFile.WriteWarn("[MP3Player-PlaySound] No such sound. sound_handle:"+sound_handle, true);
+			LogWriter.WriteWarn("[MP3Player-PlaySound] No such sound. sound_handle:"+sound_handle, true);
 			return -1;
 		}
 		
@@ -91,7 +91,7 @@ public class MP3Player{
 	/*
 	public static int StopSound(int sound_handle) {
 		if(players_map.containsKey(sound_handle)==false) {
-			LogFile.WriteWarn("[MP3Player-StopSound] No such sound. sound_handle:"+sound_handle, true);
+			LogWriter.WriteWarn("[MP3Player-StopSound] No such sound. sound_handle:"+sound_handle, true);
 			return -1;
 		}
 		
@@ -115,8 +115,8 @@ public class MP3Player{
 			catch(JavaLayerException e) {
 				String str=ExceptionFunctions.GetPrintStackTraceString(e);
 				
-				LogFile.WriteWarn("[MP3Player-PlayerThread-run] Below is the stack trace.", true);
-				LogFile.WriteWarn(str, false);
+				LogWriter.WriteWarn("[MP3Player-PlayerThread-run] Below is the stack trace.", true);
+				LogWriter.WriteWarn(str, false);
 			}
 		}
 	}

@@ -14,7 +14,7 @@ import com.daxie.joglf.gl.shape.Triangle;
 import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -346,7 +346,7 @@ public class ModelMgr {
 	
 	public void ChangeTexture(int material_index,int new_texture_handle) {
 		if(!(0<=material_index&&material_index<buffered_vertices_list.size())) {
-			LogFile.WriteWarn("[ModelMgr-ChangeTexture] Index out of bounds.", true);
+			LogWriter.WriteWarn("[ModelMgr-ChangeTexture] Index out of bounds.", true);
 			return;
 		}
 		

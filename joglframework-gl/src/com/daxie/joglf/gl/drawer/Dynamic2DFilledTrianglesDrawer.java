@@ -13,7 +13,7 @@ import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shape.Vertex2D;
 import com.daxie.joglf.gl.tool.CoordinateFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -119,8 +119,8 @@ public class Dynamic2DFilledTrianglesDrawer extends Dynamic2DDrawer{
 	}
 	public int DeleteTriangle(int triangle_id) {
 		if(triangles_map.containsKey(triangle_id)==false) {
-			LogFile.WriteWarn("[Dynamic2DFilledTrianglesDrawer-DeleteTriangle] ", true);
-			LogFile.WriteWarn("No such triangle. triangle_id:"+triangle_id, false);
+			LogWriter.WriteWarn("[Dynamic2DFilledTrianglesDrawer-DeleteTriangle] ", true);
+			LogWriter.WriteWarn("No such triangle. triangle_id:"+triangle_id, false);
 			
 			return -1;
 		}

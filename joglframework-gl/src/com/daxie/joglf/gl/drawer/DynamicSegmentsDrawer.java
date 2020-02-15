@@ -12,7 +12,7 @@ import com.daxie.basis.vector.Vector;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogFile;
+import com.daxie.log.LogWriter;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -108,7 +108,7 @@ public class DynamicSegmentsDrawer extends Dynamic3DDrawer{
 	}
 	public int DeleteSegment(int segment_id) {
 		if(segments_map.containsKey(segment_id)==false) {
-			LogFile.WriteWarn("[DynamicSegmentsDrawer-DeleteSegment] No such segment. segment_id:"+segment_id, true);
+			LogWriter.WriteWarn("[DynamicSegmentsDrawer-DeleteSegment] No such segment. segment_id:"+segment_id, true);
 			return -1;
 		}
 		
