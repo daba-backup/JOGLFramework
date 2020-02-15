@@ -2,7 +2,6 @@ package com.daxie.joglf.gl.model.loader.obj;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
