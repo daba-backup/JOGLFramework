@@ -31,7 +31,6 @@ import com.daxie.joglf.gl.input.keyboard.KeyboardEnum;
 import com.daxie.joglf.gl.input.keyboard.SwingKeyboard;
 import com.daxie.joglf.gl.input.mouse.MouseEnum;
 import com.daxie.joglf.gl.input.mouse.SwingMouse;
-import com.daxie.joglf.gl.text.FormerTextMgr;
 import com.daxie.joglf.gl.text.TextMgr;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
@@ -362,7 +361,6 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		
 		TextureMgr.SetWindowSize(width, height);
 		TextMgr.SetWindowSize(width, height);
-		FormerTextMgr.SetWindowSize(width, height);
 		GLDrawFunctions2D.SetWindowSize(width, height);
 		
 		LightingFront.Update();

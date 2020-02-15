@@ -13,7 +13,6 @@ import com.daxie.joglf.gl.input.keyboard.Keyboard;
 import com.daxie.joglf.gl.input.keyboard.KeyboardEnum;
 import com.daxie.joglf.gl.input.mouse.Mouse;
 import com.daxie.joglf.gl.input.mouse.MouseEnum;
-import com.daxie.joglf.gl.text.FormerTextMgr;
 import com.daxie.joglf.gl.text.TextMgr;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
@@ -306,7 +305,6 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		
 		TextureMgr.SetWindowSize(width, height);
 		TextMgr.SetWindowSize(width, height);
-		FormerTextMgr.SetWindowSize(width, height);
 		GLDrawFunctions2D.SetWindowSize(width, height);
 		
 		LightingFront.Update();
