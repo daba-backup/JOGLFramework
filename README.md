@@ -1,8 +1,6 @@
 # JOGLFramework
 
-JOGLFramework (abbr. JOGLF) aims to simplify OpenGL-relating code by wrapping functions provided by Java OpenGL (JOGL).
-
-It also provides several wrapper functions for Java OpenAL (JOAL).
+JOGLFramework (abbr. JOGLF) aims to simplify OpenGL-relating code in Java.
 
 # Overview
 
@@ -12,7 +10,7 @@ Locate the *Data* folder at the current directory of your program.
 
 Direct link:https://github.com/Dabasan/JOGLFramework/releases/download/v9.0.0/Data.zip
 
-After setting up *Data*, you need to get required JARs.
+After setting up *Data*, get the required JARs.
 
 ### Maven project
 
