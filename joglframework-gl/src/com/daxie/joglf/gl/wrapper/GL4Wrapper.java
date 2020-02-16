@@ -134,6 +134,24 @@ class GL4Wrapper {
 			LogWriter.WriteTrace("[GL4Wrapper-glClearColor] code:"+code,true);
 		}
 	}
+	public static void glClearDepth(double arg0) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glClearDepth(arg0);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL4Wrapper-glClearDepth] code:"+code,true);
+		}
+	}
+	public static void glClearDepthf(float arg0) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glClearDepthf(arg0);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL4Wrapper-glClearDepthf] code:"+code,true);
+		}
+	}
 	public static void glColorMask(boolean arg0,boolean arg1,boolean arg2,boolean arg3) {
 		GL4 gl4=GLContext.getCurrentGL().getGL4();
 		gl4.glColorMask(arg0,arg1,arg2,arg3);
