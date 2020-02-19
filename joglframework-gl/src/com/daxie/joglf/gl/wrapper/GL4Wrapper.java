@@ -152,15 +152,6 @@ class GL4Wrapper {
 			LogWriter.WriteTrace("[GL4Wrapper-glClearDepthf] code:"+code,true);
 		}
 	}
-	public static void glColorMask(boolean arg0,boolean arg1,boolean arg2,boolean arg3) {
-		GL4 gl4=GLContext.getCurrentGL().getGL4();
-		gl4.glColorMask(arg0,arg1,arg2,arg3);
-		
-		int code=gl4.glGetError();
-		if(code!=GL4.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL4Wrapper-glColorMask] code:"+code,true);
-		}
-	}
 	public static void glClearStencil(int arg0) {
 		GL4 gl4=GLContext.getCurrentGL().getGL4();
 		gl4.glClearStencil(arg0);
@@ -168,6 +159,15 @@ class GL4Wrapper {
 		int code=gl4.glGetError();
 		if(code!=GL4.GL_NO_ERROR) {
 			LogWriter.WriteTrace("[GL4Wrapper-glClearStencil] code:"+code,true);
+		}
+	}
+	public static void glColorMask(boolean arg0,boolean arg1,boolean arg2,boolean arg3) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glColorMask(arg0,arg1,arg2,arg3);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL4Wrapper-glColorMask] code:"+code,true);
 		}
 	}
 	public static void glCompileShader(int arg0) {
@@ -345,15 +345,6 @@ class GL4Wrapper {
 			LogWriter.WriteTrace("[GL4Wrapper-glFlush] code:"+code,true);
 		}
 	}
-	public static void glFramebufferTexture(int arg0,int arg1,int arg2,int arg3) {
-		GL4 gl4=GLContext.getCurrentGL().getGL4();
-		gl4.glFramebufferTexture(arg0, arg1, arg2, arg3);
-		
-		int code=gl4.glGetError();
-		if(code!=GL4.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL4Wrapper-glFramebufferTexture] code:"+code,true);
-		}
-	}
 	public static void glFramebufferRenderbuffer(int arg0,int arg1,int arg2,int arg3) {
 		GL4 gl4=GLContext.getCurrentGL().getGL4();
 		gl4.glFramebufferRenderbuffer(arg0,arg1,arg2,arg3);
@@ -361,6 +352,15 @@ class GL4Wrapper {
 		int code=gl4.glGetError();
 		if(code!=GL4.GL_NO_ERROR) {
 			LogWriter.WriteTrace("[GL4Wrapper-glFramebufferRenderbuffer] code:"+code,true);
+		}
+	}
+	public static void glFramebufferTexture(int arg0,int arg1,int arg2,int arg3) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glFramebufferTexture(arg0, arg1, arg2, arg3);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL4Wrapper-glFramebufferTexture] code:"+code,true);
 		}
 	}
 	public static void glFramebufferTexture2D(int arg0,int arg1,int arg2,int arg3,int arg4) {
@@ -619,6 +619,15 @@ class GL4Wrapper {
 			LogWriter.WriteTrace("[GL4Wrapper-glUniform1f] code:"+code,true);
 		}
 	}
+	public static void glUniform1fv(int arg0,int arg1,FloatBuffer arg2) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glUniform1fv(arg0, arg1, arg2);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL4Wrapper-glUniform1fv] code:"+code,true);
+		}
+	}
 	public static void glUniform1i(int arg0,int arg1) {
 		GL4 gl4=GLContext.getCurrentGL().getGL4();
 		gl4.glUniform1i(arg0, arg1);
@@ -626,6 +635,60 @@ class GL4Wrapper {
 		int code=gl4.glGetError();
 		if(code!=GL4.GL_NO_ERROR) {
 			LogWriter.WriteTrace("[GL4Wrapper-glUniform1i] code:"+code,true);
+		}
+	}
+	public static void glUniform1iv(int arg0,int arg1,IntBuffer arg2) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glUniform1iv(arg0, arg1, arg2);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL4Wrapper-glUniform1iv] code:"+code,true);
+		}
+	}
+	public static void glUniform2f(int arg0,float arg1,float arg2) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glUniform2f(arg0, arg1, arg2);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL4Wrapper-glUniform2f] code:"+code,true);
+		}
+	}
+	public static void glUniform2fv(int arg0,int arg1,FloatBuffer arg2) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glUniform2fv(arg0, arg1, arg2);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL4Wrapper-glUniform2fv] code:"+code,true);
+		}
+	}
+	public static void glUniform2i(int arg0,int arg1,int arg2) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glUniform2i(arg0, arg1, arg2);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL4Wrapper-glUniform2i] code:"+code,true);
+		}
+	}
+	public static void glUniform2iv(int arg0,int arg1,IntBuffer arg2) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glUniform2iv(arg0, arg1, arg2);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL4Wrapper-glUniform2iv] code:"+code,true);
+		}
+	}
+	public static void glUniform3f(int arg0,float arg1,float arg2,float arg3) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glUniform3f(arg0, arg1, arg2, arg3);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL4Wrapper-glUniform3f] code:"+code,true);
 		}
 	}
 	public static void glUniform3fv(int arg0,int arg1,FloatBuffer arg2) {
@@ -637,6 +700,33 @@ class GL4Wrapper {
 			LogWriter.WriteTrace("[GL4Wrapper-glUniform3fv] code:"+code,true);
 		}
 	}
+	public static void glUniform3i(int arg0,int arg1,int arg2,int arg3) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glUniform3i(arg0, arg1, arg2, arg3);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL4Wrapper-glUniform3i] code:"+code,true);
+		}
+	}
+	public static void glUniform3iv(int arg0,int arg1,IntBuffer arg2) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glUniform3iv(arg0, arg1, arg2);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL4Wrapper-glUniform3iv] code:"+code,true);
+		}
+	}
+	public static void glUniform4f(int arg0,float arg1,float arg2,float arg3,float arg4) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glUniform4f(arg0, arg1, arg2, arg3, arg4);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL4Wrapper-glUniform4f] code:"+code,true);
+		}
+	}
 	public static void glUniform4fv(int arg0,int arg1,FloatBuffer arg2) {
 		GL4 gl4=GLContext.getCurrentGL().getGL4();
 		gl4.glUniform4fv(arg0, arg1, arg2);
@@ -644,6 +734,42 @@ class GL4Wrapper {
 		int code=gl4.glGetError();
 		if(code!=GL4.GL_NO_ERROR) {
 			LogWriter.WriteTrace("[GL4Wrapper-glUniform4fv] code:"+code,true);
+		}
+	}
+	public static void glUniform4i(int arg0,int arg1,int arg2,int arg3,int arg4) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glUniform4i(arg0, arg1, arg2, arg3, arg4);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL4Wrapper-glUniform4i] code:"+code,true);
+		}
+	}
+	public static void glUniform4iv(int arg0,int arg1,IntBuffer arg2) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glUniform4iv(arg0, arg1, arg2);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL4Wrapper-glUniform4iv] code:"+code,true);
+		}
+	}
+	public static void glUniformMatrix2fv(int arg0,int arg1,boolean arg2,FloatBuffer arg3) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glUniformMatrix2fv(arg0, arg1, arg2, arg3);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL4Wrapper-glUniformMatrix2fv] code:"+code,true);
+		}
+	}
+	public static void glUniformMatrix3fv(int arg0,int arg1,boolean arg2,FloatBuffer arg3) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glUniformMatrix3fv(arg0, arg1, arg2, arg3);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL4Wrapper-glUniformMatrix3fv] code:"+code,true);
 		}
 	}
 	public static void glUniformMatrix4fv(int arg0,int arg1,boolean arg2,FloatBuffer arg3) {

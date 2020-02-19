@@ -16,20 +16,6 @@ import com.daxie.log.LogWriter;
 public class GLWrapper{
 	private static GLVersion gl_version=GLVersion.GL4bc;
 	
-	/**
-	 * Sets the GL version.<br>
-	 * This method is disabled after the framework is setup.
-	 * @param version Version
-	 */
-	public static void SetGLVersion(GLVersion version) {
-		if(GLFront.IsSetup()==true) {
-			LogWriter.WriteWarn("[GLWrapper-SetGLVersion] This method is disabled after GL is setup.", true);
-			return;
-		}
-		
-		gl_version=version;
-	}
-	
 	public static GLVersion GetGLVersion() {
 		return gl_version;
 	}
@@ -43,6 +29,7 @@ public class GLWrapper{
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glAttachShader(arg0, arg1);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glAttachShader(arg0, arg1);
 	}
+	
 	public static void glBindBuffer(int arg0,int arg1) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glBindBuffer(arg0, arg1);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glBindBuffer(arg0, arg1);
@@ -319,17 +306,73 @@ public class GLWrapper{
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUniform1f(arg0, arg1);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glUniform1f(arg0, arg1);
 	}
+	public static void glUniform1fv(int arg0,int arg1,FloatBuffer arg2) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUniform1fv(arg0, arg1, arg2);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glUniform1fv(arg0, arg1, arg2);
+	}
 	public static void glUniform1i(int arg0,int arg1) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUniform1i(arg0, arg1);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glUniform1i(arg0, arg1);
+	}
+	public static void glUniform1iv(int arg0,int arg1,IntBuffer arg2) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUniform1iv(arg0, arg1, arg2);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glUniform1iv(arg0, arg1, arg2);
+	}
+	public static void glUniform2f(int arg0,float arg1,float arg2) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUniform2f(arg0, arg1, arg2);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glUniform2f(arg0, arg1, arg2);
+	}
+	public static void glUniform2fv(int arg0,int arg1,FloatBuffer arg2) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUniform2fv(arg0, arg1, arg2);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glUniform2fv(arg0, arg1, arg2);
+	}
+	public static void glUniform2i(int arg0,int arg1,int arg2) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUniform2i(arg0, arg1, arg2);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glUniform2i(arg0, arg1, arg2);
+	}
+	public static void glUniform2iv(int arg0,int arg1,IntBuffer arg2) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUniform2iv(arg0, arg1, arg2);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glUniform2iv(arg0, arg1, arg2);
+	}
+	public static void glUniform3f(int arg0,float arg1,float arg2,float arg3) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUniform3f(arg0, arg1, arg2, arg3);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glUniform3f(arg0, arg1, arg2, arg3);
 	}
 	public static void glUniform3fv(int arg0,int arg1,FloatBuffer arg2) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUniform3fv(arg0, arg1, arg2);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glUniform3fv(arg0, arg1, arg2);
 	}
+	public static void glUniform3i(int arg0,int arg1,int arg2,int arg3) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUniform3i(arg0, arg1, arg2, arg3);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glUniform3i(arg0, arg1, arg2, arg3);
+	}
+	public static void glUniform3iv(int arg0,int arg1,IntBuffer arg2) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUniform3iv(arg0, arg1, arg2);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glUniform3iv(arg0, arg1, arg2);
+	}
+	public static void glUniform4f(int arg0,float arg1,float arg2,float arg3,float arg4) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUniform4f(arg0, arg1, arg2, arg3, arg4);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glUniform4f(arg0, arg1, arg2, arg3, arg4);
+	}
 	public static void glUniform4fv(int arg0,int arg1,FloatBuffer arg2) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUniform4fv(arg0, arg1, arg2);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glUniform4fv(arg0, arg1, arg2);
+	}
+	public static void glUniform4i(int arg0,int arg1,int arg2,int arg3,int arg4) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUniform4i(arg0, arg1, arg2, arg3, arg4);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glUniform4i(arg0, arg1, arg2, arg3, arg4);
+	}
+	public static void glUniform4iv(int arg0,int arg1,IntBuffer arg2) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUniform4iv(arg0, arg1, arg2);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glUniform4iv(arg0, arg1, arg2);
+	}
+	public static void glUniformMatrix2fv(int arg0,int arg1,boolean arg2,FloatBuffer arg3) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUniformMatrix2fv(arg0, arg1, arg2, arg3);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glUniformMatrix2fv(arg0, arg1, arg2, arg3);
+	}
+	public static void glUniformMatrix3fv(int arg0,int arg1,boolean arg2,FloatBuffer arg3) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUniformMatrix3fv(arg0, arg1, arg2, arg3);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glUniformMatrix3fv(arg0, arg1, arg2, arg3);
 	}
 	public static void glUniformMatrix4fv(int arg0,int arg1,boolean arg2,FloatBuffer arg3) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glUniformMatrix4fv(arg0, arg1, arg2, arg3);
@@ -354,5 +397,18 @@ public class GLWrapper{
 	public static void glViewport(int arg0,int arg1,int arg2,int arg3) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glViewport(arg0, arg1, arg2, arg3);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glViewport(arg0, arg1, arg2, arg3);
+	}
+	/**
+	 * Sets the GL version.<br>
+	 * This method is disabled after the framework is setup.
+	 * @param version Version
+	 */
+	public static void SetGLVersion(GLVersion version) {
+		if(GLFront.IsSetup()==true) {
+			LogWriter.WriteWarn("[GLWrapper-SetGLVersion] This method is disabled after GL is setup.", true);
+			return;
+		}
+		
+		gl_version=version;
 	}
 }
