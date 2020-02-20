@@ -1,13 +1,11 @@
 package com.daxie.joglf.gl.fog;
 
-import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.basis.coloru8.ColorU8Functions;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
-import com.daxie.joglf.gl.tool.BufferFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 
 /**
@@ -49,8 +47,6 @@ public class Fog {
 	}
 	
 	public void Update() {
-		FloatBuffer fog_color_buf=BufferFunctions.MakeFloatBufferFromColorU8(fog_color);
-		
 		for(String program_name:program_names) {
 			GLShaderFunctions.UseProgram(program_name);
 			int program_id=GLShaderFunctions.GetProgramID(program_name);
@@ -61,8 +57,7 @@ public class Fog {
 			
 			GLWrapper.glUniform1f(fog_start_location, fog_start);
 			GLWrapper.glUniform1f(fog_end_location, fog_end);
-			
-			GLWrapper.glUniform4fv(fog_color_location, 1, fog_color_buf);
+			GLWrapper.glUniform4f(fog_color_location, fog_color.GetR(), fog_color.GetG(), fog_color.GetB(), fog_color.GetA());
 		}
 	}
 }
