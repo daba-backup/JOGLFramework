@@ -1,6 +1,5 @@
 package com.daxie.joglf.gl.lighting;
 
-import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +8,6 @@ import com.daxie.basis.coloru8.ColorU8Functions;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
-import com.daxie.joglf.gl.tool.BufferFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 
 /**
@@ -65,9 +63,6 @@ public class Lighting {
 	}
 	
 	public void Update() {
-		FloatBuffer light_direction_buf=BufferFunctions.MakeFloatBufferFromVector(light_direction);
-		FloatBuffer ambient_color_buf=BufferFunctions.MakeFloatBufferFromColorU8(ambient_color);
-		
 		for(String program_name:program_names) {
 			GLShaderFunctions.UseProgram(program_name);
 			int program_id=GLShaderFunctions.GetProgramID(program_name);
@@ -77,8 +72,9 @@ public class Lighting {
 			int diffuse_power_location=GLWrapper.glGetUniformLocation(program_id, "diffuse_power");
 			int specular_power_location=GLWrapper.glGetUniformLocation(program_id, "specular_power");
 			
-			GLWrapper.glUniform3fv(light_direction_location, 1, light_direction_buf);
-			GLWrapper.glUniform4fv(ambient_color_location, 1, ambient_color_buf);
+			GLWrapper.glUniform3f(light_direction_location, light_direction.GetX(), light_direction.GetY(), light_direction.GetZ());
+			GLWrapper.glUniform4f(ambient_color_location, 
+					ambient_color.GetR(), ambient_color.GetG(), ambient_color.GetB(), ambient_color.GetA());
 			GLWrapper.glUniform1f(diffuse_power_location, diffuse_power);
 			GLWrapper.glUniform1f(specular_power_location, specular_power);
 		}
