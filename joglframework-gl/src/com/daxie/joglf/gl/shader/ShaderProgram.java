@@ -46,6 +46,30 @@ public class ShaderProgram {
 		
 		return 0;
 	}
+	public int SetUniform(String name,int value0,int value1) {
+		int location=GLWrapper.glGetUniformLocation(program_id, name);
+		if(location<0)return -1;
+		
+		GLWrapper.glUniform2i(location, value0, value1);
+		
+		return 0;
+	}
+	public int SetUniform(String name,int value0,int value1,int value2) {
+		int location=GLWrapper.glGetUniformLocation(program_id, name);
+		if(location<0)return -1;
+		
+		GLWrapper.glUniform3i(location, value0, value1, value2);
+		
+		return 0;
+	}
+	public int SetUniform(String name,int value0,int value1,int value2,int value3) {
+		int location=GLWrapper.glGetUniformLocation(program_id, name);
+		if(location<0)return -1;
+		
+		GLWrapper.glUniform4i(location, value0, value1, value2, value3);
+		
+		return 0;
+	}
 	public int SetUniform(String name,float value) {
 		int location=GLWrapper.glGetUniformLocation(program_id, name);
 		if(location<0)return -1;
@@ -54,12 +78,35 @@ public class ShaderProgram {
 		
 		return 0;
 	}
+	public int SetUniform(String name,float value0,float value1) {
+		int location=GLWrapper.glGetUniformLocation(program_id, name);
+		if(location<0)return -1;
+		
+		GLWrapper.glUniform2f(location, value0, value1);
+		
+		return 0;
+	}
+	public int SetUniform(String name,float value0,float value1, float value2) {
+		int location=GLWrapper.glGetUniformLocation(program_id, name);
+		if(location<0)return -1;
+		
+		GLWrapper.glUniform3f(location, value0, value1, value2);
+		
+		return 0;
+	}
+	public int SetUniform(String name,float value0,float value1, float value2,float value3) {
+		int location=GLWrapper.glGetUniformLocation(program_id, name);
+		if(location<0)return -1;
+		
+		GLWrapper.glUniform4f(location, value0, value1, value2, value3);
+		
+		return 0;
+	}
 	public int SetUniform(String name,Vector value) {
 		int location=GLWrapper.glGetUniformLocation(program_id, name);
 		if(location<0)return -1;
 		
-		FloatBuffer buffer=BufferFunctions.MakeFloatBufferFromVector(value);
-		GLWrapper.glUniform3fv(location, 1, buffer);
+		GLWrapper.glUniform3f(location, value.GetX(), value.GetY(), value.GetZ());
 		
 		return 0;
 	}
@@ -67,8 +114,7 @@ public class ShaderProgram {
 		int location=GLWrapper.glGetUniformLocation(program_id, name);
 		if(location<0)return -1;
 		
-		FloatBuffer buffer=BufferFunctions.MakeFloatBufferFromColorU8(value);
-		GLWrapper.glUniform4fv(location, 1, buffer);
+		GLWrapper.glUniform4f(location, value.GetR(), value.GetG(), value.GetB(), value.GetA());
 		
 		return 0;
 	}
