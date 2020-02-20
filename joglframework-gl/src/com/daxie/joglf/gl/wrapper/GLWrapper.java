@@ -16,6 +16,20 @@ import com.daxie.log.LogWriter;
 public class GLWrapper{
 	private static GLVersion gl_version=GLVersion.GL4bc;
 	
+	/**
+	 * Sets the GL version.<br>
+	 * This method is disabled after the framework is setup.
+	 * @param version Version
+	 */
+	public static void SetGLVersion(GLVersion version) {
+		if(GLFront.IsSetup()==true) {
+			LogWriter.WriteWarn("[GLWrapper-SetGLVersion] This method is disabled after GL is setup.", true);
+			return;
+		}
+		
+		gl_version=version;
+	}
+	
 	public static GLVersion GetGLVersion() {
 		return gl_version;
 	}
@@ -397,18 +411,5 @@ public class GLWrapper{
 	public static void glViewport(int arg0,int arg1,int arg2,int arg3) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glViewport(arg0, arg1, arg2, arg3);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glViewport(arg0, arg1, arg2, arg3);
-	}
-	/**
-	 * Sets the GL version.<br>
-	 * This method is disabled after the framework is setup.
-	 * @param version Version
-	 */
-	public static void SetGLVersion(GLVersion version) {
-		if(GLFront.IsSetup()==true) {
-			LogWriter.WriteWarn("[GLWrapper-SetGLVersion] This method is disabled after GL is setup.", true);
-			return;
-		}
-		
-		gl_version=version;
 	}
 }

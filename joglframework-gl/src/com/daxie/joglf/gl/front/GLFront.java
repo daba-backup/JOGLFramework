@@ -18,7 +18,7 @@ import com.jogamp.opengl.GLProfile;
  *
  */
 public class GLFront {
-	private static String profile_str="";
+	private static String profile_str=GLProfile.GL4;
 	private static Lock lock=new ReentrantLock();
 	
 	private static boolean setup_flag=false;

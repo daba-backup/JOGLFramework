@@ -22,7 +22,6 @@ import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.basis.coloru8.ColorU8Functions;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.draw.GLDrawFunctions2D;
-import com.daxie.joglf.gl.exception.GLNotSetupException;
 import com.daxie.joglf.gl.front.CameraFront;
 import com.daxie.joglf.gl.front.FogFront;
 import com.daxie.joglf.gl.front.GLFront;
@@ -63,10 +62,6 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 	private boolean destroyed_flag;
 	
 	public JOGLFSwingWindow() {
-		if(GLFront.IsSetup()==false) {
-			throw new GLNotSetupException();
-		}
-		
 		String profile_str=GLFront.GetProfileStr();
 		GLCapabilities capabilities=new GLCapabilities(GLProfile.get(profile_str));
 		

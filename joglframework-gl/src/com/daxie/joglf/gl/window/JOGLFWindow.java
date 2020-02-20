@@ -4,7 +4,6 @@ import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.basis.coloru8.ColorU8Functions;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.draw.GLDrawFunctions2D;
-import com.daxie.joglf.gl.exception.GLNotSetupException;
 import com.daxie.joglf.gl.front.CameraFront;
 import com.daxie.joglf.gl.front.FogFront;
 import com.daxie.joglf.gl.front.GLFront;
@@ -49,10 +48,6 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 	private boolean destroyed_flag;
 	
 	public JOGLFWindow() {
-		if(GLFront.IsSetup()==false) {
-			throw new GLNotSetupException();
-		}
-		
 		String profile_str=GLFront.GetProfileStr();
 		GLCapabilities capabilities=new GLCapabilities(GLProfile.get(profile_str));
 		
