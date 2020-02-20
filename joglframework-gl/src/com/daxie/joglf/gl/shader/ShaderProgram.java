@@ -86,7 +86,7 @@ public class ShaderProgram {
 		
 		return 0;
 	}
-	public int SetUniform(String name,float value0,float value1, float value2) {
+	public int SetUniform(String name,float value0,float value1,float value2) {
 		int location=GLWrapper.glGetUniformLocation(program_id, name);
 		if(location<0)return -1;
 		
@@ -94,7 +94,7 @@ public class ShaderProgram {
 		
 		return 0;
 	}
-	public int SetUniform(String name,float value0,float value1, float value2,float value3) {
+	public int SetUniform(String name,float value0,float value1,float value2,float value3) {
 		int location=GLWrapper.glGetUniformLocation(program_id, name);
 		if(location<0)return -1;
 		
