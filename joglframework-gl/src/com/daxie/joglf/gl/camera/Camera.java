@@ -139,8 +139,6 @@ public class Camera {
 			view_transformation_matrix=TransformationMatrixFunctions.GetViewTransformationMatrix(position, target, up);
 		}
 		
-		FloatBuffer camera_position=BufferFunctions.MakeFloatBufferFromVector(position);
-		FloatBuffer camera_target=BufferFunctions.MakeFloatBufferFromVector(target);
 		FloatBuffer projection=BufferFunctions.MakeFloatBufferFromMatrix(projection_matrix);
 		FloatBuffer view_transformation=BufferFunctions.MakeFloatBufferFromMatrix(view_transformation_matrix);
 		
@@ -155,8 +153,8 @@ public class Camera {
 			int camera_near_location=GLWrapper.glGetUniformLocation(program_id, "camera_near");
 			int camera_far_location=GLWrapper.glGetUniformLocation(program_id, "camera_far");
 			
-			GLWrapper.glUniform3fv(camera_position_location, 1, camera_position);
-			GLWrapper.glUniform3fv(camera_target_location, 1, camera_target);
+			GLWrapper.glUniform3f(camera_position_location, position.GetX(), position.GetY(), position.GetZ());
+			GLWrapper.glUniform3f(camera_target_location, target.GetX(), target.GetY(), target.GetZ());
 			GLWrapper.glUniformMatrix4fv(projection_location, 1, true, projection);
 			GLWrapper.glUniformMatrix4fv(view_transformation_location,1,true,view_transformation);
 			GLWrapper.glUniform1f(camera_near_location, near);
