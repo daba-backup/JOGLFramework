@@ -140,9 +140,21 @@ public class GLWrapper{
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glDeleteBuffers(arg0, arg1);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glDeleteBuffers(arg0, arg1);
 	}
+	public static void glDeleteFramebuffers(int arg0,IntBuffer arg1) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glDeleteFramebuffers(arg0, arg1);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glDeleteFramebuffers(arg0, arg1);
+	}
+	public static void glDeleteRenderbuffers(int arg0,IntBuffer arg1) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glDeleteRenderbuffers(arg0, arg1);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glDeleteRenderbuffers(arg0, arg1);
+	}
 	public static void glDeleteShader(int arg0) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glDeleteShader(arg0);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glDeleteShader(arg0);
+	}
+	public static void glDeleteTextures(int arg0,IntBuffer arg1) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glDeleteTextures(arg0, arg1);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glDeleteTextures(arg0, arg1);
 	}
 	public static void glDeleteVertexArrays(int arg0,IntBuffer arg1) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glDeleteVertexArrays(arg0, arg1);

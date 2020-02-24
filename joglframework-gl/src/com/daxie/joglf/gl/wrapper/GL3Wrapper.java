@@ -228,6 +228,24 @@ class GL3Wrapper {
 			LogWriter.WriteTrace("[GL3Wrapper-glDeleteBuffers] code:"+code,true);
 		}
 	}
+	public static void glDeleteFramebuffers(int arg0,IntBuffer arg1) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glDeleteFramebuffers(arg0, arg1);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL3Wrapper-glDeleteFramebuffers] code:"+code,true);
+		}
+	}
+	public static void glDeleteRenderbuffers(int arg0,IntBuffer arg1) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glDeleteRenderbuffers(arg0, arg1);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL3Wrapper-glDeleteRenderbuffers] code:"+code,true);
+		}
+	}
 	public static void glDeleteShader(int arg0) {
 		GL3 gl3=GLContext.getCurrentGL().getGL3();
 		gl3.glDeleteShader(arg0);
@@ -235,6 +253,15 @@ class GL3Wrapper {
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
 			LogWriter.WriteTrace("[GL3Wrapper-glDeleteShader] code:"+code,true);
+		}
+	}
+	public static void glDeleteTextures(int arg0,IntBuffer arg1) {
+		GL3 gl3=GLContext.getCurrentGL().getGL3();
+		gl3.glDeleteTextures(arg0, arg1);
+		
+		int code=gl3.glGetError();
+		if(code!=GL3.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL3Wrapper-glDeleteTextures] code:"+code,true);
 		}
 	}
 	public static void glDeleteVertexArrays(int arg0,IntBuffer arg1) {
