@@ -37,7 +37,7 @@ public class FullscreenQuadTransferer {
 		//Second triangle
 		indices_buffer.put(2);
 		indices_buffer.put(3);
-		indices_buffer.put(4);
+		indices_buffer.put(0);
 		((Buffer)indices_buffer).flip();
 		
 		//Bottom left
