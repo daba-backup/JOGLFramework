@@ -43,7 +43,7 @@ public class ShaderProgram {
 	public int SetUniform(String name,int value) {
 		int location=GLWrapper.glGetUniformLocation(program_id, name);
 		if(location<0) {
-			String str=program_name+" "+"Invalid uniform name. name:"+name;
+			String str="("+program_name+") "+"Invalid uniform name. name:"+name;
 			LogWriter.WriteTrace("[ShaderProgram-SetUniform] "+str, true);
 			
 			return -1;
@@ -56,7 +56,7 @@ public class ShaderProgram {
 	public int SetUniform(String name,int value0,int value1) {
 		int location=GLWrapper.glGetUniformLocation(program_id, name);
 		if(location<0) {
-			String str=program_name+" "+"Invalid uniform name. name:"+name;
+			String str="("+program_name+") "+"Invalid uniform name. name:"+name;
 			LogWriter.WriteTrace("[ShaderProgram-SetUniform] "+str, true);
 			
 			return -1;
@@ -69,7 +69,7 @@ public class ShaderProgram {
 	public int SetUniform(String name,int value0,int value1,int value2) {
 		int location=GLWrapper.glGetUniformLocation(program_id, name);
 		if(location<0) {
-			String str=program_name+" "+"Invalid uniform name. name:"+name;
+			String str="("+program_name+") "+"Invalid uniform name. name:"+name;
 			LogWriter.WriteTrace("[ShaderProgram-SetUniform] "+str, true);
 			
 			return -1;
@@ -82,7 +82,7 @@ public class ShaderProgram {
 	public int SetUniform(String name,int value0,int value1,int value2,int value3) {
 		int location=GLWrapper.glGetUniformLocation(program_id, name);
 		if(location<0) {
-			String str=program_name+" "+"Invalid uniform name. name:"+name;
+			String str="("+program_name+") "+"Invalid uniform name. name:"+name;
 			LogWriter.WriteTrace("[ShaderProgram-SetUniform] "+str, true);
 			
 			return -1;
@@ -95,7 +95,7 @@ public class ShaderProgram {
 	public int SetUniform(String name,float value) {
 		int location=GLWrapper.glGetUniformLocation(program_id, name);
 		if(location<0) {
-			String str=program_name+" "+"Invalid uniform name. name:"+name;
+			String str="("+program_name+") "+"Invalid uniform name. name:"+name;
 			LogWriter.WriteTrace("[ShaderProgram-SetUniform] "+str, true);
 			
 			return -1;
@@ -108,7 +108,7 @@ public class ShaderProgram {
 	public int SetUniform(String name,float value0,float value1) {
 		int location=GLWrapper.glGetUniformLocation(program_id, name);
 		if(location<0) {
-			String str=program_name+" "+"Invalid uniform name. name:"+name;
+			String str="("+program_name+") "+"Invalid uniform name. name:"+name;
 			LogWriter.WriteTrace("[ShaderProgram-SetUniform] "+str, true);
 			
 			return -1;
@@ -121,7 +121,7 @@ public class ShaderProgram {
 	public int SetUniform(String name,float value0,float value1,float value2) {
 		int location=GLWrapper.glGetUniformLocation(program_id, name);
 		if(location<0) {
-			String str=program_name+" "+"Invalid uniform name. name:"+name;
+			String str="("+program_name+") "+"Invalid uniform name. name:"+name;
 			LogWriter.WriteTrace("[ShaderProgram-SetUniform] "+str, true);
 			
 			return -1;
@@ -134,7 +134,7 @@ public class ShaderProgram {
 	public int SetUniform(String name,float value0,float value1,float value2,float value3) {
 		int location=GLWrapper.glGetUniformLocation(program_id, name);
 		if(location<0) {
-			String str=program_name+" "+"Invalid uniform name. name:"+name;
+			String str="("+program_name+") "+"Invalid uniform name. name:"+name;
 			LogWriter.WriteTrace("[ShaderProgram-SetUniform] "+str, true);
 			
 			return -1;
@@ -147,7 +147,7 @@ public class ShaderProgram {
 	public int SetUniform(String name,Vector value) {
 		int location=GLWrapper.glGetUniformLocation(program_id, name);
 		if(location<0) {
-			String str=program_name+" "+"Invalid uniform name. name:"+name;
+			String str="("+program_name+") "+"Invalid uniform name. name:"+name;
 			LogWriter.WriteTrace("[ShaderProgram-SetUniform] "+str, true);
 			
 			return -1;
@@ -160,7 +160,7 @@ public class ShaderProgram {
 	public int SetUniform(String name,ColorU8 value) {
 		int location=GLWrapper.glGetUniformLocation(program_id, name);
 		if(location<0) {
-			String str=program_name+" "+"Invalid uniform name. name:"+name;
+			String str="("+program_name+") "+"Invalid uniform name. name:"+name;
 			LogWriter.WriteTrace("[ShaderProgram-SetUniform] "+str, true);
 			
 			return -1;
@@ -173,7 +173,7 @@ public class ShaderProgram {
 	public int SetUniform(String name,boolean transpose,Matrix value) {
 		int location=GLWrapper.glGetUniformLocation(program_id, name);
 		if(location<0) {
-			String str=program_name+" "+"Invalid uniform name. name:"+name;
+			String str="("+program_name+") "+"Invalid uniform name. name:"+name;
 			LogWriter.WriteTrace("[ShaderProgram-SetUniform] "+str, true);
 			
 			return -1;
