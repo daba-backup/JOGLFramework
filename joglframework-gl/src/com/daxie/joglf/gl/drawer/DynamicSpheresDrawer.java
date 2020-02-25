@@ -44,7 +44,7 @@ public class DynamicSpheresDrawer extends Dynamic3DDrawer{
 	
 	@Override
 	public void SetDefaultProgram() {
-		this.RemoveAllShaders();
+		this.RemoveAllPrograms();
 		this.AddProgram("color");
 	}
 	

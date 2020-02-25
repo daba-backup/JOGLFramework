@@ -28,7 +28,7 @@ public abstract class DynamicDrawer {
 		program_names.remove(program_name);
 	}
 	public abstract void SetDefaultProgram();
-	public void RemoveAllShaders() {
+	public void RemoveAllPrograms() {
 		program_names.clear();
 	}
 	
