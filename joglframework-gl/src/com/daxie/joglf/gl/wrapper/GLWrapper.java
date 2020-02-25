@@ -244,6 +244,10 @@ public class GLWrapper{
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glGenVertexArrays(arg0, arg1);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glGenVertexArrays(arg0, arg1);
 	}
+	public static void glGetIntegerv(int arg0,IntBuffer arg1) {
+		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glGetIntegerv(arg0, arg1);
+		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glGetIntegerv(arg0, arg1);
+	}
 	public static void glGetProgramInfoLog(int arg0,int arg1,IntBuffer arg2,ByteBuffer arg3) {
 		if(gl_version==GLVersion.GL3bc||gl_version==GLVersion.GL3)GL3Wrapper.glGetProgramInfoLog(arg0, arg1, arg2, arg3);
 		else if(gl_version==GLVersion.GL4bc||gl_version==GLVersion.GL4)GL4Wrapper.glGetProgramInfoLog(arg0, arg1, arg2, arg3);

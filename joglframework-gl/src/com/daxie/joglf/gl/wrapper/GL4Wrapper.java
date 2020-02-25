@@ -462,6 +462,15 @@ class GL4Wrapper {
 			LogWriter.WriteTrace("[GL4Wrapper-glGenVertexArrays] code:"+code,true);
 		}
 	}
+	public static void glGetIntegerv(int arg0,IntBuffer arg1) {
+		GL4 gl4=GLContext.getCurrentGL().getGL4();
+		gl4.glGetIntegerv(arg0, arg1);
+		
+		int code=gl4.glGetError();
+		if(code!=GL4.GL_NO_ERROR) {
+			LogWriter.WriteTrace("[GL4Wrapper-glGetIntegerv] code:"+code,true);
+		}
+	}
 	public static void glGetProgramInfoLog(int arg0,int arg1,IntBuffer arg2,ByteBuffer arg3) {
 		GL4 gl4=GLContext.getCurrentGL().getGL4();
 		gl4.glGetProgramInfoLog(arg0, arg1, arg2, arg3);
