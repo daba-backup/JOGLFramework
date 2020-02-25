@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>com.github.dabasan</groupId>
 		<artifactId>joglframework</artifactId>
-		<version>10.0.0-SNAPSHOT</version>
+		<version>10.0.0</version>
 	</parent>
 
 	<artifactId>joglframework-gl</artifactId>
