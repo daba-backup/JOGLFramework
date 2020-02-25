@@ -28,7 +28,7 @@ public class FullscreenQuadTransferer {
 		GLWrapper.glGenVertexArrays(1, vao);
 		
 		IntBuffer indices_buffer=Buffers.newDirectIntBuffer(6);
-		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(4*2);
+		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(2*4);
 		
 		//First triangle
 		indices_buffer.put(0);
@@ -64,7 +64,7 @@ public class FullscreenQuadTransferer {
 		
 		GLWrapper.glBindBuffer(GL4.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(0));
 		GLWrapper.glBufferData(GL4.GL_ELEMENT_ARRAY_BUFFER, 
-				Buffers.SIZEOF_INT*indices_buffer.capacity(), indices_buffer, GL4.GL_DYNAMIC_DRAW);
+				Buffers.SIZEOF_INT*indices_buffer.capacity(), indices_buffer, GL4.GL_STATIC_DRAW);
 		
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(0);
