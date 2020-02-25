@@ -1,4 +1,4 @@
-package com.daxie.joglf.gl.transferer;
+package com.daxie.joglf.gl.transferrer;
 
 import java.nio.Buffer;
 import java.nio.FloatBuffer;
@@ -13,12 +13,12 @@ import com.jogamp.opengl.GL4;
  * @author Daba
  *
  */
-public class FullscreenQuadTransferer {
+public class FullscreenQuadTransferrer implements FullscreenQuadTransferrerInterface{
 	private IntBuffer indices_vbo;
 	private IntBuffer pos_vbo;
 	private IntBuffer vao;
 	
-	public FullscreenQuadTransferer() {
+	public FullscreenQuadTransferrer() {
 		indices_vbo=Buffers.newDirectIntBuffer(1);
 		pos_vbo=Buffers.newDirectIntBuffer(1);
 		vao=Buffers.newDirectIntBuffer(1);
@@ -74,12 +74,14 @@ public class FullscreenQuadTransferer {
 		GLWrapper.glBindVertexArray(0);
 	}
 	
+	@Override
 	public void DeleteBuffers() {
 		GLWrapper.glDeleteBuffers(1, indices_vbo);
 		GLWrapper.glDeleteBuffers(1, pos_vbo);
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
 	
+	@Override
 	public void Transfer() {
 		GLWrapper.glBindVertexArray(vao.get(0));
 		GLWrapper.glDrawElements(GL4.GL_TRIANGLES, 6, GL4.GL_UNSIGNED_INT, 0);
