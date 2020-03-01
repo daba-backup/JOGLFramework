@@ -124,7 +124,7 @@ public class Screen {
 	}
 	
 	public int TakeScreenshot(String filename) {
-		ByteBuffer data=Buffers.newDirectByteBuffer(screen_width*screen_height);
+		ByteBuffer data=Buffers.newDirectByteBuffer(screen_width*screen_height*4);
 		
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_id);
 		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_UNSIGNED_BYTE, data);
