@@ -56,6 +56,10 @@ public class Screen {
 		GLWrapper.glBindRenderbuffer(GL4.GL_RENDERBUFFER, 0);
 	}
 	private void SetupTexture() {
+		IntBuffer texture_ids=Buffers.newDirectIntBuffer(1);
+		GLWrapper.glGenTextures(1, texture_ids);
+		texture_id=texture_ids.get(0);
+		
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_id);
 		GLWrapper.glTexImage2D(
 				GL4.GL_TEXTURE_2D, 0,GL4.GL_RGBA, 
@@ -124,6 +128,8 @@ public class Screen {
 	}
 	
 	public int TakeScreenshot(String filename) {
+		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
+		
 		ByteBuffer data=Buffers.newDirectByteBuffer(screen_width*screen_height*4);
 		
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_id);
