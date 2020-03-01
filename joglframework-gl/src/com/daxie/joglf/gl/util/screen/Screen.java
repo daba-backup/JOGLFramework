@@ -112,8 +112,6 @@ public class Screen {
 	}
 	
 	public void Draw() {
-		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
-		
 		program.Enable();
 		
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0);
@@ -127,9 +125,14 @@ public class Screen {
 		this.Draw();
 	}
 	
+	public void BindScreenTexture() {
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_id);
+	}
+	public void UnbindScreenTexture() {
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
+	}
+	
 	public int TakeScreenshot(String filename) {
-		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
-		
 		ByteBuffer data=Buffers.newDirectByteBuffer(screen_width*screen_height*4);
 		
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_id);
