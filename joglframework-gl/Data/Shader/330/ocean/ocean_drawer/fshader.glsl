@@ -9,6 +9,12 @@ uniform vec3 light_direction;
 uniform vec4 ambient_color;
 uniform float diffuse_power;
 uniform float specular_power;
+//Additional uniform variables
+uniform vec4 water_diffuse_color;
+uniform vec4 water_specular_color;
+uniform float refractive_index;
+uniform float specular_pow_y;
+//==========
 
 uniform float fog_start;
 uniform float fog_end;
@@ -26,15 +32,11 @@ vec4 Lighting(){
 
     float diffuse=clamp(dot(vs_out_normal,-light_direction),0.0,1.0);
 
-    vec4 water_diffuse_color=vec4(0.25,0.58,0.92,1.0);
-    vec4 water_specular_color=vec4(1.0);
-
     float sin_th_i=length(cross(-light_direction,vs_out_normal));
-    float sin_th_t=sin_th_i/1.33;
+    float sin_th_t=sin_th_i/refractive_index;
     float th_i=asin(sin_th_i);
     float th_t=asin(sin_th_t);
-    float specular=pow(sin(th_t-th_i),2.0)/pow(sin(th_t+th_i),2.0)+pow(tan(th_t-th_i),2.0)/pow(tan(th_t+th_i),2.0);
-    specular*=0.5;
+    float specular=pow(sin(th_t-th_i),2.0)/pow(sin(th_t+th_i),2.0)+pow(tan(th_t-th_i),2.0)/pow(tan(th_t+th_i),specular_pow_y);
 
     vec4 diffuse_color=vec4(water_diffuse_color*diffuse*diffuse_power);
     vec4 specular_color=vec4(water_specular_color*specular*specular_power);
