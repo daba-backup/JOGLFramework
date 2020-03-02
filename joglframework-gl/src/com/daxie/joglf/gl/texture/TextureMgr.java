@@ -110,9 +110,10 @@ public class TextureMgr {
 		return 0;
 	}
 	
-	public static int AssociateTexture(int texture_id,int texture_width,int texture_height) {
+	public static int AssociateTexture(int texture_id,int texture_width,int texture_height,boolean flip_vertically) {
 		int texture_handle=count;
-		Texture texture=new Texture(texture_id, 0, texture_width, texture_height, texture_width, texture_height, false);
+		Texture texture=new Texture(texture_id, GL4.GL_TEXTURE_2D, 
+				texture_width, texture_height, texture_width, texture_height, flip_vertically);
 		
 		textures_map.put(texture_handle, texture);
 		count++;

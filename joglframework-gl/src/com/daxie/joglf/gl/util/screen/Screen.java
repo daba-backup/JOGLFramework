@@ -124,8 +124,8 @@ public class Screen {
 		GLWrapper.glViewport(0, 0, screen_width, screen_height);
 	}
 	
-	public int Associate() {
-		texture_handle=TextureMgr.AssociateTexture(texture_id, screen_width, screen_height);
+	public int Associate(boolean flip_vertically) {
+		texture_handle=TextureMgr.AssociateTexture(texture_id, screen_width, screen_height, flip_vertically);
 		return texture_handle;
 	}
 	
