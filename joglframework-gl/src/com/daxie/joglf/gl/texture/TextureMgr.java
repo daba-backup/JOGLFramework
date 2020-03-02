@@ -110,16 +110,6 @@ public class TextureMgr {
 		return 0;
 	}
 	
-	public static int AssociateTexture(int texture_id,int texture_width,int texture_height) {
-		int texture_handle=count;
-		Texture texture=new Texture(texture_id, 0, texture_width, texture_height, texture_width, texture_height, false);
-		
-		textures_map.put(texture_handle, texture);
-		count++;
-		
-		return texture_handle;
-	}
-	
 	public static boolean TextureExists(int texture_handle) {
 		return textures_map.containsKey(texture_handle);
 	}

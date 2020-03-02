@@ -9,7 +9,6 @@ import java.nio.IntBuffer;
 import javax.imageio.ImageIO;
 
 import com.daxie.joglf.gl.shader.ShaderProgram;
-import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.transferrer.FullscreenQuadTransferrerWithUV;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.log.LogWriter;
@@ -34,8 +33,6 @@ public class Screen {
 	private ShaderProgram program;
 	private FullscreenQuadTransferrerWithUV transferrer;
 	
-	private int texture_handle;
-	
 	public Screen(int width,int height) {
 		screen_width=width;
 		screen_height=height;
@@ -46,8 +43,6 @@ public class Screen {
 		
 		program=new ShaderProgram("texture_drawer");
 		transferrer=new FullscreenQuadTransferrerWithUV();
-		
-		texture_handle=-1;
 	}
 	private void SetupRenderbuffer() {
 		IntBuffer renderbuffer_ids=Buffers.newDirectIntBuffer(1);
@@ -100,8 +95,7 @@ public class Screen {
 		
 		GLWrapper.glDeleteFramebuffers(1, fbo_ids);
 		GLWrapper.glDeleteRenderbuffers(1, renderbuffer_ids);
-		if(texture_handle!=-1)TextureMgr.DeleteTexture(texture_handle);
-		else GLWrapper.glDeleteTextures(1, texture_ids);
+		GLWrapper.glDeleteTextures(1, texture_ids);
 	}
 	
 	public int GetScreenWidth() {
@@ -122,11 +116,6 @@ public class Screen {
 	}
 	public void Fit() {
 		GLWrapper.glViewport(0, 0, screen_width, screen_height);
-	}
-	
-	public int Associate() {
-		texture_handle=TextureMgr.AssociateTexture(texture_id, screen_width, screen_height);
-		return texture_handle;
 	}
 	
 	public void Draw() {
