@@ -98,6 +98,13 @@ public class Screen {
 		GLWrapper.glDeleteTextures(1, texture_ids);
 	}
 	
+	public int GetScreenWidth() {
+		return screen_width;
+	}
+	public int GetScreenHeight() {
+		return screen_height;
+	}
+	
 	public void Bind() {
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, fbo_id);
 	}
