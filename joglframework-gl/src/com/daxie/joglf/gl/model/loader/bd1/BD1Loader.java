@@ -49,7 +49,10 @@ public class BD1Loader {
 			int texture_id=entry.getKey();
 			
 			String texture_filename=entry.getValue();
-			if(texture_filename.equals(""))continue;
+			if(texture_filename.equals("")) {
+				texture_handles_map.put(texture_id, -1);
+				continue;
+			}
 			
 			texture_filename=bd1_directory+"/"+texture_filename;
 			
