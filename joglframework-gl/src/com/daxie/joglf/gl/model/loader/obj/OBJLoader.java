@@ -109,10 +109,15 @@ public class OBJLoader {
 			buffered_vertices.SetNormBuffer(norm_buffer);
 			
 			String texture_filename=mtl.getMapKd();
-			texture_filename=obj_directory+"/"+texture_filename;
-			
-			int texture_handle=TextureMgr.LoadTexture(texture_filename);
-			buffered_vertices.SetTextureHandle(texture_handle);
+			if(texture_filename.equals("")) {
+				buffered_vertices.SetTextureHandle(-1);
+			}
+			else {
+				texture_filename=obj_directory+"/"+texture_filename;
+				
+				int texture_handle=TextureMgr.LoadTexture(texture_filename);
+				buffered_vertices.SetTextureHandle(texture_handle);
+			}
 			
 			ret.add(buffered_vertices);
 		}
