@@ -109,6 +109,15 @@ public class TextureMgr {
 		
 		return 0;
 	}
+	public static void DeleteAllTextures() {
+		GL gl=GLContext.getCurrentGL();
+		
+		for(Texture texture:textures_map.values()) {
+			texture.destroy(gl);
+		}
+		
+		textures_map.clear();
+	}
 	
 	public static int AssociateTexture(int texture_id,int texture_width,int texture_height,boolean flip_vertically) {
 		int texture_handle=count;
