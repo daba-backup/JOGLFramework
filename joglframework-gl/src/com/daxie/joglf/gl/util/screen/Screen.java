@@ -87,6 +87,8 @@ public class Screen {
 		GLWrapper.glFramebufferRenderbuffer(
 				GL4.GL_FRAMEBUFFER, GL4.GL_DEPTH_ATTACHMENT, 
 				GL4.GL_RENDERBUFFER, renderbuffer_id);
+		IntBuffer draw_buffers=Buffers.newDirectIntBuffer(new int[] {GL4.GL_COLOR_ATTACHMENT0});
+		GLWrapper.glDrawBuffers(1, draw_buffers);
 		if(GLWrapper.glCheckFramebufferStatus(GL4.GL_FRAMEBUFFER)!=GL4.GL_FRAMEBUFFER_COMPLETE) {
 			LogWriter.WriteWarn("[Screen-SetupFramebuffer] Incomplete framebuffer", true);
 		}
