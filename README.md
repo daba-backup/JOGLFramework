@@ -20,7 +20,7 @@ After setting up *Data*, get the required JARs.
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework-gl</artifactId>
-    <version>10.0.0</version>
+    <version>10.1.0</version>
 </dependency>
 ```
 
@@ -30,7 +30,7 @@ After setting up *Data*, get the required JARs.
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework-al</artifactId>
-    <version>10.0.0</version>
+    <version>10.1.0</version>
 </dependency>
 ```
 
@@ -53,7 +53,7 @@ import com.daxie.joglf.gl.draw.GLDrawFunctions3D;
 import com.daxie.joglf.gl.front.CameraFront;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 
-public class MyWindow extends JOGLFWindow{
+class MyWindow extends JOGLFWindow{
 	@Override
 	protected void Init() {
 		System.out.println("Init");
