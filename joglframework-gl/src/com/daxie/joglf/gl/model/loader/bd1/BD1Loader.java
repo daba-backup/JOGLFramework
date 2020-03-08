@@ -71,7 +71,13 @@ public class BD1Loader {
 			int texture_id=entry.getKey();
 			List<BD1Triangle> triangles=entry.getValue();
 			
-			int texture_handle=texture_handles_map.get(texture_id);
+			int texture_handle;
+			if(texture_handles_map.containsKey(texture_id)==true) {
+				texture_handle=texture_handles_map.get(texture_id);
+			}
+			else {
+				texture_handle=-1;
+			}
 			
 			int triangle_num=triangles.size();
 			int vertex_num=triangle_num*3;
