@@ -139,26 +139,52 @@ public class TextureMgr {
 		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_UNSIGNED_BYTE, data);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 		
+		ByteBuffer data_r=Buffers.newDirectByteBuffer(width*height);
+		ByteBuffer data_g=Buffers.newDirectByteBuffer(width*height);
+		ByteBuffer data_b=Buffers.newDirectByteBuffer(width*height);
+		ByteBuffer data_a=Buffers.newDirectByteBuffer(width*height);
+		
+		int bound=width*height*4;
+		for(int i=0;i<bound;i+=4) {
+			data_r.put(data.get());
+			data_g.put(data.get());
+			data_b.put(data.get());
+			data_a.put(data.get());
+		}
+		((Buffer)data_r).flip();
+		((Buffer)data_g).flip();
+		((Buffer)data_b).flip();
+		((Buffer)data_a).flip();
+		
 		ByteBuffer flipped_data=Buffers.newDirectByteBuffer(width*height*4);
 		
 		if(flip_vertically==true&&flip_horizontally==true) {
 			for(int y=height-1;y>=0;y--) {
 				for(int x=width-1;x>=0;x--) {
-					flipped_data.put(data.get(y*width+x));
+					flipped_data.put(data_r.get(y*width+x));
+					flipped_data.put(data_g.get(y*width+x));
+					flipped_data.put(data_b.get(y*width+x));
+					flipped_data.put(data_a.get(y*width+x));
 				}
 			}
 		}
 		else if(flip_vertically==true) {
 			for(int y=height-1;y>=0;y--) {
 				for(int x=0;x<width;x++) {
-					flipped_data.put(data.get(y*width+x));
+					flipped_data.put(data_r.get(y*width+x));
+					flipped_data.put(data_g.get(y*width+x));
+					flipped_data.put(data_b.get(y*width+x));
+					flipped_data.put(data_a.get(y*width+x));
 				}
 			}
 		}
 		else if(flip_horizontally==true) {
 			for(int y=0;y<height;y++) {
 				for(int x=width-1;x>=0;x--) {
-					flipped_data.put(data.get(y*width+x));
+					flipped_data.put(data_r.get(y*width+x));
+					flipped_data.put(data_g.get(y*width+x));
+					flipped_data.put(data_b.get(y*width+x));
+					flipped_data.put(data_a.get(y*width+x));
 				}
 			}
 		}
