@@ -96,6 +96,7 @@ public class TextureMgr {
 		
 		return texture_handle;
 	}
+	
 	public static int DeleteTexture(int texture_handle) {
 		if(textures_map.containsKey(texture_handle)==false) {
 			LogWriter.WriteWarn("[TextureMgr-DeleteTexture] No such texture. texture_handle:"+texture_handle, true);
@@ -118,6 +119,61 @@ public class TextureMgr {
 		}
 		
 		textures_map.clear();
+	}
+	
+	public static int FlipTexture(int texture_handle,boolean flip_vertically,boolean flip_horizontally) {
+		if(textures_map.containsKey(texture_handle)==false) {
+			LogWriter.WriteWarn("[TextureMgr-FlipTexture] No such texture. texture_handle:"+texture_handle, true);
+			return -1;
+		}
+		
+		GL gl=GLContext.getCurrentGL();
+		Texture texture=textures_map.get(texture_handle);
+		int texture_object=texture.getTextureObject(gl);
+		int width=texture.getWidth();
+		int height=texture.getHeight();
+			
+		ByteBuffer data=Buffers.newDirectByteBuffer(width*height*4);
+		
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_object);
+		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_UNSIGNED_BYTE, data);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
+		
+		ByteBuffer flipped_data=Buffers.newDirectByteBuffer(width*height*4);
+		
+		if(flip_vertically==true&&flip_horizontally==true) {
+			for(int y=height-1;y>=0;y--) {
+				for(int x=width-1;x>=0;x--) {
+					flipped_data.put(data.get(y*width+x));
+				}
+			}
+		}
+		else if(flip_vertically==true) {
+			for(int y=height-1;y>=0;y--) {
+				for(int x=0;x<width;x++) {
+					flipped_data.put(data.get(y*width+x));
+				}
+			}
+		}
+		else if(flip_horizontally==true) {
+			for(int y=0;y<height;y++) {
+				for(int x=width-1;x>=0;x--) {
+					flipped_data.put(data.get(y*width+x));
+				}
+			}
+		}
+		else {
+			return 0;
+		}
+		((Buffer)flipped_data).flip();
+		
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_object);
+		GLWrapper.glTexImage2D(
+				GL4.GL_TEXTURE_2D, 0,GL4.GL_RGBA, 
+				width, height, 0, GL4.GL_RGBA, GL4.GL_UNSIGNED_BYTE, flipped_data);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
+		
+		return 0;
 	}
 	
 	public static int AssociateTexture(int texture_id,int texture_width,int texture_height,boolean flip_vertically) {
