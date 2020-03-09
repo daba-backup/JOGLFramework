@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.Buffer;
+import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.HashMap;
@@ -141,6 +142,27 @@ public class TextureMgr {
 		int texture_object=texture.getTextureObject(gl);
 		
 		return texture_object;
+	}
+	
+	public static ByteBuffer GetTextureImage(int texture_handle) {
+		if(textures_map.containsKey(texture_handle)==false) {
+			LogWriter.WriteWarn("[TextureMgr-GetTextureImage] No such texture. texture_handle:"+texture_handle, true);
+			return Buffers.newDirectByteBuffer(0);
+		}
+		
+		GL gl=GLContext.getCurrentGL();
+		Texture texture=textures_map.get(texture_handle);
+		int texture_object=texture.getTextureObject(gl);
+		int width=texture.getWidth();
+		int height=texture.getHeight();
+			
+		ByteBuffer data=Buffers.newDirectByteBuffer(width*height*4);
+		
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_object);
+		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_UNSIGNED_BYTE, data);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
+		
+		return data;
 	}
 	
 	public static boolean TextureExists(int texture_handle) {
