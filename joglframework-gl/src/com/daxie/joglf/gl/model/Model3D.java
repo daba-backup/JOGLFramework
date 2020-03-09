@@ -161,6 +161,18 @@ public class Model3D {
 		return 0;
 	}
 	
+	public static int DrawModelWithProgram(int model_handle,String program_name,int texture_unit,String sampler_name) {
+		if(models_map.containsKey(model_handle)==false) {
+			LogWriter.WriteWarn("[Model3D-DrawModelWithProgram] No such model. model_handle:"+model_handle, true);
+			return -1;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		model.DrawWithProgram(program_name, texture_unit, sampler_name);
+		
+		return 0;
+	}
+	
 	public static int DrawModel(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
 			LogWriter.WriteWarn("[Model3D-DrawModel] No such model. model_handle:"+model_handle, true);

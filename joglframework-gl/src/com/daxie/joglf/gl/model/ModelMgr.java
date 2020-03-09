@@ -184,46 +184,50 @@ public class ModelMgr {
 		}
 	}
 	
-	public void Draw(int texture_unit,String sampler_name) {
+	public void DrawWithProgram(String program_name,int texture_unit,String sampler_name) {
 		if(property_updated_flag==true) {
 			this.UpdateBuffers();
 		}
 		
 		int element_num=buffered_vertices_list.size();
 		
-		for(String program_name:program_names) {
-			GLShaderFunctions.UseProgram(program_name);
+		GLShaderFunctions.UseProgram(program_name);
+		
+		int program_id=GLShaderFunctions.GetProgramID(program_name);
+		int sampler_location=GLWrapper.glGetUniformLocation(program_id, sampler_name);
+		
+		for(int i=0;i<element_num;i++) {
+			BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
+			int texture_handle=buffered_vertices.GetTextureHandle();
+			int count=buffered_vertices.GetCount();
 			
-			int program_id=GLShaderFunctions.GetProgramID(program_name);
-			int sampler_location=GLWrapper.glGetUniformLocation(program_id, sampler_name);
+			GLWrapper.glBindVertexArray(vao.get(i));
 			
-			for(int i=0;i<element_num;i++) {
-				BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
-				int texture_handle=buffered_vertices.GetTextureHandle();
-				int count=buffered_vertices.GetCount();
-				
-				GLWrapper.glBindVertexArray(vao.get(i));
-				
-				GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);
-				if(texture_handle<0) {
-					TextureMgr.EnableDefaultTexture();
-					TextureMgr.BindDefaultTexture();
-				}
-				else {
-					TextureMgr.EnableTexture(texture_handle);
-					TextureMgr.BindTexture(texture_handle);
-				}
-				GLWrapper.glUniform1i(sampler_location, texture_unit);
-				
-				GLWrapper.glEnable(GL4.GL_BLEND);
-				GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
-				GLWrapper.glDisable(GL4.GL_BLEND);
-				
-				if(texture_handle<0)TextureMgr.DisableDefaultTexture();
-				else TextureMgr.DisableTexture(texture_handle);
-				
-				GLWrapper.glBindVertexArray(0);
+			GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);
+			if(texture_handle<0) {
+				TextureMgr.EnableDefaultTexture();
+				TextureMgr.BindDefaultTexture();
 			}
+			else {
+				TextureMgr.EnableTexture(texture_handle);
+				TextureMgr.BindTexture(texture_handle);
+			}
+			GLWrapper.glUniform1i(sampler_location, texture_unit);
+			
+			GLWrapper.glEnable(GL4.GL_BLEND);
+			GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
+			GLWrapper.glDisable(GL4.GL_BLEND);
+			
+			if(texture_handle<0)TextureMgr.DisableDefaultTexture();
+			else TextureMgr.DisableTexture(texture_handle);
+			
+			GLWrapper.glBindVertexArray(0);
+		}
+	}
+	
+	public void Draw(int texture_unit,String sampler_name) {
+		for(String program_name:program_names) {
+			this.DrawWithProgram(program_name, texture_unit, sampler_name);
 		}
 	}
 	public void Draw() {
