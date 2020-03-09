@@ -79,6 +79,47 @@ public class TextureMgr {
 		GL gl=GLContext.getCurrentGL();
 		texture.enable(gl);
 		texture.bind(gl);
+		SetLoadedTextureProperties();
+		texture.disable(gl);
+		
+		textures_map.put(texture_handle, texture);
+		count++;
+		
+		return texture_handle;
+	}
+	public static int LoadTextureWithoutFlip(String texture_filename) {
+		File file=new File(texture_filename);
+		if(!(file.isFile()&&file.canRead())) {
+			LogWriter.WriteWarn("[TextureMgr-LoadTextureWithoutFlip] Failed to load a texture. filename:"+texture_filename, true);
+			return -1;
+		}
+		
+		int texture_handle=count;
+		Texture texture=null;
+		try {
+			texture=TextureIO.newTexture(file,true);
+		}
+		catch(IOException e) {
+			String str=ExceptionFunctions.GetPrintStackTraceString(e);
+			
+			LogWriter.WriteWarn("[TextureMgr-LoadTextureWithoutFlip] Below is the stack trace.",true);
+			LogWriter.WriteWarn(str,false);
+			
+			return -1;
+		}
+		
+		GL gl=GLContext.getCurrentGL();
+		texture.enable(gl);
+		texture.bind(gl);
+		SetLoadedTextureProperties();
+		texture.disable(gl);
+		
+		textures_map.put(texture_handle, texture);
+		count++;
+		
+		return texture_handle;
+	}
+	private static void SetLoadedTextureProperties() {
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_S, GL4.GL_REPEAT);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_T, GL4.GL_REPEAT);
 		if(generate_mipmap_flag==true) {
@@ -89,13 +130,8 @@ public class TextureMgr {
 			GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);
 		}
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
-		texture.disable(gl);
-		
-		textures_map.put(texture_handle, texture);
-		count++;
-		
-		return texture_handle;
 	}
+	
 	public static int DeleteTexture(int texture_handle) {
 		if(textures_map.containsKey(texture_handle)==false) {
 			LogWriter.WriteWarn("[TextureMgr-DeleteTexture] No such texture. texture_handle:"+texture_handle, true);
