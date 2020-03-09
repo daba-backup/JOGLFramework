@@ -6,7 +6,7 @@
 
 	<groupId>com.github.dabasan</groupId>
 	<artifactId>joglframework</artifactId>
-	<version>10.1.0</version>
+	<version>10.2.0</version>
 
 	<packaging>pom</packaging>
 
