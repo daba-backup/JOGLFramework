@@ -333,7 +333,7 @@ public class ModelMgr {
 				norm.SetY(norm_buffer.get(i+1));
 				norm.SetZ(norm_buffer.get(i+2));
 				
-				norm=VectorFunctions.VTransform(norm, m);
+				norm=VectorFunctions.VTransformSR(norm, m);
 				norm=VectorFunctions.VNorm(norm);
 				
 				norm_buffer.put(i,norm.GetX());
