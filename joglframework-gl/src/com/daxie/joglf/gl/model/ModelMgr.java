@@ -108,6 +108,18 @@ public class ModelMgr {
 			FloatBuffer uv_buffer=buffered_vertices.GetUVBuffer();
 			FloatBuffer norm_buffer=buffered_vertices.GetNormBuffer();
 			
+			int texture_handle=buffered_vertices.GetTextureHandle();
+			boolean must_flip_vertically=TextureMgr.GetMustFlipVertically(texture_handle);
+			if(must_flip_vertically==true) {
+				int cap=uv_buffer.capacity();
+				
+				for(int j=0;j<cap;j+=2) {
+					float v=uv_buffer.get(j+1);
+					v*=(-1.0f);
+					uv_buffer.put(j+1,v);
+				}
+			}
+			
 			GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(i));
 			GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
 					Buffers.SIZEOF_FLOAT*pos_buffer.capacity(), pos_buffer, GL4.GL_DYNAMIC_DRAW);
