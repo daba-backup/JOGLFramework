@@ -8,7 +8,7 @@ JOGLFramework (abbr. JOGLF) aims to simplify OpenGL-relating code in Java.
 
 Locate the *Data* folder at the current directory of your program.
 
-Direct link:https://github.com/Dabasan/JOGLFramework/releases/download/v9.0.0/Data.zip
+Direct link:https://github.com/Dabasan/JOGLFramework/releases/download/v10.2.0/Data.zip
 
 After setting up *Data*, get the required JARs.
 
@@ -20,7 +20,7 @@ After setting up *Data*, get the required JARs.
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework-gl</artifactId>
-    <version>10.1.0</version>
+    <version>10.2.0</version>
 </dependency>
 ```
 
@@ -30,7 +30,7 @@ After setting up *Data*, get the required JARs.
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework-al</artifactId>
-    <version>10.1.0</version>
+    <version>10.2.0</version>
 </dependency>
 ```
 
