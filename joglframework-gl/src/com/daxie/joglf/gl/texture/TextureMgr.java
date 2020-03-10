@@ -1,6 +1,5 @@
 package com.daxie.joglf.gl.texture;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.Buffer;
@@ -9,8 +8,6 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.imageio.ImageIO;
 
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.window.WindowCommonInfoStock;
@@ -21,10 +18,8 @@ import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL4;
 import com.jogamp.opengl.GLContext;
-import com.jogamp.opengl.util.awt.ImageUtil;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
-import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
 
 /**
  * Texture manager
@@ -59,13 +54,6 @@ public class TextureMgr {
 		Texture texture=null;
 		try {
 			texture=TextureIO.newTexture(file,true);
-			if(texture.getMustFlipVertically()==true) {
-				BufferedImage image=ImageIO.read(file);
-				ImageUtil.flipImageVertically(image);
-				
-				GL gl=GLContext.getCurrentGL();
-				texture=AWTTextureIO.newTexture(gl.getGLProfile(), image, true);
-			}
 		}
 		catch(IOException e) {
 			String str=ExceptionFunctions.GetPrintStackTraceString(e);
