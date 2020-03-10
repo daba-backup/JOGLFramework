@@ -202,6 +202,16 @@ public class TextureMgr {
 		return 0;
 	}
 	
+	public static boolean GetMustFlipVertically(int texture_handle) {
+		if(textures_map.containsKey(texture_handle)==false) {
+			LogWriter.WriteWarn("[TextureMgr-GetMustFlipVertically] No such texture. texture_handle:"+texture_handle, true);
+			return false;
+		}
+		
+		Texture texture=textures_map.get(texture_handle);
+		return texture.getMustFlipVertically();
+	}
+	
 	public static int AssociateTexture(int texture_id,int texture_width,int texture_height,boolean flip_vertically) {
 		int texture_handle=count;
 		Texture texture=new Texture(texture_id, GL4.GL_TEXTURE_2D, 
