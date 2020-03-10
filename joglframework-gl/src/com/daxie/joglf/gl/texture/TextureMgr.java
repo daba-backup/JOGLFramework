@@ -213,19 +213,6 @@ public class TextureMgr {
 		return texture_handle;
 	}
 	
-	public static int GetTextureObject(int texture_handle) {
-		if(textures_map.containsKey(texture_handle)==false) {
-			LogWriter.WriteWarn("[TextureMgr-GetTextureObject] No such texture. texture_handle:"+texture_handle, true);
-			return -1;
-		}
-		
-		GL gl=GLContext.getCurrentGL();
-		Texture texture=textures_map.get(texture_handle);
-		int texture_object=texture.getTextureObject(gl);
-		
-		return texture_object;
-	}
-	
 	public static ByteBuffer GetTextureImage(int texture_handle) {
 		if(textures_map.containsKey(texture_handle)==false) {
 			LogWriter.WriteWarn("[TextureMgr-GetTextureImage] No such texture. texture_handle:"+texture_handle, true);
