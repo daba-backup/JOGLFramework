@@ -26,7 +26,7 @@ public class CoordinateFunctions {
 	}
 	
 	/**
-	 * Converts a normalized value to a expanded value.
+	 * Converts a normalized value to an expanded value.
 	 * @param value Normalized value
 	 * @param max Maximum
 	 * @return Expanded value
