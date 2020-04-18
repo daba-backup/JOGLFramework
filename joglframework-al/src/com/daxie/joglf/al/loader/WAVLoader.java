@@ -3,10 +3,12 @@ package com.daxie.joglf.al.loader;
 import java.io.File;
 import java.nio.ByteBuffer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.joglf.al.buffer.SoundBuffer;
 import com.daxie.joglf.al.front.ALFront;
 import com.daxie.joglf.al.wrapper.ALWrapper;
-import com.daxie.log.LogWriter;
 
 /**
  * WAV loader
@@ -14,6 +16,8 @@ import com.daxie.log.LogWriter;
  *
  */
 public class WAVLoader {
+	private static Logger logger=LoggerFactory.getLogger(WAVLoader.class);
+	
 	/**
 	 * Loads a WAV file.<br>
 	 * This method depends on ALUT.<br>
@@ -26,12 +30,12 @@ public class WAVLoader {
 		
 		File file=new File(wav_filename);
 		if(file.exists()==false) {
-			LogWriter.WriteWarn("[WAVLoader-LoadWAV] File does not exist. filename:"+wav_filename, true);
+			logger.error("File does not exist. filename={}",wav_filename);
 			return sound_buffer;
 		}
 		
 		if(ALFront.GetNoUseAlutFlag()==true) {
-			LogWriter.WriteWarn("[WAVLoader-LoadWAV] ALUT is disabled.", true);
+			logger.error("ALUT is disabled.");
 			return sound_buffer;
 		}
 		

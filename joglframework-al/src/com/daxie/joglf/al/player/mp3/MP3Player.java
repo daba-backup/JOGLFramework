@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.daxie.log.LogWriter;
-import com.daxie.tool.ExceptionFunctions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.advanced.AdvancedPlayer;
@@ -18,6 +18,8 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
  *
  */
 public class MP3Player{
+	private static Logger logger=LoggerFactory.getLogger(MP3Player.class);
+	
 	private static int count=0;
 	private static Map<Integer, AdvancedPlayer> players_map=new HashMap<>();
 	
@@ -35,15 +37,12 @@ public class MP3Player{
 			player=new AdvancedPlayer(stream);
 		}
 		catch(IOException e) {
-			LogWriter.WriteWarn("[MP3Player-LoadSound] File not found. filename:"+sound_filename, true);
+			logger.error("Error while loading a sound file. sound_filename={}",sound_filename);
 			return -1;
 		}
 		catch(JavaLayerException e) {
-			String str=ExceptionFunctions.GetPrintStackTraceString(e);
-			
-			LogWriter.WriteWarn("[MP3Player-LoadSound] Below is the stack trace.", true);
-			LogWriter.WriteWarn(str, false);
-			
+			logger.error("Error while loading a sound file. sound_filename={}",sound_filename);
+			logger.error("",e);
 			return -1;
 		}
 		
@@ -62,7 +61,7 @@ public class MP3Player{
 	 */
 	public static int DeleteSound(int sound_handle) {
 		if(players_map.containsKey(sound_handle)==false) {
-			LogWriter.WriteWarn("[MP3Player-DeleteSound] No such sound. sound_handle:"+sound_handle, true);
+			logger.warn("No such sound. sound_handle={}",sound_handle);
 			return -1;
 		}
 		
@@ -76,7 +75,7 @@ public class MP3Player{
 	
 	public static int PlaySound(int sound_handle) {
 		if(players_map.containsKey(sound_handle)==false) {
-			LogWriter.WriteWarn("[MP3Player-PlaySound] No such sound. sound_handle:"+sound_handle, true);
+			logger.warn("No such sound. sound_handle={}",sound_handle);
 			return -1;
 		}
 		
@@ -91,7 +90,7 @@ public class MP3Player{
 	/*
 	public static int StopSound(int sound_handle) {
 		if(players_map.containsKey(sound_handle)==false) {
-			LogWriter.WriteWarn("[MP3Player-StopSound] No such sound. sound_handle:"+sound_handle, true);
+			logger.warn("No such sound. sound_handle={}",sound_handle);
 			return -1;
 		}
 		
@@ -113,10 +112,7 @@ public class MP3Player{
 				player.play();
 			}
 			catch(JavaLayerException e) {
-				String str=ExceptionFunctions.GetPrintStackTraceString(e);
-				
-				LogWriter.WriteWarn("[MP3Player-PlayerThread-run] Below is the stack trace.", true);
-				LogWriter.WriteWarn(str, false);
+				logger.error("Error",e);
 			}
 		}
 	}

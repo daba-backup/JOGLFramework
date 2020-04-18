@@ -1,8 +1,10 @@
 package com.daxie.joglf.al.front;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.joglf.al.sound.Sound3D;
 import com.daxie.joglf.al.wrapper.ALWrapper;
-import com.daxie.log.LogWriter;
 import com.jogamp.openal.AL;
 import com.jogamp.openal.util.ALut;
 
@@ -12,6 +14,8 @@ import com.jogamp.openal.util.ALut;
  *
  */
 public class ALFront {
+	private static Logger logger=LoggerFactory.getLogger(ALFront.class);
+	
 	private static boolean no_use_alut_flag=false;
 	
 	/**
@@ -35,11 +39,11 @@ public class ALFront {
 		Sound3D.SetupListenerProperties();
 		ALWrapper.alDistanceModel(AL.AL_INVERSE_DISTANCE);
 		
-		LogWriter.WriteInfo("[ALFront-Initialize] Initialized.", true);
+		logger.info("Initialized.");
 	}
 	public static void Dispose() {
 		if(no_use_alut_flag==false)ALut.alutExit();
 		
-		LogWriter.WriteInfo("[ALFront-Dispose] Disposed.", true);
+		logger.info("Disposed.");
 	}
 }
