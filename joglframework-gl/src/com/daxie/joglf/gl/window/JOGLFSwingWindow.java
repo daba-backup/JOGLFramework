@@ -18,6 +18,9 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.basis.coloru8.ColorU8Functions;
 import com.daxie.basis.vector.VectorFunctions;
@@ -33,7 +36,6 @@ import com.daxie.joglf.gl.input.mouse.SwingMouse;
 import com.daxie.joglf.gl.text.TextMgr;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogWriter;
 import com.jogamp.opengl.GL4;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLCapabilities;
@@ -49,6 +51,8 @@ import com.jogamp.opengl.util.FPSAnimator;
  */
 public class JOGLFSwingWindow 
 implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWheelListener{
+	private Logger logger=LoggerFactory.getLogger(JOGLFSwingWindow.class);
+	
 	private JFrame frame;
 	private WindowAdapter adapter;
 	private GLCanvas canvas;
@@ -100,7 +104,7 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		frame.add(canvas,BorderLayout.CENTER);
 		frame.pack();
 		
-		LogWriter.WriteInfo("[JOGLFSwingWindow-<init>] Window created.", true);
+		logger.info("Window created.");
 		
 		keyboard=new SwingKeyboard();
 		mouse=new SwingMouse();
@@ -143,12 +147,8 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 			@Override
 			public void windowClosing(WindowEvent e) {
 				animator.stop();
-				LogWriter.CloseLogWriter();
-				
 				destroyed_flag=true;
-				
 				onWindowClosing();
-				
 				System.exit(0);
 			}
 		};
@@ -252,7 +252,7 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		}
 		else {
 			if(device.isFullScreenSupported()==false) {
-				LogWriter.WriteWarn("[JOGLFSwingWindow-SetWindowMode] Full screen mode is not supported on this system.", true);
+				logger.warn("Full-screen mode is not supported on this system.");
 				return;
 			}
 			else {

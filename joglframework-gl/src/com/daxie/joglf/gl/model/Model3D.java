@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.basis.matrix.Matrix;
 import com.daxie.basis.matrix.MatrixFunctions;
 import com.daxie.basis.vector.Vector;
@@ -16,7 +19,6 @@ import com.daxie.joglf.gl.model.buffer.BufferedVertices;
 import com.daxie.joglf.gl.model.loader.bd1.BD1Loader;
 import com.daxie.joglf.gl.model.loader.obj.OBJLoader;
 import com.daxie.joglf.gl.shape.Triangle;
-import com.daxie.log.LogWriter;
 import com.daxie.tool.FilenameFunctions;
 
 /**
@@ -25,6 +27,8 @@ import com.daxie.tool.FilenameFunctions;
  *
  */
 public class Model3D {
+	private static Logger logger=LoggerFactory.getLogger(Model3D.class);
+	
 	private static int count=0;
 	private static Map<Integer, ModelMgr> models_map=new HashMap<>();
 	private static Map<Integer, AnimationInfoMap> animation_info_map=new HashMap<>();
@@ -58,7 +62,7 @@ public class Model3D {
 			models_map.put(model_handle, model);
 		}
 		else {
-			LogWriter.WriteWarn("[Model3D-LoadModel] Unsupported model format. extension:"+extension, true);
+			logger.warn("Unsupported model format. extension={}",extension);
 			return -1;
 		}
 		
@@ -68,7 +72,7 @@ public class Model3D {
 	}
 	public static int DuplicateModel(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-DuplicateModel] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -84,7 +88,7 @@ public class Model3D {
 	}
 	public static int DeleteModel(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-DeleteModel] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -117,7 +121,7 @@ public class Model3D {
 	
 	public static int AddProgram(int model_handle,String program_name) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-AddProgram] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -128,7 +132,7 @@ public class Model3D {
 	}
 	public static int RemoveProgram(int model_handle,String program_name) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-RemoveProgram] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -139,7 +143,7 @@ public class Model3D {
 	}
 	public static int SetDefaultProgram(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-SetDefaultProgram] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -151,7 +155,7 @@ public class Model3D {
 	}
 	public static int RemoveAllPrograms(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-RemoveAllPrograms] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -163,7 +167,7 @@ public class Model3D {
 	
 	public static int DrawModelWithProgram(int model_handle,String program_name,int texture_unit,String sampler_name) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-DrawModelWithProgram] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -175,7 +179,7 @@ public class Model3D {
 	
 	public static int DrawModel(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-DrawModel] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -186,7 +190,7 @@ public class Model3D {
 	}
 	public static int DrawModel(int model_handle,int texture_unit,String sampler_name) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-DrawModel] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -197,7 +201,7 @@ public class Model3D {
 	}
 	public static int TransferModel(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-TransferModel] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -208,7 +212,7 @@ public class Model3D {
 	}
 	public static int DrawModelElements(int model_handle,int bound) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-DrawModelElements] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -219,7 +223,7 @@ public class Model3D {
 	}
 	public static int DrawModelElements(int model_handle,int texture_unit,String sampler_name,int bound) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-DrawModelElements] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -231,7 +235,7 @@ public class Model3D {
 	
 	public static int GetModelElementNum(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-GetModelElementNum] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -250,7 +254,7 @@ public class Model3D {
 	 */
 	public static int SetModelMatrix(int model_handle,Matrix m) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-SetModelMatrix] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -268,7 +272,7 @@ public class Model3D {
 	 */
 	public static int TranslateModel(int model_handle,Vector translate) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-TranslateModel] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -288,7 +292,7 @@ public class Model3D {
 	 */
 	public static int RotateModel(int model_handle,Vector rotate) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-RotateModel] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -313,7 +317,7 @@ public class Model3D {
 	 */
 	public static int RotateModelLocally(int model_handle,Vector origin,Vector rotate) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-RotateModelLocally] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -343,7 +347,7 @@ public class Model3D {
 	 */
 	public static int RescaleModel(int model_handle,Vector scale) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-RescaleModel] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -357,7 +361,7 @@ public class Model3D {
 	
 	public static int ChangeModelTexture(int model_handle,int material_index,int new_texture_handle) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-ChangeModelTexture] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -369,7 +373,7 @@ public class Model3D {
 	
 	public static List<Triangle> GetModelFaces(int model_handle){
 		if(models_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-GetModelFaces] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return new ArrayList<Triangle>();
 		}
 		
@@ -381,11 +385,11 @@ public class Model3D {
 	
 	public static int AttachAnimation(int model_handle,int anim_index,int anim_src_handle,float time) {
 		if(models_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-AttachAnimation] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		if(models_map.containsKey(anim_src_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-AttachAnimation] No such model. anim_src_handle:"+model_handle, true);
+			logger.warn("No such model. anim_src_handle={}",anim_src_handle);
 			return -1;
 		}
 		
@@ -401,15 +405,13 @@ public class Model3D {
 	
 	public static int SetAttachedAnimationTime(int model_handle,int anim_index,float time) {
 		if(animation_info_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-SetAttachedAnimationTime]", true);
-			LogWriter.WriteWarn("No animation info exists for this model. model_handle:"+model_handle,false);
+			logger.warn("No animation info exists for this model. model_handle={}",model_handle);
 			return -1;
 		}
 		
 		AnimationInfoMap aim=animation_info_map.get(model_handle);
 		if(aim.AnimationInfoExists(anim_index)==false) {
-			LogWriter.WriteWarn("[Model3D-SetAttachedAnimationTime]", true);
-			LogWriter.WriteWarn("No corresponding animation for this index exists. anim_index:"+anim_index, false);
+			logger.warn("No corresponding animation for this index exists. anim_index={}",anim_index);
 			return -1;
 		}
 		
@@ -420,7 +422,7 @@ public class Model3D {
 		int frame2_handle=blend_info.GetFrame2Handle();
 		float blend_ratio=blend_info.GetBlendRatio();
 		if(frame1_handle<0) {
-			LogWriter.WriteWarn("[Model3D-SetAttachedAnimationTime] No frames registered.", true);
+			logger.warn("No frames registered.");
 			return -1;
 		}
 		
@@ -446,14 +448,13 @@ public class Model3D {
 	
 	public static float GetAnimationMaxTime(int model_handle,int anim_index) {
 		if(animation_info_map.containsKey(model_handle)==false) {
-			LogWriter.WriteWarn("[Model3D-GetAnimationTotalTime] No such model. model_handle:"+model_handle, true);
+			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
 		AnimationInfoMap aim=animation_info_map.get(model_handle);
 		if(aim.AnimationInfoExists(anim_index)==false) {
-			LogWriter.WriteWarn("[Model3D-GetAnimationTotalTime]", true);
-			LogWriter.WriteWarn("No corresponding animation for this index exists. anim_index:"+anim_index, false);
+			logger.warn("No corresponding animation for this index exists. anim_index={}",anim_index);
 			return -1;
 		}
 		

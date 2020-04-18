@@ -9,12 +9,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shape.Circle2D;
 import com.daxie.joglf.gl.tool.CoordinateFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogWriter;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -24,6 +26,8 @@ import com.jogamp.opengl.GL4;
  *
  */
 public class Dynamic2DFilledCirclesDrawer extends Dynamic2DDrawer{
+	private Logger logger=LoggerFactory.getLogger(Dynamic2DFilledCirclesDrawer.class);
+	
 	private Map<Integer, Circle2D> circles_map;
 	private Map<Integer, Integer> indices_sizes_map;
 	
@@ -172,7 +176,7 @@ public class Dynamic2DFilledCirclesDrawer extends Dynamic2DDrawer{
 	}
 	public int DeleteCircle(int circle_id) {
 		if(circles_map.containsKey(circle_id)==false) {
-			LogWriter.WriteWarn("[Dynamic2DFilledCirclesDrawer-DeleteCircle] No such circle. circle_id:"+circle_id, true);
+			logger.warn("No such circle. circle_id={}",circle_id);
 			return -1;
 		}
 		

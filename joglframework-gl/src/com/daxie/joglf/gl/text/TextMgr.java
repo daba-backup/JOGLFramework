@@ -5,10 +5,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.joglf.gl.window.WindowCommonInfoStock;
-import com.daxie.log.LogWriter;
-import com.daxie.tool.ExceptionFunctions;
 import com.jogamp.graph.curve.Region;
 import com.jogamp.graph.curve.opengl.RegionRenderer;
 import com.jogamp.graph.curve.opengl.RenderState;
@@ -27,6 +28,8 @@ import com.jogamp.opengl.util.PMVMatrix;
  *
  */
 public class TextMgr {
+	private static Logger logger=LoggerFactory.getLogger(TextMgr.class);
+	
 	private static int count=0;
 	private static Map<Integer, Font> fonts_map=new HashMap<>();
 	
@@ -54,7 +57,7 @@ public class TextMgr {
 		
 		default_font_handle=CreateDefaultFont();
 		
-		LogWriter.WriteInfo("[TextMgr-Initialize] TextMgr initialized.", true);
+		logger.info("TextureMgr initialized.");
 	}
 	private static int CreateDefaultFont() {
 		Font font=null;
@@ -62,11 +65,7 @@ public class TextMgr {
 			font=FontFactory.get(FontFactory.JAVA).getDefault();
 		}
 		catch(IOException e) {
-			String str=ExceptionFunctions.GetPrintStackTraceString(e);
-			
-			LogWriter.WriteWarn("[TextureMgr-CreateDefaultFont] Below is the stack trace.", true);
-			LogWriter.WriteWarn(str, false);
-			
+			logger.error("Error while creating a font.",e);
 			return -1;
 		}
 		
@@ -84,11 +83,7 @@ public class TextMgr {
 			font=FontFactory.get(new File(font_filename));
 		}
 		catch(IOException e) {
-			String str=ExceptionFunctions.GetPrintStackTraceString(e);
-			
-			LogWriter.WriteWarn("[TextureMgr-LoadFont] Below is the stack trace.", true);
-			LogWriter.WriteWarn(str, false);
-			
+			logger.error("Error while creating a font.",e);
 			return -1;
 		}
 		
@@ -102,11 +97,11 @@ public class TextMgr {
 	
 	public static int DeleteFont(int font_handle) {
 		if(fonts_map.containsKey(font_handle)==false) {
-			LogWriter.WriteWarn("[FontMgr-DeleteFont] No such font. font_handle:"+font_handle, true);
+			logger.warn("No such font. font_handle={}",font_handle);
 			return -1;
 		}
 		if(font_handle==default_font_handle) {
-			LogWriter.WriteWarn("[FontMgr-DeleteFont] Cannot delete the default font.", true);
+			logger.warn("Cannot delete the default font.");
 			return -1;
 		}
 		
@@ -128,7 +123,7 @@ public class TextMgr {
 	}
 	public static int DrawTextWithFont(int x,int y,String text,int font_handle,ColorU8 color,int size,int weight) {
 		if(fonts_map.containsKey(font_handle)==false) {
-			LogWriter.WriteWarn("[TextMgr-DrawTextWithFont] No such font. font_handle:"+font_handle,true);
+			logger.warn("No such font. font_handle={}",font_handle);
 			return -1;
 		}
 		

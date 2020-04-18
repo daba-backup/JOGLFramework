@@ -9,10 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.joglf.gl.model.buffer.BufferedVertices;
 import com.daxie.joglf.gl.texture.TextureMgr;
-import com.daxie.log.LogWriter;
-import com.daxie.tool.ExceptionFunctions;
 import com.daxie.tool.FilenameFunctions;
 
 import de.javagl.obj.Mtl;
@@ -29,6 +30,8 @@ import de.javagl.obj.ObjUtils;
  *
  */
 public class OBJLoader {
+	private static Logger logger=LoggerFactory.getLogger(OBJLoader.class);
+	
 	public static List<BufferedVertices> LoadOBJ(String obj_filename){
 		List<BufferedVertices> ret=new ArrayList<>();
 		
@@ -39,7 +42,7 @@ public class OBJLoader {
 			isr=new InputStreamReader(new FileInputStream(obj_filename));
 		}
 		catch(IOException e) {
-			LogWriter.WriteWarn("[OBJLoader-LoadOBJ] File not found. filename:"+obj_filename,true);
+			logger.error("Error while reading.",e);
 			return ret;
 		}
 		
@@ -48,11 +51,7 @@ public class OBJLoader {
 			obj=ObjReader.read(isr);
 		}
 		catch(IOException e) {
-			String str=ExceptionFunctions.GetPrintStackTraceString(e);
-			
-			LogWriter.WriteWarn("[OBJLoader-LoadOBJ] Below is the stack trace.",true);
-			LogWriter.WriteWarn(str,false);
-			
+			logger.error("Error while reading.",e);
 			return ret;
 		}
 		
@@ -65,7 +64,7 @@ public class OBJLoader {
 				isr=new InputStreamReader(new FileInputStream(mtl_filepath));
 			}
 			catch(IOException e) {
-				LogWriter.WriteWarn("[OBJLoader-LoadOBJ] MTL file not found. filename:"+mtl_filepath,true);
+				logger.warn("Error while reading.",e);
 				continue;
 			}
 			
@@ -74,11 +73,7 @@ public class OBJLoader {
 				mtls=MtlReader.read(isr);
 			}
 			catch(IOException e) {
-				String str=ExceptionFunctions.GetPrintStackTraceString(e);
-				
-				LogWriter.WriteWarn("[OBJLoader-LoadOBJ] Below is the stack trace.",true);
-				LogWriter.WriteWarn(str,false);
-				
+				logger.error("Error while reading.",e);
 				return ret;
 			}
 			
@@ -95,7 +90,7 @@ public class OBJLoader {
 			
 			Mtl mtl=FindMTLByName(all_mtls, material_name);
 			if(mtl==null) {
-				LogWriter.WriteWarn("[OBJLoader-LoadOBJ] No such material. name:"+material_name,true);
+				logger.warn("No such material. material_name={}",material_name);
 				continue;
 			}
 			

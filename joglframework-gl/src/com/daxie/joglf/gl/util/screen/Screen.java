@@ -8,12 +8,13 @@ import java.nio.IntBuffer;
 
 import javax.imageio.ImageIO;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.joglf.gl.shader.ShaderProgram;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.transferrer.FullscreenQuadTransferrerWithUV;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogWriter;
-import com.daxie.tool.ExceptionFunctions;
 import com.daxie.tool.FilenameFunctions;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
@@ -24,6 +25,8 @@ import com.jogamp.opengl.GL4;
  *
  */
 public class Screen {
+	private Logger logger=LoggerFactory.getLogger(Screen.class);
+	
 	private int fbo_id;
 	private int renderbuffer_id;
 	private int texture_id;
@@ -81,6 +84,7 @@ public class Screen {
 		fbo_id=fbo_ids.get(0);
 		
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, fbo_id);
+		
 		GLWrapper.glFramebufferTexture2D(
 				GL4.GL_FRAMEBUFFER, GL4.GL_COLOR_ATTACHMENT0, 
 				GL4.GL_TEXTURE_2D, texture_id, 0);
@@ -89,9 +93,12 @@ public class Screen {
 				GL4.GL_RENDERBUFFER, renderbuffer_id);
 		IntBuffer draw_buffers=Buffers.newDirectIntBuffer(new int[] {GL4.GL_COLOR_ATTACHMENT0});
 		GLWrapper.glDrawBuffers(1, draw_buffers);
-		if(GLWrapper.glCheckFramebufferStatus(GL4.GL_FRAMEBUFFER)!=GL4.GL_FRAMEBUFFER_COMPLETE) {
-			LogWriter.WriteWarn("[Screen-SetupFramebuffer] Incomplete framebuffer", true);
+		
+		int status=GLWrapper.glCheckFramebufferStatus(GL4.GL_FRAMEBUFFER);
+		if(status!=GL4.GL_FRAMEBUFFER_COMPLETE) {
+			logger.warn("Incomplete framebuffer. status={}",status);
 		}
+		
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
 	}
 	
@@ -182,11 +189,7 @@ public class Screen {
 			ImageIO.write(image, extension, new File(filename));
 		}
 		catch(IOException e) {
-			String str=ExceptionFunctions.GetPrintStackTraceString(e);
-			
-			LogWriter.WriteWarn("[Screen-TakeScreenshot] Below is the stack trace.", true);
-			LogWriter.WriteWarn(str, false);
-			
+			logger.error("Error while writing.",e);
 			return -1;
 		}
 		

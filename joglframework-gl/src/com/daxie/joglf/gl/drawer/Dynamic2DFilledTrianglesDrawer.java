@@ -8,12 +8,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shape.Vertex2D;
 import com.daxie.joglf.gl.tool.CoordinateFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogWriter;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -23,6 +25,8 @@ import com.jogamp.opengl.GL4;
  *
  */
 public class Dynamic2DFilledTrianglesDrawer extends Dynamic2DDrawer{
+	private Logger logger=LoggerFactory.getLogger(Dynamic2DFilledTrianglesDrawer.class);
+	
 	private Map<Integer, Vertex2D[]>triangles_map;
 	
 	private IntBuffer pos_vbo;
@@ -119,9 +123,7 @@ public class Dynamic2DFilledTrianglesDrawer extends Dynamic2DDrawer{
 	}
 	public int DeleteTriangle(int triangle_id) {
 		if(triangles_map.containsKey(triangle_id)==false) {
-			LogWriter.WriteWarn("[Dynamic2DFilledTrianglesDrawer-DeleteTriangle] ", true);
-			LogWriter.WriteWarn("No such triangle. triangle_id:"+triangle_id, false);
-			
+			logger.warn("No such triangle. triangle_id={}",triangle_id);
 			return -1;
 		}
 		

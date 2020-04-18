@@ -6,6 +6,9 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.basis.coloru8.ColorU8Functions;
 import com.daxie.basis.matrix.Matrix;
@@ -18,7 +21,6 @@ import com.daxie.joglf.gl.shape.Triangle;
 import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogWriter;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -28,6 +30,8 @@ import com.jogamp.opengl.GL4;
  *
  */
 public class GLDrawFunctions3D {
+	private static Logger logger=LoggerFactory.getLogger(GLDrawFunctions3D.class);
+	
 	public static void DrawLine3D(Vector line_pos_1,Vector line_pos_2,ColorU8 color_1,ColorU8 color_2) {
 		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);
 		IntBuffer color_vbo=Buffers.newDirectIntBuffer(1);
@@ -668,7 +672,7 @@ public class GLDrawFunctions3D {
 	
 	public static void DrawTexturedTriangle3D(Triangle triangle,int texture_handle,boolean use_face_normal_flag) {
 		if(TextureMgr.TextureExists(texture_handle)==false) {
-			LogWriter.WriteWarn("[GLDrawFunctions-DrawTexturedTriangle3D] No such texture. texture_handle:"+texture_handle,true);
+			logger.warn("No such texture. texture_handle={}",texture_handle);
 			return;
 		}
 		

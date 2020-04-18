@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.basis.matrix.Matrix;
 import com.daxie.basis.matrix.MatrixFunctions;
@@ -17,7 +20,6 @@ import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shape.Capsule;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogWriter;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -27,6 +29,8 @@ import com.jogamp.opengl.GL4;
  *
  */
 public class DynamicCapsulesDrawer extends Dynamic3DDrawer{
+	private Logger logger=LoggerFactory.getLogger(DynamicCapsulesDrawer.class);
+	
 	private Map<Integer, Capsule> capsules_map;
 	private Map<Integer, Integer> indices_sizes_map;
 	
@@ -261,7 +265,7 @@ public class DynamicCapsulesDrawer extends Dynamic3DDrawer{
 	}
 	public int DeleteCapsule(int capsule_id) {
 		if(capsules_map.containsKey(capsule_id)==false) {
-			LogWriter.WriteWarn("[DynamicCapsulesDrawer-DeleteCapsule] No such capsule. capsule_id:"+capsule_id, true);
+			logger.warn("No such capsule. capsule_id={}",capsule_id);
 			return -1;
 		}
 		

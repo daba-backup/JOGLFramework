@@ -5,6 +5,9 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.basis.matrix.Matrix;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
@@ -14,7 +17,6 @@ import com.daxie.joglf.gl.shape.Triangle;
 import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogWriter;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -24,6 +26,8 @@ import com.jogamp.opengl.GL4;
  *
  */
 public class ModelMgr {
+	private Logger logger=LoggerFactory.getLogger(ModelMgr.class);
+	
 	private List<BufferedVertices> buffered_vertices_list;
 	
 	private boolean property_updated_flag;
@@ -362,7 +366,7 @@ public class ModelMgr {
 	
 	public void ChangeTexture(int material_index,int new_texture_handle) {
 		if(!(0<=material_index&&material_index<buffered_vertices_list.size())) {
-			LogWriter.WriteWarn("[ModelMgr-ChangeTexture] Index out of bounds.", true);
+			logger.warn("Index out of bounds. material_index={}",material_index);
 			return;
 		}
 		

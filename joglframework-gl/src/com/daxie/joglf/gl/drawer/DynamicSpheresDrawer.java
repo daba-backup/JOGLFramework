@@ -9,13 +9,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shape.Sphere;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogWriter;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -25,6 +27,8 @@ import com.jogamp.opengl.GL4;
  *
  */
 public class DynamicSpheresDrawer extends Dynamic3DDrawer{
+	private Logger logger=LoggerFactory.getLogger(DynamicSpheresDrawer.class);
+	
 	private Map<Integer, Sphere> spheres_map;
 	private Map<Integer, Integer> indices_sizes_map;
 	
@@ -231,7 +235,7 @@ public class DynamicSpheresDrawer extends Dynamic3DDrawer{
 	}
 	public int DeleteSphere(int sphere_id) {
 		if(spheres_map.containsKey(sphere_id)==false) {
-			LogWriter.WriteWarn("[DynamicSpheresDrawer-DeleteSphere] No such sphere. sphere_id:"+sphere_id, true);
+			logger.warn("No such sphere. sphere_id={}",sphere_id);
 			return -1;
 		}
 		

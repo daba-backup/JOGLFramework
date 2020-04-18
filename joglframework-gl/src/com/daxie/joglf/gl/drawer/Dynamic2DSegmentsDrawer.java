@@ -8,12 +8,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shape.Vertex2D;
 import com.daxie.joglf.gl.tool.CoordinateFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogWriter;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -23,6 +25,8 @@ import com.jogamp.opengl.GL4;
  *
  */
 public class Dynamic2DSegmentsDrawer extends Dynamic2DDrawer{
+	private Logger logger=LoggerFactory.getLogger(Dynamic2DSegmentsDrawer.class);
+	
 	private Map<Integer, Vertex2D[]> segments_map;
 	
 	private IntBuffer pos_vbo;
@@ -116,7 +120,7 @@ public class Dynamic2DSegmentsDrawer extends Dynamic2DDrawer{
 	}
 	public int DeleteSegment(int segment_id) {
 		if(segments_map.containsKey(segment_id)==false) {
-			LogWriter.WriteWarn("[Dynamic2DSegmentsDrawer-DeleteSegment] No such segment. segment_id:"+segment_id, true);
+			logger.warn("No such segment. segment_id={}",segment_id);
 			return -1;
 		}
 		

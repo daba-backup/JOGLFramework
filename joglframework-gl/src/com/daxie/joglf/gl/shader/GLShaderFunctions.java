@@ -7,10 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.joglf.gl.tool.BufferFunctions;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogWriter;
-import com.daxie.tool.ExceptionFunctions;
 import com.daxie.tool.FileFunctions;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
@@ -21,6 +22,8 @@ import com.jogamp.opengl.GL4;
  *
  */
 public class GLShaderFunctions {
+	private static Logger logger=LoggerFactory.getLogger(GLShaderFunctions.class);
+	
 	private static Map<String, Integer> program_ids_map=new HashMap<>();
 	
 	/**
@@ -31,33 +34,29 @@ public class GLShaderFunctions {
 	 * @return -1 on error and 0 on success
 	 */
 	public static int CreateProgram(String program_name,String vertex_shader_filename,String fragment_shader_filename) {
-		LogWriter.WriteInfo("[GLShaderFunctions-CreateProgram] Start creating a program.",true);
-		LogWriter.WriteInfo("vertex_shader_filename:"+vertex_shader_filename,false);
-		LogWriter.WriteInfo("fragment_shader_filename:"+fragment_shader_filename,false);
+		logger.info("Start creating a program. program_name={}",program_name);
+		logger.info("vertex_shader_filename={} fragment_shader_filename={}",vertex_shader_filename,fragment_shader_filename);
 		
 		int vertex_shader_id=GLWrapper.glCreateShader(GL4.GL_VERTEX_SHADER);
 		int fragment_shader_id=GLWrapper.glCreateShader(GL4.GL_FRAGMENT_SHADER);
 		
 		//Load the code files of shaders.
+		List<String> vertex_shader_code_list;
+		List<String> fragment_shader_code_list;
 		String[] vertex_shader_code=null;
 		String[] fragment_shader_code=null;
 		try {
-			List<String> vertex_shader_code_list=FileFunctions.GetFileAllLines(vertex_shader_filename, "UTF-8");
-			List<String> fragment_shader_code_list=FileFunctions.GetFileAllLines(fragment_shader_filename, "UTF-8");
-			
-			vertex_shader_code=new String[vertex_shader_code_list.size()];
-			fragment_shader_code=new String[fragment_shader_code_list.size()];
-			vertex_shader_code_list.toArray(vertex_shader_code);
-			fragment_shader_code_list.toArray(fragment_shader_code);
+			vertex_shader_code_list=FileFunctions.GetFileAllLines(vertex_shader_filename, "UTF-8");
+			fragment_shader_code_list=FileFunctions.GetFileAllLines(fragment_shader_filename, "UTF-8");
 		}
 		catch(IOException e) {
-			String str=ExceptionFunctions.GetPrintStackTraceString(e);
-			
-			LogWriter.WriteWarn("[GLShaderFunctions-CreateProgram] Below is the stack trace.",true);
-			LogWriter.WriteWarn(str,false);
-			
+			logger.error("Error while reading.",e);
 			return -1;
 		}
+		vertex_shader_code=new String[vertex_shader_code_list.size()];
+		fragment_shader_code=new String[fragment_shader_code_list.size()];
+		vertex_shader_code_list.toArray(vertex_shader_code);
+		fragment_shader_code_list.toArray(fragment_shader_code);
 		
 		//Add LF to every line of the code.
 		for(int i=0;i<vertex_shader_code.length;i++) {
@@ -84,8 +83,8 @@ public class GLShaderFunctions {
 			GLWrapper.glGetShaderInfoLog(vertex_shader_id,info_log_length.get(0),null,error_message);
 			error_message_str=BufferFunctions.GetStringFromByteBuffer(error_message);
 			
-			LogWriter.WriteWarn("[GLShaderFunctions-CreateProgram] Vertex shader compilation failed. Below is the information log.",true);
-			LogWriter.WriteWarn(error_message_str,false);
+			logger.error("Vertex shader compilation failed.");
+			logger.error(error_message_str);
 			
 			return -1;
 		}
@@ -102,8 +101,8 @@ public class GLShaderFunctions {
 			GLWrapper.glGetShaderInfoLog(fragment_shader_id,info_log_length.get(0),null,error_message);
 			error_message_str=BufferFunctions.GetStringFromByteBuffer(error_message);
 			
-			LogWriter.WriteWarn("[GLShaderFunctions-CreateProgram] Fragment shader compilation failed. Below is the information log.",true);
-			LogWriter.WriteWarn(error_message_str,false);
+			logger.error("Fragment shader compilation failed.");
+			logger.error(error_message_str);
 			
 			return -1;
 		}
@@ -123,8 +122,8 @@ public class GLShaderFunctions {
 			GLWrapper.glGetProgramInfoLog(program_id, info_log_length.get(0), null, error_message);
 			error_message_str=BufferFunctions.GetStringFromByteBuffer(error_message);
 			
-			LogWriter.WriteWarn("[GLShaderFunctions-CreateProgram] Program link failed. Below is the information log.",true);
-			LogWriter.WriteWarn(error_message_str,false);
+			logger.error("Program link failed.");
+			logger.error(error_message_str);
 			
 			return -1;
 		}
@@ -133,6 +132,7 @@ public class GLShaderFunctions {
 		GLWrapper.glDeleteShader(fragment_shader_id);
 		
 		program_ids_map.put(program_name, program_id);
+		logger.info("Successfully created a program. program_name={} program_id={}",program_name,program_id);
 		
 		return 0;
 	}
@@ -144,7 +144,7 @@ public class GLShaderFunctions {
 	
 	public static int UseProgram(String program_name) {
 		if(program_ids_map.containsKey(program_name)==false) {
-			LogWriter.WriteWarn("[GLShaderFunctions-UseProgram] Invalid program name. name:"+program_name,true);
+			logger.warn("Invalid program name. program_name={}",program_name);
 			return -1;
 		}
 		

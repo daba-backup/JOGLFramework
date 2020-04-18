@@ -3,12 +3,14 @@ package com.daxie.joglf.gl.front;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.text.TextMgr;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLVersion;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogWriter;
 import com.jogamp.opengl.GL4;
 import com.jogamp.opengl.GLProfile;
 
@@ -18,6 +20,8 @@ import com.jogamp.opengl.GLProfile;
  *
  */
 public class GLFront {
+	private static Logger logger=LoggerFactory.getLogger(GLFront.class);
+	
 	private static String profile_str=GLProfile.GL4;
 	private static Lock lock=new ReentrantLock();
 	
@@ -69,7 +73,7 @@ public class GLFront {
 				"./Data/Shader/330/line_drawer/vshader.glsl", 
 				"./Data/Shader/330/line_drawer/fshader.glsl");
 		
-		LogWriter.WriteInfo("[GLFront-LoadDefaultShaders] Default shaders loaded.",true);
+		logger.info("Default shaders loaded.");
 	}
 	private static void SetDefaultGLProperties() {
 		GLWrapper.glEnable(GL4.GL_DEPTH_TEST);
@@ -81,7 +85,7 @@ public class GLFront {
 		GLWrapper.glEnable(GL4.GL_BLEND);
 		GLWrapper.glBlendFunc(GL4.GL_SRC_ALPHA, GL4.GL_ONE_MINUS_SRC_ALPHA);
 		
-		LogWriter.WriteInfo("[GLFront-SetDefaultGLProperties] Default properties set.",true);
+		logger.info("Default properties set.");
 	}
 	private static void AddProgramsToFronts() {
 		CameraFront.AddProgram("texture");

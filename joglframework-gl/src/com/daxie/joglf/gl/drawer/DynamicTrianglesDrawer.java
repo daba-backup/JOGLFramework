@@ -7,13 +7,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.basis.vector.Vector;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shape.Triangle;
 import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogWriter;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -23,6 +25,8 @@ import com.jogamp.opengl.GL4;
  *
  */
 public class DynamicTrianglesDrawer extends Dynamic3DDrawer{
+	private Logger logger=LoggerFactory.getLogger(DynamicTrianglesDrawer.class);
+	
 	private int texture_handle;
 	private Map<Integer, Triangle> triangles_map;
 	
@@ -129,7 +133,7 @@ public class DynamicTrianglesDrawer extends Dynamic3DDrawer{
 	}
 	public int DeleteTriangle(int triangle_id) {
 		if(triangles_map.containsKey(triangle_id)==false) {
-			LogWriter.WriteWarn("[DynamicTrianglesDrawer-DeleteTriangle] No such triangle. triangle_id:"+triangle_id, true);
+			logger.warn("No such triangle. triangle_id={}",triangle_id);
 			return -1;
 		}
 		

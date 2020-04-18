@@ -1,6 +1,7 @@
 package com.daxie.joglf.gl.window;
 
-import com.daxie.log.LogWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Common information for windows
@@ -8,6 +9,8 @@ import com.daxie.log.LogWriter;
  *
  */
 public class WindowCommonInfoStock {
+	private static Logger logger=LoggerFactory.getLogger(WindowCommonInfoStock.class);
+	
 	private static int fps=30;
 	private static boolean fps_finalized_flag=false;
 	
@@ -20,8 +23,7 @@ public class WindowCommonInfoStock {
 	}
 	public static void SetFPS(int a_fps) {
 		if(fps_finalized_flag==true) {
-			LogWriter.WriteWarn("[WindowCommonInfoStock-SetFPS] ", true);
-			LogWriter.WriteWarn("This method is disabled after the FPS is finalized.", false);
+			logger.warn("This method is disabled after the fps is finalized.");
 			return;
 		}
 		fps=a_fps;

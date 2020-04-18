@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.basis.coloru8.ColorU8Functions;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.shape.Vertex3D;
-import com.daxie.log.LogWriter;
 
 /**
  * Triangulates faces of BD1 blocks.
@@ -17,6 +19,8 @@ import com.daxie.log.LogWriter;
  *
  */
 class BD1Triangulator {
+	private Logger logger=LoggerFactory.getLogger(BD1Triangulator.class);
+	
 	private List<BD1Triangle> triangles_list;
 	
 	public BD1Triangulator() {
@@ -25,7 +29,7 @@ class BD1Triangulator {
 
 	public void TriangulateBlock(BD1Block block) {
 		if(block==null) {
-			LogWriter.WriteWarn("[BD1Triangulator-TriangulateBlock] Null argument passed.",true);
+			logger.warn("Null argument where non-null required.");
 			return;
 		}
 		
@@ -95,7 +99,7 @@ class BD1Triangulator {
 	}
 	public void TriangulateBlocks(List<BD1Block> blocks) {
 		if(blocks==null) {
-			LogWriter.WriteWarn("[BD1Triangulator-TriangulateBlocks] Null argument passed.",true);
+			logger.warn("Null argument where non-null required.");
 			return;
 		}
 		

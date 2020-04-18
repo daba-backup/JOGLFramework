@@ -5,8 +5,10 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.joglf.gl.front.GLFront;
-import com.daxie.log.LogWriter;
 
 /**
  * Provides wrapper functions for several GL versions.
@@ -14,6 +16,8 @@ import com.daxie.log.LogWriter;
  *
  */
 public class GLWrapper{
+	private static Logger logger=LoggerFactory.getLogger(GLWrapper.class);
+	
 	private static GLVersion gl_version=GLVersion.GL4bc;
 	
 	/**
@@ -23,7 +27,7 @@ public class GLWrapper{
 	 */
 	public static void SetGLVersion(GLVersion version) {
 		if(GLFront.IsSetup()==true) {
-			LogWriter.WriteWarn("[GLWrapper-SetGLVersion] This method is disabled after GL is setup.", true);
+			logger.warn("This method is disabled after the GL is set up.");
 			return;
 		}
 		

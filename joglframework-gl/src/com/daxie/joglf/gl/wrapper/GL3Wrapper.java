@@ -5,7 +5,9 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-import com.daxie.log.LogWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.jogamp.opengl.GL3;
 import com.jogamp.opengl.GLContext;
 
@@ -15,13 +17,15 @@ import com.jogamp.opengl.GLContext;
  *
  */
 class GL3Wrapper {
+	private static Logger logger=LoggerFactory.getLogger(GL3Wrapper.class);
+	
 	public static void glActiveTexture(int arg0) {
 		GL3 gl3=GLContext.getCurrentGL().getGL3();
 		gl3.glActiveTexture(arg0);
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glActiveTexture] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glAttachShader(int arg0,int arg1) {
@@ -30,7 +34,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glAttachShader] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glBindBuffer(int arg0,int arg1) {
@@ -39,7 +43,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glBindBuffer] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glBindFramebuffer(int arg0,int arg1) {
@@ -48,7 +52,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glBindFramebuffer] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glBindRenderbuffer(int arg0,int arg1) {
@@ -57,7 +61,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glBindRenderbuffer] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glBindSampler(int arg0,int arg1) {
@@ -66,7 +70,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glBindSampler] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glBindTexture(int arg0,int arg1) {
@@ -75,7 +79,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glBindTexture] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glBindVertexArray(int arg0) {
@@ -84,7 +88,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glBindVertexArray] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glBlendFunc(int arg0,int arg1) {
@@ -93,7 +97,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glBlendFunc] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glBufferData(int arg0,long arg1,Buffer arg2,int arg3) {
@@ -102,7 +106,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glBufferData] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static int glCheckFramebufferStatus(int arg0) {
@@ -111,7 +115,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glCheckFramebufferStatus] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 		
 		return ret;
@@ -122,7 +126,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glClear] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glClearColor(float arg0,float arg1,float arg2,float arg3) {
@@ -131,7 +135,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glClearColor] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glClearDepth(double arg0) {
@@ -140,7 +144,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glClearDepth] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glClearDepthf(float arg0) {
@@ -149,7 +153,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glClearDepthf] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glClearStencil(int arg0) {
@@ -158,7 +162,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glClearStencil] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glColorMask(boolean arg0,boolean arg1,boolean arg2,boolean arg3) {
@@ -167,7 +171,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glColorMask] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glCompileShader(int arg0) {
@@ -176,7 +180,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glCompileShader] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glCopyTexImage2D(int arg0,int arg1,int arg2,int arg3,int arg4,int arg5,int arg6,int arg7) {
@@ -185,7 +189,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glCopyTexImage2D] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static int glCreateProgram() {
@@ -194,7 +198,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glCreateProgram] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 		
 		return ret;
@@ -205,7 +209,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glCreateShader] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 		
 		return ret;
@@ -216,7 +220,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glCullFace] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glDeleteBuffers(int arg0,IntBuffer arg1) {
@@ -225,7 +229,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glDeleteBuffers] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glDeleteFramebuffers(int arg0,IntBuffer arg1) {
@@ -234,7 +238,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glDeleteFramebuffers] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glDeleteRenderbuffers(int arg0,IntBuffer arg1) {
@@ -243,7 +247,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glDeleteRenderbuffers] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glDeleteShader(int arg0) {
@@ -252,7 +256,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glDeleteShader] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glDeleteTextures(int arg0,IntBuffer arg1) {
@@ -261,7 +265,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glDeleteTextures] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glDeleteVertexArrays(int arg0,IntBuffer arg1) {
@@ -270,7 +274,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glDeleteVertexArrays] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glDepthFunc(int arg0) {
@@ -279,7 +283,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glDepthFunc] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glDepthMask(boolean arg0) {
@@ -288,7 +292,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glDepthMask] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glDisable(int arg0) {
@@ -297,7 +301,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glDisable] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glDisableVertexAttribArray(int arg0) {
@@ -306,7 +310,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glDisableVertexAttribArray] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glDrawArrays(int arg0,int arg1,int arg2) {
@@ -315,7 +319,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glDrawArrays] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glDrawBuffer(int arg0) {
@@ -324,7 +328,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glDrawBuffer] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glDrawBuffers(int arg0,IntBuffer arg1) {
@@ -333,7 +337,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glDrawBuffers] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glDrawElements(int arg0,int arg1,int arg2,int arg3) {
@@ -342,7 +346,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glDrawElements] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glEnable(int arg0) {
@@ -351,7 +355,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glEnable] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glEnableVertexAttribArray(int arg0) {
@@ -360,7 +364,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glEnableVertexAttribArray] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glFlush() {
@@ -369,7 +373,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glFlush] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glFramebufferRenderbuffer(int arg0,int arg1,int arg2,int arg3) {
@@ -378,7 +382,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glFramebufferRenderbuffer] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glFramebufferTexture(int arg0,int arg1,int arg2,int arg3) {
@@ -387,7 +391,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glFramebufferTexture] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glFramebufferTexture2D(int arg0,int arg1,int arg2,int arg3,int arg4) {
@@ -396,7 +400,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glFramebufferTexture2D] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glGenBuffers(int arg0,IntBuffer arg1) {
@@ -405,7 +409,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glGenBuffers] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glGenerateMipmap(int arg0) {
@@ -414,7 +418,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glGenerateMipmap] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glGenFramebuffers(int arg0,IntBuffer arg1) {
@@ -423,7 +427,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glGenFramebuffers] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glGenRenderbuffers(int arg0,IntBuffer arg1) {
@@ -432,7 +436,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glGenRenderbuffers] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glGenSamplers(int arg0,IntBuffer arg1) {
@@ -441,7 +445,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glGenSamplers] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glGenTextures(int arg0,IntBuffer arg1) {
@@ -450,7 +454,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glGenTextures] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glGenVertexArrays(int arg0,IntBuffer arg1) {
@@ -459,7 +463,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glGenVertexArrays] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glGetIntegerv(int arg0,IntBuffer arg1) {
@@ -468,7 +472,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glGetIntegerv] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glGetProgramInfoLog(int arg0,int arg1,IntBuffer arg2,ByteBuffer arg3) {
@@ -477,7 +481,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glGetProgramInfoLog] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glGetProgramiv(int arg0,int arg1,IntBuffer arg2) {
@@ -486,7 +490,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glGetProgramiv] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glGetShaderInfoLog(int arg0,int arg1,IntBuffer arg2,ByteBuffer arg3) {
@@ -495,7 +499,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glGetShaderInfoLog] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glGetShaderiv(int arg0,int arg1,IntBuffer arg2) {
@@ -504,7 +508,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glGetShaderiv] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glGetTexImage(int arg0,int arg1,int arg2,int arg3,Buffer arg4) {
@@ -513,7 +517,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glGetTexImage] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static int glGetUniformLocation(int arg0,String arg1) {
@@ -522,7 +526,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glGetUniformLocation] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 		
 		return ret;
@@ -533,7 +537,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glLinkProgram] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static ByteBuffer glMapBuffer(int arg0,int arg1) {
@@ -542,7 +546,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glMapBuffer] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 		
 		return ret;
@@ -553,7 +557,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glReadBuffer] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glReadPixels(int arg0,int arg1,int arg2,int arg3,int arg4,int arg5,Buffer arg6) {
@@ -562,7 +566,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glReadPixels] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glRenderbufferStorage(int arg0,int arg1,int arg2,int arg3) {
@@ -571,7 +575,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glRenderbufferStorage] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glSamplerParameteri(int arg0,int arg1,int arg2) {
@@ -580,7 +584,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glSamplerParameteri] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glShaderSource(int arg0,int arg1,String[] arg2,IntBuffer arg3) {
@@ -589,7 +593,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glShaderSource] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glStencilFunc(int arg0,int arg1,int arg2) {
@@ -598,7 +602,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glStencilFunc] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glStencilOp(int arg0,int arg1,int arg2) {
@@ -607,7 +611,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glStencilOp] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glTexImage2D(int arg0,int arg1,int arg2,int arg3,int arg4,int arg5,int arg6,int arg7,Buffer arg8) {
@@ -616,7 +620,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glTexImage2D] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glTexParameterf(int arg0,int arg1,float arg2) {
@@ -625,7 +629,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glTexParameterf] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glTexParameterfv(int arg0,int arg1,FloatBuffer arg2) {
@@ -634,7 +638,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glTexParameterfv] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glTexParameteri(int arg0,int arg1,int arg2) {
@@ -643,7 +647,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glTexParameteri] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glUniform1f(int arg0,float arg1) {
@@ -652,7 +656,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glUniform1f] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glUniform1fv(int arg0,int arg1,FloatBuffer arg2) {
@@ -661,7 +665,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glUniform1fv] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glUniform1i(int arg0,int arg1) {
@@ -670,7 +674,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glUniform1i] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glUniform1iv(int arg0,int arg1,IntBuffer arg2) {
@@ -679,7 +683,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glUniform1iv] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glUniform2f(int arg0,float arg1,float arg2) {
@@ -688,7 +692,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glUniform2f] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glUniform2fv(int arg0,int arg1,FloatBuffer arg2) {
@@ -697,7 +701,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glUniform2fv] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glUniform2i(int arg0,int arg1,int arg2) {
@@ -706,7 +710,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glUniform2i] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glUniform2iv(int arg0,int arg1,IntBuffer arg2) {
@@ -715,7 +719,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glUniform2iv] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glUniform3f(int arg0,float arg1,float arg2,float arg3) {
@@ -724,7 +728,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glUniform3f] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glUniform3fv(int arg0,int arg1,FloatBuffer arg2) {
@@ -733,7 +737,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glUniform3fv] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glUniform3i(int arg0,int arg1,int arg2,int arg3) {
@@ -742,7 +746,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glUniform3i] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glUniform3iv(int arg0,int arg1,IntBuffer arg2) {
@@ -751,7 +755,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glUniform3iv] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glUniform4f(int arg0,float arg1,float arg2,float arg3,float arg4) {
@@ -760,7 +764,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glUniform4f] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glUniform4fv(int arg0,int arg1,FloatBuffer arg2) {
@@ -769,7 +773,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glUniform4fv] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glUniform4i(int arg0,int arg1,int arg2,int arg3,int arg4) {
@@ -778,7 +782,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glUniform4i] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glUniform4iv(int arg0,int arg1,IntBuffer arg2) {
@@ -787,7 +791,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glUniform4iv] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glUniformMatrix2fv(int arg0,int arg1,boolean arg2,FloatBuffer arg3) {
@@ -796,7 +800,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glUniformMatrix2fv] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glUniformMatrix3fv(int arg0,int arg1,boolean arg2,FloatBuffer arg3) {
@@ -805,7 +809,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glUniformMatrix3fv] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glUniformMatrix4fv(int arg0,int arg1,boolean arg2,FloatBuffer arg3) {
@@ -814,7 +818,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glUniformMatrix4fv] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static boolean glUnmapBuffer(int arg0) {
@@ -823,7 +827,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glUnmapBuffer] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 		
 		return ret;
@@ -834,7 +838,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glUseProgram] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glVertexAttribPointer(int arg0,int arg1,int arg2,boolean arg3,int arg4,long arg5) {
@@ -843,7 +847,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glVertexAttribPointer] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 	public static void glViewport(int arg0,int arg1,int arg2,int arg3) {
@@ -852,7 +856,7 @@ class GL3Wrapper {
 		
 		int code=gl3.glGetError();
 		if(code!=GL3.GL_NO_ERROR) {
-			LogWriter.WriteTrace("[GL3Wrapper-glViewport] code:"+code,true);
+			logger.trace("code={}",code);
 		}
 	}
 }

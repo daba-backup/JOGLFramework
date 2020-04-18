@@ -9,13 +9,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.basis.vector.Vector;
 import com.daxie.joglf.gl.model.buffer.BufferedVertices;
 import com.daxie.joglf.gl.shape.Triangle;
 import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.texture.TextureMgr;
-import com.daxie.log.LogWriter;
-import com.daxie.tool.ExceptionFunctions;
 import com.daxie.tool.FilenameFunctions;
 import com.jogamp.common.nio.Buffers;
 
@@ -25,6 +26,8 @@ import com.jogamp.common.nio.Buffers;
  *
  */
 public class BD1Loader {
+	private static Logger logger=LoggerFactory.getLogger(BD1Loader.class);
+	
 	public static List<BufferedVertices> LoadBD1(String bd1_filename){
 		List<BufferedVertices> ret=new ArrayList<>();
 		
@@ -33,11 +36,7 @@ public class BD1Loader {
 			bd1_parser=new BD1Parser(bd1_filename);
 		}
 		catch(IOException e) {
-			String str=ExceptionFunctions.GetPrintStackTraceString(e);
-			
-			LogWriter.WriteWarn("[BD1Loader-LoadBD1] Below is the stack trace.", true);
-			LogWriter.WriteWarn(str, false);
-			
+			logger.error("Error while reading.",e);
 			return ret;
 		}
 		
@@ -135,11 +134,7 @@ public class BD1Loader {
 			bd1_parser=new BD1Parser(bd1_filename);
 		}
 		catch(IOException e) {
-			String str=ExceptionFunctions.GetPrintStackTraceString(e);
-			
-			LogWriter.WriteWarn("[BD1Loader-LoadBD1] Below is the stack trace.", true);
-			LogWriter.WriteWarn(str, false);
-			
+			logger.error("Error while reading.",e);
 			return ret;
 		}
 		

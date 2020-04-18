@@ -6,8 +6,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.joglf.gl.window.WindowCommonInfoStock;
-import com.daxie.log.LogWriter;
 
 /**
  * Animation information
@@ -15,6 +17,8 @@ import com.daxie.log.LogWriter;
  *
  */
 public class AnimationInfo {
+	private Logger logger=LoggerFactory.getLogger(AnimationInfo.class);
+	
 	//(frame_index, frame_handle)
 	private Map<Integer, Integer> frames_map;
 	
@@ -31,7 +35,7 @@ public class AnimationInfo {
 	
 	public float GetMaxTime() {
 		if(frames_map.size()==0) {
-			LogWriter.WriteWarn("[AnimationInfo-GetTotalTime] No frames registered.", true);
+			logger.warn("No frames registered.");
 			return 0.0f;
 		}
 		
@@ -51,7 +55,7 @@ public class AnimationInfo {
 		AnimationBlendInfo abi=new AnimationBlendInfo();
 		
 		if(frames_map.size()==0) {
-			LogWriter.WriteWarn("[AnimationInfo-GetBlendInfo] No frames registered.", true);
+			logger.warn("No frames registered.");
 			return abi;
 		}
 		

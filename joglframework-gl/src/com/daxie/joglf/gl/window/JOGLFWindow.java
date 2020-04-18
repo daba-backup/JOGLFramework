@@ -1,5 +1,8 @@
 package com.daxie.joglf.gl.window;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.basis.coloru8.ColorU8Functions;
 import com.daxie.basis.vector.VectorFunctions;
@@ -15,7 +18,6 @@ import com.daxie.joglf.gl.input.mouse.MouseEnum;
 import com.daxie.joglf.gl.text.TextMgr;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.log.LogWriter;
 import com.jogamp.newt.event.KeyEvent;
 import com.jogamp.newt.event.KeyListener;
 import com.jogamp.newt.event.MouseEvent;
@@ -36,6 +38,8 @@ import com.jogamp.opengl.util.FPSAnimator;
  *
  */
 public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
+	private Logger logger=LoggerFactory.getLogger(JOGLFWindow.class);
+	
 	private GLWindow window;
 	private WindowAdapter adapter;
 	private FPSAnimator animator;
@@ -75,7 +79,7 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		animator.start();
 		WindowCommonInfoStock.FinalizeFPS();
 		
-		LogWriter.WriteInfo("[JOGLFWindow-<init>] Window created.", true);
+		logger.info("Window created.");
 		
 		keyboard=new Keyboard();
 		mouse=new Mouse();
@@ -118,12 +122,8 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 			@Override
 			public void windowDestroyed(WindowEvent e) {
 				animator.stop();
-				LogWriter.CloseLogWriter();
-				
-				destroyed_flag=true;
-				
-				onWindowClosing();
-				
+				destroyed_flag=true;				
+				onWindowClosing();				
 				System.exit(0);
 			}
 		};
