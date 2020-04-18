@@ -43,8 +43,8 @@ public class GLShaderFunctions {
 		//Load the code files of shaders.
 		List<String> vertex_shader_code_list;
 		List<String> fragment_shader_code_list;
-		String[] vertex_shader_code=null;
-		String[] fragment_shader_code=null;
+		String[] vertex_shader_code;
+		String[] fragment_shader_code;
 		try {
 			vertex_shader_code_list=FileFunctions.GetFileAllLines(vertex_shader_filename, "UTF-8");
 			fragment_shader_code_list=FileFunctions.GetFileAllLines(fragment_shader_filename, "UTF-8");
