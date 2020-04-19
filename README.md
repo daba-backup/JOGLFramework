@@ -20,7 +20,7 @@ After setting up *Data*, get the required JARs.
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework-gl</artifactId>
-    <version>10.2.0</version>
+    <version>10.3.0</version>
 </dependency>
 ```
 
@@ -30,7 +30,7 @@ After setting up *Data*, get the required JARs.
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework-al</artifactId>
-    <version>10.2.0</version>
+    <version>10.3.0</version>
 </dependency>
 ```
 
@@ -120,11 +120,11 @@ Samples are available in [JOGLFramework2Samples](https://github.com/Dabasan/JOGL
   Wavefront OBJ file loader
 - [JLayer](https://github.com/pdudits/soundlibs/tree/master/jlayer)
   MP3 decoder
+- [logback](https://github.com/qos-ch/logback)
+  Logging framework
 
 ------
 
-- [DHLog](https://github.com/Dabasan/DHLog)
-  Log output
 - [DHTool](https://github.com/Dabasan/DHTool)
   Fundamental tools for my Java programs
 - [DH3DBasis](https://github.com/Dabasan/DH3DBasis)
@@ -150,6 +150,7 @@ They are mostly licensed under the New BSD 2-Clause License.
 #### LGPL
 
 - [JLayer](https://github.com/pdudits/soundlibs/blob/master/jlayer/LICENSE.txt)
+- [logback](https://github.com/qos-ch/logback/blob/master/LICENSE.txt)
 
 #### Other
 
