@@ -12,10 +12,13 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.daxie.basis.coloru8.ColorU8;
+import com.daxie.basis.coloru8.ColorU8Functions;
 import com.daxie.joglf.gl.model.buffer.BufferedVertices;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.tool.FilenameFunctions;
 
+import de.javagl.obj.FloatTuple;
 import de.javagl.obj.Mtl;
 import de.javagl.obj.MtlReader;
 import de.javagl.obj.Obj;
@@ -93,6 +96,27 @@ public class OBJLoader {
 				logger.warn("No such material. material_name={}",material_name);
 				continue;
 			}
+			
+			FloatTuple ft_ambient_color=mtl.getKa();
+			FloatTuple ft_diffuse_color=mtl.getKd();
+			FloatTuple ft_specular_color=mtl.getKs();
+			
+			ColorU8 ambient_color=ColorU8Functions.GetColorU8(
+					ft_ambient_color.get(0), ft_ambient_color.get(1), ft_ambient_color.get(2), ft_ambient_color.get(3));
+			ColorU8 diffuse_color=ColorU8Functions.GetColorU8(
+					ft_diffuse_color.get(0), ft_diffuse_color.get(1), ft_diffuse_color.get(2), ft_diffuse_color.get(3));
+			ColorU8 specular_color=ColorU8Functions.GetColorU8(
+					ft_specular_color.get(0), ft_specular_color.get(1), ft_specular_color.get(2), ft_specular_color.get(3));
+			float specular_exponent=mtl.getNs();
+			float dissolve=mtl.getD();
+			String diffuse_texture_map=mtl.getMapKd();
+			
+			buffered_vertices.SetAmbientColor(ambient_color);
+			buffered_vertices.SetDiffuseColor(diffuse_color);
+			buffered_vertices.SetSpecularColor(specular_color);
+			buffered_vertices.SetSpecularExponent(specular_exponent);
+			buffered_vertices.SetDissolve(dissolve);
+			buffered_vertices.SetDiffuseTextureMap(diffuse_texture_map);
 			
 			IntBuffer indices=ObjData.getFaceVertexIndices(material_group,3);
 			FloatBuffer pos_buffer=ObjData.getVertices(material_group);
