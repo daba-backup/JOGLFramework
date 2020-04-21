@@ -102,11 +102,11 @@ public class OBJLoader {
 			FloatTuple ft_specular_color=mtl.getKs();
 			
 			ColorU8 ambient_color=ColorU8Functions.GetColorU8(
-					ft_ambient_color.get(0), ft_ambient_color.get(1), ft_ambient_color.get(2), ft_ambient_color.get(3));
+					ft_ambient_color.get(0), ft_ambient_color.get(1), ft_ambient_color.get(2), 1.0f);
 			ColorU8 diffuse_color=ColorU8Functions.GetColorU8(
-					ft_diffuse_color.get(0), ft_diffuse_color.get(1), ft_diffuse_color.get(2), ft_diffuse_color.get(3));
+					ft_diffuse_color.get(0), ft_diffuse_color.get(1), ft_diffuse_color.get(2), 1.0f);
 			ColorU8 specular_color=ColorU8Functions.GetColorU8(
-					ft_specular_color.get(0), ft_specular_color.get(1), ft_specular_color.get(2), ft_specular_color.get(3));
+					ft_specular_color.get(0), ft_specular_color.get(1), ft_specular_color.get(2), 1.0f);
 			float specular_exponent=mtl.getNs();
 			float dissolve=mtl.getD();
 			String diffuse_texture_map=mtl.getMapKd();
