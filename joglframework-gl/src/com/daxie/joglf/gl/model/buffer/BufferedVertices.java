@@ -4,6 +4,8 @@ import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
+import com.daxie.basis.coloru8.ColorU8;
+import com.daxie.basis.coloru8.ColorU8Functions;
 import com.daxie.joglf.gl.tool.BufferFunctions;
 import com.jogamp.common.nio.Buffers;
 
@@ -21,6 +23,13 @@ public class BufferedVertices {
 	private FloatBuffer uv_buffer;
 	private FloatBuffer norm_buffer;
 	
+	private ColorU8 ambient_color;
+	private ColorU8 diffuse_color;
+	private ColorU8 specular_color;
+	private float specular_exponent;
+	private float dissolve;
+	private String diffuse_texture_map;
+	
 	public BufferedVertices Copy() {
 		BufferedVertices buffered_vertices=new BufferedVertices();
 		
@@ -32,16 +41,36 @@ public class BufferedVertices {
 		buffered_vertices.uv_buffer=BufferFunctions.CopyFloatBuffer(this.uv_buffer);
 		buffered_vertices.norm_buffer=BufferFunctions.CopyFloatBuffer(this.norm_buffer);
 		
+		buffered_vertices.ambient_color=this.GetAmbientColor();
+		buffered_vertices.diffuse_color=this.GetDiffuseColor();
+		buffered_vertices.specular_color=this.GetSpecularColor();
+		buffered_vertices.specular_exponent=this.GetSpecularExponent();
+		buffered_vertices.dissolve=this.GetDissolve();
+		buffered_vertices.diffuse_texture_map=this.GetDiffuseTextureMap();
+		
 		return buffered_vertices;
 	}
 	
 	public BufferedVertices() {
 		texture_handle=-1;
 		count=0;
+		
+		ambient_color=ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f);
+		diffuse_color=ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f);
+		specular_color=ColorU8Functions.GetColorU8(0.0f, 0.0f, 0.0f, 0.0f);
+		specular_exponent=10.0f;
+		dissolve=1.0f;
+		diffuse_texture_map="";
 	}
 	
 	public static BufferedVertices Interpolate(BufferedVertices bv1,BufferedVertices bv2,float blend_ratio) {
 		BufferedVertices interpolated=new BufferedVertices();
+		interpolated.SetAmbientColor(bv1.GetAmbientColor());
+		interpolated.SetDiffuseColor(bv1.GetDiffuseColor());
+		interpolated.SetSpecularColor(bv1.GetSpecularColor());
+		interpolated.SetSpecularExponent(bv1.GetSpecularExponent());
+		interpolated.SetDissolve(bv1.GetDissolve());
+		interpolated.SetDiffuseTextureMap(bv1.GetDiffuseTextureMap());
 		
 		int texture_handle=bv1.GetTextureHandle();
 		IntBuffer indices=bv1.GetIndices();
@@ -96,6 +125,24 @@ public class BufferedVertices {
 	public void SetNormBuffer(FloatBuffer norm_buffer) {
 		this.norm_buffer=norm_buffer;
 	}
+	public void SetAmbientColor(ColorU8 ambient_color) {
+		this.ambient_color=ambient_color;
+	}
+	public void SetDiffuseColor(ColorU8 diffuse_color) {
+		this.diffuse_color=diffuse_color;
+	}
+	public void SetSpecularColor(ColorU8 specular_color) {
+		this.specular_color=specular_color;
+	}
+	public void SetSpecularExponent(float specular_exponent) {
+		this.specular_exponent=specular_exponent;
+	}
+	public void SetDissolve(float dissolve) {
+		this.dissolve=dissolve;
+	}
+	public void SetDiffuseTextureMap(String diffuse_texture_map) {
+		this.diffuse_texture_map=diffuse_texture_map;
+	}
 	
 	public int GetTextureHandle() {
 		return texture_handle;
@@ -114,5 +161,23 @@ public class BufferedVertices {
 	}
 	public FloatBuffer GetNormBuffer() {
 		return norm_buffer;
+	}
+	public ColorU8 GetAmbientColor() {
+		return new ColorU8(ambient_color);
+	}
+	public ColorU8 GetDiffuseColor() {
+		return new ColorU8(diffuse_color);
+	}
+	public ColorU8 GetSpecularColor() {
+		return new ColorU8(specular_color);
+	}
+	public float GetSpecularExponent() {
+		return specular_exponent;
+	}
+	public float GetDissolve() {
+		return dissolve;
+	}
+	public String GetDiffuseTextureMap() {
+		return diffuse_texture_map;
 	}
 }
