@@ -36,11 +36,11 @@ After setting up *Data*, get the required JARs.
 
 ## Demo (Runnable JAR)
 
-### ShowTeapot
+### ReflectionMapping
 
-Download:[Google Drive](https://drive.google.com/open?id=1H20f_pgWRLw1lILl9wQkQIhLtOPMSQHo)
+Download:[Google Drive](https://drive.google.com/open?id=19AIKvqsXXTAp2hM0yGhlSzc-jdK61NW2)
 
-<img src="https://i.imgur.com/Pqgv1u3.png" alt="Utah teapot"  />
+<img src="https://i.imgur.com/GoXfBHi.jpg" alt="Imgur" style="zoom: 50%;" />
 
 ## Example
 
