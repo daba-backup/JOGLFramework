@@ -40,7 +40,7 @@ After setting up *Data*, get the required JARs.
 
 Download:[Google Drive](https://drive.google.com/open?id=19AIKvqsXXTAp2hM0yGhlSzc-jdK61NW2)
 
-<img src="https://i.imgur.com/GoXfBHi.jpg" alt="Imgur" style="zoom: 50%;" />
+![Imgur](https://i.imgur.com/gRG3SOH.jpg)
 
 ## Example
 
@@ -102,7 +102,7 @@ public class Main {
 }
 ```
 
-<img src="https://i.imgur.com/CvHyAIm.png" alt="MyWindow"  />
+![Imgur](https://i.imgur.com/CvHyAIm.png)
 
 ## Samples
 
