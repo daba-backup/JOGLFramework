@@ -22,7 +22,7 @@ import com.jogamp.opengl.GLProfile;
 public class GLFront {
 	private static Logger logger=LoggerFactory.getLogger(GLFront.class);
 	
-	private static String profile_str=GLProfile.GL4;
+	private static String profile_str=GLProfile.GL3;
 	private static Lock lock=new ReentrantLock();
 	
 	private static boolean setup_flag=false;

@@ -18,7 +18,7 @@ import com.daxie.joglf.gl.front.GLFront;
 public class GLWrapper{
 	private static Logger logger=LoggerFactory.getLogger(GLWrapper.class);
 	
-	private static GLVersion gl_version=GLVersion.GL4bc;
+	private static GLVersion gl_version=GLVersion.GL3;
 	
 	/**
 	 * Sets the GL version.<br>
