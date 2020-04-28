@@ -2,7 +2,6 @@
 
 layout(location=0) in vec2 vs_in_position;
 layout(location=1) in vec2 vs_in_uv;
-
 out vec2 vs_out_uv;
 
 void main(){

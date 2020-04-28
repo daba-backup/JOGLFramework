@@ -1,9 +1,8 @@
 #version 330
 
-in vec2 vs_out_uv;
-
 uniform sampler2D texture_sampler;
 
+in vec2 vs_out_uv;
 out vec4 fs_out_color;
 
 void main(){
