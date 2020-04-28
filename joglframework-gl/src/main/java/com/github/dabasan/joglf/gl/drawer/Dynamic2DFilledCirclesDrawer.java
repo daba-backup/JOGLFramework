@@ -47,7 +47,7 @@ public class Dynamic2DFilledCirclesDrawer extends Dynamic2DDrawer{
 	
 	@Override
 	public void SetDefaultProgram() {
-		ShaderProgram program=new ShaderProgram("line_drawer");
+		ShaderProgram program=new ShaderProgram("simple_2d");
 		this.AddProgram(program);
 	}
 	
