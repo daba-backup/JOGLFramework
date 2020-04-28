@@ -269,8 +269,7 @@ public class TextureMgr {
 	
 	public static int EnableTexture(int texture_handle) {
 		if(textures_map.containsKey(texture_handle)==false) {
-			logger.warn("No such texture. texture_handle={}",texture_handle);
-			return -1;
+			texture_handle=default_texture_handle;
 		}
 		
 		GL gl=GLContext.getCurrentGL();
@@ -282,8 +281,7 @@ public class TextureMgr {
 	}
 	public static int BindTexture(int texture_handle) {
 		if(textures_map.containsKey(texture_handle)==false) {
-			logger.warn("No such texture. texture_handle={}",texture_handle);
-			return -1;
+			texture_handle=default_texture_handle;
 		}
 		
 		GL gl=GLContext.getCurrentGL();
@@ -295,8 +293,7 @@ public class TextureMgr {
 	}
 	public static int DisableTexture(int texture_handle) {
 		if(textures_map.containsKey(texture_handle)==false) {
-			logger.warn("No such texture. texture_handle={}",texture_handle);
-			return -1;
+			texture_handle=default_texture_handle;
 		}
 		
 		GL gl=GLContext.getCurrentGL();
@@ -307,16 +304,6 @@ public class TextureMgr {
 		return 0;
 	}
 	
-	public static void EnableDefaultTexture() {
-		EnableTexture(default_texture_handle);
-	}
-	public static void BindDefaultTexture() {
-		BindTexture(default_texture_handle);
-	}
-	public static void DisableDefaultTexture() {
-		DisableTexture(default_texture_handle);
-	}
-	
 	public static int DrawTexture(
 			int texture_handle,int x,int y,int width,int height,
 			float bottom_left_u,float bottom_left_v,
@@ -324,8 +311,7 @@ public class TextureMgr {
 			float top_right_u,float top_right_v,
 			float top_left_u,float top_left_v) {
 		if(textures_map.containsKey(texture_handle)==false) {
-			logger.warn("No such texture. texture_handle={}",texture_handle);
-			return -1;
+			texture_handle=default_texture_handle;
 		}
 		
 		GL gl=GLContext.getCurrentGL();

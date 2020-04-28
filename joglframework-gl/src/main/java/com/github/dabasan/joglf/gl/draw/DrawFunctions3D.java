@@ -763,14 +763,8 @@ public class DrawFunctions3D {
 		GLWrapper.glBindVertexArray(vao.get(0));
 		
 		//Draw
-		if(texture_handle<0) {
-			TextureMgr.EnableDefaultTexture();
-			TextureMgr.BindDefaultTexture();
-		}
-		else {
-			TextureMgr.EnableTexture(texture_handle);
-			TextureMgr.BindTexture(texture_handle);
-		}
+		TextureMgr.EnableTexture(texture_handle);
+		TextureMgr.BindTexture(texture_handle);
 		
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0);
 		GLWrapper.glUniform1i(sampler_location, 0);
@@ -781,8 +775,7 @@ public class DrawFunctions3D {
 		
 		GLWrapper.glBindVertexArray(0);
 		
-		if(texture_handle<0)TextureMgr.DisableDefaultTexture();
-		else TextureMgr.DisableTexture(texture_handle);
+		TextureMgr.DisableTexture(texture_handle);
 		
 		//Delete buffers
 		GLWrapper.glDeleteBuffers(1, pos_vbo);

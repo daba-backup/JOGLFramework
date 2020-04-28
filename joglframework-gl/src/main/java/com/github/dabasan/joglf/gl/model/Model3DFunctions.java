@@ -19,6 +19,7 @@ import com.github.dabasan.joglf.gl.model.animation.AnimationInfoMap;
 import com.github.dabasan.joglf.gl.model.buffer.BufferedVertices;
 import com.github.dabasan.joglf.gl.model.loader.bd1.BD1Loader;
 import com.github.dabasan.joglf.gl.model.loader.obj.OBJLoader;
+import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 import com.github.dabasan.joglf.gl.shape.Triangle;
 
 /**
@@ -119,37 +120,14 @@ public class Model3DFunctions {
 		return ret;
 	}
 	
-	public static int AddProgram(int model_handle,String program_name) {
+	public static int AddProgram(int model_handle,ShaderProgram program) {
 		if(models_map.containsKey(model_handle)==false) {
 			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
 		ModelMgr model=models_map.get(model_handle);
-		model.AddProgram(program_name);
-		
-		return 0;
-	}
-	public static int RemoveProgram(int model_handle,String program_name) {
-		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
-			return -1;
-		}
-		
-		ModelMgr model=models_map.get(model_handle);
-		model.RemoveProgram(program_name);
-		
-		return 0;
-	}
-	public static int SetDefaultProgram(int model_handle) {
-		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
-			return -1;
-		}
-		
-		ModelMgr model=models_map.get(model_handle);
-		model.RemoveAllPrograms();
-		model.AddProgram("texture");
+		model.AddProgram(program);
 		
 		return 0;
 	}
@@ -164,15 +142,28 @@ public class Model3DFunctions {
 		
 		return 0;
 	}
-	
-	public static int DrawModelWithProgram(int model_handle,String program_name,int texture_unit,String sampler_name) {
+	public static int SetDefaultProgram(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
 			logger.warn("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
 		ModelMgr model=models_map.get(model_handle);
-		model.DrawWithProgram(program_name, texture_unit, sampler_name);
+		ShaderProgram program=new ShaderProgram("texture");
+		model.RemoveAllPrograms();
+		model.AddProgram(program);
+		
+		return 0;
+	}
+	
+	public static int DrawModelWithProgram(int model_handle,ShaderProgram program,int texture_unit,String sampler_name) {
+		if(models_map.containsKey(model_handle)==false) {
+			logger.warn("No such model. model_handle={}",model_handle);
+			return -1;
+		}
+		
+		ModelMgr model=models_map.get(model_handle);
+		model.DrawWithProgram(program, texture_unit, sampler_name);
 		
 		return 0;
 	}

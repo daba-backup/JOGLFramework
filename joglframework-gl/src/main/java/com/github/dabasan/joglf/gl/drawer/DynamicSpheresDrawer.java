@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
-import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
+import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 import com.github.dabasan.joglf.gl.shape.Sphere;
 import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.common.nio.Buffers;
@@ -48,8 +48,8 @@ public class DynamicSpheresDrawer extends Dynamic3DDrawer{
 	
 	@Override
 	public void SetDefaultProgram() {
-		this.RemoveAllPrograms();
-		this.AddProgram("color");
+		ShaderProgram program=new ShaderProgram("color");
+		this.AddProgram(program);
 	}
 	
 	@Override
@@ -253,10 +253,10 @@ public class DynamicSpheresDrawer extends Dynamic3DDrawer{
 	
 	@Override
 	public void Draw() {
-		List<String> program_names=this.GetProgramNames();
+		List<ShaderProgram> programs=this.GetPrograms();
 		
-		for(String program_name:program_names) {
-			ShaderFunctions.UseProgram(program_name);
+		for(ShaderProgram program:programs) {
+			program.Enable();
 			
 			for(int i=0;i<buffer_num;i++) {
 				GLWrapper.glBindVertexArray(vao.get(i));
@@ -267,7 +267,9 @@ public class DynamicSpheresDrawer extends Dynamic3DDrawer{
 				GLWrapper.glDisable(GL4.GL_BLEND);
 				
 				GLWrapper.glBindVertexArray(0);
-			}	
+			}
+			
+			program.Disable();
 		}
 	}
 }

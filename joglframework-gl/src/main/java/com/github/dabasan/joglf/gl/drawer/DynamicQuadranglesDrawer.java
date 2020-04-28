@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.daxie.basis.vector.Vector;
-import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
+import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 import com.github.dabasan.joglf.gl.shape.Quadrangle;
 import com.github.dabasan.joglf.gl.shape.Vertex3D;
 import com.github.dabasan.joglf.gl.texture.TextureMgr;
@@ -55,8 +55,8 @@ public class DynamicQuadranglesDrawer extends Dynamic3DDrawer{
 	
 	@Override
 	public void SetDefaultProgram() {
-		this.RemoveAllPrograms();
-		this.AddProgram("texture");
+		ShaderProgram program=new ShaderProgram("texture");
+		this.AddProgram(program);
 	}
 	
 	@Override
@@ -176,26 +176,17 @@ public class DynamicQuadranglesDrawer extends Dynamic3DDrawer{
 		this.Draw(0, "texture_sampler");
 	}
 	public void Draw(int texture_unit,String sampler_name) {
-		List<String> program_names=this.GetProgramNames();
+		List<ShaderProgram> programs=this.GetPrograms();
 		
-		for(String program_name:program_names) {
-			ShaderFunctions.UseProgram(program_name);
-			
-			int program_id=ShaderFunctions.GetProgramID(program_name);
-			int sampler_location=GLWrapper.glGetUniformLocation(program_id, sampler_name);
+		for(ShaderProgram program:programs) {
+			program.Enable();
 			
 			GLWrapper.glBindVertexArray(vao.get(0));
 			
 			GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);
-			if(texture_handle<0) {
-				TextureMgr.EnableDefaultTexture();
-				TextureMgr.BindDefaultTexture();
-			}
-			else {
-				TextureMgr.EnableTexture(texture_handle);
-				TextureMgr.BindTexture(texture_handle);
-			}	
-			GLWrapper.glUniform1i(sampler_location, texture_unit);
+			TextureMgr.EnableTexture(texture_handle);
+			TextureMgr.BindTexture(texture_handle);	
+			program.SetUniform(sampler_name, texture_unit);
 			
 			int quadrangle_num=quadrangles_map.size();
 			int triangle_num=quadrangle_num*2;
@@ -205,10 +196,11 @@ public class DynamicQuadranglesDrawer extends Dynamic3DDrawer{
 			GLWrapper.glDrawElements(GL4.GL_TRIANGLES, indices_size, GL4.GL_UNSIGNED_INT, 0);
 			GLWrapper.glDisable(GL4.GL_BLEND);
 			
-			if(texture_handle<0)TextureMgr.DisableDefaultTexture();
-			else TextureMgr.DisableTexture(texture_handle);
+			TextureMgr.DisableTexture(texture_handle);
 			
 			GLWrapper.glBindVertexArray(0);	
+			
+			program.Disable();
 		}
 	}
 	public void Transfer() {

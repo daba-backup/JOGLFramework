@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.daxie.basis.coloru8.ColorU8;
-import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
+import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 import com.github.dabasan.joglf.gl.shape.Vertex2D;
 import com.github.dabasan.joglf.gl.tool.CoordinateFunctions;
 import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
@@ -47,8 +47,8 @@ public class Dynamic2DFilledTrianglesDrawer extends Dynamic2DDrawer{
 	
 	@Override
 	public void SetDefaultProgram() {
-		this.RemoveAllPrograms();
-		this.AddProgram("line_drawer");
+		ShaderProgram program=new ShaderProgram("line_drawer");
+		this.AddProgram(program);
 	}
 	
 	@Override
@@ -141,10 +141,10 @@ public class Dynamic2DFilledTrianglesDrawer extends Dynamic2DDrawer{
 	
 	@Override
 	public void Draw() {
-		List<String> program_names=this.GetProgramNames();
+		List<ShaderProgram> programs=this.GetPrograms();
 		
-		for(String program_name:program_names) {
-			ShaderFunctions.UseProgram(program_name);
+		for(ShaderProgram program:programs) {
+			program.Enable();
 			
 			GLWrapper.glBindVertexArray(vao.get(0));
 			
@@ -156,6 +156,8 @@ public class Dynamic2DFilledTrianglesDrawer extends Dynamic2DDrawer{
 			GLWrapper.glDisable(GL4.GL_BLEND);
 			
 			GLWrapper.glBindVertexArray(0);	
+			
+			program.Disable();
 		}
 	}
 }

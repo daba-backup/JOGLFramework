@@ -12,7 +12,7 @@ import com.daxie.basis.matrix.Matrix;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 import com.github.dabasan.joglf.gl.model.buffer.BufferedVertices;
-import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
+import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 import com.github.dabasan.joglf.gl.shape.Triangle;
 import com.github.dabasan.joglf.gl.shape.Vertex3D;
 import com.github.dabasan.joglf.gl.texture.TextureMgr;
@@ -38,27 +38,25 @@ public class ModelMgr {
 	private IntBuffer norm_vbo;
 	private IntBuffer vao;
 	
-	private List<String> program_names;
+	private List<ShaderProgram> programs;
 	
 	public ModelMgr(List<BufferedVertices> buffered_vertices_list) {
 		this.buffered_vertices_list=buffered_vertices_list;
 		
 		property_updated_flag=false;
 		
-		program_names=new ArrayList<>();
-		program_names.add("texture");
+		programs=new ArrayList<>();
+		ShaderProgram program=new ShaderProgram("texture");
+		programs.add(program);
 		
 		this.GenerateBuffers();
 	}
 	
-	public void AddProgram(String program_name) {
-		program_names.add(program_name);
-	}
-	public void RemoveProgram(String program_name) {
-		program_names.remove(program_name);
+	public void AddProgram(ShaderProgram program) {
+		programs.add(program);
 	}
 	public void RemoveAllPrograms() {
-		program_names.clear();
+		programs.clear();
 	}
 	
 	public void Interpolate(ModelMgr frame1,ModelMgr frame2,float blend_ratio) {
@@ -200,17 +198,14 @@ public class ModelMgr {
 		}
 	}
 	
-	public void DrawWithProgram(String program_name,int texture_unit,String sampler_name) {
+	public void DrawWithProgram(ShaderProgram program,int texture_unit,String sampler_name) {
 		if(property_updated_flag==true) {
 			this.UpdateBuffers();
 		}
 		
 		int element_num=buffered_vertices_list.size();
 		
-		ShaderFunctions.UseProgram(program_name);
-		
-		int program_id=ShaderFunctions.GetProgramID(program_name);
-		int sampler_location=GLWrapper.glGetUniformLocation(program_id, sampler_name);
+		program.Enable();
 		
 		for(int i=0;i<element_num;i++) {
 			BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
@@ -220,30 +215,25 @@ public class ModelMgr {
 			GLWrapper.glBindVertexArray(vao.get(i));
 			
 			GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);
-			if(texture_handle<0) {
-				TextureMgr.EnableDefaultTexture();
-				TextureMgr.BindDefaultTexture();
-			}
-			else {
-				TextureMgr.EnableTexture(texture_handle);
-				TextureMgr.BindTexture(texture_handle);
-			}
-			GLWrapper.glUniform1i(sampler_location, texture_unit);
+			TextureMgr.EnableTexture(texture_handle);
+			TextureMgr.BindTexture(texture_handle);
+			program.SetUniform(sampler_name, texture_unit);
 			
 			GLWrapper.glEnable(GL4.GL_BLEND);
 			GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
 			GLWrapper.glDisable(GL4.GL_BLEND);
 			
-			if(texture_handle<0)TextureMgr.DisableDefaultTexture();
-			else TextureMgr.DisableTexture(texture_handle);
+			TextureMgr.DisableTexture(texture_handle);
 			
 			GLWrapper.glBindVertexArray(0);
 		}
+		
+		program.Disable();
 	}
 	
 	public void Draw(int texture_unit,String sampler_name) {
-		for(String program_name:program_names) {
-			this.DrawWithProgram(program_name, texture_unit, sampler_name);
+		for(ShaderProgram program:programs) {
+			this.DrawWithProgram(program, texture_unit, sampler_name);
 		}
 	}
 	public void Draw() {
@@ -281,11 +271,8 @@ public class ModelMgr {
 		else if(bound<element_num)clamped_bound=bound;
 		else clamped_bound=element_num;
 		
-		for(String program_name:program_names) {
-			ShaderFunctions.UseProgram(program_name);
-			
-			int program_id=ShaderFunctions.GetProgramID(program_name);
-			int sampler_location=GLWrapper.glGetUniformLocation(program_id, sampler_name);
+		for(ShaderProgram program:programs) {
+			program.Enable();
 			
 			for(int i=0;i<clamped_bound;i++) {
 				BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
@@ -294,26 +281,21 @@ public class ModelMgr {
 				
 				GLWrapper.glBindVertexArray(vao.get(i));
 				
-				GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);
-				if(texture_handle<0) {
-					TextureMgr.EnableDefaultTexture();
-					TextureMgr.BindDefaultTexture();
-				}
-				else {
-					TextureMgr.EnableTexture(texture_handle);
-					TextureMgr.BindTexture(texture_handle);
-				}
-				GLWrapper.glUniform1i(sampler_location, texture_unit);
+				GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);	
+				TextureMgr.EnableTexture(texture_handle);
+				TextureMgr.BindTexture(texture_handle);
+				program.SetUniform(sampler_name, texture_unit);
 				
 				GLWrapper.glEnable(GL4.GL_BLEND);
 				GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
 				GLWrapper.glDisable(GL4.GL_BLEND);
 				
-				if(texture_handle<0)TextureMgr.DisableDefaultTexture();
-				else TextureMgr.DisableTexture(texture_handle);
+				TextureMgr.DisableTexture(texture_handle);
 				
 				GLWrapper.glBindVertexArray(0);
 			}
+			
+			program.Disable();
 		}
 	}
 	public void DrawElements(int bound) {

@@ -3,33 +3,31 @@ package com.github.dabasan.joglf.gl.drawer;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.dabasan.joglf.gl.shader.ShaderProgram;
+
 /**
  * All dynamic drawers have to extend this class.
  * @author Daba
  *
  */
 public abstract class DynamicDrawer {
-	private List<String> program_names;
+	private List<ShaderProgram> programs;
 	
 	public DynamicDrawer() {
-		program_names=new ArrayList<>();
-		
+		programs=new ArrayList<>();
 		this.SetDefaultProgram();
 	}
 	
-	protected List<String> GetProgramNames() {
-		return program_names;
+	protected List<ShaderProgram> GetPrograms() {
+		return programs;
 	}
 	
-	public void AddProgram(String program_name) {
-		program_names.add(program_name);
-	}
-	public void RemoveProgram(String program_name) {
-		program_names.remove(program_name);
+	public void AddProgram(ShaderProgram program) {
+		programs.add(program);
 	}
 	public abstract void SetDefaultProgram();
 	public void RemoveAllPrograms() {
-		program_names.clear();
+		programs.clear();
 	}
 	
 	public abstract void UpdateBuffers();
