@@ -12,7 +12,7 @@ import com.daxie.basis.matrix.Matrix;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 import com.github.dabasan.joglf.gl.model.buffer.BufferedVertices;
-import com.github.dabasan.joglf.gl.shader.GLShaderFunctions;
+import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
 import com.github.dabasan.joglf.gl.shape.Triangle;
 import com.github.dabasan.joglf.gl.shape.Vertex3D;
 import com.github.dabasan.joglf.gl.texture.TextureMgr;
@@ -207,9 +207,9 @@ public class ModelMgr {
 		
 		int element_num=buffered_vertices_list.size();
 		
-		GLShaderFunctions.UseProgram(program_name);
+		ShaderFunctions.UseProgram(program_name);
 		
-		int program_id=GLShaderFunctions.GetProgramID(program_name);
+		int program_id=ShaderFunctions.GetProgramID(program_name);
 		int sampler_location=GLWrapper.glGetUniformLocation(program_id, sampler_name);
 		
 		for(int i=0;i<element_num;i++) {
@@ -282,9 +282,9 @@ public class ModelMgr {
 		else clamped_bound=element_num;
 		
 		for(String program_name:program_names) {
-			GLShaderFunctions.UseProgram(program_name);
+			ShaderFunctions.UseProgram(program_name);
 			
-			int program_id=GLShaderFunctions.GetProgramID(program_name);
+			int program_id=ShaderFunctions.GetProgramID(program_name);
 			int sampler_location=GLWrapper.glGetUniformLocation(program_id, sampler_name);
 			
 			for(int i=0;i<clamped_bound;i++) {

@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.daxie.basis.coloru8.ColorU8;
-import com.github.dabasan.joglf.gl.shader.GLShaderFunctions;
+import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
 import com.github.dabasan.joglf.gl.shape.Vertex2D;
 import com.github.dabasan.joglf.gl.tool.CoordinateFunctions;
 import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
@@ -141,7 +141,7 @@ public class Dynamic2DSegmentsDrawer extends Dynamic2DDrawer{
 		List<String> program_names=this.GetProgramNames();
 		
 		for(String program_name:program_names) {
-			GLShaderFunctions.UseProgram(program_name);
+			ShaderFunctions.UseProgram(program_name);
 			
 			GLWrapper.glBindVertexArray(vao.get(0));
 			

@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.daxie.basis.vector.Vector;
-import com.github.dabasan.joglf.gl.shader.GLShaderFunctions;
+import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
 import com.github.dabasan.joglf.gl.shape.Triangle;
 import com.github.dabasan.joglf.gl.shape.Vertex3D;
 import com.github.dabasan.joglf.gl.texture.TextureMgr;
@@ -157,9 +157,9 @@ public class DynamicTrianglesDrawer extends Dynamic3DDrawer{
 		List<String> program_names=this.GetProgramNames();
 		
 		for(String program_name:program_names) {
-			GLShaderFunctions.UseProgram(program_name);
+			ShaderFunctions.UseProgram(program_name);
 			
-			int program_id=GLShaderFunctions.GetProgramID(program_name);
+			int program_id=ShaderFunctions.GetProgramID(program_name);
 			int sampler_location=GLWrapper.glGetUniformLocation(program_id, sampler_name);
 			
 			GLWrapper.glBindVertexArray(vao.get(0));

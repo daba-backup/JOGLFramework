@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.dabasan.joglf.gl.shader.GLShaderFunctions;
+import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
 import com.github.dabasan.joglf.gl.text.TextMgr;
 import com.github.dabasan.joglf.gl.texture.TextureMgr;
 import com.github.dabasan.joglf.gl.wrapper.GLVersion;
@@ -56,19 +56,19 @@ public class GLFront {
 		else if(gl_version==GLVersion.GL4)profile_str=GLProfile.GL4;
 	}
 	private static void LoadDefaultShaders() {
-		GLShaderFunctions.CreateProgram(
+		ShaderFunctions.CreateProgram(
 				"texture", 
 				"./Data/Shader/330/texture/gouraud/vshader.glsl",
 				"./Data/Shader/330/texture/gouraud/fshader.glsl");
-		GLShaderFunctions.CreateProgram(
+		ShaderFunctions.CreateProgram(
 				"color",
 				"./Data/Shader/330/color/vshader.glsl",
 				"./Data/Shader/330/color/fshader.glsl");
-		GLShaderFunctions.CreateProgram(
+		ShaderFunctions.CreateProgram(
 				"texture_drawer", 
 				"./Data/Shader/330/texture_drawer/vshader.glsl", 
 				"./Data/Shader/330/texture_drawer/fshader.glsl");
-		GLShaderFunctions.CreateProgram(
+		ShaderFunctions.CreateProgram(
 				"line_drawer", 
 				"./Data/Shader/330/line_drawer/vshader.glsl", 
 				"./Data/Shader/330/line_drawer/fshader.glsl");

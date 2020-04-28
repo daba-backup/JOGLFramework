@@ -5,7 +5,7 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import com.daxie.basis.coloru8.ColorU8;
-import com.github.dabasan.joglf.gl.shader.GLShaderFunctions;
+import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
 import com.github.dabasan.joglf.gl.tool.CoordinateFunctions;
 import com.github.dabasan.joglf.gl.window.WindowCommonInfoStock;
 import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
@@ -17,7 +17,7 @@ import com.jogamp.opengl.GL4;
  * @author Daba
  *
  */
-public class GLDrawFunctions2D {
+public class DrawFunctions2D {
 	private static int window_width=WindowCommonInfoStock.DEFAULT_WIDTH;
 	private static int window_height=WindowCommonInfoStock.DEFAULT_HEIGHT;
 	
@@ -58,7 +58,7 @@ public class GLDrawFunctions2D {
 		((Buffer)pos_buffer).flip();
 		((Buffer)color_buffer).flip();
 		
-		GLShaderFunctions.UseProgram("line_drawer");
+		ShaderFunctions.UseProgram("line_drawer");
 		
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
@@ -146,7 +146,7 @@ public class GLDrawFunctions2D {
 		((Buffer)pos_buffer).flip();
 		((Buffer)color_buffer).flip();
 		
-		GLShaderFunctions.UseProgram("line_drawer");
+		ShaderFunctions.UseProgram("line_drawer");
 		
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
@@ -236,7 +236,7 @@ public class GLDrawFunctions2D {
 		indices_buffer.put(0);
 		((Buffer)indices_buffer).flip();
 		
-		GLShaderFunctions.UseProgram("line_drawer");
+		ShaderFunctions.UseProgram("line_drawer");
 		
 		GLWrapper.glGenBuffers(1, indices_vbo);
 		GLWrapper.glGenBuffers(1, pos_vbo);
@@ -318,7 +318,7 @@ public class GLDrawFunctions2D {
 		((Buffer)pos_buffer).flip();
 		((Buffer)color_buffer).flip();
 		
-		GLShaderFunctions.UseProgram("line_drawer");
+		ShaderFunctions.UseProgram("line_drawer");
 		
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
@@ -411,7 +411,7 @@ public class GLDrawFunctions2D {
 		
 		((Buffer)indices_buffer).flip();
 		
-		GLShaderFunctions.UseProgram("line_drawer");
+		ShaderFunctions.UseProgram("line_drawer");
 		
 		GLWrapper.glGenBuffers(1, indices_vbo);
 		GLWrapper.glGenBuffers(1, pos_vbo);

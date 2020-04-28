@@ -21,8 +21,8 @@ import com.jogamp.opengl.GL4;
  * @author Daba
  *
  */
-public class GLShaderFunctions {
-	private static Logger logger=LoggerFactory.getLogger(GLShaderFunctions.class);
+public class ShaderFunctions {
+	private static Logger logger=LoggerFactory.getLogger(ShaderFunctions.class);
 	
 	private static Map<String, Integer> program_ids_map=new HashMap<>();
 	

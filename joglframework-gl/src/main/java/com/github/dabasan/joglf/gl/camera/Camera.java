@@ -7,7 +7,7 @@ import java.util.List;
 import com.daxie.basis.matrix.Matrix;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
-import com.github.dabasan.joglf.gl.shader.GLShaderFunctions;
+import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
 import com.github.dabasan.joglf.gl.tool.BufferFunctions;
 import com.github.dabasan.joglf.gl.tool.matrix.ProjectionMatrixFunctions;
 import com.github.dabasan.joglf.gl.tool.matrix.TransformationMatrixFunctions;
@@ -143,8 +143,8 @@ public class Camera {
 		FloatBuffer view_transformation=BufferFunctions.MakeFloatBufferFromMatrix(view_transformation_matrix);
 		
 		for(String program_name:program_names) {
-			GLShaderFunctions.UseProgram(program_name);
-			int program_id=GLShaderFunctions.GetProgramID(program_name);
+			ShaderFunctions.UseProgram(program_name);
+			int program_id=ShaderFunctions.GetProgramID(program_name);
 			
 			int camera_position_location=GLWrapper.glGetUniformLocation(program_id, "camera_position");
 			int camera_target_location=GLWrapper.glGetUniformLocation(program_id, "camera_target");

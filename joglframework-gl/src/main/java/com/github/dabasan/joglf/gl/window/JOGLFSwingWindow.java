@@ -27,8 +27,8 @@ import org.slf4j.LoggerFactory;
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.basis.coloru8.ColorU8Functions;
 import com.daxie.basis.vector.VectorFunctions;
-import com.github.dabasan.joglf.gl.draw.GLDrawFunctions2D;
-import com.github.dabasan.joglf.gl.draw.GLDrawFunctions3D;
+import com.github.dabasan.joglf.gl.draw.DrawFunctions2D;
+import com.github.dabasan.joglf.gl.draw.DrawFunctions3D;
 import com.github.dabasan.joglf.gl.front.CameraFront;
 import com.github.dabasan.joglf.gl.front.FogFront;
 import com.github.dabasan.joglf.gl.front.GLFront;
@@ -377,7 +377,7 @@ implements JOGLFWindowInterface,GLEventListener,KeyListener,MouseListener,MouseM
 		CameraFront.UpdateAspect(width, height);
 		TextureMgr.SetWindowSize(width, height);
 		TextMgr.SetWindowSize(width, height);
-		GLDrawFunctions2D.SetWindowSize(width, height);
+		DrawFunctions2D.SetWindowSize(width, height);
 		LightingFront.Update();
 		FogFront.Update();
 		//====================
@@ -409,7 +409,7 @@ implements JOGLFWindowInterface,GLEventListener,KeyListener,MouseListener,MouseM
 	}
 	@Override
 	public void Draw() {
-		GLDrawFunctions3D.DrawAxes(100.0f);
+		DrawFunctions3D.DrawAxes(100.0f);
 	}
 	@Override
 	public void Dispose() {

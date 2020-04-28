@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
-import com.github.dabasan.joglf.gl.shader.GLShaderFunctions;
+import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
 import com.github.dabasan.joglf.gl.shape.Sphere;
 import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.common.nio.Buffers;
@@ -256,7 +256,7 @@ public class DynamicSpheresDrawer extends Dynamic3DDrawer{
 		List<String> program_names=this.GetProgramNames();
 		
 		for(String program_name:program_names) {
-			GLShaderFunctions.UseProgram(program_name);
+			ShaderFunctions.UseProgram(program_name);
 			
 			for(int i=0;i<buffer_num;i++) {
 				GLWrapper.glBindVertexArray(vao.get(i));

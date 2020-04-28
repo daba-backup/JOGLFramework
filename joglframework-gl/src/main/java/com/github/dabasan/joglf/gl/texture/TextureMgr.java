@@ -12,7 +12,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.dabasan.joglf.gl.shader.GLShaderFunctions;
+import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
 import com.github.dabasan.joglf.gl.window.WindowCommonInfoStock;
 import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.common.nio.Buffers;
@@ -372,7 +372,7 @@ public class TextureMgr {
 		((Buffer)pos_buffer).flip();
 		((Buffer)uv_buffer).flip();
 		
-		GLShaderFunctions.UseProgram("texture_drawer");
+		ShaderFunctions.UseProgram("texture_drawer");
 		
 		IntBuffer indices_vbo=Buffers.newDirectIntBuffer(1);
 		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);

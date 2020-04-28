@@ -26,7 +26,7 @@ public class ShaderProgram {
 	
 	public ShaderProgram(String program_name) {
 		this.program_name=program_name;
-		program_id=GLShaderFunctions.GetProgramID(program_name);
+		program_id=ShaderFunctions.GetProgramID(program_name);
 		if(program_id<0) {
 			logger.warn("This program is invalid. program_name={}",program_name);
 		}

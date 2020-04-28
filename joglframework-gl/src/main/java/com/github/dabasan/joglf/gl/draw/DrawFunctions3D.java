@@ -15,7 +15,7 @@ import com.daxie.basis.matrix.Matrix;
 import com.daxie.basis.matrix.MatrixFunctions;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
-import com.github.dabasan.joglf.gl.shader.GLShaderFunctions;
+import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
 import com.github.dabasan.joglf.gl.shape.Quadrangle;
 import com.github.dabasan.joglf.gl.shape.Triangle;
 import com.github.dabasan.joglf.gl.shape.Vertex3D;
@@ -29,8 +29,8 @@ import com.jogamp.opengl.GL4;
  * @author Daba
  *
  */
-public class GLDrawFunctions3D {
-	private static Logger logger=LoggerFactory.getLogger(GLDrawFunctions3D.class);
+public class DrawFunctions3D {
+	private static Logger logger=LoggerFactory.getLogger(DrawFunctions3D.class);
 	
 	public static void DrawLine3D(Vector line_pos_1,Vector line_pos_2,ColorU8 color_1,ColorU8 color_2) {
 		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);
@@ -57,7 +57,7 @@ public class GLDrawFunctions3D {
 		((Buffer)pos_buffer).flip();
 		((Buffer)color_buffer).flip();
 		
-		GLShaderFunctions.UseProgram("color");
+		ShaderFunctions.UseProgram("color");
 		
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
@@ -189,7 +189,7 @@ public class GLDrawFunctions3D {
 		((Buffer)pos_buffer).flip();
 		((Buffer)color_buffer).flip();
 		
-		GLShaderFunctions.UseProgram("color");
+		ShaderFunctions.UseProgram("color");
 		
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
@@ -278,7 +278,7 @@ public class GLDrawFunctions3D {
 		((Buffer)pos_buffer).flip();
 		((Buffer)color_buffer).flip();
 		
-		GLShaderFunctions.UseProgram("color");
+		ShaderFunctions.UseProgram("color");
 		
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
@@ -436,7 +436,7 @@ public class GLDrawFunctions3D {
 		((Buffer)pos_buffer).flip();
 		((Buffer)color_buffer).flip();
 		
-		GLShaderFunctions.UseProgram("color");
+		ShaderFunctions.UseProgram("color");
 		
 		GLWrapper.glGenBuffers(1, indices_vbo);
 		GLWrapper.glGenBuffers(1, pos_vbo);
@@ -626,7 +626,7 @@ public class GLDrawFunctions3D {
 		((Buffer)pos_buffer).flip();
 		((Buffer)color_buffer).flip();
 		
-		GLShaderFunctions.UseProgram("color");
+		ShaderFunctions.UseProgram("color");
 		
 		GLWrapper.glGenBuffers(1, indices_vbo);
 		GLWrapper.glGenBuffers(1, pos_vbo);
@@ -720,9 +720,9 @@ public class GLDrawFunctions3D {
 		((Buffer)uv_buffer).flip();
 		((Buffer)norm_buffer).flip();
 		
-		GLShaderFunctions.UseProgram("texture");
+		ShaderFunctions.UseProgram("texture");
 		
-		int program_id=GLShaderFunctions.GetProgramID("texture");
+		int program_id=ShaderFunctions.GetProgramID("texture");
 		int sampler_location=GLWrapper.glGetUniformLocation(program_id, "texture_sampler");
 		
 		GLWrapper.glGenBuffers(1, pos_vbo);

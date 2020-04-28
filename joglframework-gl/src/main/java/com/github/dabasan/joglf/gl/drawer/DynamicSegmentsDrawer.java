@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.basis.vector.Vector;
-import com.github.dabasan.joglf.gl.shader.GLShaderFunctions;
+import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
 import com.github.dabasan.joglf.gl.shape.Vertex3D;
 import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.common.nio.Buffers;
@@ -133,7 +133,7 @@ public class DynamicSegmentsDrawer extends Dynamic3DDrawer{
 		List<String> program_names=this.GetProgramNames();
 		
 		for(String program_name:program_names) {
-			GLShaderFunctions.UseProgram(program_name);
+			ShaderFunctions.UseProgram(program_name);
 			
 			GLWrapper.glBindVertexArray(vao.get(0));
 			
