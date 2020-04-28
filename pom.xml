@@ -46,8 +46,6 @@
 	</scm>
 
 	<build>
-		<sourceDirectory>src</sourceDirectory>
-
 		<pluginManagement>
 			<plugins>
 				<plugin>
