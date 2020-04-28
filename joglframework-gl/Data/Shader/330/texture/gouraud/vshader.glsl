@@ -44,14 +44,14 @@ void main(){
 
     //Lighting
     vec3 camera_direction=normalize(camera.target-camera.position);
-    vec3 half_le=-normalize(camera_direction+light.direction);
+    vec3 half_le=-normalize(camera_direction+lighting.direction);
 
-    float diffuse_coefficient=clamp(dot(vs_in_normal,-light.direction),0.0,1.0);
+    float diffuse_coefficient=clamp(dot(vs_in_normal,-lighting.direction),0.0,1.0);
     float specular_coefficient=pow(clamp(dot(vs_in_normal,half_le),0.0,1.0),2.0);
 
-    vec4 ambient_color=vec4(lighting.ambient_color*lighting.ambient_power)
-    vec4 diffuse_color=vec4(lighting.diffuse_color*diffuse_coefficient*diffuse_power);
-    vec4 specular_color=vec4(lighting.specular_color*specular_coefficient*specular_power);
+    vec4 ambient_color=vec4(lighting.ambient_color*lighting.ambient_power);
+    vec4 diffuse_color=vec4(lighting.diffuse_color*diffuse_coefficient*lighting.diffuse_power);
+    vec4 specular_color=vec4(lighting.specular_color*specular_coefficient*lighting.specular_power);
 
     vs_out_color=ambient_color+diffuse_color+specular_color;
     vs_out_color.a=1.0;

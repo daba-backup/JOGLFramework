@@ -1,5 +1,11 @@
 #version 330
 
+struct Fog{
+    float start;
+    float end;
+    vec4 color;
+};
+
 uniform sampler2D texture_sampler;
 uniform Fog fog;
 

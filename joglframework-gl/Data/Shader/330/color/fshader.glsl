@@ -1,5 +1,11 @@
 #version 330
 
+struct Fog{
+    float start;
+    float end;
+    vec4 color;
+};
+
 uniform Fog fog;
 
 in vec4 vs_out_color;
