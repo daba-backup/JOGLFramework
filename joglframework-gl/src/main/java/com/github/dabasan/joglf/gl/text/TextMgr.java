@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.daxie.basis.coloru8.ColorU8;
-import com.github.dabasan.joglf.gl.window.WindowCommonInfoStock;
+import com.github.dabasan.joglf.gl.window.WindowCommonInfo;
 import com.jogamp.graph.curve.Region;
 import com.jogamp.graph.curve.opengl.RegionRenderer;
 import com.jogamp.graph.curve.opengl.RenderState;
@@ -39,8 +39,8 @@ public class TextMgr {
 	
 	private static int default_font_handle;
 	
-	private static int window_width=WindowCommonInfoStock.DEFAULT_WIDTH;
-	private static int window_height=WindowCommonInfoStock.DEFAULT_HEIGHT;
+	private static int window_width=WindowCommonInfo.DEFAULT_WIDTH;
+	private static int window_height=WindowCommonInfo.DEFAULT_HEIGHT;
 	
 	public static void Initialize() {
 		render_state=RenderState.createRenderState(SVertex.factory());

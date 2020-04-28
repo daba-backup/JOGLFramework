@@ -9,7 +9,7 @@ import java.util.TreeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.dabasan.joglf.gl.window.WindowCommonInfoStock;
+import com.github.dabasan.joglf.gl.window.WindowCommonInfo;
 
 /**
  * Animation information
@@ -27,7 +27,7 @@ public class AnimationInfo {
 	}
 	
 	public void AppendFrame(float time,int frame_handle) {
-		int fps=WindowCommonInfoStock.GetFPS();
+		int fps=WindowCommonInfo.GetFPS();
 		int frame_index=Math.round(fps*time);
 		
 		frames_map.put(frame_index, frame_handle);
@@ -45,7 +45,7 @@ public class AnimationInfo {
 		int size=frame_indices.size();
 		int max_frame_index=frame_indices.get(size-1);
 		
-		int fps=WindowCommonInfoStock.GetFPS();
+		int fps=WindowCommonInfo.GetFPS();
 		float max_time=(float)max_frame_index/fps;
 		
 		return max_time;
@@ -59,7 +59,7 @@ public class AnimationInfo {
 			return abi;
 		}
 		
-		int fps=WindowCommonInfoStock.GetFPS();
+		int fps=WindowCommonInfo.GetFPS();
 		int frame_index=Math.round(time*fps);
 		
 		Set<Integer> frame_indices_set=frames_map.keySet();

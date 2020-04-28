@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
-import com.github.dabasan.joglf.gl.window.WindowCommonInfoStock;
+import com.github.dabasan.joglf.gl.window.WindowCommonInfo;
 import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL;
@@ -35,8 +35,8 @@ public class TextureMgr {
 	
 	private static int default_texture_handle=-1;
 	
-	private static int window_width=WindowCommonInfoStock.DEFAULT_WIDTH;
-	private static int window_height=WindowCommonInfoStock.DEFAULT_HEIGHT;
+	private static int window_width=WindowCommonInfo.DEFAULT_WIDTH;
+	private static int window_height=WindowCommonInfo.DEFAULT_HEIGHT;
 	
 	private static boolean generate_mipmap_flag=true;
 	

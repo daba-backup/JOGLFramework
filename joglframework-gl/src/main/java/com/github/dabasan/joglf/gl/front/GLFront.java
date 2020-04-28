@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
+import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 import com.github.dabasan.joglf.gl.text.TextMgr;
 import com.github.dabasan.joglf.gl.texture.TextureMgr;
 import com.github.dabasan.joglf.gl.wrapper.GLVersion;
@@ -88,12 +89,16 @@ public class GLFront {
 		logger.info("Default properties set.");
 	}
 	private static void AddProgramsToFronts() {
-		CameraFront.AddProgram("texture");
-		CameraFront.AddProgram("color");
+		ShaderProgram texture=new ShaderProgram("texture");
+		ShaderProgram color=new ShaderProgram("color");
+		texture.EnableLogging(false);
+		color.EnableLogging(false);
 		
-		FogFront.AddProgram("texture");
-		
-		LightingFront.AddProgram("texture");
+		CameraFront.AddProgram(texture);
+		CameraFront.AddProgram(color);
+		FogFront.AddProgram(texture);
+		FogFront.AddProgram(color);
+		LightingFront.AddProgram(texture);
 	}
 	
 	public static void Lock() {

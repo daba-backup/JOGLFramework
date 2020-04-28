@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
  * @author Daba
  *
  */
-public class WindowCommonInfoStock {
-	private static Logger logger=LoggerFactory.getLogger(WindowCommonInfoStock.class);
+public class WindowCommonInfo {
+	private static Logger logger=LoggerFactory.getLogger(WindowCommonInfo.class);
 	
 	private static int fps=30;
 	private static boolean fps_finalized_flag=false;

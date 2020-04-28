@@ -31,7 +31,7 @@ public class ShaderProgram {
 			logger.warn("This program is invalid. program_name={}",program_name);
 		}
 		
-		logging_enabled_flag=false;
+		logging_enabled_flag=true;
 	}
 	
 	public void EnableLogging(boolean flag) {

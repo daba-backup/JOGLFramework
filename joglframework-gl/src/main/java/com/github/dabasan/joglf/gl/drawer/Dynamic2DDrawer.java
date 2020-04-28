@@ -1,6 +1,6 @@
 package com.github.dabasan.joglf.gl.drawer;
 
-import com.github.dabasan.joglf.gl.window.WindowCommonInfoStock;
+import com.github.dabasan.joglf.gl.window.WindowCommonInfo;
 
 /**
  * All 2D drawers have to extend this class.
@@ -12,8 +12,8 @@ public abstract class Dynamic2DDrawer extends DynamicDrawer{
 	private int window_height;
 	
 	public Dynamic2DDrawer() {
-		window_width=WindowCommonInfoStock.DEFAULT_WIDTH;
-		window_height=WindowCommonInfoStock.DEFAULT_HEIGHT;
+		window_width=WindowCommonInfo.DEFAULT_WIDTH;
+		window_height=WindowCommonInfo.DEFAULT_HEIGHT;
 	}
 	
 	protected int GetWindowWidth() {

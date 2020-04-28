@@ -62,8 +62,8 @@ public class JOGLFWindow implements JOGLFWindowInterface,GLEventListener,KeyList
 		GLCapabilities capabilities=new GLCapabilities(GLProfile.get(profile_str));
 		
 		window=GLWindow.create(capabilities);
-		window.setTitle(WindowCommonInfoStock.DEFAULT_TITLE);
-		window.setSize(WindowCommonInfoStock.DEFAULT_WIDTH, WindowCommonInfoStock.DEFAULT_HEIGHT);
+		window.setTitle(WindowCommonInfo.DEFAULT_TITLE);
+		window.setSize(WindowCommonInfo.DEFAULT_WIDTH, WindowCommonInfo.DEFAULT_HEIGHT);
 		window.addGLEventListener(this);
 		window.addKeyListener(this);
 		window.addMouseListener(this);
@@ -79,11 +79,11 @@ public class JOGLFWindow implements JOGLFWindowInterface,GLEventListener,KeyList
 		};
 		window.addWindowListener(adapter);
 		
-		int fps=WindowCommonInfoStock.GetFPS();
+		int fps=WindowCommonInfo.GetFPS();
 		animator=new FPSAnimator(fps);
 		animator.add(window);
 		animator.start();
-		WindowCommonInfoStock.FinalizeFPS();
+		WindowCommonInfo.FinalizeFPS();
 		
 		logger.info("Window created.");
 		

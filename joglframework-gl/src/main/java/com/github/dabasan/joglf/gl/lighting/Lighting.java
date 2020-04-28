@@ -7,8 +7,7 @@ import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.basis.coloru8.ColorU8Functions;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
-import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
-import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
+import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 
 /**
  * Lighting
@@ -16,44 +15,54 @@ import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
  *
  */
 public class Lighting {
-	private Vector light_direction;
+	private Vector direction;
 	private ColorU8 ambient_color;
-	
+	private ColorU8 diffuse_color;
+	private ColorU8 specular_color;
+	private float ambient_power;
 	private float diffuse_power;
 	private float specular_power;
 	
-	private List<String> program_names;
+	private List<ShaderProgram> programs;
 	
 	public Lighting() {
-		light_direction=VectorFunctions.VGet(1.0f, -1.0f, 1.0f);
-		light_direction=VectorFunctions.VNorm(light_direction);
-		ambient_color=ColorU8Functions.GetColorU8(0.6f, 0.6f, 0.6f, 0.6f);
-		
+		direction=VectorFunctions.VGet(1.0f, -1.0f, 1.0f);
+		direction=VectorFunctions.VNorm(direction);
+		ambient_color=ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f);
+		diffuse_color=ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f);
+		specular_color=ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f);
+		ambient_power=0.6f;
 		diffuse_power=0.3f;
 		specular_power=0.1f;
 		
-		program_names=new ArrayList<>();
+		programs=new ArrayList<>();
 	}
 	
-	public void AddProgram(String program_name) {
-		program_names.add(program_name);
-	}
-	public void RemoveProgram(String program_name) {
-		program_names.remove(program_name);
+	public void AddProgram(ShaderProgram program) {
+		programs.add(program);
 	}
 	public void RemoveAllPrograms() {
-		program_names.clear();
+		programs.clear();
 	}
 	
-	public void SetLightDirection(Vector light_direction) {
-		this.light_direction=light_direction;
+	public void SetDirection(Vector direction) {
+		this.direction=direction;
 	}
-	public void SetLightDirection(Vector position,Vector target) {
-		light_direction=VectorFunctions.VSub(target, position);
-		light_direction=VectorFunctions.VNorm(light_direction);
+	public void SetDirection(Vector position,Vector target) {
+		direction=VectorFunctions.VSub(target, position);
+		direction=VectorFunctions.VNorm(direction);
 	}
 	public void SetAmbientColor(ColorU8 ambient_color) {
 		this.ambient_color=ambient_color;
+	}
+	public void SetDiffuseColor(ColorU8 diffuse_color) {
+		this.diffuse_color=diffuse_color;
+	}
+	public void SetSpecularColor(ColorU8 specular_color) {
+		this.specular_color=specular_color;
+	}
+	public void SetAmbientPower(float ambient_power) {
+		this.ambient_power=ambient_power;
 	}
 	public void SetDiffusePower(float diffuse_power) {
 		this.diffuse_power=diffuse_power;
@@ -63,20 +72,16 @@ public class Lighting {
 	}
 	
 	public void Update() {
-		for(String program_name:program_names) {
-			ShaderFunctions.UseProgram(program_name);
-			int program_id=ShaderFunctions.GetProgramID(program_name);
-			
-			int light_direction_location=GLWrapper.glGetUniformLocation(program_id, "light_direction");
-			int ambient_color_location=GLWrapper.glGetUniformLocation(program_id, "ambient_color");
-			int diffuse_power_location=GLWrapper.glGetUniformLocation(program_id, "diffuse_power");
-			int specular_power_location=GLWrapper.glGetUniformLocation(program_id, "specular_power");
-			
-			GLWrapper.glUniform3f(light_direction_location, light_direction.GetX(), light_direction.GetY(), light_direction.GetZ());
-			GLWrapper.glUniform4f(ambient_color_location, 
-					ambient_color.GetR(), ambient_color.GetG(), ambient_color.GetB(), ambient_color.GetA());
-			GLWrapper.glUniform1f(diffuse_power_location, diffuse_power);
-			GLWrapper.glUniform1f(specular_power_location, specular_power);
+		for(ShaderProgram program:programs) {
+			program.Enable();
+			program.SetUniform("lighting.direction", direction);
+			program.SetUniform("lighting.ambient_color", ambient_color);
+			program.SetUniform("lighting.diffuse_color", diffuse_color);
+			program.SetUniform("lighting.specular_color", specular_color);
+			program.SetUniform("lighting.ambient_power", ambient_power);
+			program.SetUniform("lighting.diffuse_power", diffuse_power);
+			program.SetUniform("lighting.specular_power", specular_power);
+			program.Disable();
 		}
 	}
 }

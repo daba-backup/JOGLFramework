@@ -75,7 +75,7 @@ implements JOGLFWindowInterface,GLEventListener,KeyListener,MouseListener,MouseM
 		GLCapabilities capabilities=new GLCapabilities(GLProfile.get(profile_str));
 		
 		frame=new JFrame();
-		frame.setTitle(WindowCommonInfoStock.DEFAULT_TITLE);
+		frame.setTitle(WindowCommonInfo.DEFAULT_TITLE);
 		
 		adapter=new WindowAdapter() {
 			@Override
@@ -93,18 +93,18 @@ implements JOGLFWindowInterface,GLEventListener,KeyListener,MouseListener,MouseM
 		frame.addMouseWheelListener(this);
 		
 		canvas=new GLCanvas(capabilities);
-		canvas.setPreferredSize(new Dimension(WindowCommonInfoStock.DEFAULT_WIDTH, WindowCommonInfoStock.DEFAULT_HEIGHT));
+		canvas.setPreferredSize(new Dimension(WindowCommonInfo.DEFAULT_WIDTH, WindowCommonInfo.DEFAULT_HEIGHT));
 		canvas.addGLEventListener(this);
 		canvas.addKeyListener(this);
 		canvas.addMouseListener(this);
 		canvas.addMouseMotionListener(this);
 		canvas.addMouseWheelListener(this);
 		
-		int fps=WindowCommonInfoStock.GetFPS();
+		int fps=WindowCommonInfo.GetFPS();
 		animator=new FPSAnimator(fps);
 		animator.add(canvas);
 		animator.start();
-		WindowCommonInfoStock.FinalizeFPS();
+		WindowCommonInfo.FinalizeFPS();
 		
 		frame.add(canvas,BorderLayout.CENTER);
 		frame.pack();

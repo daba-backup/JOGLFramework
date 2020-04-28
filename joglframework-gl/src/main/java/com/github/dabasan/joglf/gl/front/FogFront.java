@@ -2,6 +2,7 @@ package com.github.dabasan.joglf.gl.front;
 
 import com.daxie.basis.coloru8.ColorU8;
 import com.github.dabasan.joglf.gl.fog.Fog;
+import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 
 /**
  * Provides methods for fog.
@@ -11,11 +12,8 @@ import com.github.dabasan.joglf.gl.fog.Fog;
 public class FogFront {
 	private static Fog fog=new Fog();
 	
-	public static void AddProgram(String program_name) {
-		fog.AddProgram(program_name);
-	}
-	public static void RemoveProgram(String program_name) {
-		fog.RemoveProgram(program_name);
+	public static void AddProgram(ShaderProgram program) {
+		fog.AddProgram(program);
 	}
 	public static void RemoveAllPrograms() {
 		fog.RemoveAllPrograms();

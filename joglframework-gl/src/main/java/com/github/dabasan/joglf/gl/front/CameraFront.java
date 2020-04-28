@@ -4,10 +4,11 @@ import com.daxie.basis.matrix.Matrix;
 import com.daxie.basis.matrix.MatrixFunctions;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
-import com.github.dabasan.joglf.gl.camera.Camera;
-import com.github.dabasan.joglf.gl.tool.CoordinateFunctions;
-import com.github.dabasan.joglf.gl.window.WindowCommonInfoStock;
 import com.daxie.tool.MathFunctions;
+import com.github.dabasan.joglf.gl.camera.Camera;
+import com.github.dabasan.joglf.gl.shader.ShaderProgram;
+import com.github.dabasan.joglf.gl.tool.CoordinateFunctions;
+import com.github.dabasan.joglf.gl.window.WindowCommonInfo;
 
 /**
  * Provides methods for camera operations.
@@ -17,14 +18,11 @@ import com.daxie.tool.MathFunctions;
 public class CameraFront {
 	private static Camera camera=new Camera();
 	
-	private static int window_width=WindowCommonInfoStock.DEFAULT_WIDTH;
-	private static int window_height=WindowCommonInfoStock.DEFAULT_HEIGHT;
+	private static int window_width=WindowCommonInfo.DEFAULT_WIDTH;
+	private static int window_height=WindowCommonInfo.DEFAULT_HEIGHT;
 	
-	public static void AddProgram(String program_name) {
-		camera.AddProgram(program_name);
-	}
-	public static void RemoveProgram(String program_name) {
-		camera.RemoveProgram(program_name);
+	public static void AddProgram(ShaderProgram program) {
+		camera.AddProgram(program);
 	}
 	public static void RemoveAllPrograms() {
 		camera.RemoveAllPrograms();

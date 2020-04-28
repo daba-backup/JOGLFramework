@@ -7,7 +7,7 @@ import java.nio.IntBuffer;
 import com.daxie.basis.coloru8.ColorU8;
 import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
 import com.github.dabasan.joglf.gl.tool.CoordinateFunctions;
-import com.github.dabasan.joglf.gl.window.WindowCommonInfoStock;
+import com.github.dabasan.joglf.gl.window.WindowCommonInfo;
 import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
@@ -18,8 +18,8 @@ import com.jogamp.opengl.GL4;
  *
  */
 public class DrawFunctions2D {
-	private static int window_width=WindowCommonInfoStock.DEFAULT_WIDTH;
-	private static int window_height=WindowCommonInfoStock.DEFAULT_HEIGHT;
+	private static int window_width=WindowCommonInfo.DEFAULT_WIDTH;
+	private static int window_height=WindowCommonInfo.DEFAULT_HEIGHT;
 	
 	public static void SetWindowSize(int width,int height) {
 		window_width=width;
