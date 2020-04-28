@@ -3,7 +3,7 @@ package com.github.dabasan.joglf.al.front;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.dabasan.joglf.al.sound.Sound3D;
+import com.github.dabasan.joglf.al.sound.Sound3DFunctions;
 import com.github.dabasan.joglf.al.wrapper.ALWrapper;
 import com.jogamp.openal.AL;
 import com.jogamp.openal.util.ALut;
@@ -36,7 +36,7 @@ public class ALFront {
 	public static void Initialize() {
 		if(no_use_alut_flag==false)ALut.alutInit();
 		
-		Sound3D.SetupListenerProperties();
+		Sound3DFunctions.SetupListenerProperties();
 		ALWrapper.alDistanceModel(AL.AL_INVERSE_DISTANCE);
 		
 		logger.info("Initialized.");

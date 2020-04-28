@@ -8,20 +8,19 @@ import org.slf4j.LoggerFactory;
 
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
+import com.daxie.tool.FilenameFunctions;
 import com.github.dabasan.joglf.al.buffer.SoundBuffer;
 import com.github.dabasan.joglf.al.loader.WAVLoader;
 import com.github.dabasan.joglf.al.wrapper.ALWrapper;
-import com.daxie.tool.FilenameFunctions;
 import com.jogamp.openal.AL;
 
 /**
- * Sound3D<br>
- * 3D sound is disabled for stereo sound files.
+ * Functions for 3D sounds
  * @author Daba
  *
  */
-public class Sound3D {
-	private static Logger logger=LoggerFactory.getLogger(Sound3D.class);
+public class Sound3DFunctions {
+	private static Logger logger=LoggerFactory.getLogger(Sound3DFunctions.class);
 	
 	private static int count=0;
 	private static Map<Integer, SoundMgr> sounds_map=new HashMap<>();
