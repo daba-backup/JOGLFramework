@@ -1,5 +1,9 @@
 package com.daxie.joglf.gl.window;
 
+import java.awt.AWTException;
+import java.awt.MouseInfo;
+import java.awt.Robot;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,6 +50,7 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 	
 	private Keyboard keyboard;
 	private Mouse mouse;
+	private Robot robot;
 	
 	private ColorU8 background_color;
 	
@@ -83,6 +88,12 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		
 		keyboard=new Keyboard();
 		mouse=new Mouse();
+		try {
+			robot=new Robot();
+		}
+		catch(AWTException e) {
+			logger.error("Error",e);
+		}
 		
 		background_color=ColorU8Functions.GetColorU8(0.0f, 0.0f, 0.0f, 1.0f);
 		
@@ -215,18 +226,34 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 	public int GetKeyboardReleasingCount(KeyboardEnum key) {
 		return keyboard.GetReleasingCount(key);
 	}
-	public int GetMouseX() {
-		return mouse.GetX();
+	
+	public int GetCursorX() {
+		int x=this.GetX();
+		int cursor_x=MouseInfo.getPointerInfo().getLocation().x;
+		int cursor_window_x=cursor_x-x;
+		
+		return cursor_window_x;
 	}
-	public int GetMouseY() {
-		return mouse.GetY();
+	public int GetCursorY() {
+		int y=this.GetY();
+		int cursor_y=MouseInfo.getPointerInfo().getLocation().y;
+		int cursor_window_y=cursor_y-y;
+		
+		return cursor_window_y;
 	}
-	public int GetMouseDiffX() {
+	public int GetCursorDiffX() {
 		return mouse.GetDiffX();
 	}
-	public int GetMouseDiffY() {
+	public int GetCursorDiffY() {
 		return mouse.GetDiffY();
 	}
+	public void SetCursorPos(int x,int y) {
+		int window_x=this.GetX();
+		int window_y=this.GetY();
+		
+		robot.mouseMove(window_x+x, window_y+y);
+	}
+	
 	public int GetMousePressingCount(MouseEnum key) {
 		return mouse.GetButtonPressingCount(key);
 	}
@@ -241,9 +268,6 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 	}
 	public float GetMouseWheelZAxisRotation() {
 		return mouse.GetZAxisRotation();
-	}
-	public void SetFixMousePointerFlag(boolean fix_mouse_pointer_flag) {
-		mouse.SetFixMousePointerFlag(fix_mouse_pointer_flag);
 	}
 	
 	@Override
@@ -272,13 +296,6 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		
 		//Update input.
 		keyboard.Update();
-		
-		int x=window.getX();
-		int y=window.getY();
-		int width=window.getWidth();
-		int height=window.getHeight();
-		mouse.SetWindowPosition(x, y);
-		mouse.SetFixMousePointerPosition(width/2, height/2);
 		mouse.Update();
 		
 		//Update shader-relating properties with lock

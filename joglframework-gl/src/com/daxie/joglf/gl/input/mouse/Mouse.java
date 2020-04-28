@@ -1,18 +1,13 @@
 package com.daxie.joglf.gl.input.mouse;
 
-import java.awt.AWTException;
-import java.awt.Robot;
+import java.awt.MouseInfo;
 
 import com.daxie.joglf.gl.input.CountsAndFlags;
 import com.jogamp.newt.event.MouseEvent;
 import com.jogamp.newt.event.MouseListener;
 
 /**
- * Mouse<br>
- * This class fails to move the mouse to the correct location on some environments.<br>
- * There is a JDK bug report that may be related to this problem.<br>
- * @see <a href="https://bugs.openjdk.java.net/browse/JDK-8196030">AWT Robot mouseMove fails on Windows 10 1709 with HiDPI</a>
- * 
+ * Mouse
  * @author Daba
  *
  */
@@ -21,71 +16,30 @@ public class Mouse implements MouseListener{
 	
 	private CountsAndFlags mouse_buttons;
 	
-	private int window_x,window_y;
-	
-	private int x,y;
-	private int diff_x,diff_y;
-	
+	private int last_cursor_pos_x,last_cursor_pos_y;
+	private int cursor_diff_x,cursor_diff_y;
 	private float[] rotations;
-	
-	private int fix_pos_x;
-	private int fix_pos_y;
-	private Robot robot;//is used to fix the mouse pointer.
-	
-	private boolean fix_mouse_pointer_flag;
 	
 	public Mouse() {
 		mouse_buttons=new CountsAndFlags(KEY_NUM);
 		
-		window_x=0;
-		window_y=0;
-		
-		x=0;
-		y=0;
-		diff_x=0;
-		diff_y=0;
+		last_cursor_pos_x=MouseInfo.getPointerInfo().getLocation().x;
+		last_cursor_pos_y=MouseInfo.getPointerInfo().getLocation().y;
+		cursor_diff_x=0;
+		cursor_diff_y=0;
 		
 		rotations=new float[]{0.0f,0.0f,0.0f};
-		
-		fix_pos_x=0;
-		fix_pos_y=0;
-		try {
-			robot=new Robot();
-		}
-		catch(AWTException e) {
-			e.printStackTrace();
-		}
-		
-		fix_mouse_pointer_flag=false;
 	}
 	
-	public void SetFixMousePointerFlag(boolean fix_mouse_pointer_flag) {
-		this.fix_mouse_pointer_flag=fix_mouse_pointer_flag;
-	}
-	
-	public void SetWindowPosition(int window_x,int window_y) {
-		this.window_x=window_x;
-		this.window_y=window_y;
-	}
-	public void SetFixMousePointerPosition(int x,int y) {
-		fix_pos_x=x;
-		fix_pos_y=y;
-	}
 	public void Update() {
 		mouse_buttons.UpdateCounts();
 		
-		if(fix_mouse_pointer_flag==true) {
-			diff_x=x-fix_pos_x;
-			diff_y=y-fix_pos_y;
-		}
-		else {
-			diff_x=0;
-			diff_y=0;
-		}
-		
-		if(fix_mouse_pointer_flag==true) {
-			robot.mouseMove(window_x+fix_pos_x,window_y+fix_pos_y);
-		}
+		int cursor_pos_x=MouseInfo.getPointerInfo().getLocation().x;
+		int cursor_pos_y=MouseInfo.getPointerInfo().getLocation().y;
+		cursor_diff_x=cursor_pos_x-last_cursor_pos_x;
+		cursor_diff_y=cursor_pos_y-last_cursor_pos_y;
+		last_cursor_pos_x=cursor_pos_x;
+		last_cursor_pos_y=cursor_pos_y;
 	}
 	
 	@Override
@@ -106,8 +60,7 @@ public class Mouse implements MouseListener{
 	}
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		x=e.getX();
-		y=e.getY();
+		
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -182,17 +135,11 @@ public class Mouse implements MouseListener{
 		rotations=e.getRotation();
 	}
 	
-	public int GetX() {
-		return x;
-	}
-	public int GetY() {
-		return y;
-	}
 	public int GetDiffX() {
-		return diff_x;
+		return cursor_diff_x;
 	}
 	public int GetDiffY() {
-		return diff_y;
+		return cursor_diff_y;
 	}
 	public float GetHorizontalRotation() {
 		float rotation=rotations[0];

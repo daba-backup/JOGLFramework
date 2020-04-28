@@ -1,11 +1,14 @@
 package com.daxie.joglf.gl.window;
 
+import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -60,6 +63,7 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 	
 	private SwingKeyboard keyboard;
 	private SwingMouse mouse;
+	private Robot robot;
 	
 	private ColorU8 background_color;
 	
@@ -108,6 +112,12 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		
 		keyboard=new SwingKeyboard();
 		mouse=new SwingMouse();
+		try {
+			robot=new Robot();
+		}
+		catch(AWTException e) {
+			logger.error("Error",e);
+		}
 		
 		background_color=ColorU8Functions.GetColorU8(0.0f, 0.0f, 0.0f, 1.0f);
 		
@@ -271,18 +281,34 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 	public int GetKeyboardReleasingCount(KeyboardEnum key) {
 		return keyboard.GetReleasingCount(key);
 	}
-	public int GetMouseX() {
-		return mouse.GetX();
+	
+	public int GetCursorX() {
+		int x=this.GetX();
+		int cursor_x=MouseInfo.getPointerInfo().getLocation().x;
+		int cursor_window_x=cursor_x-x;
+		
+		return cursor_window_x;
 	}
-	public int GetMouseY() {
-		return mouse.GetY();
+	public int GetCursorY() {
+		int y=this.GetY();
+		int cursor_y=MouseInfo.getPointerInfo().getLocation().y;
+		int cursor_window_y=cursor_y-y;
+		
+		return cursor_window_y;
 	}
-	public int GetMouseDiffX() {
+	public int GetCursorDiffX() {
 		return mouse.GetDiffX();
 	}
-	public int GetMouseDiffY() {
+	public int GetCursorDiffY() {
 		return mouse.GetDiffY();
 	}
+	public void SetCursorPos(int x,int y) {
+		int window_x=this.GetX();
+		int window_y=this.GetY();
+		
+		robot.mouseMove(window_x+x, window_y+y);
+	}
+	
 	public int GetMousePressingCount(MouseEnum key) {
 		return mouse.GetButtonPressingCount(key);
 	}
@@ -291,9 +317,6 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 	}
 	public float GetMouseWheelHorizontalRotation() {
 		return mouse.GetHorizontalRotation();
-	}
-	public void SetFixMousePointerFlag(boolean fix_mouse_pointer_flag) {
-		mouse.SetFixMousePointerFlag(fix_mouse_pointer_flag);
 	}
 	
 	@Override
@@ -321,17 +344,6 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		
 		//Update input.
 		keyboard.Update();
-		
-		Point point=canvas.getLocationOnScreen();
-		Container content_pane=frame.getContentPane();
-		Dimension dimension=content_pane.getSize();
-		
-		int x=point.x;
-		int y=point.y;
-		int width=dimension.width;
-		int height=dimension.height;
-		mouse.SetWindowPosition(x, y);
-		mouse.SetFixMousePointerPosition(width/2, height/2);
 		mouse.Update();
 		
 		//Update shader-relating properties with lock
