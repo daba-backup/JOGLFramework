@@ -1,6 +1,5 @@
 package com.github.dabasan.joglf.gl;
 
-import com.github.dabasan.joglf.gl.window.JOGLFWindow;
 import com.github.dabasan.joglf.gl.window.JOGLFWindowInterface;
 
 public class TestMain {
@@ -8,7 +7,7 @@ public class TestMain {
 		new TestMain();
 	}
 	public TestMain() {
-		JOGLFWindowInterface window=new JOGLFWindow();
+		JOGLFWindowInterface window=new ShaderCompilationTestWindow();
 		window.SetExitProcessWhenDestroyed();
 	}
 }

@@ -10,5 +10,9 @@ class ShaderCompilationTestWindow extends JOGLFWindow{
 				"phong", 
 				"./Data/Shader/330/texture/phong/vshader.glsl",
 				"./Data/Shader/330/texture/phong/fshader.glsl");
+		ShaderFunctions.CreateProgram(
+				"simple_3d", 
+				"./Data/Shader/330/simple_3d/vshader.glsl",
+				"./Data/Shader/330/simple_3d/fshader.glsl");
 	}
 }

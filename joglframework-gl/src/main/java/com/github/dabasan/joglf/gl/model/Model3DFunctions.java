@@ -26,8 +26,8 @@ import com.daxie.tool.FilenameFunctions;
  * @author Daba
  *
  */
-public class Model3D {
-	private static Logger logger=LoggerFactory.getLogger(Model3D.class);
+public class Model3DFunctions {
+	private static Logger logger=LoggerFactory.getLogger(Model3DFunctions.class);
 	
 	private static int count=0;
 	private static Map<Integer, ModelMgr> models_map=new HashMap<>();
