@@ -11,6 +11,7 @@ import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.basis.coloru8.ColorU8Functions;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.draw.GLDrawFunctions2D;
+import com.daxie.joglf.gl.draw.GLDrawFunctions3D;
 import com.daxie.joglf.gl.front.CameraFront;
 import com.daxie.joglf.gl.front.FogFront;
 import com.daxie.joglf.gl.front.GLFront;
@@ -41,7 +42,7 @@ import com.jogamp.opengl.util.FPSAnimator;
  * @author Daba
  *
  */
-public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
+public class JOGLFWindow implements JOGLFWindowInterface,GLEventListener,KeyListener,MouseListener{
 	private Logger logger=LoggerFactory.getLogger(JOGLFWindow.class);
 	
 	private GLWindow window;
@@ -73,7 +74,7 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 				animator.stop();
 				destroyed_flag=true;
 				
-				onWindowClosing();
+				OnWindowClosing();
 			}
 		};
 		window.addWindowListener(adapter);
@@ -117,15 +118,12 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 			window.destroy();
 		}
 	}
+	@Override
 	public void CloseWindow() {
 		WindowCloser closer=new WindowCloser(window);
 		closer.start();
 	}
-	
-	public void AddChildWindow(JOGLFWindow child) {
-		window.addChild(child.window);
-	}
-	
+	@Override
 	public void SetExitProcessWhenDestroyed() {
 		window.removeWindowListener(adapter);
 		
@@ -134,15 +132,15 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 			public void windowDestroyed(WindowEvent e) {
 				animator.stop();
 				destroyed_flag=true;				
-				onWindowClosing();				
+				OnWindowClosing();				
 				System.exit(0);
 			}
 		};
 		window.addWindowListener(adapter);
 	}
 	
-	protected void onWindowClosing() {
-		
+	public void AddChildWindow(JOGLFWindow child) {
+		window.addChild(child.window);
 	}
 	
 	protected void ClearDrawScreen() {
@@ -152,59 +150,74 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		GLWrapper.glClear(GL4.GL_COLOR_BUFFER_BIT|GL4.GL_DEPTH_BUFFER_BIT);
 	}
 	
+	@Override
 	public String GetTitle() {
 		return window.getTitle();
 	}
+	@Override
 	public int GetX() {
 		return window.getX();
 	}
+	@Override
 	public int GetY() {
 		return window.getY();
 	}
+	@Override
 	public int GetWidth() {
 		return window.getWidth();
 	}
+	@Override
 	public int GetHeight() {
 		return window.getHeight();
 	}
+	@Override
 	public ColorU8 GetBackgroundColor() {
 		return new ColorU8(background_color);
 	}
+	@Override
 	public void SetTitle(String title) {
 		window.setTitle(title);
 	}
+	@Override
 	public void SetPosition(int x,int y) {
 		window.setPosition(x, y);
 	}
+	@Override
 	public void SetSize(int width,int height) {
 		window.setSize(width, height);
 	}
+	@Override
 	public void SetBackgroundColor(ColorU8 color) {
 		background_color=color;
 	}
 	
+	@Override
 	public boolean HasFocus() {
 		return window.hasFocus();
 	}
-	
+	@Override
 	public boolean IsDestroyed() {
 		return destroyed_flag;
 	}
 	
+	@Override
 	public void ShowWindow() {
 		window.setVisible(true);
 	}
+	@Override
 	public void HideWindow() {
 		window.setVisible(false);
 	}
-	
+	@Override
 	public void ShowCursor() {
 		window.setPointerVisible(true);
 	}
+	@Override
 	public void HideCursor() {
 		window.setPointerVisible(false);
 	}
 	
+	@Override
 	public void SetWindowMode(WindowMode mode) {
 		if(mode==WindowMode.WINDOW) {
 			window.setFullscreen(false);
@@ -213,6 +226,7 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 			window.setFullscreen(true);
 		}
 	}
+	@Override
 	public void SetAlwaysOnTop(boolean flag) {
 		window.setAlwaysOnTop(flag);
 	}
@@ -220,13 +234,23 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		window.setAlwaysOnBottom(flag);
 	}
 	
+	@Override
 	public int GetKeyboardPressingCount(KeyboardEnum key) {
 		return keyboard.GetPressingCount(key);
 	}
+	@Override
 	public int GetKeyboardReleasingCount(KeyboardEnum key) {
 		return keyboard.GetReleasingCount(key);
 	}
-	
+	@Override
+	public int GetMousePressingCount(MouseEnum key) {
+		return mouse.GetButtonPressingCount(key);
+	}
+	@Override
+	public int GetMouseReleasingCount(MouseEnum key) {
+		return mouse.GetButtonReleasingCount(key);
+	}
+	@Override
 	public int GetCursorX() {
 		int x=this.GetX();
 		int cursor_x=MouseInfo.getPointerInfo().getLocation().x;
@@ -234,6 +258,7 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		
 		return cursor_window_x;
 	}
+	@Override
 	public int GetCursorY() {
 		int y=this.GetY();
 		int cursor_y=MouseInfo.getPointerInfo().getLocation().y;
@@ -241,12 +266,15 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		
 		return cursor_window_y;
 	}
+	@Override
 	public int GetCursorDiffX() {
 		return mouse.GetDiffX();
 	}
+	@Override
 	public int GetCursorDiffY() {
 		return mouse.GetDiffY();
 	}
+	@Override
 	public void SetCursorPos(int x,int y) {
 		int window_x=this.GetX();
 		int window_y=this.GetY();
@@ -254,15 +282,10 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		robot.mouseMove(window_x+x, window_y+y);
 	}
 	
-	public int GetMousePressingCount(MouseEnum key) {
-		return mouse.GetButtonPressingCount(key);
-	}
-	public int GetMouseReleasingCount(MouseEnum key) {
-		return mouse.GetButtonReleasingCount(key);
-	}
 	public float GetMouseWheelVerticalRotation() {
 		return mouse.GetVerticalRotation();
 	}
+	@Override
 	public float GetMouseWheelHorizontalRotation() {
 		return mouse.GetHorizontalRotation();
 	}
@@ -277,66 +300,74 @@ public class JOGLFWindow implements GLEventListener,KeyListener,MouseListener{
 		this.Init();
 		GLFront.Unlock();
 	}
-	protected void Init() {
-		
-	}
-	
 	@Override
 	public void reshape(GLAutoDrawable drawable,int x,int y,int width,int height) {
 		GLFront.Lock();
 		this.Reshape(x, y, width, height);
 		GLFront.Unlock();
 	}
-	protected void Reshape(int x,int y,int width,int height) {
-		
-	}
 	@Override
 	public void display(GLAutoDrawable drawable) {
-		if(destroyed_flag==true)return;
+		if(destroyed_flag==true) {
+			return;
+		}
 		
 		//Update input.
 		keyboard.Update();
 		mouse.Update();
 		
-		//Update shader-relating properties with lock
-		//in order to avoid interference from concurrent display() methods in other windows.
-		GLFront.Lock();
-		this.DefaultUpdate();
-		this.Update();
-		CameraFront.Update();
-		this.Draw();
-		GLFront.Unlock();
-	}
-	private void DefaultUpdate() {
-		this.ClearDrawScreen();
-		
 		int width=window.getWidth();
 		int height=window.getHeight();
 		
-		CameraFront.UpdateAspect(width, height);
+		//Update shader-relating properties with lock
+		//in order to avoid interference from concurrent display() methods in other windows.
+		GLFront.Lock();
 		
+		//Default updates==========
+		this.ClearDrawScreen();
+		CameraFront.UpdateAspect(width, height);
 		TextureMgr.SetWindowSize(width, height);
 		TextMgr.SetWindowSize(width, height);
 		GLDrawFunctions2D.SetWindowSize(width, height);
-		
 		LightingFront.Update();
 		FogFront.Update();
-	}
-	protected void Update() {
-		CameraFront.SetCameraPositionAndTarget_UpVecY(
-				VectorFunctions.VGet(50.0f, 50.0f, 50.0f),VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
-	}
-	protected void Draw() {
+		//====================
+		this.Update();//User update
+		CameraFront.Update();
+		this.Draw();//User draw
 		
+		GLFront.Unlock();
 	}
-	
 	@Override
 	public void dispose(GLAutoDrawable drawable) {
 		GLFront.Lock();
 		this.Dispose();
 		GLFront.Unlock();
 	}
-	protected void Dispose() {
+	
+	@Override
+	public void Init() {
+		
+	}
+	@Override
+	public void Reshape(int x,int y,int width,int height) {
+		
+	}
+	@Override
+	public void Update() {
+		CameraFront.SetCameraPositionAndTarget_UpVecY(
+				VectorFunctions.VGet(50.0f, 50.0f, 50.0f),VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
+	}
+	@Override
+	public void Draw() {
+		GLDrawFunctions3D.DrawAxes(100.0f);
+	}
+	@Override
+	public void Dispose() {
+		
+	}
+	@Override
+	public void OnWindowClosing() {
 		
 	}
 	
