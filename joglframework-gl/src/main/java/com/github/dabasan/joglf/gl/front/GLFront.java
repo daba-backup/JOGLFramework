@@ -91,8 +91,6 @@ public class GLFront {
 	private static void AddProgramsToFronts() {
 		ShaderProgram texture=new ShaderProgram("texture");
 		ShaderProgram color=new ShaderProgram("color");
-		texture.EnableLogging(false);
-		color.EnableLogging(false);
 		
 		CameraFront.AddProgram(texture);
 		CameraFront.AddProgram(color);
