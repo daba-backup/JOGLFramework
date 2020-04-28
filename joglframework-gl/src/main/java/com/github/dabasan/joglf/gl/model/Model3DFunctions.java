@@ -12,6 +12,7 @@ import com.daxie.basis.matrix.Matrix;
 import com.daxie.basis.matrix.MatrixFunctions;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
+import com.daxie.tool.FilenameFunctions;
 import com.github.dabasan.joglf.gl.model.animation.AnimationBlendInfo;
 import com.github.dabasan.joglf.gl.model.animation.AnimationInfo;
 import com.github.dabasan.joglf.gl.model.animation.AnimationInfoMap;
@@ -19,10 +20,9 @@ import com.github.dabasan.joglf.gl.model.buffer.BufferedVertices;
 import com.github.dabasan.joglf.gl.model.loader.bd1.BD1Loader;
 import com.github.dabasan.joglf.gl.model.loader.obj.OBJLoader;
 import com.github.dabasan.joglf.gl.shape.Triangle;
-import com.daxie.tool.FilenameFunctions;
 
 /**
- * Model3D
+ * Functions for 3D models
  * @author Daba
  *
  */
