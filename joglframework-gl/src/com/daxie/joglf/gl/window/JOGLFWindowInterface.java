@@ -29,8 +29,6 @@ public interface JOGLFWindowInterface {
 	
 	public void ShowWindow();
 	public void HideWindow();
-	public void ShowCursor();
-	public void HideCursor();
 	
 	public void SetWindowMode(WindowMode mode);
 	public void SetAlwaysOnTop(boolean flag);

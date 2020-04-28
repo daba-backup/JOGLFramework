@@ -28,6 +28,7 @@ import com.daxie.basis.coloru8.ColorU8;
 import com.daxie.basis.coloru8.ColorU8Functions;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.draw.GLDrawFunctions2D;
+import com.daxie.joglf.gl.draw.GLDrawFunctions3D;
 import com.daxie.joglf.gl.front.CameraFront;
 import com.daxie.joglf.gl.front.FogFront;
 import com.daxie.joglf.gl.front.GLFront;
@@ -53,7 +54,7 @@ import com.jogamp.opengl.util.FPSAnimator;
  *
  */
 public class JOGLFSwingWindow 
-implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWheelListener{
+implements JOGLFWindowInterface,GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWheelListener{
 	private Logger logger=LoggerFactory.getLogger(JOGLFSwingWindow.class);
 	
 	private JFrame frame;
@@ -82,7 +83,7 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 				animator.stop();
 				destroyed_flag=true;
 				
-				onWindowClosing();
+				OnWindowClosing();
 			}
 		};
 		frame.addWindowListener(adapter);
@@ -145,11 +146,12 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 			frame.dispose();
 		}
 	}
+	@Override
 	public void CloseWindow() {
 		WindowCloser closer=new WindowCloser(frame);
 		closer.start();
 	}
-	
+	@Override
 	public void SetExitProcessWhenDestroyed() {
 		frame.removeWindowListener(adapter);
 		
@@ -158,15 +160,11 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 			public void windowClosing(WindowEvent e) {
 				animator.stop();
 				destroyed_flag=true;
-				onWindowClosing();
+				OnWindowClosing();
 				System.exit(0);
 			}
 		};
 		frame.addWindowListener(adapter);
-	}
-	
-	protected void onWindowClosing() {
-		
 	}
 	
 	protected void ClearDrawScreen() {
@@ -176,18 +174,23 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		GLWrapper.glClear(GL4.GL_COLOR_BUFFER_BIT|GL4.GL_DEPTH_BUFFER_BIT);
 	}
 	
+	@Override
 	public String GetTitle() {
 		return frame.getTitle();
 	}
+	@Override
 	public int GetX() {
 		return frame.getX();
 	}
+	@Override
 	public int GetY() {
 		return frame.getY();
 	}
+	@Override
 	public int GetWidth() {
 		return frame.getWidth();
 	}
+	@Override
 	public int GetHeight() {
 		return frame.getHeight();
 	}
@@ -221,38 +224,50 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		
 		return dimension.height;
 	}
+	@Override
 	public ColorU8 GetBackgroundColor() {
 		return new ColorU8(background_color);
 	}
+	@Override
 	public void SetTitle(String title) {
 		frame.setTitle(title);
 	}
+	@Override
 	public void SetPosition(int x,int y) {
 		frame.setLocation(x, y);
 	}
+	@Override
 	public void SetSize(int width,int height) {
+		frame.setSize(width,height);
+	}
+	public void SetCanvasSize(int width,int height) {
 		canvas.setPreferredSize(new Dimension(width, height));
 		frame.pack();
 	}
+	@Override
 	public void SetBackgroundColor(ColorU8 color) {
 		background_color=color;
 	}
 	
+	@Override
 	public boolean HasFocus() {
 		return frame.hasFocus();
 	}
-	
+	@Override
 	public boolean IsDestroyed() {
 		return destroyed_flag;
 	}
 	
+	@Override
 	public void ShowWindow() {
 		frame.setVisible(true);
 	}
+	@Override
 	public void HideWindow() {
 		frame.setVisible(false);
 	}
 	
+	@Override
 	public void SetWindowMode(WindowMode mode) {
 		GraphicsEnvironment environment=GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice device=environment.getDefaultScreenDevice();
@@ -270,18 +285,28 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 			}
 		}
 	}
-	
+	@Override
 	public void SetAlwaysOnTop(boolean flag) {
 		frame.setAlwaysOnTop(flag);
 	}
 
+	@Override
 	public int GetKeyboardPressingCount(KeyboardEnum key) {
 		return keyboard.GetPressingCount(key);
 	}
+	@Override
 	public int GetKeyboardReleasingCount(KeyboardEnum key) {
 		return keyboard.GetReleasingCount(key);
 	}
-	
+	@Override
+	public int GetMousePressingCount(MouseEnum key) {
+		return mouse.GetButtonPressingCount(key);
+	}
+	@Override
+	public int GetMouseReleasingCount(MouseEnum key) {
+		return mouse.GetButtonReleasingCount(key);
+	}
+	@Override
 	public int GetCursorX() {
 		int x=this.GetX();
 		int cursor_x=MouseInfo.getPointerInfo().getLocation().x;
@@ -289,6 +314,7 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		
 		return cursor_window_x;
 	}
+	@Override
 	public int GetCursorY() {
 		int y=this.GetY();
 		int cursor_y=MouseInfo.getPointerInfo().getLocation().y;
@@ -296,25 +322,22 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		
 		return cursor_window_y;
 	}
+	@Override
 	public int GetCursorDiffX() {
 		return mouse.GetDiffX();
 	}
+	@Override
 	public int GetCursorDiffY() {
 		return mouse.GetDiffY();
 	}
+	@Override
 	public void SetCursorPos(int x,int y) {
 		int window_x=this.GetX();
 		int window_y=this.GetY();
 		
 		robot.mouseMove(window_x+x, window_y+y);
 	}
-	
-	public int GetMousePressingCount(MouseEnum key) {
-		return mouse.GetButtonPressingCount(key);
-	}
-	public int GetMouseReleasingCount(MouseEnum key) {
-		return mouse.GetButtonReleasingCount(key);
-	}
+	@Override
 	public float GetMouseWheelHorizontalRotation() {
 		return mouse.GetHorizontalRotation();
 	}
@@ -326,59 +349,43 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		this.Init();
 		GLFront.Unlock();
 	}
-	protected void Init() {
-		
-	}
 	@Override
 	public void reshape(GLAutoDrawable drawable,int x,int y,int width,int height) {
 		GLFront.Lock();
 		this.Reshape(x, y, width, height);
 		GLFront.Unlock();
 	}
-	protected void Reshape(int x,int y,int width,int height) {
-		
-	}
 	@Override
 	public void display(GLAutoDrawable drawable) {
-		if(destroyed_flag==true)return;
+		if(destroyed_flag==true) {
+			return;
+		}
 		
 		//Update input.
 		keyboard.Update();
 		mouse.Update();
 		
+		int width=this.GetCanvasWidth();
+		int height=this.GetCanvasHeight();
+		
 		//Update shader-relating properties with lock
 		//in order to avoid interference from concurrent display() methods in other windows.
 		GLFront.Lock();
-		this.DefaultUpdate();
-		this.Update();
-		CameraFront.Update();
-		this.Draw();
-		GLFront.Unlock();
-	}
-	private void DefaultUpdate() {
+		
+		//Default updates==========
 		this.ClearDrawScreen();
-		
-		Container content_pane=frame.getContentPane();
-		Dimension dimension=content_pane.getSize();
-		
-		int width=dimension.width;
-		int height=dimension.height;
-		
 		CameraFront.UpdateAspect(width, height);
-		
 		TextureMgr.SetWindowSize(width, height);
 		TextMgr.SetWindowSize(width, height);
 		GLDrawFunctions2D.SetWindowSize(width, height);
-		
 		LightingFront.Update();
 		FogFront.Update();
-	}
-	protected void Update() {
-		CameraFront.SetCameraPositionAndTarget_UpVecY(
-				VectorFunctions.VGet(50.0f, 50.0f, 50.0f),VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
-	}
-	protected void Draw() {
+		//====================
+		this.Update();//User data
+		CameraFront.Update();
+		this.Draw();//User draw
 		
+		GLFront.Unlock();
 	}
 	@Override
 	public void dispose(GLAutoDrawable drawable) {
@@ -386,7 +393,30 @@ implements GLEventListener,KeyListener,MouseListener,MouseMotionListener,MouseWh
 		this.Dispose();
 		GLFront.Unlock();
 	}
-	protected void Dispose() {
+	
+	@Override
+	public void Init() {
+		
+	}
+	@Override
+	public void Reshape(int x,int y,int width,int height) {
+		
+	}
+	@Override
+	public void Update() {
+		CameraFront.SetCameraPositionAndTarget_UpVecY(
+				VectorFunctions.VGet(50.0f, 50.0f, 50.0f),VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
+	}
+	@Override
+	public void Draw() {
+		GLDrawFunctions3D.DrawAxes(100.0f);
+	}
+	@Override
+	public void Dispose() {
+		
+	}
+	@Override
+	public void OnWindowClosing() {
 		
 	}
 

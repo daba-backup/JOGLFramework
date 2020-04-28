@@ -208,11 +208,9 @@ public class JOGLFWindow implements JOGLFWindowInterface,GLEventListener,KeyList
 	public void HideWindow() {
 		window.setVisible(false);
 	}
-	@Override
 	public void ShowCursor() {
 		window.setPointerVisible(true);
 	}
-	@Override
 	public void HideCursor() {
 		window.setPointerVisible(false);
 	}
@@ -316,8 +314,8 @@ public class JOGLFWindow implements JOGLFWindowInterface,GLEventListener,KeyList
 		keyboard.Update();
 		mouse.Update();
 		
-		int width=window.getWidth();
-		int height=window.getHeight();
+		int width=this.GetWidth();
+		int height=this.GetHeight();
 		
 		//Update shader-relating properties with lock
 		//in order to avoid interference from concurrent display() methods in other windows.
