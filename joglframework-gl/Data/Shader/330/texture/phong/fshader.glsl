@@ -38,8 +38,8 @@ void main(){
     vec3 camera_direction=normalize(camera.target-camera.position);
     vec3 half_le=-normalize(camera_direction+lighting.direction);
 
-    float diffuse_coefficient=clamp(dot(vs_in_normal,-lighting.direction),0.0,1.0);
-    float specular_coefficient=pow(clamp(dot(vs_in_normal,half_le),0.0,1.0),2.0);
+    float diffuse_coefficient=clamp(dot(vs_out_normal,-lighting.direction),0.0,1.0);
+    float specular_coefficient=pow(clamp(dot(vs_out_normal,half_le),0.0,1.0),2.0);
 
     vec4 ambient_color=vec4(lighting.ambient_color*lighting.ambient_power);
     vec4 diffuse_color=vec4(lighting.diffuse_color*diffuse_coefficient*lighting.diffuse_power);
