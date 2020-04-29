@@ -33,6 +33,17 @@ public class ShaderProgram {
 		
 		logging_enabled_flag=false;
 	}
+	public ShaderProgram(String program_name,String vertex_shader_filename,String fragment_shader_filename) {
+		ShaderFunctions.CreateProgram(program_name, vertex_shader_filename, fragment_shader_filename);
+		
+		this.program_name=program_name;
+		program_id=ShaderFunctions.GetProgramID(program_name);
+		if(program_id<0) {
+			logger.warn("This program is invalid. program_name={}",program_name);
+		}
+		
+		logging_enabled_flag=false;
+	}
 	
 	public void EnableLogging(boolean flag) {
 		this.logging_enabled_flag=flag;
