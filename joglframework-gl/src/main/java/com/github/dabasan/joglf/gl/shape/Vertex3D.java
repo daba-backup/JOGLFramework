@@ -1,7 +1,9 @@
 package com.github.dabasan.joglf.gl.shape;
 
 import com.daxie.basis.coloru8.ColorU8;
+import com.daxie.basis.coloru8.ColorU8Functions;
 import com.daxie.basis.vector.Vector;
+import com.daxie.basis.vector.VectorFunctions;
 
 /**
  * Vertex
@@ -17,10 +19,10 @@ public class Vertex3D {
 	private float v;
 	
 	public Vertex3D() {
-		pos=new Vector();
-		norm=new Vector();
-		dif=new ColorU8();
-		spc=new ColorU8();
+		pos=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
+		norm=VectorFunctions.VGet(0.0f, 1.0f, 0.0f);
+		dif=ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f);
+		spc=ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f);
 		u=0.0f;
 		v=0.0f;
 	}
