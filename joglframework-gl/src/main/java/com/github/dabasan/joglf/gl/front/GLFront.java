@@ -35,7 +35,7 @@ public class GLFront {
 		setup_flag=true;
 	}
 	public static void Initialize() {
-		LoadDefaultShaders();
+		CreateDefaultPrograms();
 		SetDefaultGLProperties();
 		AddProgramsToFronts();
 		
@@ -56,7 +56,7 @@ public class GLFront {
 		else if(gl_version==GLVersion.GL4bc)profile_str=GLProfile.GL4bc;
 		else if(gl_version==GLVersion.GL4)profile_str=GLProfile.GL4;
 	}
-	private static void LoadDefaultShaders() {
+	private static void CreateDefaultPrograms() {
 		ShaderFunctions.CreateProgram(
 				"texture", 
 				"./Data/Shader/330/texture/gouraud/vshader.glsl",
@@ -74,7 +74,7 @@ public class GLFront {
 				"./Data/Shader/330/simple_2d/vshader.glsl", 
 				"./Data/Shader/330/simple_2d/fshader.glsl");
 		
-		logger.info("Default shaders loaded.");
+		logger.info("Default programs created.");
 	}
 	private static void SetDefaultGLProperties() {
 		GLWrapper.glEnable(GL4.GL_DEPTH_TEST);
