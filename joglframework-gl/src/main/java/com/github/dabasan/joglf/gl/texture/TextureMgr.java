@@ -53,7 +53,6 @@ public class TextureMgr {
 			return -1;
 		}
 		
-		int texture_handle=count;
 		Texture texture=null;
 		try {
 			texture=TextureIO.newTexture(file,true);
@@ -78,6 +77,7 @@ public class TextureMgr {
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
 		texture.disable(gl);
 		
+		int texture_handle=count;
 		textures_map.put(texture_handle, texture);
 		count++;
 		
