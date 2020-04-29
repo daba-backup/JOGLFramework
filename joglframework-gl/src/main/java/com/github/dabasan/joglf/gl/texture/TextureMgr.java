@@ -35,10 +35,10 @@ public class TextureMgr {
 	
 	private static int default_texture_handle=-1;
 	
+	private static boolean generate_mipmap_flag=true;
+
 	private static int window_width=WindowCommonInfo.DEFAULT_WIDTH;
 	private static int window_height=WindowCommonInfo.DEFAULT_HEIGHT;
-	
-	private static boolean generate_mipmap_flag=true;
 	
 	public static void Initialize() {
 		default_texture_handle=LoadTexture("./Data/Texture/white.bmp");
@@ -182,7 +182,7 @@ public class TextureMgr {
 		
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_object);
 		GLWrapper.glTexImage2D(
-				GL4.GL_TEXTURE_2D, 0,GL4.GL_RGBA, 
+				GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, 
 				width, height, 0, GL4.GL_RGBA, GL4.GL_UNSIGNED_BYTE, flipped_data);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 		
@@ -222,9 +222,9 @@ public class TextureMgr {
 		return height;
 	}
 	
-	public static int AssociateTexture(int texture_id,int texture_width,int texture_height,boolean flip_vertically) {
+	public static int AssociateTexture(int texture_object,int texture_width,int texture_height,boolean flip_vertically) {
 		int texture_handle=count;
-		Texture texture=new Texture(texture_id, GL4.GL_TEXTURE_2D, 
+		Texture texture=new Texture(texture_object, GL4.GL_TEXTURE_2D, 
 				texture_width, texture_height, texture_width, texture_height, flip_vertically);
 		
 		textures_map.put(texture_handle, texture);
@@ -258,13 +258,13 @@ public class TextureMgr {
 		return textures_map.containsKey(texture_handle);
 	}
 	
+	public static void SetGenerateMipmapFlag(boolean flag) {
+		generate_mipmap_flag=flag;
+	}
+
 	public static void SetWindowSize(int width,int height) {
 		window_width=width;
 		window_height=height;
-	}
-	
-	public static void SetGenerateMipmapFlag(boolean flag) {
-		generate_mipmap_flag=flag;
 	}
 	
 	public static int EnableTexture(int texture_handle) {
