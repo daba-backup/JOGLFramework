@@ -73,7 +73,7 @@ public class Model3DFunctions {
 	}
 	public static int DuplicateModel(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
+			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -89,7 +89,7 @@ public class Model3DFunctions {
 	}
 	public static int DeleteModel(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
+			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -122,7 +122,7 @@ public class Model3DFunctions {
 	
 	public static int AddProgram(int model_handle,ShaderProgram program) {
 		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
+			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -133,7 +133,7 @@ public class Model3DFunctions {
 	}
 	public static int RemoveAllPrograms(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
+			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -144,7 +144,7 @@ public class Model3DFunctions {
 	}
 	public static int SetDefaultProgram(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
+			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -158,7 +158,7 @@ public class Model3DFunctions {
 	
 	public static int DrawModelWithProgram(int model_handle,ShaderProgram program,int texture_unit,String sampler_name) {
 		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
+			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -170,7 +170,7 @@ public class Model3DFunctions {
 	
 	public static int DrawModel(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
+			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -181,7 +181,7 @@ public class Model3DFunctions {
 	}
 	public static int DrawModel(int model_handle,int texture_unit,String sampler_name) {
 		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
+			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -192,7 +192,7 @@ public class Model3DFunctions {
 	}
 	public static int TransferModel(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
+			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -203,7 +203,7 @@ public class Model3DFunctions {
 	}
 	public static int DrawModelElements(int model_handle,int bound) {
 		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
+			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -214,7 +214,7 @@ public class Model3DFunctions {
 	}
 	public static int DrawModelElements(int model_handle,int texture_unit,String sampler_name,int bound) {
 		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
+			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -226,7 +226,7 @@ public class Model3DFunctions {
 	
 	public static int GetModelElementNum(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
+			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -245,7 +245,7 @@ public class Model3DFunctions {
 	 */
 	public static int SetModelMatrix(int model_handle,Matrix m) {
 		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
+			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -263,7 +263,7 @@ public class Model3DFunctions {
 	 */
 	public static int TranslateModel(int model_handle,Vector translate) {
 		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
+			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -283,7 +283,7 @@ public class Model3DFunctions {
 	 */
 	public static int RotateModel(int model_handle,Vector rotate) {
 		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
+			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -308,7 +308,7 @@ public class Model3DFunctions {
 	 */
 	public static int RotateModelLocally(int model_handle,Vector origin,Vector rotate) {
 		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
+			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -338,7 +338,7 @@ public class Model3DFunctions {
 	 */
 	public static int RescaleModel(int model_handle,Vector scale) {
 		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
+			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -352,7 +352,7 @@ public class Model3DFunctions {
 	
 	public static int ChangeModelTexture(int model_handle,int material_index,int new_texture_handle) {
 		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
+			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
@@ -364,7 +364,7 @@ public class Model3DFunctions {
 	
 	public static List<Triangle> GetModelFaces(int model_handle){
 		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
+			logger.trace("No such model. model_handle={}",model_handle);
 			return new ArrayList<Triangle>();
 		}
 		
@@ -376,11 +376,11 @@ public class Model3DFunctions {
 	
 	public static int AttachAnimation(int model_handle,int anim_index,int anim_src_handle,float time) {
 		if(models_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
+			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		if(models_map.containsKey(anim_src_handle)==false) {
-			logger.warn("No such model. anim_src_handle={}",anim_src_handle);
+			logger.trace("No such model. anim_src_handle={}",anim_src_handle);
 			return -1;
 		}
 		
@@ -396,13 +396,13 @@ public class Model3DFunctions {
 	
 	public static int SetAttachedAnimationTime(int model_handle,int anim_index,float time) {
 		if(animation_info_map.containsKey(model_handle)==false) {
-			logger.warn("No animation info exists for this model. model_handle={}",model_handle);
+			logger.trace("No animation info exists for this model. model_handle={}",model_handle);
 			return -1;
 		}
 		
 		AnimationInfoMap aim=animation_info_map.get(model_handle);
 		if(aim.AnimationInfoExists(anim_index)==false) {
-			logger.warn("No corresponding animation for this index exists. anim_index={}",anim_index);
+			logger.trace("No corresponding animation for this index exists. anim_index={}",anim_index);
 			return -1;
 		}
 		
@@ -413,7 +413,7 @@ public class Model3DFunctions {
 		int frame2_handle=blend_info.GetFrame2Handle();
 		float blend_ratio=blend_info.GetBlendRatio();
 		if(frame1_handle<0) {
-			logger.warn("No frames registered.");
+			logger.trace("No frames registered.");
 			return -1;
 		}
 		
@@ -439,13 +439,13 @@ public class Model3DFunctions {
 	
 	public static float GetAnimationMaxTime(int model_handle,int anim_index) {
 		if(animation_info_map.containsKey(model_handle)==false) {
-			logger.warn("No such model. model_handle={}",model_handle);
+			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
 		AnimationInfoMap aim=animation_info_map.get(model_handle);
 		if(aim.AnimationInfoExists(anim_index)==false) {
-			logger.warn("No corresponding animation for this index exists. anim_index={}",anim_index);
+			logger.trace("No corresponding animation for this index exists. anim_index={}",anim_index);
 			return -1;
 		}
 		

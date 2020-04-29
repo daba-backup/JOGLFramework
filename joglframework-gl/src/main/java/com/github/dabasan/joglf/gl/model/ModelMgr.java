@@ -346,14 +346,16 @@ public class ModelMgr {
 		property_updated_flag=true;
 	}
 	
-	public void ChangeTexture(int material_index,int new_texture_handle) {
+	public int ChangeTexture(int material_index,int new_texture_handle) {
 		if(!(0<=material_index&&material_index<buffered_vertices_list.size())) {
 			logger.warn("Index out of bounds. material_index={}",material_index);
-			return;
+			return -1;
 		}
 		
 		BufferedVertices buffered_vertices=buffered_vertices_list.get(material_index);
 		buffered_vertices.SetTextureHandle(new_texture_handle);
+		
+		return 0;
 	}
 	
 	public List<Triangle> GetFaces(){

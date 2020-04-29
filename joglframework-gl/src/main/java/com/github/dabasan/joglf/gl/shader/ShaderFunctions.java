@@ -10,9 +10,9 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.daxie.tool.FileFunctions;
 import com.github.dabasan.joglf.gl.tool.BufferFunctions;
 import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
-import com.daxie.tool.FileFunctions;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -144,7 +144,7 @@ public class ShaderFunctions {
 	
 	public static int UseProgram(String program_name) {
 		if(program_ids_map.containsKey(program_name)==false) {
-			logger.warn("Invalid program name. program_name={}",program_name);
+			logger.trace("Invalid program name. program_name={}",program_name);
 			return -1;
 		}
 		
