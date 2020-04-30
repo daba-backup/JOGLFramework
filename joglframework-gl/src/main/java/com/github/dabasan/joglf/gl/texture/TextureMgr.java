@@ -402,6 +402,7 @@ public class TextureMgr {
 		
 		GLWrapper.glBindVertexArray(0);
 		
+		GLWrapper.glDeleteBuffers(1, indices_vbo);
 		GLWrapper.glDeleteBuffers(1, pos_vbo);
 		GLWrapper.glDeleteBuffers(1, uv_vbo);
 		GLWrapper.glDeleteVertexArrays(1, vao);
