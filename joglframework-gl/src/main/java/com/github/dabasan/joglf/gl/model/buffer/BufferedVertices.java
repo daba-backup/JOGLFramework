@@ -4,8 +4,8 @@ import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-import com.daxie.basis.coloru8.ColorU8;
-import com.daxie.basis.coloru8.ColorU8Functions;
+import com.github.dabasan.basis.coloru8.ColorU8;
+import com.github.dabasan.basis.coloru8.ColorU8Functions;
 import com.github.dabasan.joglf.gl.tool.BufferFunctions;
 import com.jogamp.common.nio.Buffers;
 

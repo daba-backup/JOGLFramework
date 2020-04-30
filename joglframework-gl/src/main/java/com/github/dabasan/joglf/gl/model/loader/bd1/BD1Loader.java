@@ -12,12 +12,12 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.daxie.basis.vector.Vector;
+import com.github.dabasan.basis.vector.Vector;
 import com.github.dabasan.joglf.gl.model.buffer.BufferedVertices;
 import com.github.dabasan.joglf.gl.shape.Triangle;
 import com.github.dabasan.joglf.gl.shape.Vertex3D;
 import com.github.dabasan.joglf.gl.texture.TextureMgr;
-import com.daxie.tool.FilenameFunctions;
+import com.github.dabasan.tool.FilenameFunctions;
 import com.jogamp.common.nio.Buffers;
 
 /**

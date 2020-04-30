@@ -10,9 +10,9 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.daxie.tool.FileFunctions;
 import com.github.dabasan.joglf.gl.tool.BufferFunctions;
 import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
+import com.github.dabasan.tool.FileFunctions;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 

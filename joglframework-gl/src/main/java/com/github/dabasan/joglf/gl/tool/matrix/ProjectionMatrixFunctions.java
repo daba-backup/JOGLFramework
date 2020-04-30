@@ -1,9 +1,9 @@
 package com.github.dabasan.joglf.gl.tool.matrix;
 
-import com.daxie.basis.matrix.Matrix;
-import com.daxie.basis.matrix.MatrixFunctions;
-import com.daxie.basis.vector.Vector;
-import com.daxie.basis.vector.VectorFunctions;
+import com.github.dabasan.basis.matrix.Matrix;
+import com.github.dabasan.basis.matrix.MatrixFunctions;
+import com.github.dabasan.basis.vector.Vector;
+import com.github.dabasan.basis.vector.VectorFunctions;
 
 /**
  * Provides methods for projection transformation.

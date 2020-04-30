@@ -1,6 +1,6 @@
 package com.github.dabasan.joglf.gl;
 
-import com.daxie.basis.vector.VectorFunctions;
+import com.github.dabasan.basis.vector.VectorFunctions;
 import com.github.dabasan.joglf.gl.drawer.DynamicSegmentsDrawer;
 import com.github.dabasan.joglf.gl.front.CameraFront;
 import com.github.dabasan.joglf.gl.front.FogFront;

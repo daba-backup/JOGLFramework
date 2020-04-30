@@ -2,8 +2,8 @@ package com.github.dabasan.joglf.al.sound;
 
 import java.nio.ByteBuffer;
 
-import com.daxie.basis.vector.Vector;
-import com.daxie.basis.vector.VectorFunctions;
+import com.github.dabasan.basis.vector.Vector;
+import com.github.dabasan.basis.vector.VectorFunctions;
 import com.github.dabasan.joglf.al.buffer.SoundBuffer;
 import com.github.dabasan.joglf.al.wrapper.ALWrapper;
 import com.jogamp.openal.AL;

@@ -1,6 +1,6 @@
 package com.github.dabasan.joglf.gl.model.collision;
 
-import com.daxie.basis.vector.Vector;
+import com.github.dabasan.basis.vector.Vector;
 
 /**
  * Triangle for collision info

@@ -3,10 +3,10 @@ package com.github.dabasan.joglf.gl.lighting;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.daxie.basis.coloru8.ColorU8;
-import com.daxie.basis.coloru8.ColorU8Functions;
-import com.daxie.basis.vector.Vector;
-import com.daxie.basis.vector.VectorFunctions;
+import com.github.dabasan.basis.coloru8.ColorU8;
+import com.github.dabasan.basis.coloru8.ColorU8Functions;
+import com.github.dabasan.basis.vector.Vector;
+import com.github.dabasan.basis.vector.VectorFunctions;
 import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 
 /**

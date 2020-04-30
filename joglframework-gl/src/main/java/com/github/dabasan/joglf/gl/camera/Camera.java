@@ -3,14 +3,14 @@ package com.github.dabasan.joglf.gl.camera;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.daxie.basis.matrix.Matrix;
-import com.daxie.basis.vector.Vector;
-import com.daxie.basis.vector.VectorFunctions;
-import com.daxie.tool.MathFunctions;
+import com.github.dabasan.basis.matrix.Matrix;
+import com.github.dabasan.basis.vector.Vector;
+import com.github.dabasan.basis.vector.VectorFunctions;
 import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 import com.github.dabasan.joglf.gl.tool.matrix.ProjectionMatrixFunctions;
 import com.github.dabasan.joglf.gl.tool.matrix.TransformationMatrixFunctions;
 import com.github.dabasan.joglf.gl.window.WindowCommonInfo;
+import com.github.dabasan.tool.MathFunctions;
 
 /**
  * Camera

@@ -3,8 +3,8 @@ package com.github.dabasan.joglf.gl.fog;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.daxie.basis.coloru8.ColorU8;
-import com.daxie.basis.coloru8.ColorU8Functions;
+import com.github.dabasan.basis.coloru8.ColorU8;
+import com.github.dabasan.basis.coloru8.ColorU8Functions;
 import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 
 /**

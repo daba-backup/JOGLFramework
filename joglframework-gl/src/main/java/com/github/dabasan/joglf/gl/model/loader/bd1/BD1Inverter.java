@@ -2,7 +2,7 @@ package com.github.dabasan.joglf.gl.model.loader.bd1;
 
 import java.util.List;
 
-import com.daxie.basis.vector.Vector;
+import com.github.dabasan.basis.vector.Vector;
 
 /**
  * Inverts z-axis of BD1 files.

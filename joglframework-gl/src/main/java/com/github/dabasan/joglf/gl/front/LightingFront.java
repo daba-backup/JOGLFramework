@@ -1,7 +1,7 @@
 package com.github.dabasan.joglf.gl.front;
 
-import com.daxie.basis.coloru8.ColorU8;
-import com.daxie.basis.vector.Vector;
+import com.github.dabasan.basis.coloru8.ColorU8;
+import com.github.dabasan.basis.vector.Vector;
 import com.github.dabasan.joglf.gl.lighting.Lighting;
 import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 

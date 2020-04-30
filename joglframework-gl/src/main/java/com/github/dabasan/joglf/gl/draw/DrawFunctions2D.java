@@ -4,7 +4,7 @@ import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-import com.daxie.basis.coloru8.ColorU8;
+import com.github.dabasan.basis.coloru8.ColorU8;
 import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
 import com.github.dabasan.joglf.gl.tool.CoordinateFunctions;
 import com.github.dabasan.joglf.gl.window.WindowCommonInfo;

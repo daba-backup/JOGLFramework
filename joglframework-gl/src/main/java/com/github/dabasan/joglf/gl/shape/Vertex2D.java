@@ -2,8 +2,8 @@ package com.github.dabasan.joglf.gl.shape;
 
 import java.awt.Point;
 
-import com.daxie.basis.coloru8.ColorU8;
-import com.daxie.basis.coloru8.ColorU8Functions;
+import com.github.dabasan.basis.coloru8.ColorU8;
+import com.github.dabasan.basis.coloru8.ColorU8Functions;
 
 /**
  * 2D vertex

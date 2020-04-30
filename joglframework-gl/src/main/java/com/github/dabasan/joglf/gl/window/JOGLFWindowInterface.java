@@ -1,6 +1,6 @@
 package com.github.dabasan.joglf.gl.window;
 
-import com.daxie.basis.coloru8.ColorU8;
+import com.github.dabasan.basis.coloru8.ColorU8;
 import com.github.dabasan.joglf.gl.input.keyboard.KeyboardEnum;
 import com.github.dabasan.joglf.gl.input.mouse.MouseEnum;
 

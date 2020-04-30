@@ -1,6 +1,6 @@
 package com.github.dabasan.joglf.gl;
 
-import com.daxie.basis.vector.VectorFunctions;
+import com.github.dabasan.basis.vector.VectorFunctions;
 import com.github.dabasan.joglf.gl.model.Model3DFunctions;
 import com.github.dabasan.joglf.gl.window.JOGLFWindow;
 

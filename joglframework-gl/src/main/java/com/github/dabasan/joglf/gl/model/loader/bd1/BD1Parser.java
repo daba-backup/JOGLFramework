@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.daxie.tool.ByteFunctions;
-import com.daxie.tool.FileFunctions;
-import com.daxie.tool.FilenameFunctions;
+import com.github.dabasan.tool.ByteFunctions;
+import com.github.dabasan.tool.FileFunctions;
+import com.github.dabasan.tool.FilenameFunctions;
 
 /**
  * Reads data from a BD1 file.

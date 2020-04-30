@@ -15,7 +15,7 @@ import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 import com.github.dabasan.joglf.gl.texture.TextureMgr;
 import com.github.dabasan.joglf.gl.transferrer.FullscreenQuadTransferrerWithUV;
 import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
-import com.daxie.tool.FilenameFunctions;
+import com.github.dabasan.tool.FilenameFunctions;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 

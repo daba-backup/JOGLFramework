@@ -12,11 +12,11 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.daxie.basis.coloru8.ColorU8;
-import com.daxie.basis.coloru8.ColorU8Functions;
+import com.github.dabasan.basis.coloru8.ColorU8;
+import com.github.dabasan.basis.coloru8.ColorU8Functions;
 import com.github.dabasan.joglf.gl.model.buffer.BufferedVertices;
 import com.github.dabasan.joglf.gl.texture.TextureMgr;
-import com.daxie.tool.FilenameFunctions;
+import com.github.dabasan.tool.FilenameFunctions;
 
 import de.javagl.obj.FloatTuple;
 import de.javagl.obj.Mtl;

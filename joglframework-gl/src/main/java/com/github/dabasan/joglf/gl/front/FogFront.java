@@ -1,6 +1,6 @@
 package com.github.dabasan.joglf.gl.front;
 
-import com.daxie.basis.coloru8.ColorU8;
+import com.github.dabasan.basis.coloru8.ColorU8;
 import com.github.dabasan.joglf.gl.fog.Fog;
 import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 

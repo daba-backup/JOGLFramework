@@ -12,7 +12,7 @@ import java.util.TreeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.daxie.basis.coloru8.ColorU8;
+import com.github.dabasan.basis.coloru8.ColorU8;
 import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 import com.github.dabasan.joglf.gl.shape.Circle2D;
 import com.github.dabasan.joglf.gl.tool.CoordinateFunctions;

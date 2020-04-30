@@ -8,7 +8,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.daxie.basis.coloru8.ColorU8;
+import com.github.dabasan.basis.coloru8.ColorU8;
 import com.github.dabasan.joglf.gl.window.WindowCommonInfo;
 import com.jogamp.graph.curve.Region;
 import com.jogamp.graph.curve.opengl.RegionRenderer;

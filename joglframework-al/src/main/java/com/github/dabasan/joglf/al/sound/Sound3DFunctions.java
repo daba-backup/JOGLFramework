@@ -6,12 +6,12 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.daxie.basis.vector.Vector;
-import com.daxie.basis.vector.VectorFunctions;
-import com.daxie.tool.FilenameFunctions;
+import com.github.dabasan.basis.vector.Vector;
+import com.github.dabasan.basis.vector.VectorFunctions;
 import com.github.dabasan.joglf.al.buffer.SoundBuffer;
 import com.github.dabasan.joglf.al.loader.WAVLoader;
 import com.github.dabasan.joglf.al.wrapper.ALWrapper;
+import com.github.dabasan.tool.FilenameFunctions;
 import com.jogamp.openal.AL;
 
 /**

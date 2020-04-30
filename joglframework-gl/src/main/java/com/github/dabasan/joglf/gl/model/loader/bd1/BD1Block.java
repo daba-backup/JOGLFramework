@@ -1,7 +1,7 @@
 package com.github.dabasan.joglf.gl.model.loader.bd1;
 
-import com.daxie.basis.vector.Vector;
-import com.daxie.basis.vector.VectorFunctions;
+import com.github.dabasan.basis.vector.Vector;
+import com.github.dabasan.basis.vector.VectorFunctions;
 
 /**
  * A block contained in the BD1 format.

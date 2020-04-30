@@ -5,9 +5,9 @@ import java.nio.FloatBuffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.daxie.basis.coloru8.ColorU8;
-import com.daxie.basis.matrix.Matrix;
-import com.daxie.basis.vector.Vector;
+import com.github.dabasan.basis.coloru8.ColorU8;
+import com.github.dabasan.basis.matrix.Matrix;
+import com.github.dabasan.basis.vector.Vector;
 import com.github.dabasan.joglf.gl.tool.BufferFunctions;
 import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
 
