@@ -18,7 +18,7 @@ public class BufferedVertices {
 	private int texture_handle;
 	private int count;
 	
-	private IntBuffer indices;
+	private IntBuffer indices_buffer;
 	private FloatBuffer pos_buffer;
 	private FloatBuffer uv_buffer;
 	private FloatBuffer norm_buffer;
@@ -36,7 +36,7 @@ public class BufferedVertices {
 		buffered_vertices.texture_handle=this.texture_handle;
 		buffered_vertices.count=this.count;
 		
-		buffered_vertices.indices=BufferFunctions.CopyIntBuffer(this.indices);
+		buffered_vertices.indices_buffer=BufferFunctions.CopyIntBuffer(this.indices_buffer);
 		buffered_vertices.pos_buffer=BufferFunctions.CopyFloatBuffer(this.pos_buffer);
 		buffered_vertices.uv_buffer=BufferFunctions.CopyFloatBuffer(this.uv_buffer);
 		buffered_vertices.norm_buffer=BufferFunctions.CopyFloatBuffer(this.norm_buffer);
@@ -73,7 +73,7 @@ public class BufferedVertices {
 		interpolated.SetDiffuseTextureMap(bv1.GetDiffuseTextureMap());
 		
 		int texture_handle=bv1.GetTextureHandle();
-		IntBuffer indices=bv1.GetIndices();
+		IntBuffer indices_buffer=bv1.GetIndicesBuffer();
 		FloatBuffer uv_buffer=bv1.GetUVBuffer();
 		
 		//Interpolate positions and normals.
@@ -101,7 +101,7 @@ public class BufferedVertices {
 		((Buffer)interpolated_norm_buffer).flip();
 		
 		interpolated.SetTextureHandle(texture_handle);
-		interpolated.SetIndices(indices);
+		interpolated.SetIndicesBuffer(indices_buffer);
 		interpolated.SetUVBuffer(uv_buffer);
 		interpolated.SetPosBuffer(interpolated_pos_buffer);
 		interpolated.SetNormBuffer(interpolated_norm_buffer);
@@ -112,9 +112,9 @@ public class BufferedVertices {
 	public void SetTextureHandle(int texture_handle) {
 		this.texture_handle=texture_handle;
 	}
-	public void SetIndices(IntBuffer indices) {
-		this.indices=indices;
-		count=indices.capacity();
+	public void SetIndicesBuffer(IntBuffer indices_buffer) {
+		this.indices_buffer=indices_buffer;
+		count=indices_buffer.capacity();
 	}
 	public void SetPosBuffer(FloatBuffer pos_buffer) {
 		this.pos_buffer=pos_buffer;
@@ -150,8 +150,8 @@ public class BufferedVertices {
 	public int GetCount() {
 		return count;
 	}
-	public IntBuffer GetIndices() {
-		return indices;
+	public IntBuffer GetIndicesBuffer() {
+		return indices_buffer;
 	}
 	public FloatBuffer GetPosBuffer() {
 		return pos_buffer;

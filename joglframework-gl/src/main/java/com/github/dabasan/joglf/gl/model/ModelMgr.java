@@ -135,13 +135,13 @@ public class ModelMgr {
 		}
 		for(int i=0;i<element_num;i++) {
 			BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
-			IntBuffer indices=buffered_vertices.GetIndices();
+			IntBuffer indices_buffer=buffered_vertices.GetIndicesBuffer();
 			
 			GLWrapper.glBindVertexArray(vao.get(i));
 			
 			GLWrapper.glBindBuffer(GL4.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(i));
 			GLWrapper.glBufferData(GL4.GL_ELEMENT_ARRAY_BUFFER, 
-					Buffers.SIZEOF_INT*indices.capacity(), indices, GL4.GL_STATIC_DRAW);
+					Buffers.SIZEOF_INT*indices_buffer.capacity(), indices_buffer, GL4.GL_STATIC_DRAW);
 			
 			GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(i));
 			GLWrapper.glEnableVertexAttribArray(0);

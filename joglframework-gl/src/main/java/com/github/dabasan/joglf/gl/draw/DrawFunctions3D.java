@@ -753,17 +753,123 @@ public class DrawFunctions3D {
 		//Delete buffers
 		GLWrapper.glDeleteBuffers(1, pos_vbo);
 		GLWrapper.glDeleteBuffers(1, uv_vbo);
+		GLWrapper.glDeleteBuffers(1, norm_vbo);
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
-	public static void DrawTexturedTriangle3D(
-			Vector triangle_pos_1,Vector triangle_pos_2,Vector triangle_pos_3,
-			int texture_handle,boolean use_face_normal_flag) {
-		Triangle triangle=new Triangle();
+	
+	public static void DrawTexturedQuadrangle(Quadrangle quadrangle,int texture_handle,boolean use_face_normal_flag) {
+		IntBuffer indices_vbo=Buffers.newDirectIntBuffer(1);
+		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);
+		IntBuffer uv_vbo=Buffers.newDirectIntBuffer(1);
+		IntBuffer norm_vbo=Buffers.newDirectIntBuffer(1);
+		IntBuffer vao=Buffers.newDirectIntBuffer(1);
 		
-		triangle.GetVertex(0).SetPos(triangle_pos_1);
-		triangle.GetVertex(1).SetPos(triangle_pos_2);
-		triangle.GetVertex(2).SetPos(triangle_pos_3);
+		Vertex3D[] vertices=quadrangle.GetVertices();
+		IntBuffer indices_buffer=Buffers.newDirectIntBuffer(6);
+		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(12);
+		FloatBuffer uv_buffer=Buffers.newDirectFloatBuffer(8);
+		FloatBuffer norm_buffer=Buffers.newDirectFloatBuffer(12);
 		
-		DrawTexturedTriangle3D(triangle, texture_handle, use_face_normal_flag);
+		indices_buffer.put(0);
+		indices_buffer.put(1);
+		indices_buffer.put(2);
+		indices_buffer.put(2);
+		indices_buffer.put(3);
+		indices_buffer.put(0);
+		((Buffer)indices_buffer).flip();
+		
+		//Calculate the face normal.
+		Vector v1=VectorFunctions.VSub(vertices[1].GetPos(), vertices[0].GetPos());
+		Vector v2=VectorFunctions.VSub(vertices[3].GetPos(), vertices[0].GetPos());
+		Vector face_norm=VectorFunctions.VCross(v1, v2);
+		face_norm=VectorFunctions.VNorm(face_norm);
+		
+		for(int i=0;i<4;i++) {
+			Vector pos=vertices[i].GetPos();
+			float u=vertices[i].GetU();
+			float v=vertices[i].GetV();
+			
+			pos_buffer.put(pos.GetX());
+			pos_buffer.put(pos.GetY());
+			pos_buffer.put(pos.GetZ());
+			uv_buffer.put(u);
+			uv_buffer.put(v);
+			
+			if(use_face_normal_flag==true) {
+				norm_buffer.put(face_norm.GetX());
+				norm_buffer.put(face_norm.GetY());
+				norm_buffer.put(face_norm.GetZ());
+			}
+			else {
+				Vector norm=vertices[i].GetNorm();
+				
+				norm_buffer.put(norm.GetX());
+				norm_buffer.put(norm.GetY());
+				norm_buffer.put(norm.GetZ());
+			}
+		}
+		((Buffer)pos_buffer).flip();
+		((Buffer)uv_buffer).flip();
+		((Buffer)norm_buffer).flip();
+		
+		GLWrapper.glGenBuffers(1, indices_vbo);
+		GLWrapper.glGenBuffers(1, pos_vbo);
+		GLWrapper.glGenBuffers(1, uv_vbo);
+		GLWrapper.glGenBuffers(1, norm_vbo);
+		
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*pos_buffer.capacity(), pos_buffer, GL4.GL_STATIC_DRAW);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, uv_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*uv_buffer.capacity(), uv_buffer, GL4.GL_STATIC_DRAW);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, norm_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*norm_buffer.capacity(), norm_buffer, GL4.GL_STATIC_DRAW);
+		
+		GLWrapper.glGenVertexArrays(1, vao);
+		GLWrapper.glBindVertexArray(vao.get(0));
+		
+		//Indices
+		GLWrapper.glBindBuffer(GL4.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ELEMENT_ARRAY_BUFFER, 
+				Buffers.SIZEOF_INT*indices_buffer.capacity(), indices_buffer, GL4.GL_STATIC_DRAW);
+		
+		//Position attribute
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(0);
+		GLWrapper.glVertexAttribPointer(0, 3, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*3, 0);
+		
+		//UVs attribute
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, uv_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(1);
+		GLWrapper.glVertexAttribPointer(1, 2, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*2, 0);
+		
+		//Normal attribute
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, norm_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(2);
+		GLWrapper.glVertexAttribPointer(2, 3, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*3, 0);
+		
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
+		GLWrapper.glBindVertexArray(0);
+		
+		GLWrapper.glBindVertexArray(vao.get(0));
+		
+		//Draw
+		texture_program.Enable();
+		texture_program.SetTexture("texture_sampler", 0, texture_handle);
+		GLWrapper.glEnable(GL4.GL_BLEND);
+		GLWrapper.glDrawElements(GL4.GL_TRIANGLES, 6, GL4.GL_UNSIGNED_INT, 0);
+		GLWrapper.glDisable(GL4.GL_BLEND);
+		texture_program.Disable();
+		
+		GLWrapper.glBindVertexArray(0);
+		
+		//Delete buffers
+		GLWrapper.glDeleteBuffers(1, indices_vbo);
+		GLWrapper.glDeleteBuffers(1, pos_vbo);
+		GLWrapper.glDeleteBuffers(1, uv_vbo);
+		GLWrapper.glDeleteBuffers(1, norm_vbo);
+		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
 }

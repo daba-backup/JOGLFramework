@@ -122,7 +122,7 @@ public class OBJLoader {
 			FloatBuffer pos_buffer=ObjData.getVertices(material_group);
 			FloatBuffer uv_buffer=ObjData.getTexCoords(material_group,2);
 			FloatBuffer norm_buffer=ObjData.getNormals(material_group);
-			buffered_vertices.SetIndices(indices);
+			buffered_vertices.SetIndicesBuffer(indices);
 			buffered_vertices.SetPosBuffer(pos_buffer);
 			buffered_vertices.SetUVBuffer(uv_buffer);
 			buffered_vertices.SetNormBuffer(norm_buffer);
