@@ -146,27 +146,6 @@ public class DrawFunctions3D {
 				ColorU8Functions.GetColorU8(0.0f, 0.0f, 1.0f, 1.0f));
 	}
 	
-	public static void DrawTriangle3D(Vector triangle_pos_1,Vector triangle_pos_2,Vector triangle_pos_3,ColorU8 color) {
-		Triangle triangle=new Triangle();
-		
-		Vertex3D[] vertices=new Vertex3D[3];
-		for(int i=0;i<3;i++) {
-			vertices[i]=new Vertex3D();
-		}
-		
-		vertices[0].SetPos(triangle_pos_1);
-		vertices[1].SetPos(triangle_pos_2);
-		vertices[2].SetPos(triangle_pos_3);
-		for(int i=0;i<3;i++) {
-			vertices[i].SetDif(color);
-		}
-		
-		for(int i=0;i<3;i++) {
-			triangle.SetVertex(i, vertices[i]);
-		}
-		
-		DrawTriangle3D(triangle);
-	}
 	public static void DrawTriangle3D(Triangle triangle) {
 		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);
 		IntBuffer color_vbo=Buffers.newDirectIntBuffer(1);
@@ -231,31 +210,20 @@ public class DrawFunctions3D {
 		GLWrapper.glDeleteBuffers(1, color_vbo);
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
-	public static void DrawQuadrangle3D(
-			Vector quadrangle_pos_1,Vector quadrangle_pos_2,
-			Vector quadrangle_pos_3,Vector quadrangle_pos_4,ColorU8 color) {
-		Quadrangle quadrangle=new Quadrangle();
+	public static void DrawTriangle3D(Vector triangle_pos_1,Vector triangle_pos_2,Vector triangle_pos_3,ColorU8 color) {
+		Triangle triangle=new Triangle();
 		
-		Vertex3D[] vertices=new Vertex3D[4];
-		for(int i=0;i<4;i++) {
-			vertices[i]=new Vertex3D();
+		triangle.GetVertex(0).SetPos(triangle_pos_1);
+		triangle.GetVertex(1).SetPos(triangle_pos_2);
+		triangle.GetVertex(2).SetPos(triangle_pos_3);
+		
+		for(int i=0;i<3;i++) {
+			triangle.GetVertex(i).SetDif(color);
 		}
 		
-		vertices[0].SetPos(quadrangle_pos_1);
-		vertices[1].SetPos(quadrangle_pos_2);
-		vertices[2].SetPos(quadrangle_pos_3);
-		vertices[3].SetPos(quadrangle_pos_4);
-		
-		for(int i=0;i<4;i++) {
-			vertices[i].SetDif(color);
-		}
-		
-		for(int i=0;i<4;i++) {
-			quadrangle.SetVertex(i, vertices[i]);
-		}
-		
-		DrawQuadrangle3D(quadrangle);
+		DrawTriangle3D(triangle);
 	}
+	
 	public static void DrawQuadrangle3D(Quadrangle quadrangle) {
 		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);
 		IntBuffer color_vbo=Buffers.newDirectIntBuffer(1);
@@ -320,6 +288,23 @@ public class DrawFunctions3D {
 		GLWrapper.glDeleteBuffers(1, color_vbo);
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
+	public static void DrawQuadrangle3D(
+			Vector quadrangle_pos_1,Vector quadrangle_pos_2,
+			Vector quadrangle_pos_3,Vector quadrangle_pos_4,ColorU8 color) {
+		Quadrangle quadrangle=new Quadrangle();
+		
+		quadrangle.GetVertex(0).SetPos(quadrangle_pos_1);
+		quadrangle.GetVertex(1).SetPos(quadrangle_pos_2);
+		quadrangle.GetVertex(2).SetPos(quadrangle_pos_3);
+		quadrangle.GetVertex(3).SetPos(quadrangle_pos_4);
+		
+		for(int i=0;i<4;i++) {
+			quadrangle.GetVertex(i).SetDif(color);
+		}
+		
+		DrawQuadrangle3D(quadrangle);
+	}
+	
 	public static void DrawSphere3D(Vector center,float radius,int slice_num,int stack_num,ColorU8 color) {
 		List<Vector> vertices=new ArrayList<>();
 		List<Integer> indices=new ArrayList<>();
@@ -481,6 +466,7 @@ public class DrawFunctions3D {
 		GLWrapper.glDeleteBuffers(1, color_vbo);
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
+	
 	public static void DrawCapsule3D(
 			Vector capsule_pos_1,Vector capsule_pos_2,
 			float radius,int slice_num,int stack_num,ColorU8 color) {
@@ -768,5 +754,16 @@ public class DrawFunctions3D {
 		GLWrapper.glDeleteBuffers(1, pos_vbo);
 		GLWrapper.glDeleteBuffers(1, uv_vbo);
 		GLWrapper.glDeleteVertexArrays(1, vao);
+	}
+	public static void DrawTexturedTriangle3D(
+			Vector triangle_pos_1,Vector triangle_pos_2,Vector triangle_pos_3,
+			int texture_handle,boolean use_face_normal_flag) {
+		Triangle triangle=new Triangle();
+		
+		triangle.GetVertex(0).SetPos(triangle_pos_1);
+		triangle.GetVertex(1).SetPos(triangle_pos_2);
+		triangle.GetVertex(2).SetPos(triangle_pos_3);
+		
+		DrawTexturedTriangle3D(triangle, texture_handle, use_face_normal_flag);
 	}
 }

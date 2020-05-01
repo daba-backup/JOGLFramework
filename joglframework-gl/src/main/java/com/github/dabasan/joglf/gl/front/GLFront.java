@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.dabasan.joglf.gl.draw.DrawFunctions2D;
+import com.github.dabasan.joglf.gl.draw.DrawFunctions3D;
 import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
 import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 import com.github.dabasan.joglf.gl.text.TextMgr;
@@ -41,6 +42,7 @@ public class GLFront {
 		AddProgramsToFronts();
 		
 		DrawFunctions2D.Initialize();
+		DrawFunctions3D.Initialize();
 		TextureMgr.Initialize();
 		TextMgr.Initialize();
 	}

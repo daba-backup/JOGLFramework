@@ -7,7 +7,7 @@ import com.github.dabasan.joglf.gl.front.FogFront;
 import com.github.dabasan.joglf.gl.shape.Vertex3D;
 import com.github.dabasan.joglf.gl.window.JOGLFWindow;
 
-class DrawLineTestWindow extends JOGLFWindow{
+class Drawer3DTestWindow extends JOGLFWindow{
 	private DynamicSegmentsDrawer drawer;
 	
 	@Override

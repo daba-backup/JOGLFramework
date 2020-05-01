@@ -124,6 +124,7 @@ public class DrawFunctions2D {
 		GLWrapper.glDeleteBuffers(1, color_vbo);
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
+	
 	/**
 	 * Draws a rectangle.
 	 * @param x1 Bottom left x-coordinate
@@ -212,6 +213,7 @@ public class DrawFunctions2D {
 		GLWrapper.glDeleteBuffers(1, color_vbo);
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
+	
 	public static void DrawFilledRectangle2D(int x1,int y1,int x2,int y2,ColorU8 color) {
 		IntBuffer indices_vbo=Buffers.newDirectIntBuffer(1);
 		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);
@@ -309,6 +311,7 @@ public class DrawFunctions2D {
 		GLWrapper.glDeleteBuffers(1, color_vbo);
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
+	
 	public static void DrawCircle2D(int center_x,int center_y,int radius,int div_num,ColorU8 color) {
 		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);
 		IntBuffer color_vbo=Buffers.newDirectIntBuffer(1);
@@ -384,6 +387,7 @@ public class DrawFunctions2D {
 		GLWrapper.glDeleteBuffers(1, color_vbo);
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
+	
 	public static void DrawFilledCircle2D(int center_x,int center_y,int radius,int div_num,ColorU8 color) {
 		IntBuffer indices_vbo=Buffers.newDirectIntBuffer(1);
 		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);
