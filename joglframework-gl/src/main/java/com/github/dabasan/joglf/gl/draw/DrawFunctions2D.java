@@ -26,7 +26,25 @@ public class DrawFunctions2D {
 	
 	public static void Initialize() {
 		simple_2d=new ShaderProgram("simple_2d");
+		simple_2d.Enable();
+		simple_2d.SetUniform("z", 0.0f);
+		simple_2d.Disable();
+		
 		texture_drawer=new ShaderProgram("texture_drawer");
+		texture_drawer.Enable();
+		texture_drawer.SetUniform("z", 0.0f);
+		texture_drawer.Disable();
+	}
+	
+	public static void SetSimple2DZ(float z) {
+		simple_2d.Enable();
+		simple_2d.SetUniform("z", z);
+		simple_2d.Disable();
+	}
+	public static void SetTextureDrawerZ(float z) {
+		texture_drawer.Enable();
+		texture_drawer.SetUniform("z", z);
+		texture_drawer.Disable();
 	}
 	
 	public static void SetWindowSize(int width,int height) {

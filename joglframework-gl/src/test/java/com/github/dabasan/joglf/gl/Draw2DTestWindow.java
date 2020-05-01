@@ -11,6 +11,9 @@ class Draw2DTestWindow extends JOGLFWindow{
 	@Override
 	public void Init() {
 		texture_handle=TextureMgr.LoadTexture("./Data/Texture/test.jpg");
+		
+		DrawFunctions2D.SetSimple2DZ(0.5f);
+		DrawFunctions2D.SetTextureDrawerZ(0.0f);
 	}
 	
 	@Override
