@@ -54,7 +54,7 @@ public class CameraFront {
 		Vector target=VectorFunctions.VAdd(position, direction);
 		
 		Matrix rot_direction=MatrixFunctions.MGetRotAxis(direction, t_rotate);
-		Vector up=VectorFunctions.VTransform(VectorFunctions.VGet(0.0f, 1.0f, 0.0f), rot_direction);
+		Vector up=MatrixFunctions.VTransform(VectorFunctions.VGet(0.0f, 1.0f, 0.0f), rot_direction);
 		
 		camera.SetCameraPositionAndTarget(position,target);
 		camera.SetCameraUpVector(up);

@@ -525,8 +525,8 @@ public class DrawFunctions3D {
 		for(int i=0;i<vertex_num;i++) {
 			Vector vertex=vertices.get(i);
 			
-			vertex=VectorFunctions.VTransform(vertex, rot_z);
-			vertex=VectorFunctions.VTransform(vertex, rot_y);
+			vertex=MatrixFunctions.VTransform(vertex, rot_z);
+			vertex=MatrixFunctions.VTransform(vertex, rot_y);
 			vertex=VectorFunctions.VAdd(vertex,center_pos);
 			
 			vertices.set(i, vertex);

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.dabasan.basis.matrix.Matrix;
+import com.github.dabasan.basis.matrix.MatrixFunctions;
 import com.github.dabasan.basis.vector.Vector;
 import com.github.dabasan.basis.vector.VectorFunctions;
 import com.github.dabasan.joglf.gl.model.buffer.BufferedVertices;
@@ -309,7 +310,7 @@ public class ModelMgr {
 				pos.SetY(pos_buffer.get(i+1));
 				pos.SetZ(pos_buffer.get(i+2));
 				
-				pos=VectorFunctions.VTransform(pos, m);
+				pos=MatrixFunctions.VTransform(pos, m);
 				
 				pos_buffer.put(i,pos.GetX());
 				pos_buffer.put(i+1,pos.GetY());
@@ -321,7 +322,7 @@ public class ModelMgr {
 				norm.SetY(norm_buffer.get(i+1));
 				norm.SetZ(norm_buffer.get(i+2));
 				
-				norm=VectorFunctions.VTransformSR(norm, m);
+				norm=MatrixFunctions.VTransformSR(norm, m);
 				norm=VectorFunctions.VNorm(norm);
 				
 				norm_buffer.put(i,norm.GetX());
