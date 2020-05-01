@@ -21,7 +21,6 @@ import com.github.dabasan.joglf.gl.input.keyboard.KeyboardEnum;
 import com.github.dabasan.joglf.gl.input.mouse.Mouse;
 import com.github.dabasan.joglf.gl.input.mouse.MouseEnum;
 import com.github.dabasan.joglf.gl.text.TextMgr;
-import com.github.dabasan.joglf.gl.texture.TextureMgr;
 import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.newt.event.KeyEvent;
 import com.jogamp.newt.event.KeyListener;
@@ -324,7 +323,6 @@ public class JOGLFWindow implements JOGLFWindowInterface,GLEventListener,KeyList
 		//Default updates==========
 		this.ClearDrawScreen();
 		CameraFront.UpdateAspect(width, height);
-		TextureMgr.SetWindowSize(width, height);
 		TextMgr.SetWindowSize(width, height);
 		DrawFunctions2D.SetWindowSize(width, height);
 		LightingFront.Update();

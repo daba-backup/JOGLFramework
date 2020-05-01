@@ -6,6 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.github.dabasan.joglf.gl.draw.DrawFunctions2D;
 import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
 import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 import com.github.dabasan.joglf.gl.text.TextMgr;
@@ -39,6 +40,7 @@ public class GLFront {
 		SetDefaultGLProperties();
 		AddProgramsToFronts();
 		
+		DrawFunctions2D.Initialize();
 		TextureMgr.Initialize();
 		TextMgr.Initialize();
 	}

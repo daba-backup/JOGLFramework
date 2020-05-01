@@ -5,7 +5,7 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import com.github.dabasan.basis.coloru8.ColorU8;
-import com.github.dabasan.joglf.gl.shader.ShaderFunctions;
+import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 import com.github.dabasan.joglf.gl.tool.CoordinateFunctions;
 import com.github.dabasan.joglf.gl.window.WindowCommonInfo;
 import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
@@ -18,8 +18,16 @@ import com.jogamp.opengl.GL4;
  *
  */
 public class DrawFunctions2D {
+	private static ShaderProgram simple_2d;
+	private static ShaderProgram texture_drawer;
+	
 	private static int window_width=WindowCommonInfo.DEFAULT_WIDTH;
 	private static int window_height=WindowCommonInfo.DEFAULT_HEIGHT;
+	
+	public static void Initialize() {
+		simple_2d=new ShaderProgram("simple_2d");
+		texture_drawer=new ShaderProgram("texture_drawer");
+	}
 	
 	public static void SetWindowSize(int width,int height) {
 		window_width=width;
@@ -58,8 +66,6 @@ public class DrawFunctions2D {
 		((Buffer)pos_buffer).flip();
 		((Buffer)color_buffer).flip();
 		
-		ShaderFunctions.UseProgram("simple_2d");
-		
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
 		
@@ -89,7 +95,9 @@ public class DrawFunctions2D {
 		//Draw
 		GLWrapper.glBindVertexArray(vao.get(0));
 		GLWrapper.glEnable(GL4.GL_BLEND);
+		simple_2d.Enable();
 		GLWrapper.glDrawArrays(GL4.GL_LINES, 0, 2);
+		simple_2d.Disable();
 		GLWrapper.glDisable(GL4.GL_BLEND);
 		GLWrapper.glBindVertexArray(0);
 		
@@ -146,8 +154,6 @@ public class DrawFunctions2D {
 		((Buffer)pos_buffer).flip();
 		((Buffer)color_buffer).flip();
 		
-		ShaderFunctions.UseProgram("simple_2d");
-		
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
 		
@@ -177,7 +183,9 @@ public class DrawFunctions2D {
 		//Draw
 		GLWrapper.glBindVertexArray(vao.get(0));
 		GLWrapper.glEnable(GL4.GL_BLEND);
+		simple_2d.Enable();
 		GLWrapper.glDrawArrays(GL4.GL_LINE_LOOP, 0, 4);
+		simple_2d.Disable();
 		GLWrapper.glDisable(GL4.GL_BLEND);
 		GLWrapper.glBindVertexArray(0);
 		
@@ -236,8 +244,6 @@ public class DrawFunctions2D {
 		indices_buffer.put(0);
 		((Buffer)indices_buffer).flip();
 		
-		ShaderFunctions.UseProgram("simple_2d");
-		
 		GLWrapper.glGenBuffers(1, indices_vbo);
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
@@ -273,7 +279,9 @@ public class DrawFunctions2D {
 		//Draw
 		GLWrapper.glBindVertexArray(vao.get(0));
 		GLWrapper.glEnable(GL4.GL_BLEND);
+		simple_2d.Enable();
 		GLWrapper.glDrawElements(GL4.GL_TRIANGLES, indices_buffer.capacity(), GL4.GL_UNSIGNED_INT, 0);
+		simple_2d.Disable();
 		GLWrapper.glDisable(GL4.GL_BLEND);
 		GLWrapper.glBindVertexArray(0);
 		
@@ -318,8 +326,6 @@ public class DrawFunctions2D {
 		((Buffer)pos_buffer).flip();
 		((Buffer)color_buffer).flip();
 		
-		ShaderFunctions.UseProgram("simple_2d");
-		
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
 		
@@ -349,7 +355,9 @@ public class DrawFunctions2D {
 		//Draw
 		GLWrapper.glBindVertexArray(vao.get(0));
 		GLWrapper.glEnable(GL4.GL_BLEND);
+		simple_2d.Enable();
 		GLWrapper.glDrawArrays(GL4.GL_LINE_LOOP, 0, div_num);
+		simple_2d.Disable();
 		GLWrapper.glDisable(GL4.GL_BLEND);
 		GLWrapper.glBindVertexArray(0);
 		
@@ -411,8 +419,6 @@ public class DrawFunctions2D {
 		
 		((Buffer)indices_buffer).flip();
 		
-		ShaderFunctions.UseProgram("simple_2d");
-		
 		GLWrapper.glGenBuffers(1, indices_vbo);
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
@@ -448,7 +454,9 @@ public class DrawFunctions2D {
 		//Draw
 		GLWrapper.glBindVertexArray(vao.get(0));
 		GLWrapper.glEnable(GL4.GL_BLEND);
+		simple_2d.Enable();
 		GLWrapper.glDrawElements(GL4.GL_TRIANGLES, indices_buffer.capacity(), GL4.GL_UNSIGNED_INT, 0);
+		simple_2d.Disable();
 		GLWrapper.glDisable(GL4.GL_BLEND);
 		GLWrapper.glBindVertexArray(0);
 		
@@ -542,5 +550,109 @@ public class DrawFunctions2D {
 	}
 	public static void TransferFullscreenQuad() {
 		TransferQuad(-1.0f, -1.0f, 1.0f, 1.0f);
+	}
+	
+	public static int DrawTexture(
+			int texture_handle,int x,int y,int width,int height,
+			float bottom_left_u,float bottom_left_v,
+			float bottom_right_u,float bottom_right_v,
+			float top_right_u,float top_right_v,
+			float top_left_u,float top_left_v) {
+		IntBuffer indices=Buffers.newDirectIntBuffer(6);
+		FloatBuffer pos_buffer=Buffers.newDirectFloatBuffer(8);
+		FloatBuffer uv_buffer=Buffers.newDirectFloatBuffer(8);
+		
+		indices.put(0);
+		indices.put(1);
+		indices.put(2);
+		indices.put(2);
+		indices.put(3);
+		indices.put(0);
+		
+		float normalized_x=2.0f*x/window_width-1.0f;
+		float normalized_y=2.0f*y/window_height-1.0f;
+		float normalized_width=(float)width/window_width*2.0f;
+		float normalized_height=(float)height/window_height*2.0f;
+		
+		//Bottom left
+		pos_buffer.put(normalized_x);
+		pos_buffer.put(normalized_y);
+		uv_buffer.put(bottom_left_u);
+		uv_buffer.put(bottom_left_v);
+		//Bottom right
+		pos_buffer.put(normalized_x+normalized_width);
+		pos_buffer.put(normalized_y);
+		uv_buffer.put(bottom_right_u);
+		uv_buffer.put(bottom_right_v);
+		//Top right
+		pos_buffer.put(normalized_x+normalized_width);
+		pos_buffer.put(normalized_y+normalized_height);
+		uv_buffer.put(top_right_u);
+		uv_buffer.put(top_right_v);
+		//Top left
+		pos_buffer.put(normalized_x);
+		pos_buffer.put(normalized_y+normalized_height);
+		uv_buffer.put(top_left_u);
+		uv_buffer.put(top_left_v);
+		
+		((Buffer)indices).flip();
+		((Buffer)pos_buffer).flip();
+		((Buffer)uv_buffer).flip();
+		
+		IntBuffer indices_vbo=Buffers.newDirectIntBuffer(1);
+		IntBuffer pos_vbo=Buffers.newDirectIntBuffer(1);
+		IntBuffer uv_vbo=Buffers.newDirectIntBuffer(1);
+		IntBuffer vao=Buffers.newDirectIntBuffer(1);
+		
+		GLWrapper.glGenBuffers(1, indices_vbo);
+		GLWrapper.glGenBuffers(1, pos_vbo);
+		GLWrapper.glGenBuffers(1, uv_vbo);
+		GLWrapper.glGenVertexArrays(1, vao);
+		
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*pos_buffer.capacity(), pos_buffer, GL4.GL_STATIC_DRAW);
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, uv_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
+				Buffers.SIZEOF_FLOAT*uv_buffer.capacity(), uv_buffer, GL4.GL_STATIC_DRAW);
+		
+		GLWrapper.glBindVertexArray(vao.get(0));
+		
+		GLWrapper.glBindBuffer(GL4.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(0));
+		GLWrapper.glBufferData(GL4.GL_ELEMENT_ARRAY_BUFFER, 
+				Buffers.SIZEOF_INT*indices.capacity(), indices, GL4.GL_STATIC_DRAW);
+		
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, pos_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(0);
+		GLWrapper.glVertexAttribPointer(0, 2, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*2, 0);
+		
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, uv_vbo.get(0));
+		GLWrapper.glEnableVertexAttribArray(1);
+		GLWrapper.glVertexAttribPointer(1, 2, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*2, 0);
+		
+		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
+		
+		GLWrapper.glEnable(GL4.GL_BLEND);
+		texture_drawer.Enable();
+		texture_drawer.SetTexture("texture_sampler", 0, texture_handle);
+		GLWrapper.glDrawElements(GL4.GL_TRIANGLES, 6, GL4.GL_UNSIGNED_INT, 0);
+		texture_drawer.Disable();
+		GLWrapper.glDisable(GL4.GL_BLEND);
+		
+		GLWrapper.glBindVertexArray(0);
+		
+		GLWrapper.glDeleteBuffers(1, indices_vbo);
+		GLWrapper.glDeleteBuffers(1, pos_vbo);
+		GLWrapper.glDeleteBuffers(1, uv_vbo);
+		GLWrapper.glDeleteVertexArrays(1, vao);
+		
+		return 0;
+	}
+	public static int DrawTexture(int texture_handle,int x,int y,int width,int height) {
+		int ret=DrawTexture(
+				texture_handle, x, y, width, height, 
+				0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f);
+		
+		return ret;
 	}
 }

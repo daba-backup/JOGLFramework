@@ -38,7 +38,6 @@ import com.github.dabasan.joglf.gl.input.keyboard.SwingKeyboard;
 import com.github.dabasan.joglf.gl.input.mouse.MouseEnum;
 import com.github.dabasan.joglf.gl.input.mouse.SwingMouse;
 import com.github.dabasan.joglf.gl.text.TextMgr;
-import com.github.dabasan.joglf.gl.texture.TextureMgr;
 import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.opengl.GL4;
 import com.jogamp.opengl.GLAutoDrawable;
@@ -375,7 +374,6 @@ implements JOGLFWindowInterface,GLEventListener,KeyListener,MouseListener,MouseM
 		//Default updates==========
 		this.ClearDrawScreen();
 		CameraFront.UpdateAspect(width, height);
-		TextureMgr.SetWindowSize(width, height);
 		TextMgr.SetWindowSize(width, height);
 		DrawFunctions2D.SetWindowSize(width, height);
 		LightingFront.Update();
