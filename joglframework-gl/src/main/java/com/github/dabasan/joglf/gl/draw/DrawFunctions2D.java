@@ -18,33 +18,33 @@ import com.jogamp.opengl.GL4;
  *
  */
 public class DrawFunctions2D {
-	private static ShaderProgram simple_2d;
-	private static ShaderProgram texture_drawer;
+	private static ShaderProgram simple_2d_program;
+	private static ShaderProgram texture_drawer_program;
 	
 	private static int window_width=WindowCommonInfo.DEFAULT_WIDTH;
 	private static int window_height=WindowCommonInfo.DEFAULT_HEIGHT;
 	
 	public static void Initialize() {
-		simple_2d=new ShaderProgram("simple_2d");
-		simple_2d.Enable();
-		simple_2d.SetUniform("z", 0.0f);
-		simple_2d.Disable();
+		simple_2d_program=new ShaderProgram("simple_2d");
+		simple_2d_program.Enable();
+		simple_2d_program.SetUniform("z", 0.0f);
+		simple_2d_program.Disable();
 		
-		texture_drawer=new ShaderProgram("texture_drawer");
-		texture_drawer.Enable();
-		texture_drawer.SetUniform("z", 0.0f);
-		texture_drawer.Disable();
+		texture_drawer_program=new ShaderProgram("texture_drawer");
+		texture_drawer_program.Enable();
+		texture_drawer_program.SetUniform("z", 0.0f);
+		texture_drawer_program.Disable();
 	}
 	
 	public static void SetSimple2DZ(float z) {
-		simple_2d.Enable();
-		simple_2d.SetUniform("z", z);
-		simple_2d.Disable();
+		simple_2d_program.Enable();
+		simple_2d_program.SetUniform("z", z);
+		simple_2d_program.Disable();
 	}
 	public static void SetTextureDrawerZ(float z) {
-		texture_drawer.Enable();
-		texture_drawer.SetUniform("z", z);
-		texture_drawer.Disable();
+		texture_drawer_program.Enable();
+		texture_drawer_program.SetUniform("z", z);
+		texture_drawer_program.Disable();
 	}
 	
 	public static void SetWindowSize(int width,int height) {
@@ -113,9 +113,9 @@ public class DrawFunctions2D {
 		//Draw
 		GLWrapper.glBindVertexArray(vao.get(0));
 		GLWrapper.glEnable(GL4.GL_BLEND);
-		simple_2d.Enable();
+		simple_2d_program.Enable();
 		GLWrapper.glDrawArrays(GL4.GL_LINES, 0, 2);
-		simple_2d.Disable();
+		simple_2d_program.Disable();
 		GLWrapper.glDisable(GL4.GL_BLEND);
 		GLWrapper.glBindVertexArray(0);
 		
@@ -202,9 +202,9 @@ public class DrawFunctions2D {
 		//Draw
 		GLWrapper.glBindVertexArray(vao.get(0));
 		GLWrapper.glEnable(GL4.GL_BLEND);
-		simple_2d.Enable();
+		simple_2d_program.Enable();
 		GLWrapper.glDrawArrays(GL4.GL_LINE_LOOP, 0, 4);
-		simple_2d.Disable();
+		simple_2d_program.Disable();
 		GLWrapper.glDisable(GL4.GL_BLEND);
 		GLWrapper.glBindVertexArray(0);
 		
@@ -299,9 +299,9 @@ public class DrawFunctions2D {
 		//Draw
 		GLWrapper.glBindVertexArray(vao.get(0));
 		GLWrapper.glEnable(GL4.GL_BLEND);
-		simple_2d.Enable();
+		simple_2d_program.Enable();
 		GLWrapper.glDrawElements(GL4.GL_TRIANGLES, indices_buffer.capacity(), GL4.GL_UNSIGNED_INT, 0);
-		simple_2d.Disable();
+		simple_2d_program.Disable();
 		GLWrapper.glDisable(GL4.GL_BLEND);
 		GLWrapper.glBindVertexArray(0);
 		
@@ -376,9 +376,9 @@ public class DrawFunctions2D {
 		//Draw
 		GLWrapper.glBindVertexArray(vao.get(0));
 		GLWrapper.glEnable(GL4.GL_BLEND);
-		simple_2d.Enable();
+		simple_2d_program.Enable();
 		GLWrapper.glDrawArrays(GL4.GL_LINE_LOOP, 0, div_num);
-		simple_2d.Disable();
+		simple_2d_program.Disable();
 		GLWrapper.glDisable(GL4.GL_BLEND);
 		GLWrapper.glBindVertexArray(0);
 		
@@ -476,9 +476,9 @@ public class DrawFunctions2D {
 		//Draw
 		GLWrapper.glBindVertexArray(vao.get(0));
 		GLWrapper.glEnable(GL4.GL_BLEND);
-		simple_2d.Enable();
+		simple_2d_program.Enable();
 		GLWrapper.glDrawElements(GL4.GL_TRIANGLES, indices_buffer.capacity(), GL4.GL_UNSIGNED_INT, 0);
-		simple_2d.Disable();
+		simple_2d_program.Disable();
 		GLWrapper.glDisable(GL4.GL_BLEND);
 		GLWrapper.glBindVertexArray(0);
 		
@@ -655,10 +655,10 @@ public class DrawFunctions2D {
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
 		
 		GLWrapper.glEnable(GL4.GL_BLEND);
-		texture_drawer.Enable();
-		texture_drawer.SetTexture("texture_sampler", 0, texture_handle);
+		texture_drawer_program.Enable();
+		texture_drawer_program.SetTexture("texture_sampler", 0, texture_handle);
 		GLWrapper.glDrawElements(GL4.GL_TRIANGLES, 6, GL4.GL_UNSIGNED_INT, 0);
-		texture_drawer.Disable();
+		texture_drawer_program.Disable();
 		GLWrapper.glDisable(GL4.GL_BLEND);
 		
 		GLWrapper.glBindVertexArray(0);
