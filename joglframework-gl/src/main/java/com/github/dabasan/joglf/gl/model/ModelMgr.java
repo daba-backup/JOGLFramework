@@ -214,16 +214,11 @@ public class ModelMgr {
 			
 			GLWrapper.glBindVertexArray(vao.get(i));
 			
-			GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);
-			TextureMgr.EnableTexture(texture_handle);
-			TextureMgr.BindTexture(texture_handle);
-			program.SetUniform(sampler_name, texture_unit);
+			program.SetTexture(sampler_name, texture_unit, texture_handle);
 			
 			GLWrapper.glEnable(GL4.GL_BLEND);
 			GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
 			GLWrapper.glDisable(GL4.GL_BLEND);
-			
-			TextureMgr.DisableTexture(texture_handle);
 			
 			GLWrapper.glBindVertexArray(0);
 		}
@@ -281,16 +276,11 @@ public class ModelMgr {
 				
 				GLWrapper.glBindVertexArray(vao.get(i));
 				
-				GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);	
-				TextureMgr.EnableTexture(texture_handle);
-				TextureMgr.BindTexture(texture_handle);
-				program.SetUniform(sampler_name, texture_unit);
+				program.SetTexture(sampler_name, texture_unit, texture_handle);
 				
 				GLWrapper.glEnable(GL4.GL_BLEND);
 				GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
 				GLWrapper.glDisable(GL4.GL_BLEND);
-				
-				TextureMgr.DisableTexture(texture_handle);
 				
 				GLWrapper.glBindVertexArray(0);
 			}
