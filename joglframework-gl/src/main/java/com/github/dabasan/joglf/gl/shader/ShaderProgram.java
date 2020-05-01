@@ -8,8 +8,10 @@ import org.slf4j.LoggerFactory;
 import com.github.dabasan.basis.coloru8.ColorU8;
 import com.github.dabasan.basis.matrix.Matrix;
 import com.github.dabasan.basis.vector.Vector;
+import com.github.dabasan.joglf.gl.texture.TextureMgr;
 import com.github.dabasan.joglf.gl.tool.BufferFunctions;
 import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
+import com.jogamp.opengl.GL4;
 
 /**
  * Shader program
@@ -208,6 +210,24 @@ public class ShaderProgram {
 		
 		FloatBuffer buffer=BufferFunctions.MakeFloatBufferFromMatrix(value);
 		GLWrapper.glUniformMatrix4fv(location, 1, transpose, buffer);
+		
+		return 0;
+	}
+	
+	public int SetTexture(String name,int texture_unit,int texture_handle) {
+		int location=GLWrapper.glGetUniformLocation(program_id, name);
+		if(location<0) {
+			if(logging_enabled_flag==true) {
+				logger.trace("({}) Invalid uniform name. name={}",program_name,name);
+			}
+			return -1;
+		}
+		
+		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);
+		TextureMgr.EnableTexture(texture_handle);
+		TextureMgr.BindTexture(texture_handle);
+		GLWrapper.glUniform1i(location, texture_unit);
+		TextureMgr.DisableTexture(texture_handle);
 		
 		return 0;
 	}
