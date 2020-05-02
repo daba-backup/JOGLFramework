@@ -130,8 +130,7 @@ public class ModelMgr {
 			GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT*uv_buffer.capacity(), uv_buffer, GL4.GL_STATIC_DRAW);
 			GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, norm_vbo.get(i));
 			GLWrapper.glBufferData(GL4.GL_ARRAY_BUFFER, 
-					Buffers.SIZEOF_FLOAT*norm_buffer.capacity(), norm_buffer, GL4.GL_DYNAMIC_DRAW);
-			
+					Buffers.SIZEOF_FLOAT*norm_buffer.capacity(), norm_buffer, GL4.GL_DYNAMIC_DRAW);	
 			GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, 0);
 		}
 		for(int i=0;i<element_num;i++) {
@@ -191,6 +190,7 @@ public class ModelMgr {
 		GLWrapper.glDeleteBuffers(element_num, indices_vbo);
 		GLWrapper.glDeleteBuffers(element_num, pos_vbo);
 		GLWrapper.glDeleteBuffers(element_num, uv_vbo);
+		GLWrapper.glDeleteBuffers(element_num, norm_vbo);
 		GLWrapper.glDeleteVertexArrays(element_num, vao);
 		
 		for(BufferedVertices buffered_vertices:buffered_vertices_list) {
