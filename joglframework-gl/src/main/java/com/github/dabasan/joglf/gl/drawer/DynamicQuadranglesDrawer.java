@@ -183,10 +183,7 @@ public class DynamicQuadranglesDrawer extends Dynamic3DDrawer{
 			
 			GLWrapper.glBindVertexArray(vao.get(0));
 			
-			GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);
-			TextureMgr.EnableTexture(texture_handle);
-			TextureMgr.BindTexture(texture_handle);	
-			program.SetUniform(sampler_name, texture_unit);
+			program.SetTexture(sampler_name, texture_unit, texture_handle);
 			
 			int quadrangle_num=quadrangles_map.size();
 			int triangle_num=quadrangle_num*2;
@@ -196,7 +193,7 @@ public class DynamicQuadranglesDrawer extends Dynamic3DDrawer{
 			GLWrapper.glDrawElements(GL4.GL_TRIANGLES, indices_size, GL4.GL_UNSIGNED_INT, 0);
 			GLWrapper.glDisable(GL4.GL_BLEND);
 			
-			TextureMgr.DisableTexture(texture_handle);
+			TextureMgr.UnbindTexture();
 			
 			GLWrapper.glBindVertexArray(0);	
 			

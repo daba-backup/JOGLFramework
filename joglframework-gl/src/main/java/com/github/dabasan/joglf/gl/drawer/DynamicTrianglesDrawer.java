@@ -161,10 +161,7 @@ public class DynamicTrianglesDrawer extends Dynamic3DDrawer{
 			
 			GLWrapper.glBindVertexArray(vao.get(0));
 			
-			GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);	
-			TextureMgr.EnableTexture(texture_handle);
-			TextureMgr.BindTexture(texture_handle);
-			program.SetUniform(sampler_name, texture_unit);
+			program.SetTexture(sampler_name, texture_unit, texture_handle);
 			
 			int triangle_num=triangles_map.size();
 			int vertex_num=triangle_num*3;
@@ -173,7 +170,7 @@ public class DynamicTrianglesDrawer extends Dynamic3DDrawer{
 			GLWrapper.glDrawArrays(GL4.GL_TRIANGLES, 0, vertex_num);
 			GLWrapper.glDisable(GL4.GL_BLEND);
 			
-			TextureMgr.DisableTexture(texture_handle);
+			TextureMgr.UnbindTexture();
 			
 			GLWrapper.glBindVertexArray(0);	
 			

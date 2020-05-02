@@ -224,10 +224,8 @@ public class ShaderProgram {
 		}
 		
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0+texture_unit);
-		TextureMgr.EnableTexture(texture_handle);
 		TextureMgr.BindTexture(texture_handle);
 		GLWrapper.glUniform1i(location, texture_unit);
-		TextureMgr.DisableTexture(texture_handle);
 		
 		return 0;
 	}

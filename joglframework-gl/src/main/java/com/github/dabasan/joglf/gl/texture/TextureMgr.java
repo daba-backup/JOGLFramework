@@ -254,18 +254,6 @@ public class TextureMgr {
 		generate_mipmap_flag=flag;
 	}
 	
-	public static int EnableTexture(int texture_handle) {
-		if(textures_map.containsKey(texture_handle)==false) {
-			texture_handle=default_texture_handle;
-		}
-		
-		GL gl=GLContext.getCurrentGL();
-		Texture texture=textures_map.get(texture_handle);
-		
-		texture.enable(gl);
-		
-		return 0;
-	}
 	public static int BindTexture(int texture_handle) {
 		if(textures_map.containsKey(texture_handle)==false) {
 			texture_handle=default_texture_handle;
@@ -278,16 +266,7 @@ public class TextureMgr {
 		
 		return 0;
 	}
-	public static int DisableTexture(int texture_handle) {
-		if(textures_map.containsKey(texture_handle)==false) {
-			texture_handle=default_texture_handle;
-		}
-		
-		GL gl=GLContext.getCurrentGL();
-		Texture texture=textures_map.get(texture_handle);
-		
-		texture.disable(gl);
-		
-		return 0;
+	public static void UnbindTexture() {
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 	}
 }
