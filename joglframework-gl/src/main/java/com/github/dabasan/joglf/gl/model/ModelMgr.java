@@ -77,7 +77,7 @@ public class ModelMgr {
 		this.buffered_vertices_list=interpolated_bv_list;
 	}
 	
-	public ModelMgr Duplicate() {
+	public ModelMgr Copy() {
 		List<BufferedVertices> copied_buffered_vertices_list=new ArrayList<>();
 		
 		for(BufferedVertices buffered_vertices:buffered_vertices_list) {

@@ -71,21 +71,21 @@ public class Model3DFunctions {
 		
 		return model_handle;
 	}
-	public static int DuplicateModel(int model_handle) {
+	public static int CopyModel(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
 			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
 		ModelMgr model=models_map.get(model_handle);
-		ModelMgr duplicated_model=model.Duplicate();
+		ModelMgr copied_model=model.Copy();
 		
-		int duplicated_model_handle=count;
+		int copied_model_handle=count;
 		count++;
 		
-		models_map.put(duplicated_model_handle, duplicated_model);
+		models_map.put(copied_model_handle, copied_model);
 		
-		return duplicated_model_handle;
+		return copied_model_handle;
 	}
 	public static int DeleteModel(int model_handle) {
 		if(models_map.containsKey(model_handle)==false) {
