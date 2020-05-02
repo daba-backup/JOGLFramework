@@ -16,7 +16,7 @@ import com.jogamp.common.nio.Buffers;
  */
 public class BufferedVertices {
 	private int texture_handle;
-	private int count;
+	private int indices_count;
 	
 	private IntBuffer indices_buffer;
 	private FloatBuffer pos_buffer;
@@ -34,7 +34,7 @@ public class BufferedVertices {
 		BufferedVertices buffered_vertices=new BufferedVertices();
 		
 		buffered_vertices.texture_handle=this.texture_handle;
-		buffered_vertices.count=this.count;
+		buffered_vertices.indices_count=this.indices_count;
 		
 		buffered_vertices.indices_buffer=BufferFunctions.CopyIntBuffer(this.indices_buffer);
 		buffered_vertices.pos_buffer=BufferFunctions.CopyFloatBuffer(this.pos_buffer);
@@ -53,7 +53,7 @@ public class BufferedVertices {
 	
 	public BufferedVertices() {
 		texture_handle=-1;
-		count=0;
+		indices_count=0;
 		
 		ambient_color=ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f);
 		diffuse_color=ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f);
@@ -114,7 +114,7 @@ public class BufferedVertices {
 	}
 	public void SetIndicesBuffer(IntBuffer indices_buffer) {
 		this.indices_buffer=indices_buffer;
-		count=indices_buffer.capacity();
+		indices_count=indices_buffer.capacity();
 	}
 	public void SetPosBuffer(FloatBuffer pos_buffer) {
 		this.pos_buffer=pos_buffer;
@@ -147,8 +147,8 @@ public class BufferedVertices {
 	public int GetTextureHandle() {
 		return texture_handle;
 	}
-	public int GetCount() {
-		return count;
+	public int GetIndicesCount() {
+		return indices_count;
 	}
 	public IntBuffer GetIndicesBuffer() {
 		return indices_buffer;

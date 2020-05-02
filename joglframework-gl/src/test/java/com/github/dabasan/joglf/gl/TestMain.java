@@ -7,7 +7,7 @@ public class TestMain {
 		new TestMain();
 	}
 	public TestMain() {
-		JOGLFWindowInterface window=new DrawModelTestWindow();
+		JOGLFWindowInterface window=new Draw2DTestWindow();
 		window.SetExitProcessWhenDestroyed();
 	}
 }
