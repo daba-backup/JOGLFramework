@@ -85,9 +85,9 @@ public class ModelMgr {
 			copied_buffered_vertices_list.add(copied_buffered_vertices);
 		}
 		
-		ModelMgr duplicated_model=new ModelMgr(copied_buffered_vertices_list);
+		ModelMgr copied_model=new ModelMgr(copied_buffered_vertices_list);
 		
-		return duplicated_model;
+		return copied_model;
 	}
 	
 	private void GenerateBuffers() {
