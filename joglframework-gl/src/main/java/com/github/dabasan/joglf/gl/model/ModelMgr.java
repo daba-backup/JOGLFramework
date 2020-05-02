@@ -15,7 +15,6 @@ import com.github.dabasan.basis.vector.VectorFunctions;
 import com.github.dabasan.joglf.gl.model.buffer.BufferedVertices;
 import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 import com.github.dabasan.joglf.gl.shape.Triangle;
-import com.github.dabasan.joglf.gl.shape.Vertex3D;
 import com.github.dabasan.joglf.gl.texture.TextureMgr;
 import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.common.nio.Buffers;
@@ -264,9 +263,15 @@ public class ModelMgr {
 		int element_num=buffered_vertices_list.size();
 		
 		int clamped_bound;
-		if(bound<0)clamped_bound=0;
-		else if(bound<element_num)clamped_bound=bound;
-		else clamped_bound=element_num;
+		if(bound<0) {
+			clamped_bound=0;
+		}
+		else if(bound<element_num) {
+			clamped_bound=bound;
+		}
+		else {
+			clamped_bound=element_num;
+		}
 		
 		for(ShaderProgram program:programs) {
 			program.Enable();
@@ -354,19 +359,22 @@ public class ModelMgr {
 		List<Triangle> ret=new ArrayList<>();
 		
 		for(BufferedVertices buffered_vertices:buffered_vertices_list) {
+			IntBuffer indices_buffer=buffered_vertices.GetIndicesBuffer();
 			FloatBuffer pos_buffer=buffered_vertices.GetPosBuffer();
 			FloatBuffer norm_buffer=buffered_vertices.GetNormBuffer();
 			FloatBuffer uv_buffer=buffered_vertices.GetUVBuffer();
 			
-			int capacity=pos_buffer.capacity();
-			int triangle_num=capacity/9;
+			int indices_count=indices_buffer.capacity();
+			int triangle_num=indices_count/3;
 			
 			for(int i=0;i<triangle_num;i++) {
 				Triangle triangle=new Triangle();
 				
 				for(int j=0;j<3;j++) {
-					int vec_base_index=i*9+j*3;
-					int uv_base_index=i*6+j*2;
+					int index=indices_buffer.get(i*3+j);
+					
+					int vec_base_index=index*3;
+					int uv_base_index=index*2;
 					
 					//pos_buffer
 					Vector pos=new Vector();
@@ -384,13 +392,10 @@ public class ModelMgr {
 					float u=uv_buffer.get(uv_base_index);
 					float v=uv_buffer.get(uv_base_index+1);
 					
-					Vertex3D vertex=new Vertex3D();
-					vertex.SetPos(pos);
-					vertex.SetNorm(norm);
-					vertex.SetU(u);
-					vertex.SetV(v);
-					
-					triangle.SetVertex(j, vertex);
+					triangle.GetVertex(j).SetPos(pos);
+					triangle.GetVertex(j).SetNorm(norm);
+					triangle.GetVertex(j).SetU(u);
+					triangle.GetVertex(j).SetV(v);
 				}
 				
 				ret.add(triangle);
