@@ -27,12 +27,12 @@ public class DrawFunctions2D {
 	public static void Initialize() {
 		simple_2d_program=new ShaderProgram("simple_2d");
 		simple_2d_program.Enable();
-		simple_2d_program.SetUniform("z", 0.0f);
+		simple_2d_program.SetUniform("z", -1.0f);
 		simple_2d_program.Disable();
 		
 		texture_drawer_program=new ShaderProgram("texture_drawer");
 		texture_drawer_program.Enable();
-		texture_drawer_program.SetUniform("z", 0.0f);
+		texture_drawer_program.SetUniform("z", -1.0f);
 		texture_drawer_program.Disable();
 	}
 	
