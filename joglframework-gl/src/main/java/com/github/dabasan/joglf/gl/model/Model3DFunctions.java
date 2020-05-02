@@ -156,14 +156,14 @@ public class Model3DFunctions {
 		return 0;
 	}
 	
-	public static int DrawModelWithProgram(int model_handle,ShaderProgram program,int texture_unit,String sampler_name) {
+	public static int DrawModelWithProgram(int model_handle,ShaderProgram program,String sampler_name,int texture_unit) {
 		if(models_map.containsKey(model_handle)==false) {
 			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
 		ModelMgr model=models_map.get(model_handle);
-		model.DrawWithProgram(program, texture_unit, sampler_name);
+		model.DrawWithProgram(program, sampler_name, texture_unit);
 		
 		return 0;
 	}
@@ -179,14 +179,14 @@ public class Model3DFunctions {
 		
 		return 0;
 	}
-	public static int DrawModel(int model_handle,int texture_unit,String sampler_name) {
+	public static int DrawModel(int model_handle,String sampler_name,int texture_unit) {
 		if(models_map.containsKey(model_handle)==false) {
 			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
 		ModelMgr model=models_map.get(model_handle);
-		model.Draw(texture_unit, sampler_name);
+		model.Draw(sampler_name, texture_unit);
 		
 		return 0;
 	}
@@ -212,14 +212,14 @@ public class Model3DFunctions {
 		
 		return 0;
 	}
-	public static int DrawModelElements(int model_handle,int texture_unit,String sampler_name,int bound) {
+	public static int DrawModelElements(int model_handle,String sampler_name,int texture_unit,int bound) {
 		if(models_map.containsKey(model_handle)==false) {
 			logger.trace("No such model. model_handle={}",model_handle);
 			return -1;
 		}
 		
 		ModelMgr model=models_map.get(model_handle);
-		model.DrawElements(texture_unit, sampler_name, bound);
+		model.DrawElements(sampler_name, texture_unit, bound);
 		
 		return 0;
 	}

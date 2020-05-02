@@ -199,7 +199,7 @@ public class ModelMgr {
 		}
 	}
 	
-	public void DrawWithProgram(ShaderProgram program,int texture_unit,String sampler_name) {
+	public void DrawWithProgram(ShaderProgram program,String sampler_name,int texture_unit) {
 		if(property_updated_flag==true) {
 			this.UpdateBuffers();
 		}
@@ -226,15 +226,15 @@ public class ModelMgr {
 		
 		program.Disable();
 	}
-	
-	public void Draw(int texture_unit,String sampler_name) {
+	public void Draw(String sampler_name,int texture_unit) {
 		for(ShaderProgram program:programs) {
-			this.DrawWithProgram(program, texture_unit, sampler_name);
+			this.DrawWithProgram(program, sampler_name, texture_unit);
 		}
 	}
 	public void Draw() {
-		this.Draw(0, "texture_sampler");
+		this.Draw("texture_sampler", 0);
 	}
+
 	public void Transfer() {
 		if(property_updated_flag==true) {
 			this.UpdateBuffers();
@@ -255,14 +255,15 @@ public class ModelMgr {
 			GLWrapper.glBindVertexArray(0);
 		}
 	}
-	public void DrawElements(int texture_unit,String sampler_name,int bound) {
+
+	public void DrawElements(String sampler_name, int texture_unit, int bound) {
 		if(property_updated_flag==true) {
 			this.UpdateBuffers();
 		}
 		
 		int element_num=buffered_vertices_list.size();
 		
-		int clamped_bound=0;
+		int clamped_bound;
 		if(bound<0)clamped_bound=0;
 		else if(bound<element_num)clamped_bound=bound;
 		else clamped_bound=element_num;
@@ -290,7 +291,7 @@ public class ModelMgr {
 		}
 	}
 	public void DrawElements(int bound) {
-		this.DrawElements(0, "texture_sampler",bound);
+		this.DrawElements("texture_sampler", 0, bound);
 	}
 	
 	public int GetElementNum() {
