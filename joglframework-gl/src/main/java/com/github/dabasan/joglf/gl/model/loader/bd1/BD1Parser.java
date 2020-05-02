@@ -112,9 +112,9 @@ class BD1Parser {
 	}
 	
 	public List<BD1Block> GetBlocks(){
-		return new ArrayList<BD1Block>(blocks);
+		return blocks;
 	}
 	public Map<Integer, String> GetTextureFilenamesMap(){
-		return new HashMap<Integer,String>(texture_filenames_map);
+		return texture_filenames_map;
 	}
 }

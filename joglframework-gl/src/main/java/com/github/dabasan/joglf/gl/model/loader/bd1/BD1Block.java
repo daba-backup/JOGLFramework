@@ -105,30 +105,25 @@ class BD1Block {
 	 * @return An array of vertex positions
 	 */
 	public Vector[] GetVertexPositions() {
-		Vector[] ret=new Vector[8];
-		for(int i=0;i<8;i++) {
-			ret[i]=new Vector(vertex_positions[i]);
-		}
-		
-		return ret;
+		return vertex_positions;
 	}
 	/**
 	 * @return An array of u-coordinates
 	 */
 	public float[] GetUs() {
-		return us.clone();
+		return us;
 	}
 	/**
 	 * @return An array of v-coordinates
 	 */
 	public float[] GetVs() {
-		return vs.clone();
+		return vs;
 	}
 	/**
 	 * @return An array of texture IDs
 	 */
 	public int[] GetTextureIDs() {
-		return texture_ids.clone();
+		return texture_ids;
 	}
 	/**
 	 * @return Enabled flag

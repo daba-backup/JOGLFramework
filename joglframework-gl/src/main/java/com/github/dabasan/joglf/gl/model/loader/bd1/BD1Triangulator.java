@@ -109,7 +109,7 @@ class BD1Triangulator {
 	}
 	
 	public List<BD1Triangle> GetTrianglesList(){
-		return new ArrayList<>(triangles_list);
+		return triangles_list;
 	}
 	public Map<Integer, List<BD1Triangle>> GetTrianglesMap(){
 		Map<Integer, List<BD1Triangle>> ret=new HashMap<>();
