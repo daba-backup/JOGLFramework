@@ -211,14 +211,14 @@ public class ModelMgr {
 		for(int i=0;i<element_num;i++) {
 			BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
 			int texture_handle=buffered_vertices.GetTextureHandle();
-			int count=buffered_vertices.GetIndicesCount();
+			int indices_count=buffered_vertices.GetIndicesCount();
 			
 			GLWrapper.glBindVertexArray(vao.get(i));
 			
 			program.SetTexture(sampler_name, texture_unit, texture_handle);
 			
 			GLWrapper.glEnable(GL4.GL_BLEND);
-			GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
+			GLWrapper.glDrawElements(GL4.GL_TRIANGLES,indices_count,GL4.GL_UNSIGNED_INT,0);
 			GLWrapper.glDisable(GL4.GL_BLEND);
 			
 			GLWrapper.glBindVertexArray(0);
@@ -244,12 +244,12 @@ public class ModelMgr {
 			
 		for(int i=0;i<element_num;i++) {
 			BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
-			int count=buffered_vertices.GetIndicesCount();
+			int indices_count=buffered_vertices.GetIndicesCount();
 			
 			GLWrapper.glBindVertexArray(vao.get(i));
 			
 			GLWrapper.glEnable(GL4.GL_BLEND);
-			GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
+			GLWrapper.glDrawElements(GL4.GL_TRIANGLES,indices_count,GL4.GL_UNSIGNED_INT,0);
 			GLWrapper.glDisable(GL4.GL_BLEND);
 			
 			GLWrapper.glBindVertexArray(0);
@@ -273,14 +273,14 @@ public class ModelMgr {
 			for(int i=0;i<clamped_bound;i++) {
 				BufferedVertices buffered_vertices=buffered_vertices_list.get(i);
 				int texture_handle=buffered_vertices.GetTextureHandle();
-				int count=buffered_vertices.GetIndicesCount();
+				int indices_count=buffered_vertices.GetIndicesCount();
 				
 				GLWrapper.glBindVertexArray(vao.get(i));
 				
 				program.SetTexture(sampler_name, texture_unit, texture_handle);
 				
 				GLWrapper.glEnable(GL4.GL_BLEND);
-				GLWrapper.glDrawElements(GL4.GL_TRIANGLES,count,GL4.GL_UNSIGNED_INT,0);
+				GLWrapper.glDrawElements(GL4.GL_TRIANGLES,indices_count,GL4.GL_UNSIGNED_INT,0);
 				GLWrapper.glDisable(GL4.GL_BLEND);
 				
 				GLWrapper.glBindVertexArray(0);
