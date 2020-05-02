@@ -28,10 +28,11 @@ class BD1Parser {
 		int pos=0;
 		
 		//Texture filenames
-		byte[] texture_filename_buffer=new byte[31];
-		String texture_filename_temp;
-		int first_null_pos;
 		for(int i=0;i<10;i++) {
+			byte[] texture_filename_buffer=new byte[31];
+			String texture_filename_temp;
+			int first_null_pos;
+			
 			for(int j=0;j<31;j++) {
 				texture_filename_buffer[j]=bin.get(pos);
 				pos++;
