@@ -349,6 +349,11 @@ public class JOGLFWindow
 	}
 
 	@Override
+	public void Fit() {
+		GLWrapper.glViewport(0, 0, this.GetWidth(), this.GetHeight());
+	}
+
+	@Override
 	public void Init() {
 
 	}

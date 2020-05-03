@@ -404,6 +404,12 @@ public class JOGLFSwingWindow
 	}
 
 	@Override
+	public void Fit() {
+		GLWrapper.glViewport(0, 0, this.GetCanvasWidth(),
+				this.GetCanvasHeight());
+	}
+
+	@Override
 	public void Init() {
 
 	}

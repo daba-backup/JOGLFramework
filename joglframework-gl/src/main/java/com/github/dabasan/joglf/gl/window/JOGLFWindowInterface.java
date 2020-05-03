@@ -45,6 +45,8 @@ public interface JOGLFWindowInterface {
 	public void SetCursorPos(int x, int y);
 	public float GetMouseWheelHorizontalRotation();
 
+	public void Fit();
+
 	public void Init();
 	public void Reshape(int x, int y, int width, int height);
 	public void Update();
