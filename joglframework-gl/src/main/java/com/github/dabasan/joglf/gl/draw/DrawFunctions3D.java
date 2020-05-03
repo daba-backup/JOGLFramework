@@ -725,7 +725,7 @@ public class DrawFunctions3D {
 		GLWrapper.glEnableVertexAttribArray(0);
 		GLWrapper.glVertexAttribPointer(0, 3, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*3, 0);
 		
-		//UVs attribute
+		//UV attribute
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, uv_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(1);
 		GLWrapper.glVertexAttribPointer(1, 2, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*2, 0);
@@ -840,7 +840,7 @@ public class DrawFunctions3D {
 		GLWrapper.glEnableVertexAttribArray(0);
 		GLWrapper.glVertexAttribPointer(0, 3, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*3, 0);
 		
-		//UVs attribute
+		//UV attribute
 		GLWrapper.glBindBuffer(GL4.GL_ARRAY_BUFFER, uv_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(1);
 		GLWrapper.glVertexAttribPointer(1, 2, GL4.GL_FLOAT, false, Buffers.SIZEOF_FLOAT*2, 0);
