@@ -129,17 +129,15 @@ public class Screen {
 		return screen_height;
 	}
 
-	public void Bind() {
+	public void Enable() {
 		GLWrapper.glBindFramebuffer(GL.GL_FRAMEBUFFER, fbo_id);
+		GLWrapper.glViewport(0, 0, screen_width, screen_height);
 	}
-	public void Unbind() {
+	public void Disable() {
 		GLWrapper.glBindFramebuffer(GL.GL_FRAMEBUFFER, 0);
 	}
 	public void Clear() {
 		GLWrapper.glClear(GL.GL_DEPTH_BUFFER_BIT | GL.GL_COLOR_BUFFER_BIT);
-	}
-	public void Fit() {
-		GLWrapper.glViewport(0, 0, screen_width, screen_height);
 	}
 
 	public int Associate(boolean flip_vertically) {
