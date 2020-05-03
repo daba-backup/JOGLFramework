@@ -62,5 +62,11 @@
 			<artifactId>obj</artifactId>
 			<version>0.3.0</version>
 		</dependency>
+		
+		<dependency>
+            <groupId>com.github.dabasan</groupId>
+            <artifactId>xopsmanipulator-bd1</artifactId>
+            <version>9.0.0</version>
+        </dependency>
 	</dependencies>
 </project>
