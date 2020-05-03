@@ -68,17 +68,17 @@ public class GLFront {
 	}
 	private static void CreateDefaultPrograms() {
 		ShaderFunctions.CreateProgram("texture",
-				"./Data/Shader/330/texture/gouraud/vshader.glsl",
-				"./Data/Shader/330/texture/gouraud/fshader.glsl");
+				"./Data/Shader/330/default/texture/gouraud/vshader.glsl",
+				"./Data/Shader/330/default/texture/gouraud/fshader.glsl");
 		ShaderFunctions.CreateProgram("color",
-				"./Data/Shader/330/color/vshader.glsl",
-				"./Data/Shader/330/color/fshader.glsl");
+				"./Data/Shader/330/default/color/vshader.glsl",
+				"./Data/Shader/330/default/color/fshader.glsl");
 		ShaderFunctions.CreateProgram("texture_drawer",
-				"./Data/Shader/330/texture_drawer/vshader.glsl",
-				"./Data/Shader/330/texture_drawer/fshader.glsl");
+				"./Data/Shader/330/default/texture_drawer/vshader.glsl",
+				"./Data/Shader/330/default/texture_drawer/fshader.glsl");
 		ShaderFunctions.CreateProgram("simple_2d",
-				"./Data/Shader/330/simple_2d/vshader.glsl",
-				"./Data/Shader/330/simple_2d/fshader.glsl");
+				"./Data/Shader/330/default/simple_2d/vshader.glsl",
+				"./Data/Shader/330/default/simple_2d/fshader.glsl");
 
 		logger.info("Default programs created.");
 	}

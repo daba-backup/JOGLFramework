@@ -21,9 +21,10 @@ class GetFacesTestWindow extends JOGLFWindow {
 
 		pos_drawer = new DynamicSegmentsDrawer();
 
-		List<Triangle> faces = Model3DFunctions.GetModelFaces(model_handle);
+		final List<Triangle> faces = Model3DFunctions
+				.GetModelFaces(model_handle);
 		int count = 0;
-		for (Triangle face : faces) {
+		for (final Triangle face : faces) {
 			pos_drawer.AddSegment(count, face.GetVertex(0), face.GetVertex(1));
 			pos_drawer.AddSegment(count + 1, face.GetVertex(1),
 					face.GetVertex(2));
