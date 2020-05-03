@@ -6,26 +6,27 @@ import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 
 /**
  * Provides methods for fog.
+ * 
  * @author Daba
  *
  */
 public class FogFront {
-	private static Fog fog=new Fog();
-	
+	private static Fog fog = new Fog();
+
 	public static void AddProgram(ShaderProgram program) {
 		fog.AddProgram(program);
 	}
 	public static void RemoveAllPrograms() {
 		fog.RemoveAllPrograms();
 	}
-	
+
 	public static void SetFogColor(ColorU8 color) {
 		fog.SetFogColor(color);
 	}
-	public static void SetFogStartEnd(float start,float end) {
+	public static void SetFogStartEnd(float start, float end) {
 		fog.SetFogStartEnd(start, end);
 	}
-	
+
 	public static void Update() {
 		fog.Update();
 	}

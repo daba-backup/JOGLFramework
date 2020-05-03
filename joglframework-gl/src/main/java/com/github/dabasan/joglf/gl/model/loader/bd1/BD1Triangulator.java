@@ -21,9 +21,10 @@ import com.github.dabasan.xops.bd1.BD1Block;
  *
  */
 class BD1Triangulator {
-	private Logger logger = LoggerFactory.getLogger(BD1Triangulator.class);
+	private final Logger logger = LoggerFactory
+			.getLogger(BD1Triangulator.class);
 
-	private List<BD1Triangle> triangles_list;
+	private final List<BD1Triangle> triangles_list;
 
 	public BD1Triangulator() {
 		triangles_list = new ArrayList<>();
@@ -35,31 +36,33 @@ class BD1Triangulator {
 			return;
 		}
 
-		Vector[] positions = block.GetVertexPositions();
-		float[] us = block.GetUs();
-		float[] vs = block.GetVs();
-		int[] texture_ids = block.GetTextureIDs();
+		final Vector[] positions = block.GetVertexPositions();
+		final float[] us = block.GetUs();
+		final float[] vs = block.GetVs();
+		final int[] texture_ids = block.GetTextureIDs();
 
-		Vertex3D[] vertices = new Vertex3D[24];
-		for (int i = 0; i < 24; i++)
+		final Vertex3D[] vertices = new Vertex3D[24];
+		for (int i = 0; i < 24; i++) {
 			vertices[i] = new Vertex3D();
+		}
 
 		for (int i = 0; i < 6; i++) {
-			int[] vertex_indices = BD1Functions
+			final int[] vertex_indices = BD1Functions
 					.GetFaceCorrespondingVertexIndices(i);
-			int[] uv_indices = BD1Functions.GetFaceCorrespondingUVIndices(i);
+			final int[] uv_indices = BD1Functions
+					.GetFaceCorrespondingUVIndices(i);
 
-			Vector v1 = VectorFunctions.VSub(positions[vertex_indices[3]],
+			final Vector v1 = VectorFunctions.VSub(positions[vertex_indices[3]],
 					positions[vertex_indices[0]]);
-			Vector v2 = VectorFunctions.VSub(positions[vertex_indices[1]],
+			final Vector v2 = VectorFunctions.VSub(positions[vertex_indices[1]],
 					positions[vertex_indices[0]]);
 			Vector face_normal = VectorFunctions.VCross(v1, v2);
 			face_normal = VectorFunctions.VNorm(face_normal);
 
 			for (int j = 0; j < 4; j++) {
-				int array_index = i * 4 + j;
-				int vertex_index = vertex_indices[j];
-				int uv_index = uv_indices[j];
+				final int array_index = i * 4 + j;
+				final int vertex_index = vertex_indices[j];
+				final int uv_index = uv_indices[j];
 
 				vertices[array_index].SetPos(positions[vertex_index]);
 				vertices[array_index].SetDif(
@@ -73,16 +76,17 @@ class BD1Triangulator {
 			}
 		}
 
-		Vertex3D[] inverted_vertices = new Vertex3D[24];
+		final Vertex3D[] inverted_vertices = new Vertex3D[24];
 		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 4; j++) {
 				inverted_vertices[i * 4 + j] = vertices[(i + 1) * 4 - 1 - j];
 			}
 		}
 
-		BD1Triangle[] triangles = new BD1Triangle[12];
-		for (int i = 0; i < 12; i++)
+		final BD1Triangle[] triangles = new BD1Triangle[12];
+		for (int i = 0; i < 12; i++) {
 			triangles[i] = new BD1Triangle();
+		}
 
 		for (int i = 0; i < 12; i += 2) {
 			int vertex_array_index;
@@ -99,7 +103,7 @@ class BD1Triangulator {
 		}
 
 		for (int i = 0; i < 12; i += 2) {
-			int texture_id = texture_ids[i / 2];
+			final int texture_id = texture_ids[i / 2];
 
 			triangles[i].SetTextureID(texture_id);
 			triangles[i + 1].SetTextureID(texture_id);
@@ -114,7 +118,7 @@ class BD1Triangulator {
 			return;
 		}
 
-		for (BD1Block block : blocks) {
+		for (final BD1Block block : blocks) {
 			TriangulateBlock(block);
 		}
 	}
@@ -123,16 +127,16 @@ class BD1Triangulator {
 		return triangles_list;
 	}
 	public Map<Integer, List<BD1Triangle>> GetTrianglesMap() {
-		Map<Integer, List<BD1Triangle>> ret = new HashMap<>();
+		final Map<Integer, List<BD1Triangle>> ret = new HashMap<>();
 
-		for (BD1Triangle triangle : triangles_list) {
-			int texture_id = triangle.GetTextureID();
+		for (final BD1Triangle triangle : triangles_list) {
+			final int texture_id = triangle.GetTextureID();
 
 			if (ret.containsKey(texture_id) == false) {
-				List<BD1Triangle> list_temp = new ArrayList<>();
+				final List<BD1Triangle> list_temp = new ArrayList<>();
 				ret.put(texture_id, list_temp);
 			}
-			List<BD1Triangle> triangles = ret.get(texture_id);
+			final List<BD1Triangle> triangles = ret.get(texture_id);
 			triangles.add(triangle);
 		}
 

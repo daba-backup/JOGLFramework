@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL;
-import com.jogamp.opengl.GL4;
 import com.jogamp.opengl.GLContext;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
@@ -40,7 +39,7 @@ public class TextureMgr {
 	}
 
 	public static int LoadTexture(String texture_filename) {
-		File file = new File(texture_filename);
+		final File file = new File(texture_filename);
 		if (!(file.isFile() && file.canRead())) {
 			logger.error("Failed to load a texture. texture_filename={}",
 					texture_filename);
@@ -50,31 +49,31 @@ public class TextureMgr {
 		Texture texture = null;
 		try {
 			texture = TextureIO.newTexture(file, true);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			logger.error("Error while creating a texture.", e);
 			return -1;
 		}
 
-		GL gl = GLContext.getCurrentGL();
+		final GL gl = GLContext.getCurrentGL();
 		texture.enable(gl);
 		texture.bind(gl);
-		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_S,
-				GL4.GL_REPEAT);
-		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_T,
-				GL4.GL_REPEAT);
+		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S,
+				GL.GL_REPEAT);
+		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T,
+				GL.GL_REPEAT);
 		if (generate_mipmap_flag == true) {
-			GLWrapper.glGenerateMipmap(GL4.GL_TEXTURE_2D);
-			GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D,
-					GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_LINEAR_MIPMAP_LINEAR);
+			GLWrapper.glGenerateMipmap(GL.GL_TEXTURE_2D);
+			GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D,
+					GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR_MIPMAP_LINEAR);
 		} else {
-			GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D,
-					GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_LINEAR);
+			GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D,
+					GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
 		}
-		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER,
-				GL4.GL_LINEAR);
+		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER,
+				GL.GL_LINEAR);
 		texture.disable(gl);
 
-		int texture_handle = count;
+		final int texture_handle = count;
 		textures_map.put(texture_handle, texture);
 		count++;
 
@@ -87,8 +86,8 @@ public class TextureMgr {
 			return -1;
 		}
 
-		GL gl = GLContext.getCurrentGL();
-		Texture texture = textures_map.get(texture_handle);
+		final GL gl = GLContext.getCurrentGL();
+		final Texture texture = textures_map.get(texture_handle);
 		texture.destroy(gl);
 
 		textures_map.remove(texture_handle);
@@ -96,9 +95,9 @@ public class TextureMgr {
 		return 0;
 	}
 	public static void DeleteAllTextures() {
-		GL gl = GLContext.getCurrentGL();
+		final GL gl = GLContext.getCurrentGL();
 
-		for (Texture texture : textures_map.values()) {
+		for (final Texture texture : textures_map.values()) {
 			texture.destroy(gl);
 		}
 
@@ -112,25 +111,25 @@ public class TextureMgr {
 			return -1;
 		}
 
-		GL gl = GLContext.getCurrentGL();
-		Texture texture = textures_map.get(texture_handle);
-		int texture_object = texture.getTextureObject(gl);
-		int width = texture.getWidth();
-		int height = texture.getHeight();
+		final GL gl = GLContext.getCurrentGL();
+		final Texture texture = textures_map.get(texture_handle);
+		final int texture_object = texture.getTextureObject(gl);
+		final int width = texture.getWidth();
+		final int height = texture.getHeight();
 
-		ByteBuffer data = Buffers.newDirectByteBuffer(width * height * 4);
+		final ByteBuffer data = Buffers.newDirectByteBuffer(width * height * 4);
 
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_object);
-		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA,
-				GL4.GL_UNSIGNED_BYTE, data);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
+		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, texture_object);
+		GLWrapper.glGetTexImage(GL.GL_TEXTURE_2D, 0, GL.GL_RGBA,
+				GL.GL_UNSIGNED_BYTE, data);
+		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, 0);
 
-		ByteBuffer data_r = Buffers.newDirectByteBuffer(width * height);
-		ByteBuffer data_g = Buffers.newDirectByteBuffer(width * height);
-		ByteBuffer data_b = Buffers.newDirectByteBuffer(width * height);
-		ByteBuffer data_a = Buffers.newDirectByteBuffer(width * height);
+		final ByteBuffer data_r = Buffers.newDirectByteBuffer(width * height);
+		final ByteBuffer data_g = Buffers.newDirectByteBuffer(width * height);
+		final ByteBuffer data_b = Buffers.newDirectByteBuffer(width * height);
+		final ByteBuffer data_a = Buffers.newDirectByteBuffer(width * height);
 
-		int bound = width * height * 4;
+		final int bound = width * height * 4;
 		for (int i = 0; i < bound; i += 4) {
 			data_r.put(data.get());
 			data_g.put(data.get());
@@ -142,7 +141,7 @@ public class TextureMgr {
 		((Buffer) data_b).flip();
 		((Buffer) data_a).flip();
 
-		ByteBuffer flipped_data = Buffers
+		final ByteBuffer flipped_data = Buffers
 				.newDirectByteBuffer(width * height * 4);
 
 		if (flip_vertically == true && flip_horizontally == true) {
@@ -177,10 +176,10 @@ public class TextureMgr {
 		}
 		((Buffer) flipped_data).flip();
 
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_object);
-		GLWrapper.glTexImage2D(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, width, height,
-				0, GL4.GL_RGBA, GL4.GL_UNSIGNED_BYTE, flipped_data);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
+		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, texture_object);
+		GLWrapper.glTexImage2D(GL.GL_TEXTURE_2D, 0, GL.GL_RGBA, width, height,
+				0, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, flipped_data);
+		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, 0);
 
 		return 0;
 	}
@@ -191,7 +190,7 @@ public class TextureMgr {
 			return false;
 		}
 
-		Texture texture = textures_map.get(texture_handle);
+		final Texture texture = textures_map.get(texture_handle);
 		return texture.getMustFlipVertically();
 	}
 
@@ -201,8 +200,8 @@ public class TextureMgr {
 			return -1;
 		}
 
-		Texture texture = textures_map.get(texture_handle);
-		int width = texture.getWidth();
+		final Texture texture = textures_map.get(texture_handle);
+		final int width = texture.getWidth();
 
 		return width;
 	}
@@ -212,16 +211,16 @@ public class TextureMgr {
 			return -1;
 		}
 
-		Texture texture = textures_map.get(texture_handle);
-		int height = texture.getHeight();
+		final Texture texture = textures_map.get(texture_handle);
+		final int height = texture.getHeight();
 
 		return height;
 	}
 
 	public static int AssociateTexture(int texture_object, int texture_width,
 			int texture_height, boolean flip_vertically) {
-		int texture_handle = count;
-		Texture texture = new Texture(texture_object, GL4.GL_TEXTURE_2D,
+		final int texture_handle = count;
+		final Texture texture = new Texture(texture_object, GL.GL_TEXTURE_2D,
 				texture_width, texture_height, texture_width, texture_height,
 				flip_vertically);
 
@@ -237,18 +236,18 @@ public class TextureMgr {
 			return Buffers.newDirectByteBuffer(0);
 		}
 
-		GL gl = GLContext.getCurrentGL();
-		Texture texture = textures_map.get(texture_handle);
-		int texture_object = texture.getTextureObject(gl);
-		int width = texture.getWidth();
-		int height = texture.getHeight();
+		final GL gl = GLContext.getCurrentGL();
+		final Texture texture = textures_map.get(texture_handle);
+		final int texture_object = texture.getTextureObject(gl);
+		final int width = texture.getWidth();
+		final int height = texture.getHeight();
 
-		ByteBuffer data = Buffers.newDirectByteBuffer(width * height * 4);
+		final ByteBuffer data = Buffers.newDirectByteBuffer(width * height * 4);
 
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_object);
-		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA,
-				GL4.GL_UNSIGNED_BYTE, data);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
+		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, texture_object);
+		GLWrapper.glGetTexImage(GL.GL_TEXTURE_2D, 0, GL.GL_RGBA,
+				GL.GL_UNSIGNED_BYTE, data);
+		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, 0);
 
 		return data;
 	}
@@ -266,14 +265,14 @@ public class TextureMgr {
 			texture_handle = default_texture_handle;
 		}
 
-		GL gl = GLContext.getCurrentGL();
-		Texture texture = textures_map.get(texture_handle);
+		final GL gl = GLContext.getCurrentGL();
+		final Texture texture = textures_map.get(texture_handle);
 
 		texture.bind(gl);
 
 		return 0;
 	}
 	public static void UnbindTexture() {
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
+		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, 0);
 	}
 }

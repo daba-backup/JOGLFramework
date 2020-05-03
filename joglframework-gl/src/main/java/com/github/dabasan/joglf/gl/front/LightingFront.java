@@ -7,26 +7,27 @@ import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 
 /**
  * Provides methods for lighting.
+ * 
  * @author Daba
  *
  */
 public class LightingFront {
-	private static Lighting lighting=new Lighting();
-	
+	private static Lighting lighting = new Lighting();
+
 	public static void AddProgram(ShaderProgram program) {
 		lighting.AddProgram(program);
 	}
 	public static void RemoveAllPrograms() {
 		lighting.RemoveAllPrograms();
 	}
-	
+
 	public static void SetAmbientColor(ColorU8 color) {
 		lighting.SetAmbientColor(color);
 	}
 	public static void SetLightDirection(Vector light_direction) {
 		lighting.SetDirection(light_direction);
 	}
-	public static void SetLightDirection(Vector position,Vector target) {
+	public static void SetLightDirection(Vector position, Vector target) {
 		lighting.SetDirection(position, target);
 	}
 	public static void SetDiffusePower(float diffuse_power) {
@@ -35,7 +36,7 @@ public class LightingFront {
 	public static void SetSpecularPower(float specular_power) {
 		lighting.SetSpecularPower(specular_power);
 	}
-	
+
 	public static void Update() {
 		lighting.Update();
 	}

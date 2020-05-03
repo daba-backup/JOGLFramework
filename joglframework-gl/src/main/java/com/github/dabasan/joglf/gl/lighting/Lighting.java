@@ -11,6 +11,7 @@ import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 
 /**
  * Lighting
+ * 
  * @author Daba
  *
  */
@@ -22,57 +23,57 @@ public class Lighting {
 	private float ambient_power;
 	private float diffuse_power;
 	private float specular_power;
-	
-	private List<ShaderProgram> programs;
-	
+
+	private final List<ShaderProgram> programs;
+
 	public Lighting() {
-		direction=VectorFunctions.VGet(1.0f, -1.0f, 1.0f);
-		direction=VectorFunctions.VNorm(direction);
-		ambient_color=ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f);
-		diffuse_color=ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f);
-		specular_color=ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f);
-		ambient_power=0.6f;
-		diffuse_power=0.3f;
-		specular_power=0.1f;
-		
-		programs=new ArrayList<>();
+		direction = VectorFunctions.VGet(1.0f, -1.0f, 1.0f);
+		direction = VectorFunctions.VNorm(direction);
+		ambient_color = ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f);
+		diffuse_color = ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f);
+		specular_color = ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f);
+		ambient_power = 0.6f;
+		diffuse_power = 0.3f;
+		specular_power = 0.1f;
+
+		programs = new ArrayList<>();
 	}
-	
+
 	public void AddProgram(ShaderProgram program) {
 		programs.add(program);
 	}
 	public void RemoveAllPrograms() {
 		programs.clear();
 	}
-	
+
 	public void SetDirection(Vector direction) {
-		this.direction=direction;
+		this.direction = direction;
 	}
-	public void SetDirection(Vector position,Vector target) {
-		direction=VectorFunctions.VSub(target, position);
-		direction=VectorFunctions.VNorm(direction);
+	public void SetDirection(Vector position, Vector target) {
+		direction = VectorFunctions.VSub(target, position);
+		direction = VectorFunctions.VNorm(direction);
 	}
 	public void SetAmbientColor(ColorU8 ambient_color) {
-		this.ambient_color=ambient_color;
+		this.ambient_color = ambient_color;
 	}
 	public void SetDiffuseColor(ColorU8 diffuse_color) {
-		this.diffuse_color=diffuse_color;
+		this.diffuse_color = diffuse_color;
 	}
 	public void SetSpecularColor(ColorU8 specular_color) {
-		this.specular_color=specular_color;
+		this.specular_color = specular_color;
 	}
 	public void SetAmbientPower(float ambient_power) {
-		this.ambient_power=ambient_power;
+		this.ambient_power = ambient_power;
 	}
 	public void SetDiffusePower(float diffuse_power) {
-		this.diffuse_power=diffuse_power;
+		this.diffuse_power = diffuse_power;
 	}
 	public void SetSpecularPower(float specular_power) {
-		this.specular_power=specular_power;
+		this.specular_power = specular_power;
 	}
-	
+
 	public void Update() {
-		for(ShaderProgram program:programs) {
+		for (final ShaderProgram program : programs) {
 			program.Enable();
 			program.SetUniform("lighting.direction", direction);
 			program.SetUniform("lighting.ambient_color", ambient_color);

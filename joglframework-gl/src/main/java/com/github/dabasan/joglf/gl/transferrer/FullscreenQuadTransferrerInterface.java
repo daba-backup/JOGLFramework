@@ -2,6 +2,7 @@ package com.github.dabasan.joglf.gl.transferrer;
 
 /**
  * Interface for fullscreen quad transferrers.
+ * 
  * @author Daba
  *
  */

@@ -52,7 +52,8 @@ class FreeCamera {
 	public void Translate(int front, int back, int right, int left) {
 		Vector translate = VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
 
-		Vector front_vec = VectorFunctions.VGetFromAngles(v_rotate, h_rotate);
+		final Vector front_vec = VectorFunctions.VGetFromAngles(v_rotate,
+				h_rotate);
 		Vector right_vec = VectorFunctions.VCross(front_vec,
 				VectorFunctions.VGet(0.0f, 1.0f, 0.0f));
 		right_vec = VectorFunctions.VNorm(right_vec);

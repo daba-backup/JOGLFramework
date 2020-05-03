@@ -24,130 +24,137 @@ import com.jogamp.opengl.util.PMVMatrix;
 
 /**
  * Text manager
+ * 
  * @author Daba
  *
  */
 public class TextMgr {
-	private static Logger logger=LoggerFactory.getLogger(TextMgr.class);
-	
-	private static int count=0;
-	private static Map<Integer, Font> fonts_map=new HashMap<>();
-	
+	private static Logger logger = LoggerFactory.getLogger(TextMgr.class);
+
+	private static int count = 0;
+	private static Map<Integer, Font> fonts_map = new HashMap<>();
+
 	private static RenderState render_state;
 	private static RegionRenderer region_renderer;
 	private static TextRegionUtil text_region_util;
-	
+
 	private static int default_font_handle;
-	
-	private static int window_width=WindowCommonInfo.DEFAULT_WIDTH;
-	private static int window_height=WindowCommonInfo.DEFAULT_HEIGHT;
-	
+
+	private static int window_width = WindowCommonInfo.DEFAULT_WIDTH;
+	private static int window_height = WindowCommonInfo.DEFAULT_HEIGHT;
+
 	public static void Initialize() {
-		render_state=RenderState.createRenderState(SVertex.factory());
+		render_state = RenderState.createRenderState(SVertex.factory());
 		render_state.setColorStatic(1.0f, 1.0f, 1.0f, 1.0f);
 		render_state.setHintMask(RenderState.BITHINT_GLOBAL_DEPTH_TEST_ENABLED);
-	
-		region_renderer=RegionRenderer.create(render_state, RegionRenderer.defaultBlendEnable, RegionRenderer.defaultBlendDisable);
-		
-		text_region_util=new TextRegionUtil(Region.VARWEIGHT_RENDERING_BIT);
-		
-		GL2ES2 gl=GLContext.getCurrentGL().getGL2ES2();
+
+		region_renderer = RegionRenderer.create(render_state,
+				RegionRenderer.defaultBlendEnable,
+				RegionRenderer.defaultBlendDisable);
+
+		text_region_util = new TextRegionUtil(Region.VARWEIGHT_RENDERING_BIT);
+
+		final GL2ES2 gl = GLContext.getCurrentGL().getGL2ES2();
 		region_renderer.init(gl, Region.VARWEIGHT_RENDERING_BIT);
 		region_renderer.enable(gl, false);
-		
-		default_font_handle=CreateDefaultFont();
-		
+
+		default_font_handle = CreateDefaultFont();
+
 		logger.info("TextureMgr initialized.");
 	}
 	private static int CreateDefaultFont() {
-		Font font=null;
+		Font font = null;
 		try {
-			font=FontFactory.get(FontFactory.JAVA).getDefault();
-		}
-		catch(IOException e) {
-			logger.error("Error while creating a font.",e);
+			font = FontFactory.get(FontFactory.JAVA).getDefault();
+		} catch (final IOException e) {
+			logger.error("Error while creating a font.", e);
 			return -1;
 		}
-		
-		int font_handle=count;
+
+		final int font_handle = count;
 		count++;
-		
+
 		fonts_map.put(font_handle, font);
-		
+
 		return font_handle;
 	}
-	
+
 	public static int LoadFont(String font_filename) {
-		Font font=null;
+		Font font = null;
 		try {
-			font=FontFactory.get(new File(font_filename));
-		}
-		catch(IOException e) {
-			logger.error("Error while creating a font.",e);
+			font = FontFactory.get(new File(font_filename));
+		} catch (final IOException e) {
+			logger.error("Error while creating a font.", e);
 			return -1;
 		}
-		
-		int font_handle=count;
+
+		final int font_handle = count;
 		count++;
-		
+
 		fonts_map.put(font_handle, font);
-		
+
 		return font_handle;
 	}
-	
+
 	public static int DeleteFont(int font_handle) {
-		if(fonts_map.containsKey(font_handle)==false) {
-			logger.warn("No such font. font_handle={}",font_handle);
+		if (fonts_map.containsKey(font_handle) == false) {
+			logger.warn("No such font. font_handle={}", font_handle);
 			return -1;
 		}
-		if(font_handle==default_font_handle) {
+		if (font_handle == default_font_handle) {
 			logger.warn("Cannot delete the default font.");
 			return -1;
 		}
-		
+
 		fonts_map.remove(font_handle);
-		
+
 		return 0;
 	}
-	
-	public static void SetWindowSize(int width,int height) {
-		window_width=width;
-		window_height=height;
+
+	public static void SetWindowSize(int width, int height) {
+		window_width = width;
+		window_height = height;
 	}
-	
-	public static int DrawText(int x,int y,String text,ColorU8 color,int size,int weight) {
-		Font font=fonts_map.get(default_font_handle);
+
+	public static int DrawText(int x, int y, String text, ColorU8 color,
+			int size, int weight) {
+		final Font font = fonts_map.get(default_font_handle);
 		innerDrawText(x, y, text, font, color, size, weight);
-		
+
 		return 0;
 	}
-	public static int DrawTextWithFont(int x,int y,String text,int font_handle,ColorU8 color,int size,int weight) {
-		if(fonts_map.containsKey(font_handle)==false) {
-			logger.warn("No such font. font_handle={}",font_handle);
+	public static int DrawTextWithFont(int x, int y, String text,
+			int font_handle, ColorU8 color, int size, int weight) {
+		if (fonts_map.containsKey(font_handle) == false) {
+			logger.warn("No such font. font_handle={}", font_handle);
 			return -1;
 		}
-		
-		Font font=fonts_map.get(font_handle);
+
+		final Font font = fonts_map.get(font_handle);
 		innerDrawText(x, y, text, font, color, size, weight);
-		
+
 		return 0;
 	}
-	private static void innerDrawText(int x,int y,String text,Font font,ColorU8 color,int size,int weight) {
-		float pixel_size=font.getPixelSize(size,weight);
-		
-		PMVMatrix pmv=region_renderer.getMatrix();
+	private static void innerDrawText(int x, int y, String text, Font font,
+			ColorU8 color, int size, int weight) {
+		final float pixel_size = font.getPixelSize(size, weight);
+
+		final PMVMatrix pmv = region_renderer.getMatrix();
 		pmv.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
 		pmv.glLoadIdentity();
-		pmv.glTranslatef((float)x, (float)y, -1.0f);
-		
-		render_state.setColorStatic(color.GetR(), color.GetG(), color.GetB(), color.GetA());
-		
-		GL2ES2 gl=GLContext.getCurrentGL().getGL2ES2();
-		
-		int[] sample_count=new int[] {4};
-		region_renderer.enable(gl,true);
-		region_renderer.reshapeOrtho(window_width, window_height, 0.1f, 1000.0f);
-		text_region_util.drawString3D(gl, region_renderer, font, pixel_size, text, null, sample_count);
+		pmv.glTranslatef((float) x, (float) y, -1.0f);
+
+		render_state.setColorStatic(color.GetR(), color.GetG(), color.GetB(),
+				color.GetA());
+
+		final GL2ES2 gl = GLContext.getCurrentGL().getGL2ES2();
+
+		final int[] sample_count = new int[]{4};
+		region_renderer.enable(gl, true);
+		region_renderer.reshapeOrtho(window_width, window_height, 0.1f,
+				1000.0f);
+		text_region_util.drawString3D(gl, region_renderer, font, pixel_size,
+				text, null, sample_count);
 		region_renderer.enable(gl, false);
 	}
 }

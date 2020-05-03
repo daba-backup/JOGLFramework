@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 
 /**
  * Sound buffer
+ * 
  * @author Daba
  *
  */
@@ -13,14 +14,14 @@ public class SoundBuffer {
 	private ByteBuffer data;
 	private int freq;
 	private int loop;
-	
+
 	public SoundBuffer() {
-		format=0;
-		size=0;
-		freq=0;
-		loop=0;
+		format = 0;
+		size = 0;
+		freq = 0;
+		loop = 0;
 	}
-	
+
 	public int GetFormat() {
 		return format;
 	}
@@ -37,18 +38,18 @@ public class SoundBuffer {
 		return loop;
 	}
 	public void SetFormat(int format) {
-		this.format=format;
+		this.format = format;
 	}
 	public void SetSize(int size) {
-		this.size=size;
+		this.size = size;
 	}
 	public void SetData(ByteBuffer data) {
-		this.data=data;
+		this.data = data;
 	}
 	public void SetFreq(int freq) {
-		this.freq=freq;
+		this.freq = freq;
 	}
 	public void SetLoop(int loop) {
-		this.loop=loop;
+		this.loop = loop;
 	}
 }

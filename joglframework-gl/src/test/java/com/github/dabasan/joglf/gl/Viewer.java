@@ -25,20 +25,20 @@ public class Viewer extends JOGLFWindow {
 
 	@Override
 	public void Update() {
-		int w_pressing_count = this
+		final int w_pressing_count = this
 				.GetKeyboardPressingCount(KeyboardEnum.KEY_W);
-		int s_pressing_count = this
+		final int s_pressing_count = this
 				.GetKeyboardPressingCount(KeyboardEnum.KEY_S);
-		int d_pressing_count = this
+		final int d_pressing_count = this
 				.GetKeyboardPressingCount(KeyboardEnum.KEY_D);
-		int a_pressing_count = this
+		final int a_pressing_count = this
 				.GetKeyboardPressingCount(KeyboardEnum.KEY_A);
 		camera.Translate(w_pressing_count, s_pressing_count, d_pressing_count,
 				a_pressing_count);
 
 		if (this.GetMousePressingCount(MouseEnum.MOUSE_MIDDLE) > 0) {
-			int diff_x = this.GetCursorDiffX();
-			int diff_y = this.GetCursorDiffY();
+			final int diff_x = this.GetCursorDiffX();
+			final int diff_y = this.GetCursorDiffY();
 
 			camera.Rotate(diff_x, diff_y);
 		}
