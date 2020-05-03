@@ -17,41 +17,17 @@ import com.jogamp.openal.util.ALut;
 public class ALFront {
 	private static Logger logger = LoggerFactory.getLogger(ALFront.class);
 
-	private static boolean no_use_alut_flag = false;
-
-	/**
-	 * Sets the flag to disable ALUT.
-	 * 
-	 * @param a_no_use_alut_flag
-	 *            Flag
-	 */
-	public static void SetNoUseAlutFlag(boolean a_no_use_alut_flag) {
-		no_use_alut_flag = a_no_use_alut_flag;
-	}
-	/**
-	 * Returns the flag to disable ALUT.
-	 * 
-	 * @return Flag
-	 */
-	public static boolean GetNoUseAlutFlag() {
-		return no_use_alut_flag;
-	}
-
 	public static void Initialize() {
-		if (no_use_alut_flag == false) {
-			ALut.alutInit();
-		}
+		ALut.alutInit();
 
 		Sound3DFunctions.SetupListenerProperties();
 		ALWrapper.alDistanceModel(ALConstants.AL_INVERSE_DISTANCE);
 
-		logger.info("Initialized.");
+		logger.info("ALFront initialized.");
 	}
 	public static void Dispose() {
-		if (no_use_alut_flag == false) {
-			ALut.alutExit();
-		}
+		ALut.alutExit();
 
-		logger.info("Disposed.");
+		logger.info("ALFront disposed.");
 	}
 }

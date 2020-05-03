@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.dabasan.joglf.al.buffer.SoundBuffer;
-import com.github.dabasan.joglf.al.front.ALFront;
 import com.github.dabasan.joglf.al.wrapper.ALWrapper;
 
 /**
@@ -34,11 +33,6 @@ public class WAVLoader {
 		final File file = new File(wav_filename);
 		if (file.exists() == false) {
 			logger.error("File does not exist. filename={}", wav_filename);
-			return sound_buffer;
-		}
-
-		if (ALFront.GetNoUseAlutFlag() == true) {
-			logger.error("ALUT is disabled.");
 			return sound_buffer;
 		}
 
