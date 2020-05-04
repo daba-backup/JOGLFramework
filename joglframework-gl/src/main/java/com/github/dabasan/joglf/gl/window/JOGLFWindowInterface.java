@@ -5,7 +5,7 @@ import com.github.dabasan.joglf.gl.input.keyboard.KeyboardEnum;
 import com.github.dabasan.joglf.gl.input.mouse.MouseEnum;
 
 /**
- * Interface for JOGLFWindow and JOGLSwingWindow
+ * Interface for JOGLFWindow and JOGLFSwingWindow
  * 
  * @author Daba
  *
