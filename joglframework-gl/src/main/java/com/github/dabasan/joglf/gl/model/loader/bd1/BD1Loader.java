@@ -88,7 +88,7 @@ public class BD1Loader {
 			final int vertex_num = triangle_num * 3;
 
 			final BufferedVertices buffered_vertices = new BufferedVertices();
-			final IntBuffer indices = Buffers.newDirectIntBuffer(vertex_num);
+			final IntBuffer indices_buffer = Buffers.newDirectIntBuffer(vertex_num);
 			final FloatBuffer pos_buffer = Buffers
 					.newDirectFloatBuffer(vertex_num * 3);
 			final FloatBuffer uv_buffer = Buffers
@@ -107,7 +107,7 @@ public class BD1Loader {
 					final float v = vertex.GetV();
 					final Vector normal = vertex.GetNorm();
 
-					indices.put(i * 3 + j);
+					indices_buffer.put(i * 3 + j);
 					pos_buffer.put(position.GetX());
 					pos_buffer.put(position.GetY());
 					pos_buffer.put(position.GetZ());
@@ -119,12 +119,12 @@ public class BD1Loader {
 				}
 			}
 
-			((Buffer) indices).flip();
+			((Buffer) indices_buffer).flip();
 			((Buffer) pos_buffer).flip();
 			((Buffer) uv_buffer).flip();
 			((Buffer) norm_buffer).flip();
 
-			buffered_vertices.SetIndicesBuffer(indices);
+			buffered_vertices.SetIndicesBuffer(indices_buffer);
 			buffered_vertices.SetPosBuffer(pos_buffer);
 			buffered_vertices.SetUVBuffer(uv_buffer);
 			buffered_vertices.SetNormBuffer(norm_buffer);
@@ -179,7 +179,7 @@ public class BD1Loader {
 			final int vertex_num = 3;
 
 			final BufferedVertices buffered_vertices = new BufferedVertices();
-			final IntBuffer indices = Buffers.newDirectIntBuffer(vertex_num);
+			final IntBuffer indices_buffer = Buffers.newDirectIntBuffer(vertex_num);
 			final FloatBuffer pos_buffer = Buffers
 					.newDirectFloatBuffer(vertex_num * 3);
 			final FloatBuffer uv_buffer = Buffers
@@ -195,7 +195,7 @@ public class BD1Loader {
 				final float v = vertex.GetV();
 				final Vector normal = vertex.GetNorm();
 
-				indices.put(i);
+				indices_buffer.put(i);
 				pos_buffer.put(position.GetX());
 				pos_buffer.put(position.GetY());
 				pos_buffer.put(position.GetZ());
@@ -206,12 +206,12 @@ public class BD1Loader {
 				norm_buffer.put(normal.GetZ());
 			}
 
-			((Buffer) indices).flip();
+			((Buffer) indices_buffer).flip();
 			((Buffer) pos_buffer).flip();
 			((Buffer) uv_buffer).flip();
 			((Buffer) norm_buffer).flip();
 
-			buffered_vertices.SetIndicesBuffer(indices);
+			buffered_vertices.SetIndicesBuffer(indices_buffer);
 			buffered_vertices.SetPosBuffer(pos_buffer);
 			buffered_vertices.SetUVBuffer(uv_buffer);
 			buffered_vertices.SetNormBuffer(norm_buffer);
