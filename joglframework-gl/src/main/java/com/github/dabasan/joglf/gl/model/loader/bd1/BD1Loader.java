@@ -88,7 +88,8 @@ public class BD1Loader {
 			final int vertex_num = triangle_num * 3;
 
 			final BufferedVertices buffered_vertices = new BufferedVertices();
-			final IntBuffer indices_buffer = Buffers.newDirectIntBuffer(vertex_num);
+			final IntBuffer indices_buffer = Buffers
+					.newDirectIntBuffer(vertex_num);
 			final FloatBuffer pos_buffer = Buffers
 					.newDirectFloatBuffer(vertex_num * 3);
 			final FloatBuffer uv_buffer = Buffers
@@ -174,12 +175,19 @@ public class BD1Loader {
 				.GetTrianglesList();
 		for (final BD1Triangle triangle : triangles_list) {
 			final int texture_id = triangle.GetTextureID();
-			final int texture_handle = texture_handles_map.get(texture_id);
+
+			final int texture_handle;
+			if (texture_handles_map.containsKey(texture_id) == true) {
+				texture_handle = texture_handles_map.get(texture_id);
+			} else {
+				texture_handle = -1;
+			}
 
 			final int vertex_num = 3;
 
 			final BufferedVertices buffered_vertices = new BufferedVertices();
-			final IntBuffer indices_buffer = Buffers.newDirectIntBuffer(vertex_num);
+			final IntBuffer indices_buffer = Buffers
+					.newDirectIntBuffer(vertex_num);
 			final FloatBuffer pos_buffer = Buffers
 					.newDirectFloatBuffer(vertex_num * 3);
 			final FloatBuffer uv_buffer = Buffers
