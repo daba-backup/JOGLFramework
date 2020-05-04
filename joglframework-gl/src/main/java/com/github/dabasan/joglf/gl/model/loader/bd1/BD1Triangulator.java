@@ -13,6 +13,7 @@ import com.github.dabasan.basis.vector.Vector;
 import com.github.dabasan.basis.vector.VectorFunctions;
 import com.github.dabasan.joglf.gl.shape.Vertex3D;
 import com.github.dabasan.xops.bd1.BD1Block;
+import com.github.dabasan.xops.bd1.BD1Functions;
 
 /**
  * Triangulates faces of BD1 blocks.
