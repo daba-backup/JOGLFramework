@@ -8,7 +8,7 @@ JOGLFramework (abbr. JOGLF) aims to simplify OpenGL-relating code in Java.
 
 Locate the *Data* folder at the current directory of your program.
 
-Direct link:https://github.com/Dabasan/JOGLFramework/releases/download/v10.2.0/Data.zip
+Direct link:https://github.com/Dabasan/JOGLFramework/releases/download/v11.0.0/Data.zip
 
 After setting up *Data*, get the required JARs.
 
@@ -20,7 +20,7 @@ After setting up *Data*, get the required JARs.
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework-gl</artifactId>
-    <version>10.4.1</version>
+    <version>11.0.0</version>
 </dependency>
 ```
 
@@ -30,7 +30,7 @@ After setting up *Data*, get the required JARs.
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework-al</artifactId>
-    <version>10.4.1</version>
+    <version>11.0.0</version>
 </dependency>
 ```
 
@@ -47,62 +47,62 @@ Download:[Google Drive](https://drive.google.com/open?id=19AIKvqsXXTAp2hM0yGhlSz
 ### MyWindow.java
 
 ```java
-import com.daxie.basis.coloru8.ColorU8Functions;
-import com.daxie.basis.vector.VectorFunctions;
-import com.daxie.joglf.gl.draw.GLDrawFunctions3D;
-import com.daxie.joglf.gl.front.CameraFront;
-import com.daxie.joglf.gl.window.JOGLFWindow;
+import static com.github.dabasan.basis.coloru8.ColorU8Functions.*;
+import static com.github.dabasan.basis.vector.VectorFunctions.*;
 
-class MyWindow extends JOGLFWindow{
+import com.github.dabasan.joglf.gl.draw.DrawFunctions3D;
+import com.github.dabasan.joglf.gl.front.CameraFront;
+import com.github.dabasan.joglf.gl.window.JOGLFWindow;
+
+class MyWindow extends JOGLFWindow {
 	@Override
-	protected void Init() {
+	public void Init() {
 		System.out.println("Init");
 	}
 	@Override
-	protected void Reshape(int x,int y,int width,int height) {
+	public void Reshape(int x, int y, int width, int height) {
 		System.out.println("Reshape");
 	}
 	@Override
-	protected void Update() {
-		CameraFront.SetCameraPositionAndTarget_UpVecY(
-				VectorFunctions.VGet(30.0f, 30.0f, 30.0f), 
-				VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
+	public void Update() {
+		CameraFront.SetCameraPositionAndTarget_UpVecY(VGet(30.0f, 30.0f, 30.0f),
+				VGet(0.0f, 0.0f, 0.0f));
 	}
 	@Override
-	protected void Draw() {
-		GLDrawFunctions3D.DrawAxes(100.0f);
-		GLDrawFunctions3D.DrawSphere3D(
-				VectorFunctions.VGet(0.0f, 0.0f, 0.0f), 10.0f, 32, 32, 
-				ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f));
+	public void Draw() {
+		DrawFunctions3D.DrawAxes(100.0f);
+		DrawFunctions3D.DrawSphere3D(VGet(0.0f, 0.0f, 0.0f), 10.0f, 32, 32,
+				GetColorU8(1.0f, 1.0f, 1.0f, 1.0f));
 	}
 	@Override
-	protected void Dispose() {
+	public void Dispose() {
 		System.out.println("Dispose");
 	}
 }
 ```
 
-### Main.java
+### MyWindowTestMain.java
 
 ```java
-import com.daxie.joglf.gl.front.GLFront;
-import com.daxie.joglf.gl.window.JOGLFWindow;
-import com.daxie.joglf.gl.wrapper.GLVersion;
+import com.github.dabasan.joglf.gl.front.GLFront;
+import com.github.dabasan.joglf.gl.window.JOGLFWindowInterface;
+import com.github.dabasan.joglf.gl.wrapper.GLVersion;
 
-public class Main {
+public class MyWindowTestMain {
 	public static void main(String[] args) {
-		new Main();
+		new MyWindowTestMain();
 	}
-	public Main() {
-		GLFront.Setup(GLVersion.GL4);
-		
-		JOGLFWindow window=new MyWindow();
+	public MyWindowTestMain() {
+		GLFront.Setup(GLVersion.GL3);
+
+		JOGLFWindowInterface window = new MyWindow();
 		window.SetTitle("MyWindow");
+		window.SetExitProcessWhenDestroyed();
 	}
 }
 ```
 
-![Imgur](https://i.imgur.com/CvHyAIm.png)
+![Imgur](https://i.imgur.com/ik8Dn3c.png)
 
 ## Samples
 
