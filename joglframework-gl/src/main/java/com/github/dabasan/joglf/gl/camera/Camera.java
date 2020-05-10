@@ -73,6 +73,12 @@ public class Camera {
 	public void SetCameraUpVector(Vector up) {
 		this.up = up;
 	}
+	public float GetCameraNear() {
+		return near;
+	}
+	public float GetCameraFar() {
+		return far;
+	}
 	public Vector GetCameraPosition() {
 		return new Vector(position);
 	}
