@@ -384,6 +384,18 @@ public class ModelMgr {
 		return 0;
 	}
 
+	public int[] GetTextureHandles() {
+		int element_num = buffered_vertices_list.size();
+		int[] texture_handles = new int[element_num];
+
+		for (int i = 0; i < element_num; i++) {
+			texture_handles[i] = buffered_vertices_list.get(i)
+					.GetTextureHandle();
+		}
+
+		return texture_handles;
+	}
+
 	public List<Triangle> GetFaces() {
 		final List<Triangle> ret = new ArrayList<>();
 

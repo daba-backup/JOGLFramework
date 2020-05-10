@@ -391,6 +391,18 @@ public class Model3DFunctions {
 		return 0;
 	}
 
+	public static int[] GetModelTextureHandles(int model_handle) {
+		if (models_map.containsKey(model_handle) == false) {
+			logger.trace("No such model. model_handle={}", model_handle);
+			return null;
+		}
+
+		final ModelMgr model = models_map.get(model_handle);
+		int[] texture_handles = model.GetTextureHandles();
+
+		return texture_handles;
+	}
+
 	public static List<Triangle> GetModelFaces(int model_handle) {
 		if (models_map.containsKey(model_handle) == false) {
 			logger.trace("No such model. model_handle={}", model_handle);
