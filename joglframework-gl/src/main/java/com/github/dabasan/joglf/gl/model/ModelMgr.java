@@ -117,15 +117,19 @@ public class ModelMgr {
 			final FloatBuffer norm_buffer = buffered_vertices.GetNormBuffer();
 
 			final int texture_handle = buffered_vertices.GetTextureHandle();
-			final boolean must_flip_vertically = TextureMgr
-					.GetMustFlipVertically(texture_handle);
-			if (must_flip_vertically == true) {
-				final int cap = uv_buffer.capacity();
+			final boolean texture_exists = TextureMgr
+					.TextureExists(texture_handle);
+			if (texture_exists == true) {
+				final boolean must_flip_vertically = TextureMgr
+						.GetMustFlipVertically(texture_handle);
+				if (must_flip_vertically == true) {
+					final int cap = uv_buffer.capacity();
 
-				for (int j = 0; j < cap; j += 2) {
-					float v = uv_buffer.get(j + 1);
-					v *= (-1.0f);
-					uv_buffer.put(j + 1, v);
+					for (int j = 0; j < cap; j += 2) {
+						float v = uv_buffer.get(j + 1);
+						v *= (-1.0f);
+						uv_buffer.put(j + 1, v);
+					}
 				}
 			}
 
