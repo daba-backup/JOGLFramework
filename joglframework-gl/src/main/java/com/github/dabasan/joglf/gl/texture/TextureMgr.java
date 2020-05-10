@@ -55,7 +55,6 @@ public class TextureMgr {
 		}
 
 		final GL gl = GLContext.getCurrentGL();
-		texture.enable(gl);
 		texture.bind(gl);
 		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S,
 				GL.GL_REPEAT);
@@ -71,7 +70,6 @@ public class TextureMgr {
 		}
 		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER,
 				GL.GL_LINEAR);
-		texture.disable(gl);
 
 		final int texture_handle = count;
 		textures_map.put(texture_handle, texture);
