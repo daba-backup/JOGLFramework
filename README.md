@@ -8,9 +8,9 @@ JOGLFramework (abbr. JOGLF) aims to simplify OpenGL-relating code in Java.
 
 Locate the *Data* folder at the current directory of your program.
 
-Direct link:https://github.com/Dabasan/JOGLFramework/releases/download/v11.0.0/Data.zip
+Direct link:https://github.com/Dabasan/JOGLFramework/releases/download/v11.1.0/Data.zip
 
-After setting up *Data*, get the required JARs.
+After setting up *Data*, download the required JARs.
 
 ### Maven project
 
@@ -99,9 +99,9 @@ public class MyWindowTestMain {
 
 ![Imgur](https://i.imgur.com/ik8Dn3c.png)
 
-## Samples
+## Sample code
 
-Samples are available in [JOGLFramework2Samples](https://github.com/Dabasan/JOGLFramework2Samples).
+Sample code is available in [JOGLFramework2Samples](https://github.com/Dabasan/JOGLFramework2Samples).
 
 ## Dependencies
 
@@ -155,4 +155,6 @@ They are mostly licensed under the New BSD 2-Clause License.
 
 - [JOGL - Java Binding for the OpenGL API](https://jogamp.org/jogl/www/)
   Official website of JOGL
+- [HDRI Haven](https://hdrihaven.com/) 
+- [HDRI to Cubemap](https://matheowis.github.io/HDRI-to-CubeMap/) 
 
