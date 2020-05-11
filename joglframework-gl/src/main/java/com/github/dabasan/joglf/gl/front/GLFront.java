@@ -70,6 +70,9 @@ public class GLFront {
 		ShaderFunctions.CreateProgram("texture",
 				"./Data/Shader/330/default/texture/gouraud/vshader.glsl",
 				"./Data/Shader/330/default/texture/gouraud/fshader.glsl");
+		ShaderFunctions.CreateProgram("texture2",
+				"./Data/Shader/330/default/texture/phong/vshader.glsl",
+				"./Data/Shader/330/default/texture/phong/fshader.glsl");
 		ShaderFunctions.CreateProgram("color",
 				"./Data/Shader/330/default/color/vshader.glsl",
 				"./Data/Shader/330/default/color/fshader.glsl");
@@ -96,13 +99,17 @@ public class GLFront {
 	}
 	private static void AddProgramsToFronts() {
 		final ShaderProgram texture = new ShaderProgram("texture");
+		final ShaderProgram texture2 = new ShaderProgram("texture2");
 		final ShaderProgram color = new ShaderProgram("color");
 
 		CameraFront.AddProgram(texture);
+		CameraFront.AddProgram(texture2);
 		CameraFront.AddProgram(color);
 		FogFront.AddProgram(texture);
+		FogFront.AddProgram(texture2);
 		FogFront.AddProgram(color);
 		LightingFront.AddProgram(texture);
+		LightingFront.AddProgram(texture2);
 	}
 
 	public static void Lock() {
