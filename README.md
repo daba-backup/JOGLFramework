@@ -20,7 +20,7 @@ After setting up *Data*, get the required JARs.
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework-gl</artifactId>
-    <version>11.0.1</version>
+    <version>11.1.0</version>
 </dependency>
 ```
 
@@ -30,7 +30,7 @@ After setting up *Data*, get the required JARs.
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework-al</artifactId>
-    <version>11.0.1</version>
+    <version>11.1.0</version>
 </dependency>
 ```
 
