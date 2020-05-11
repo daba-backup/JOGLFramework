@@ -82,6 +82,9 @@ public class GLFront {
 		ShaderFunctions.CreateProgram("simple_2d",
 				"./Data/Shader/330/default/simple_2d/vshader.glsl",
 				"./Data/Shader/330/default/simple_2d/fshader.glsl");
+		ShaderFunctions.CreateProgram("simple_3d",
+				"./Data/Shader/330/default/simple_3d/vshader.glsl",
+				"./Data/Shader/330/default/simple_3d/fshader.glsl");
 
 		logger.info("Default programs created.");
 	}
@@ -101,10 +104,12 @@ public class GLFront {
 		final ShaderProgram texture = new ShaderProgram("texture");
 		final ShaderProgram texture2 = new ShaderProgram("texture2");
 		final ShaderProgram color = new ShaderProgram("color");
+		final ShaderProgram simple_3d = new ShaderProgram("simple_3d");
 
 		CameraFront.AddProgram(texture);
 		CameraFront.AddProgram(texture2);
 		CameraFront.AddProgram(color);
+		CameraFront.AddProgram(simple_3d);
 		FogFront.AddProgram(texture);
 		FogFront.AddProgram(texture2);
 		FogFront.AddProgram(color);
