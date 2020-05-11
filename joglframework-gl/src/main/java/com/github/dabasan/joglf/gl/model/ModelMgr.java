@@ -41,7 +41,8 @@ public class ModelMgr {
 
 	private final List<ShaderProgram> programs;
 
-	public ModelMgr(List<BufferedVertices> buffered_vertices_list) {
+	public ModelMgr(List<BufferedVertices> buffered_vertices_list,
+			FlipVOption option) {
 		this.buffered_vertices_list = buffered_vertices_list;
 
 		property_updated_flag = false;
@@ -50,7 +51,10 @@ public class ModelMgr {
 		final ShaderProgram program = new ShaderProgram("texture");
 		programs.add(program);
 
-		this.GenerateBuffers();
+		this.GenerateBuffers(option);
+	}
+	public ModelMgr(List<BufferedVertices> buffered_vertices_list) {
+		this(buffered_vertices_list, FlipVOption.MUST_FLIP_VERTICALLY);
 	}
 
 	public void AddProgram(ShaderProgram program) {
@@ -94,7 +98,7 @@ public class ModelMgr {
 		return copied_model;
 	}
 
-	private void GenerateBuffers() {
+	private void GenerateBuffers(FlipVOption option) {
 		final int element_num = buffered_vertices_list.size();
 		indices_vbo = Buffers.newDirectIntBuffer(element_num);
 		pos_vbo = Buffers.newDirectIntBuffer(element_num);
@@ -116,20 +120,30 @@ public class ModelMgr {
 			final FloatBuffer uv_buffer = buffered_vertices.GetUVBuffer();
 			final FloatBuffer norm_buffer = buffered_vertices.GetNormBuffer();
 
-			final int texture_handle = buffered_vertices.GetTextureHandle();
-			final boolean texture_exists = TextureMgr
-					.TextureExists(texture_handle);
-			if (texture_exists == true) {
-				final boolean must_flip_vertically = TextureMgr
-						.GetMustFlipVertically(texture_handle);
-				if (must_flip_vertically == true) {
-					final int cap = uv_buffer.capacity();
+			if (option == FlipVOption.MUST_FLIP_VERTICALLY) {
+				final int texture_handle = buffered_vertices.GetTextureHandle();
+				final boolean texture_exists = TextureMgr
+						.TextureExists(texture_handle);
+				if (texture_exists == true) {
+					final boolean must_flip_vertically = TextureMgr
+							.GetMustFlipVertically(texture_handle);
+					if (must_flip_vertically == true) {
+						final int cap = uv_buffer.capacity();
 
-					for (int j = 0; j < cap; j += 2) {
-						float v = uv_buffer.get(j + 1);
-						v *= (-1.0f);
-						uv_buffer.put(j + 1, v);
+						for (int j = 0; j < cap; j += 2) {
+							float v = uv_buffer.get(j + 1);
+							v *= (-1.0f);
+							uv_buffer.put(j + 1, v);
+						}
 					}
+				}
+			} else if (option == FlipVOption.ALL) {
+				final int cap = uv_buffer.capacity();
+
+				for (int j = 0; j < cap; j += 2) {
+					float v = uv_buffer.get(j + 1);
+					v *= (-1.0f);
+					uv_buffer.put(j + 1, v);
 				}
 			}
 

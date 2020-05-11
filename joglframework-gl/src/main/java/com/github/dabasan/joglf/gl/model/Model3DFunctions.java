@@ -43,7 +43,7 @@ public class Model3DFunctions {
 		keep_order_if_possible = a_keep_order_if_possible;
 	}
 
-	public static int LoadModel(String model_filename) {
+	public static int LoadModel(String model_filename, FlipVOption option) {
 		final String extension = FilenameFunctions
 				.GetFileExtension(model_filename);
 
@@ -51,7 +51,7 @@ public class Model3DFunctions {
 		if (extension.equals("obj") || extension.equals("OBJ")) {
 			final List<BufferedVertices> buffered_vertices_list = OBJLoader
 					.LoadOBJ(model_filename);
-			final ModelMgr model = new ModelMgr(buffered_vertices_list);
+			final ModelMgr model = new ModelMgr(buffered_vertices_list, option);
 
 			models_map.put(model_handle, model);
 		} else if (extension.equals("bd1") || extension.equals("BD1")) {
@@ -62,7 +62,7 @@ public class Model3DFunctions {
 				buffered_vertices_list = BD1Loader
 						.LoadBD1_KeepOrder(model_filename);
 			}
-			final ModelMgr model = new ModelMgr(buffered_vertices_list);
+			final ModelMgr model = new ModelMgr(buffered_vertices_list, option);
 
 			models_map.put(model_handle, model);
 		} else {
@@ -73,6 +73,9 @@ public class Model3DFunctions {
 		count++;
 
 		return model_handle;
+	}
+	public static int LoadModel(String model_filename) {
+		return LoadModel(model_filename, FlipVOption.MUST_FLIP_VERTICALLY);
 	}
 	public static int CopyModel(int model_handle) {
 		if (models_map.containsKey(model_handle) == false) {
