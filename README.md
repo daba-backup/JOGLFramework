@@ -101,7 +101,7 @@ public class MyWindowTestMain {
 
 ## Sample code
 
-Sample code is available in [JOGLFramework2Samples](https://github.com/Dabasan/JOGLFramework2Samples).
+Sample code is available in [JOGLFramework3Samples](https://github.com/Dabasan/JOGLFramework3Samples).
 
 ## Dependencies
 
