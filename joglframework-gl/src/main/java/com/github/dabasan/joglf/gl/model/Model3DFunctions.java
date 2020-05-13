@@ -401,7 +401,7 @@ public class Model3DFunctions {
 		}
 
 		final ModelMgr model = models_map.get(model_handle);
-		int[] texture_handles = model.GetTextureHandles();
+		final int[] texture_handles = model.GetTextureHandles();
 
 		return texture_handles;
 	}

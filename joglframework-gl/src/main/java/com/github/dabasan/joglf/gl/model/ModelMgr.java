@@ -403,8 +403,8 @@ public class ModelMgr {
 	}
 
 	public int[] GetTextureHandles() {
-		int element_num = buffered_vertices_list.size();
-		int[] texture_handles = new int[element_num];
+		final int element_num = buffered_vertices_list.size();
+		final int[] texture_handles = new int[element_num];
 
 		for (int i = 0; i < element_num; i++) {
 			texture_handles[i] = buffered_vertices_list.get(i)
