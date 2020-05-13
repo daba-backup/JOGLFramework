@@ -27,6 +27,14 @@ public class CountsAndFlags {
 		}
 	}
 
+	public void Reset() {
+		for (int i = 0; i < element_num; i++) {
+			pressing_counts[i] = 0;
+			releasing_counts[i] = 0;
+			pressing_flags[i] = false;
+		}
+	}
+
 	private boolean IsAvailableIndex(int index) {
 		if (0 <= index && index < element_num) {
 			return true;
@@ -40,7 +48,6 @@ public class CountsAndFlags {
 			pressing_flags[index] = flag;
 		}
 	}
-
 	public int GetPressingCount(int index) {
 		int ret = 0;
 

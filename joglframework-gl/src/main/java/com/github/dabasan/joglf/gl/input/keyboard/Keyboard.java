@@ -71,6 +71,34 @@ public class Keyboard implements KeyListener {
 		tab_key = new CountsAndFlags(1);
 	}
 
+	public void Reset() {
+		alphabet_keys.Reset();
+		arrow_keys.Reset();
+		function_keys.Reset();
+		num_keys.Reset();
+		numpad_keys.Reset();
+
+		alt_key.Reset();
+		at_key.Reset();
+		back_slash_key.Reset();
+		back_space_key.Reset();
+		colon_key.Reset();
+		comma_key.Reset();
+		ctrl_key.Reset();
+		delete_key.Reset();
+		enter_key.Reset();
+		escape_key.Reset();
+		home_key.Reset();
+		minus_key.Reset();
+		num_lock_key.Reset();
+		period_key.Reset();
+		semicolon_key.Reset();
+		shift_key.Reset();
+		slash_key.Reset();
+		space_key.Reset();
+		tab_key.Reset();
+	}
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.isAutoRepeat() == true) {

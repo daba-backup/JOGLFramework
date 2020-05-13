@@ -42,12 +42,7 @@ import com.jogamp.opengl.util.FPSAnimator;
  * @author Daba
  *
  */
-public class JOGLFWindow
-		implements
-			JOGLFWindowInterface,
-			GLEventListener,
-			KeyListener,
-			MouseListener {
+public class JOGLFWindow implements JOGLFWindowInterface, GLEventListener, KeyListener, MouseListener {
 	private final Logger logger = LoggerFactory.getLogger(JOGLFWindow.class);
 
 	private final GLWindow window;
@@ -64,13 +59,11 @@ public class JOGLFWindow
 
 	public JOGLFWindow() {
 		final String profile_str = GLFront.GetProfileStr();
-		final GLCapabilities capabilities = new GLCapabilities(
-				GLProfile.get(profile_str));
+		final GLCapabilities capabilities = new GLCapabilities(GLProfile.get(profile_str));
 
 		window = GLWindow.create(capabilities);
 		window.setTitle(WindowCommonInfo.DEFAULT_TITLE);
-		window.setSize(WindowCommonInfo.DEFAULT_WIDTH,
-				WindowCommonInfo.DEFAULT_HEIGHT);
+		window.setSize(WindowCommonInfo.DEFAULT_WIDTH, WindowCommonInfo.DEFAULT_HEIGHT);
 		window.addGLEventListener(this);
 		window.addKeyListener(this);
 		window.addMouseListener(this);
@@ -119,16 +112,19 @@ public class JOGLFWindow
 		public WindowCloser(GLWindow window) {
 			this.window = window;
 		}
+
 		@Override
 		public void run() {
 			window.destroy();
 		}
 	}
+
 	@Override
 	public void CloseWindow() {
 		final WindowCloser closer = new WindowCloser(window);
 		closer.start();
 	}
+
 	@Override
 	public void SetExitProcessWhenDestroyed() {
 		window.removeWindowListener(adapter);
@@ -145,13 +141,21 @@ public class JOGLFWindow
 		window.addWindowListener(adapter);
 	}
 
+	public void ResetKeyboardInputState() {
+		keyboard.Reset();
+	}
+
+	public void ResetMouseInputState() {
+		mouse.Reset();
+	}
+
 	public void AddChildWindow(JOGLFWindow child) {
 		window.addChild(child.window);
 	}
 
 	protected void ClearDrawScreen() {
-		GLWrapper.glClearColor(background_color.GetR(), background_color.GetG(),
-				background_color.GetB(), background_color.GetA());
+		GLWrapper.glClearColor(background_color.GetR(), background_color.GetG(), background_color.GetB(),
+				background_color.GetA());
 		GLWrapper.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 	}
 
@@ -159,38 +163,47 @@ public class JOGLFWindow
 	public String GetTitle() {
 		return window.getTitle();
 	}
+
 	@Override
 	public int GetX() {
 		return window.getX();
 	}
+
 	@Override
 	public int GetY() {
 		return window.getY();
 	}
+
 	@Override
 	public int GetWidth() {
 		return window.getWidth();
 	}
+
 	@Override
 	public int GetHeight() {
 		return window.getHeight();
 	}
+
 	@Override
 	public ColorU8 GetBackgroundColor() {
 		return new ColorU8(background_color);
 	}
+
 	@Override
 	public void SetTitle(String title) {
 		window.setTitle(title);
 	}
+
 	@Override
 	public void SetPosition(int x, int y) {
 		window.setPosition(x, y);
 	}
+
 	@Override
 	public void SetSize(int width, int height) {
 		window.setSize(width, height);
 	}
+
 	@Override
 	public void SetBackgroundColor(ColorU8 color) {
 		background_color = color;
@@ -200,6 +213,7 @@ public class JOGLFWindow
 	public boolean HasFocus() {
 		return window.hasFocus();
 	}
+
 	@Override
 	public boolean IsDestroyed() {
 		return destroyed_flag;
@@ -209,13 +223,16 @@ public class JOGLFWindow
 	public void ShowWindow() {
 		window.setVisible(true);
 	}
+
 	@Override
 	public void HideWindow() {
 		window.setVisible(false);
 	}
+
 	public void ShowCursor() {
 		window.setPointerVisible(true);
 	}
+
 	public void HideCursor() {
 		window.setPointerVisible(false);
 	}
@@ -228,10 +245,12 @@ public class JOGLFWindow
 			window.setFullscreen(true);
 		}
 	}
+
 	@Override
 	public void SetAlwaysOnTop(boolean flag) {
 		window.setAlwaysOnTop(flag);
 	}
+
 	public void SetAlwaysOnBottom(boolean flag) {
 		window.setAlwaysOnBottom(flag);
 	}
@@ -240,18 +259,22 @@ public class JOGLFWindow
 	public int GetKeyboardPressingCount(KeyboardEnum key) {
 		return keyboard.GetPressingCount(key);
 	}
+
 	@Override
 	public int GetKeyboardReleasingCount(KeyboardEnum key) {
 		return keyboard.GetReleasingCount(key);
 	}
+
 	@Override
 	public int GetMousePressingCount(MouseEnum key) {
 		return mouse.GetButtonPressingCount(key);
 	}
+
 	@Override
 	public int GetMouseReleasingCount(MouseEnum key) {
 		return mouse.GetButtonReleasingCount(key);
 	}
+
 	@Override
 	public int GetCursorX() {
 		final int x = this.GetX();
@@ -260,6 +283,7 @@ public class JOGLFWindow
 
 		return cursor_window_x;
 	}
+
 	@Override
 	public int GetCursorY() {
 		final int y = this.GetY();
@@ -268,14 +292,17 @@ public class JOGLFWindow
 
 		return cursor_window_y;
 	}
+
 	@Override
 	public int GetCursorDiffX() {
 		return mouse.GetDiffX();
 	}
+
 	@Override
 	public int GetCursorDiffY() {
 		return mouse.GetDiffY();
 	}
+
 	@Override
 	public void SetCursorPos(int x, int y) {
 		final int window_x = this.GetX();
@@ -287,10 +314,12 @@ public class JOGLFWindow
 	public float GetMouseWheelVerticalRotation() {
 		return mouse.GetVerticalRotation();
 	}
+
 	@Override
 	public float GetMouseWheelHorizontalRotation() {
 		return mouse.GetHorizontalRotation();
 	}
+
 	public float GetMouseWheelZAxisRotation() {
 		return mouse.GetZAxisRotation();
 	}
@@ -302,13 +331,14 @@ public class JOGLFWindow
 		this.Init();
 		GLFront.Unlock();
 	}
+
 	@Override
-	public void reshape(GLAutoDrawable drawable, int x, int y, int width,
-			int height) {
+	public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
 		GLFront.Lock();
 		this.Reshape(x, y, width, height);
 		GLFront.Unlock();
 	}
+
 	@Override
 	public void display(GLAutoDrawable drawable) {
 		if (destroyed_flag == true) {
@@ -341,6 +371,7 @@ public class JOGLFWindow
 
 		GLFront.Unlock();
 	}
+
 	@Override
 	public void dispose(GLAutoDrawable drawable) {
 		GLFront.Lock();
@@ -357,24 +388,28 @@ public class JOGLFWindow
 	public void Init() {
 
 	}
+
 	@Override
 	public void Reshape(int x, int y, int width, int height) {
 
 	}
+
 	@Override
 	public void Update() {
-		CameraFront.SetCameraPositionAndTarget_UpVecY(
-				VectorFunctions.VGet(50.0f, 50.0f, 50.0f),
+		CameraFront.SetCameraPositionAndTarget_UpVecY(VectorFunctions.VGet(50.0f, 50.0f, 50.0f),
 				VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
 	}
+
 	@Override
 	public void Draw() {
 		DrawFunctions3D.DrawAxes(100.0f);
 	}
+
 	@Override
 	public void Dispose() {
 
 	}
+
 	@Override
 	public void OnWindowClosing() {
 
@@ -384,6 +419,7 @@ public class JOGLFWindow
 	public void keyPressed(KeyEvent e) {
 		keyboard.keyPressed(e);
 	}
+
 	@Override
 	public void keyReleased(KeyEvent e) {
 		keyboard.keyReleased(e);
@@ -393,30 +429,37 @@ public class JOGLFWindow
 	public void mouseClicked(MouseEvent e) {
 		mouse.mouseClicked(e);
 	}
+
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		mouse.mouseDragged(e);
 	}
+
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		mouse.mouseEntered(e);
 	}
+
 	@Override
 	public void mouseExited(MouseEvent e) {
 		mouse.mouseExited(e);
 	}
+
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		mouse.mouseMoved(e);
 	}
+
 	@Override
 	public void mousePressed(MouseEvent e) {
 		mouse.mousePressed(e);
 	}
+
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		mouse.mouseReleased(e);
 	}
+
 	@Override
 	public void mouseWheelMoved(MouseEvent e) {
 		mouse.mouseWheelMoved(e);
