@@ -238,7 +238,7 @@ public class ShaderProgram {
 
 		final FloatBuffer buffer = BufferFunctions
 				.MakeFloatBufferFromMatrix(value);
-		GLWrapper.glUniformMatrix4fv(location, 1, transpose, buffer);
+		GLWrapper.glUniformMatrixv(location, 1, transpose, buffer);
 
 		return 0;
 	}
