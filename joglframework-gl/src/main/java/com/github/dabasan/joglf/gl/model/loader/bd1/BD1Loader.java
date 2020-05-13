@@ -1,7 +1,6 @@
 package com.github.dabasan.joglf.gl.model.loader.bd1;
 
 import java.io.IOException;
-import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
@@ -120,10 +119,10 @@ public class BD1Loader {
 				}
 			}
 
-			((Buffer) indices_buffer).flip();
-			((Buffer) pos_buffer).flip();
-			((Buffer) uv_buffer).flip();
-			((Buffer) norm_buffer).flip();
+			indices_buffer.flip();
+			pos_buffer.flip();
+			uv_buffer.flip();
+			norm_buffer.flip();
 
 			buffered_vertices.SetIndicesBuffer(indices_buffer);
 			buffered_vertices.SetPosBuffer(pos_buffer);
@@ -214,10 +213,10 @@ public class BD1Loader {
 				norm_buffer.put(normal.GetZ());
 			}
 
-			((Buffer) indices_buffer).flip();
-			((Buffer) pos_buffer).flip();
-			((Buffer) uv_buffer).flip();
-			((Buffer) norm_buffer).flip();
+			indices_buffer.flip();
+			pos_buffer.flip();
+			uv_buffer.flip();
+			norm_buffer.flip();
 
 			buffered_vertices.SetIndicesBuffer(indices_buffer);
 			buffered_vertices.SetPosBuffer(pos_buffer);

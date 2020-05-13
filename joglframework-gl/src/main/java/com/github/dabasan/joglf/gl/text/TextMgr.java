@@ -142,7 +142,7 @@ public class TextMgr {
 		final PMVMatrix pmv = region_renderer.getMatrix();
 		pmv.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
 		pmv.glLoadIdentity();
-		pmv.glTranslatef((float) x, (float) y, -1.0f);
+		pmv.glTranslatef(x, y, -1.0f);
 
 		render_state.setColorStatic(color.GetR(), color.GetG(), color.GetB(),
 				color.GetA());

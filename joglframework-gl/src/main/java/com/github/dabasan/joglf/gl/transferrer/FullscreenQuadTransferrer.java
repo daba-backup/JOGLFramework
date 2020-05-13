@@ -1,6 +1,5 @@
 package com.github.dabasan.joglf.gl.transferrer;
 
-import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
@@ -41,7 +40,7 @@ public class FullscreenQuadTransferrer
 		indices_buffer.put(2);
 		indices_buffer.put(3);
 		indices_buffer.put(0);
-		((Buffer) indices_buffer).flip();
+		indices_buffer.flip();
 
 		// Bottom left
 		pos_buffer.put(-1.0f);
@@ -55,7 +54,7 @@ public class FullscreenQuadTransferrer
 		// Top left
 		pos_buffer.put(-1.0f);
 		pos_buffer.put(1.0f);
-		((Buffer) pos_buffer).flip();
+		pos_buffer.flip();
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
 		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,

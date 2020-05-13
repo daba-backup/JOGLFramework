@@ -1,6 +1,5 @@
 package com.github.dabasan.joglf.gl.drawer;
 
-import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.List;
@@ -73,8 +72,8 @@ public class DynamicPointsDrawer extends Dynamic3DDrawer {
 			dif_buffer.put(dif.GetB());
 			dif_buffer.put(dif.GetA());
 		}
-		((Buffer) pos_buffer).flip();
-		((Buffer) dif_buffer).flip();
+		pos_buffer.flip();
+		dif_buffer.flip();
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
 		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,

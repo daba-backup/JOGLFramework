@@ -108,7 +108,7 @@ public class SwingMouse
 	}
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		rotation = (float) e.getWheelRotation() * (-1.0f);
+		rotation = e.getWheelRotation() * (-1.0f);
 	}
 
 	public int GetDiffX() {

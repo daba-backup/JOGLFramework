@@ -2,7 +2,6 @@ package com.github.dabasan.joglf.gl.texture;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
@@ -134,10 +133,10 @@ public class TextureMgr {
 			data_b.put(data.get());
 			data_a.put(data.get());
 		}
-		((Buffer) data_r).flip();
-		((Buffer) data_g).flip();
-		((Buffer) data_b).flip();
-		((Buffer) data_a).flip();
+		data_r.flip();
+		data_g.flip();
+		data_b.flip();
+		data_a.flip();
 
 		final ByteBuffer flipped_data = Buffers
 				.newDirectByteBuffer(width * height * 4);
@@ -172,7 +171,7 @@ public class TextureMgr {
 		} else {
 			return 0;
 		}
-		((Buffer) flipped_data).flip();
+		flipped_data.flip();
 
 		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, texture_object);
 		GLWrapper.glTexImage2D(GL.GL_TEXTURE_2D, 0, GL.GL_RGBA, width, height,

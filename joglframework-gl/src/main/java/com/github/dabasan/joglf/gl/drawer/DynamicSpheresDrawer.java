@@ -1,6 +1,5 @@
 package com.github.dabasan.joglf.gl.drawer;
 
-import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
@@ -92,14 +91,12 @@ public class DynamicSpheresDrawer extends Dynamic3DDrawer {
 
 			// Middle
 			for (int i = 1; i < stack_num; i++) {
-				final float ph = (float) Math.PI * (float) i
-						/ (float) stack_num;
+				final float ph = (float) Math.PI * i / stack_num;
 				final float y = (float) Math.cos(ph);
 				final float r = (float) Math.sin(ph);
 
 				for (int j = 0; j < slice_num; j++) {
-					final float th = 2.0f * (float) Math.PI * (float) j
-							/ (float) slice_num;
+					final float th = 2.0f * (float) Math.PI * j / slice_num;
 					final float x = r * (float) Math.cos(th);
 					final float z = r * (float) Math.sin(th);
 
@@ -194,9 +191,9 @@ public class DynamicSpheresDrawer extends Dynamic3DDrawer {
 				dif_buffer.put(color_a);
 			}
 
-			((Buffer) indices_buffer).flip();
-			((Buffer) pos_buffer).flip();
-			((Buffer) dif_buffer).flip();
+			indices_buffer.flip();
+			pos_buffer.flip();
+			dif_buffer.flip();
 
 			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER,
 					pos_vbo.get(buffer_count));

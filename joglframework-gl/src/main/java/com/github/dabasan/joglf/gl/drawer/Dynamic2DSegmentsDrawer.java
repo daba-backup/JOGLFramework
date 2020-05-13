@@ -1,7 +1,6 @@
 package com.github.dabasan.joglf.gl.drawer;
 
 import java.awt.Point;
-import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.List;
@@ -85,8 +84,8 @@ public class Dynamic2DSegmentsDrawer extends Dynamic2DDrawer {
 				dif_buffer.put(dif.GetA());
 			}
 		}
-		((Buffer) pos_buffer).flip();
-		((Buffer) dif_buffer).flip();
+		pos_buffer.flip();
+		dif_buffer.flip();
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
 		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,

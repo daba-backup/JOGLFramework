@@ -1,6 +1,5 @@
 package com.github.dabasan.joglf.gl.drawer;
 
-import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.List;
@@ -89,9 +88,9 @@ public class DynamicTrianglesDrawer extends Dynamic3DDrawer {
 				norm_buffer.put(normal.GetZ());
 			}
 		}
-		((Buffer) pos_buffer).flip();
-		((Buffer) uv_buffer).flip();
-		((Buffer) norm_buffer).flip();
+		pos_buffer.flip();
+		uv_buffer.flip();
+		norm_buffer.flip();
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
 		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,

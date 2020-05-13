@@ -1,7 +1,6 @@
 package com.github.dabasan.joglf.gl.drawer;
 
 import java.awt.Point;
-import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.HashMap;
@@ -123,8 +122,8 @@ public class Dynamic2DFilledCirclesDrawer extends Dynamic2DDrawer {
 				dif_buffer.put(color_a);
 			}
 
-			((Buffer) pos_buffer).flip();
-			((Buffer) dif_buffer).flip();
+			pos_buffer.flip();
+			dif_buffer.flip();
 
 			final IntBuffer indices_buffer = Buffers
 					.newDirectIntBuffer(3 * div_num);
@@ -137,7 +136,7 @@ public class Dynamic2DFilledCirclesDrawer extends Dynamic2DDrawer {
 			indices_buffer.put(1);
 			indices_buffer.put(0);
 
-			((Buffer) indices_buffer).flip();
+			indices_buffer.flip();
 
 			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(count));
 			GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,

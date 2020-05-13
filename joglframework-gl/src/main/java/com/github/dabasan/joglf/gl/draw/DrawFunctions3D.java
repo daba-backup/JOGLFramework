@@ -1,6 +1,5 @@
 package com.github.dabasan.joglf.gl.draw;
 
-import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
@@ -58,8 +57,8 @@ public class DrawFunctions3D {
 		color_buffer.put(color_2.GetB());
 		color_buffer.put(color_2.GetA());
 
-		((Buffer) pos_buffer).flip();
-		((Buffer) color_buffer).flip();
+		pos_buffer.flip();
+		color_buffer.flip();
 
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
@@ -165,8 +164,8 @@ public class DrawFunctions3D {
 			color_buffer.put(dif.GetB());
 			color_buffer.put(dif.GetA());
 		}
-		((Buffer) pos_buffer).flip();
-		((Buffer) color_buffer).flip();
+		pos_buffer.flip();
+		color_buffer.flip();
 
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
@@ -248,8 +247,8 @@ public class DrawFunctions3D {
 			color_buffer.put(dif.GetB());
 			color_buffer.put(dif.GetA());
 		}
-		((Buffer) pos_buffer).flip();
-		((Buffer) color_buffer).flip();
+		pos_buffer.flip();
+		color_buffer.flip();
 
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
@@ -324,13 +323,12 @@ public class DrawFunctions3D {
 
 		// Middle
 		for (int i = 1; i < stack_num; i++) {
-			final float ph = (float) Math.PI * (float) i / (float) stack_num;
+			final float ph = (float) Math.PI * i / stack_num;
 			final float y = (float) Math.cos(ph);
 			final float r = (float) Math.sin(ph);
 
 			for (int j = 0; j < slice_num; j++) {
-				final float th = 2.0f * (float) Math.PI * (float) j
-						/ (float) slice_num;
+				final float th = 2.0f * (float) Math.PI * j / slice_num;
 				final float x = r * (float) Math.cos(th);
 				final float z = r * (float) Math.sin(th);
 
@@ -431,9 +429,9 @@ public class DrawFunctions3D {
 			color_buffer.put(color_a);
 		}
 
-		((Buffer) indices_buffer).flip();
-		((Buffer) pos_buffer).flip();
-		((Buffer) color_buffer).flip();
+		indices_buffer.flip();
+		pos_buffer.flip();
+		color_buffer.flip();
 
 		GLWrapper.glGenBuffers(1, indices_vbo);
 		GLWrapper.glGenBuffers(1, pos_vbo);
@@ -508,13 +506,12 @@ public class DrawFunctions3D {
 
 		// Middle
 		for (int i = 1; i < stack_num / 2; i++) {
-			final float ph = (float) Math.PI * (float) i / (float) stack_num;
+			final float ph = (float) Math.PI * i / stack_num;
 			final float y = radius * (float) Math.cos(ph) + half_d;
 			final float r = radius * (float) Math.sin(ph);
 
 			for (int j = 0; j < slice_num; j++) {
-				final float th = 2.0f * (float) Math.PI * (float) j
-						/ (float) slice_num;
+				final float th = 2.0f * (float) Math.PI * j / slice_num;
 				final float x = r * (float) Math.cos(th);
 				final float z = r * (float) Math.sin(th);
 
@@ -522,13 +519,12 @@ public class DrawFunctions3D {
 			}
 		}
 		for (int i = stack_num / 2; i < stack_num; i++) {
-			final float ph = (float) Math.PI * (float) i / (float) stack_num;
+			final float ph = (float) Math.PI * i / stack_num;
 			final float y = radius * (float) Math.cos(ph) - half_d;
 			final float r = radius * (float) Math.sin(ph);
 
 			for (int j = 0; j < slice_num; j++) {
-				final float th = 2.0f * (float) Math.PI * (float) j
-						/ (float) slice_num;
+				final float th = 2.0f * (float) Math.PI * j / slice_num;
 				final float x = r * (float) Math.cos(th);
 				final float z = r * (float) Math.sin(th);
 
@@ -634,9 +630,9 @@ public class DrawFunctions3D {
 			color_buffer.put(color_a);
 		}
 
-		((Buffer) indices_buffer).flip();
-		((Buffer) pos_buffer).flip();
-		((Buffer) color_buffer).flip();
+		indices_buffer.flip();
+		pos_buffer.flip();
+		color_buffer.flip();
 
 		GLWrapper.glGenBuffers(1, indices_vbo);
 		GLWrapper.glGenBuffers(1, pos_vbo);
@@ -731,9 +727,9 @@ public class DrawFunctions3D {
 				norm_buffer.put(norm.GetZ());
 			}
 		}
-		((Buffer) pos_buffer).flip();
-		((Buffer) uv_buffer).flip();
-		((Buffer) norm_buffer).flip();
+		pos_buffer.flip();
+		uv_buffer.flip();
+		norm_buffer.flip();
 
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, uv_vbo);
@@ -815,7 +811,7 @@ public class DrawFunctions3D {
 		indices_buffer.put(2);
 		indices_buffer.put(3);
 		indices_buffer.put(0);
-		((Buffer) indices_buffer).flip();
+		indices_buffer.flip();
 
 		// Calculate the face normal.
 		final Vector v1 = VectorFunctions.VSub(vertices[1].GetPos(),
@@ -848,9 +844,9 @@ public class DrawFunctions3D {
 				norm_buffer.put(norm.GetZ());
 			}
 		}
-		((Buffer) pos_buffer).flip();
-		((Buffer) uv_buffer).flip();
-		((Buffer) norm_buffer).flip();
+		pos_buffer.flip();
+		uv_buffer.flip();
+		norm_buffer.flip();
 
 		GLWrapper.glGenBuffers(1, indices_vbo);
 		GLWrapper.glGenBuffers(1, pos_vbo);

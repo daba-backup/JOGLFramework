@@ -1,6 +1,5 @@
 package com.github.dabasan.joglf.gl.draw;
 
-import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
@@ -87,8 +86,8 @@ public class DrawFunctions2D {
 			color_buffer.put(color_a);
 		}
 
-		((Buffer) pos_buffer).flip();
-		((Buffer) color_buffer).flip();
+		pos_buffer.flip();
+		color_buffer.flip();
 
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
@@ -191,8 +190,8 @@ public class DrawFunctions2D {
 			color_buffer.put(color_a);
 		}
 
-		((Buffer) pos_buffer).flip();
-		((Buffer) color_buffer).flip();
+		pos_buffer.flip();
+		color_buffer.flip();
 
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
@@ -282,8 +281,8 @@ public class DrawFunctions2D {
 			color_buffer.put(color_a);
 		}
 
-		((Buffer) pos_buffer).flip();
-		((Buffer) color_buffer).flip();
+		pos_buffer.flip();
+		color_buffer.flip();
 
 		final IntBuffer indices_buffer = Buffers.newDirectIntBuffer(3 * 2);
 		indices_buffer.put(0);
@@ -292,7 +291,7 @@ public class DrawFunctions2D {
 		indices_buffer.put(2);
 		indices_buffer.put(3);
 		indices_buffer.put(0);
-		((Buffer) indices_buffer).flip();
+		indices_buffer.flip();
 
 		GLWrapper.glGenBuffers(1, indices_vbo);
 		GLWrapper.glGenBuffers(1, pos_vbo);
@@ -385,8 +384,8 @@ public class DrawFunctions2D {
 			color_buffer.put(color_a);
 		}
 
-		((Buffer) pos_buffer).flip();
-		((Buffer) color_buffer).flip();
+		pos_buffer.flip();
+		color_buffer.flip();
 
 		GLWrapper.glGenBuffers(1, pos_vbo);
 		GLWrapper.glGenBuffers(1, color_vbo);
@@ -478,8 +477,8 @@ public class DrawFunctions2D {
 			color_buffer.put(color_a);
 		}
 
-		((Buffer) pos_buffer).flip();
-		((Buffer) color_buffer).flip();
+		pos_buffer.flip();
+		color_buffer.flip();
 
 		final IntBuffer indices_buffer = Buffers
 				.newDirectIntBuffer(3 * div_num);
@@ -492,7 +491,7 @@ public class DrawFunctions2D {
 		indices_buffer.put(1);
 		indices_buffer.put(0);
 
-		((Buffer) indices_buffer).flip();
+		indices_buffer.flip();
 
 		GLWrapper.glGenBuffers(1, indices_vbo);
 		GLWrapper.glGenBuffers(1, pos_vbo);
@@ -582,9 +581,9 @@ public class DrawFunctions2D {
 		uv_buffer.put(0.0f);
 		uv_buffer.put(1.0f);
 
-		((Buffer) indices).flip();
-		((Buffer) pos_buffer).flip();
-		((Buffer) uv_buffer).flip();
+		indices.flip();
+		pos_buffer.flip();
+		uv_buffer.flip();
 
 		final IntBuffer indices_vbo = Buffers.newDirectIntBuffer(1);
 		final IntBuffer pos_vbo = Buffers.newDirectIntBuffer(1);
@@ -680,9 +679,9 @@ public class DrawFunctions2D {
 		uv_buffer.put(top_left_u);
 		uv_buffer.put(top_left_v);
 
-		((Buffer) indices).flip();
-		((Buffer) pos_buffer).flip();
-		((Buffer) uv_buffer).flip();
+		indices.flip();
+		pos_buffer.flip();
+		uv_buffer.flip();
 
 		final IntBuffer indices_vbo = Buffers.newDirectIntBuffer(1);
 		final IntBuffer pos_vbo = Buffers.newDirectIntBuffer(1);
