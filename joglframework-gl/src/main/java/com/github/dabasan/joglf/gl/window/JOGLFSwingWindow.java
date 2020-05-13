@@ -53,9 +53,16 @@ import com.jogamp.opengl.util.FPSAnimator;
  * @author Daba
  *
  */
-public class JOGLFSwingWindow implements JOGLFWindowInterface, GLEventListener, KeyListener, MouseListener,
-		MouseMotionListener, MouseWheelListener {
-	private final Logger logger = LoggerFactory.getLogger(JOGLFSwingWindow.class);
+public class JOGLFSwingWindow
+		implements
+			JOGLFWindowInterface,
+			GLEventListener,
+			KeyListener,
+			MouseListener,
+			MouseMotionListener,
+			MouseWheelListener {
+	private final Logger logger = LoggerFactory
+			.getLogger(JOGLFSwingWindow.class);
 
 	private final JFrame frame;
 	private WindowAdapter adapter;
@@ -72,7 +79,8 @@ public class JOGLFSwingWindow implements JOGLFWindowInterface, GLEventListener, 
 
 	public JOGLFSwingWindow() {
 		final String profile_str = GLFront.GetProfileStr();
-		final GLCapabilities capabilities = new GLCapabilities(GLProfile.get(profile_str));
+		final GLCapabilities capabilities = new GLCapabilities(
+				GLProfile.get(profile_str));
 
 		frame = new JFrame();
 		frame.setTitle(WindowCommonInfo.DEFAULT_TITLE);
@@ -93,7 +101,8 @@ public class JOGLFSwingWindow implements JOGLFWindowInterface, GLEventListener, 
 		frame.addMouseWheelListener(this);
 
 		canvas = new GLCanvas(capabilities);
-		canvas.setPreferredSize(new Dimension(WindowCommonInfo.DEFAULT_WIDTH, WindowCommonInfo.DEFAULT_HEIGHT));
+		canvas.setPreferredSize(new Dimension(WindowCommonInfo.DEFAULT_WIDTH,
+				WindowCommonInfo.DEFAULT_HEIGHT));
 		canvas.addGLEventListener(this);
 		canvas.addKeyListener(this);
 		canvas.addMouseListener(this);
@@ -129,7 +138,6 @@ public class JOGLFSwingWindow implements JOGLFWindowInterface, GLEventListener, 
 	protected JFrame GetFrame() {
 		return frame;
 	}
-
 	protected GLCanvas GetCanvas() {
 		return canvas;
 	}
@@ -143,17 +151,16 @@ public class JOGLFSwingWindow implements JOGLFWindowInterface, GLEventListener, 
 
 		@Override
 		public void run() {
-			frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+			frame.dispatchEvent(
+					new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 			frame.dispose();
 		}
 	}
-
 	@Override
 	public void CloseWindow() {
 		final WindowCloser closer = new WindowCloser(frame);
 		closer.start();
 	}
-
 	@Override
 	public void SetExitProcessWhenDestroyed() {
 		frame.removeWindowListener(adapter);
@@ -173,14 +180,13 @@ public class JOGLFSwingWindow implements JOGLFWindowInterface, GLEventListener, 
 	public void ResetKeyboardInputState() {
 		keyboard.Reset();
 	}
-
 	public void ResetMouseInputState() {
 		mouse.Reset();
 	}
 
 	protected void ClearDrawScreen() {
-		GLWrapper.glClearColor(background_color.GetR(), background_color.GetG(), background_color.GetB(),
-				background_color.GetA());
+		GLWrapper.glClearColor(background_color.GetR(), background_color.GetG(),
+				background_color.GetB(), background_color.GetA());
 		GLWrapper.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 	}
 
@@ -188,63 +194,52 @@ public class JOGLFSwingWindow implements JOGLFWindowInterface, GLEventListener, 
 	public String GetTitle() {
 		return frame.getTitle();
 	}
-
 	@Override
 	public int GetX() {
 		return frame.getX();
 	}
-
 	@Override
 	public int GetY() {
 		return frame.getY();
 	}
-
 	@Override
 	public int GetWidth() {
 		return frame.getWidth();
 	}
-
 	@Override
 	public int GetHeight() {
 		return frame.getHeight();
 	}
-
 	public Point GetCanvasLocation() {
 		final Point point = canvas.getLocationOnScreen();
 		return point;
 	}
-
 	public int GetCanvasX() {
 		final Point point = canvas.getLocationOnScreen();
 		return point.x;
 	}
-
 	public int GetCanvasY() {
 		final Point point = canvas.getLocationOnScreen();
 		return point.y;
 	}
-
 	public Dimension GetCanvasSize() {
 		final Container content_pane = frame.getContentPane();
 		final Dimension dimension = content_pane.getSize();
 
 		return dimension;
 	}
-
 	public int GetCanvasWidth() {
 		final Container content_pane = frame.getContentPane();
 		final Dimension dimension = content_pane.getSize();
 
 		return dimension.width;
 	}
-
 	public int GetCanvasHeight() {
 		final Container content_pane = frame.getContentPane();
 		final Dimension dimension = content_pane.getSize();
 
 		return dimension.height;
 	}
-
 	@Override
 	public ColorU8 GetBackgroundColor() {
 		return new ColorU8(background_color);
@@ -254,22 +249,18 @@ public class JOGLFSwingWindow implements JOGLFWindowInterface, GLEventListener, 
 	public void SetTitle(String title) {
 		frame.setTitle(title);
 	}
-
 	@Override
 	public void SetPosition(int x, int y) {
 		frame.setLocation(x, y);
 	}
-
 	@Override
 	public void SetSize(int width, int height) {
 		frame.setSize(width, height);
 	}
-
 	public void SetCanvasSize(int width, int height) {
 		canvas.setPreferredSize(new Dimension(width, height));
 		frame.pack();
 	}
-
 	@Override
 	public void SetBackgroundColor(ColorU8 color) {
 		background_color = color;
@@ -279,7 +270,6 @@ public class JOGLFSwingWindow implements JOGLFWindowInterface, GLEventListener, 
 	public boolean HasFocus() {
 		return frame.hasFocus();
 	}
-
 	@Override
 	public boolean IsDestroyed() {
 		return destroyed_flag;
@@ -289,7 +279,6 @@ public class JOGLFSwingWindow implements JOGLFWindowInterface, GLEventListener, 
 	public void ShowWindow() {
 		frame.setVisible(true);
 	}
-
 	@Override
 	public void HideWindow() {
 		frame.setVisible(false);
@@ -297,14 +286,16 @@ public class JOGLFSwingWindow implements JOGLFWindowInterface, GLEventListener, 
 
 	@Override
 	public void SetWindowMode(WindowMode mode) {
-		final GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		final GraphicsEnvironment environment = GraphicsEnvironment
+				.getLocalGraphicsEnvironment();
 		final GraphicsDevice device = environment.getDefaultScreenDevice();
 
 		if (mode == WindowMode.WINDOW) {
 			device.setFullScreenWindow(null);
 		} else {
 			if (device.isFullScreenSupported() == false) {
-				logger.warn("Full-screen mode is not supported on this system.");
+				logger.warn(
+						"Full-screen mode is not supported on this system.");
 				return;
 			} else {
 				device.setFullScreenWindow(frame);
@@ -321,17 +312,14 @@ public class JOGLFSwingWindow implements JOGLFWindowInterface, GLEventListener, 
 	public int GetKeyboardPressingCount(KeyboardEnum key) {
 		return keyboard.GetPressingCount(key);
 	}
-
 	@Override
 	public int GetKeyboardReleasingCount(KeyboardEnum key) {
 		return keyboard.GetReleasingCount(key);
 	}
-
 	@Override
 	public int GetMousePressingCount(MouseEnum key) {
 		return mouse.GetButtonPressingCount(key);
 	}
-
 	@Override
 	public int GetMouseReleasingCount(MouseEnum key) {
 		return mouse.GetButtonReleasingCount(key);
@@ -345,7 +333,6 @@ public class JOGLFSwingWindow implements JOGLFWindowInterface, GLEventListener, 
 
 		return cursor_window_x;
 	}
-
 	@Override
 	public int GetCursorY() {
 		final int y = this.GetY();
@@ -354,12 +341,10 @@ public class JOGLFSwingWindow implements JOGLFWindowInterface, GLEventListener, 
 
 		return cursor_window_y;
 	}
-
 	@Override
 	public int GetCursorDiffX() {
 		return mouse.GetDiffX();
 	}
-
 	@Override
 	public int GetCursorDiffY() {
 		return mouse.GetDiffY();
@@ -385,14 +370,13 @@ public class JOGLFSwingWindow implements JOGLFWindowInterface, GLEventListener, 
 		this.Init();
 		GLFront.Unlock();
 	}
-
 	@Override
-	public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
+	public void reshape(GLAutoDrawable drawable, int x, int y, int width,
+			int height) {
 		GLFront.Lock();
 		this.Reshape(x, y, width, height);
 		GLFront.Unlock();
 	}
-
 	@Override
 	public void display(GLAutoDrawable drawable) {
 		if (destroyed_flag == true) {
@@ -425,7 +409,6 @@ public class JOGLFSwingWindow implements JOGLFWindowInterface, GLEventListener, 
 
 		GLFront.Unlock();
 	}
-
 	@Override
 	public void dispose(GLAutoDrawable drawable) {
 		GLFront.Lock();
@@ -435,35 +418,32 @@ public class JOGLFSwingWindow implements JOGLFWindowInterface, GLEventListener, 
 
 	@Override
 	public void Fit() {
-		GLWrapper.glViewport(0, 0, this.GetCanvasWidth(), this.GetCanvasHeight());
+		GLWrapper.glViewport(0, 0, this.GetCanvasWidth(),
+				this.GetCanvasHeight());
 	}
 
 	@Override
 	public void Init() {
 
 	}
-
 	@Override
 	public void Reshape(int x, int y, int width, int height) {
 
 	}
-
 	@Override
 	public void Update() {
-		CameraFront.SetCameraPositionAndTarget_UpVecY(VectorFunctions.VGet(50.0f, 50.0f, 50.0f),
+		CameraFront.SetCameraPositionAndTarget_UpVecY(
+				VectorFunctions.VGet(50.0f, 50.0f, 50.0f),
 				VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
 	}
-
 	@Override
 	public void Draw() {
 		DrawFunctions3D.DrawAxes(100.0f);
 	}
-
 	@Override
 	public void Dispose() {
 
 	}
-
 	@Override
 	public void OnWindowClosing() {
 
@@ -473,52 +453,42 @@ public class JOGLFSwingWindow implements JOGLFWindowInterface, GLEventListener, 
 	public void keyPressed(KeyEvent e) {
 		keyboard.keyPressed(e);
 	}
-
 	@Override
 	public void keyReleased(KeyEvent e) {
 		keyboard.keyReleased(e);
 	}
-
 	@Override
 	public void keyTyped(KeyEvent e) {
 		keyboard.keyTyped(e);
 	}
-
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		mouse.mouseClicked(e);
 	}
-
 	@Override
 	public void mousePressed(MouseEvent e) {
 		mouse.mousePressed(e);
 	}
-
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		mouse.mouseReleased(e);
 	}
-
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		mouse.mouseEntered(e);
 	}
-
 	@Override
 	public void mouseExited(MouseEvent e) {
 		mouse.mouseExited(e);
 	}
-
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		mouse.mouseMoved(e);
 	}
-
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		mouse.mouseDragged(e);
 	}
-
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		mouse.mouseWheelMoved(e);
