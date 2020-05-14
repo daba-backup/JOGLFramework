@@ -62,16 +62,16 @@ public class FullscreenQuadTransferrerWithUV
 
 		// Bottom left
 		uv_buffer.put(0.0f);
-		uv_buffer.put(0.0f);
+		uv_buffer.put(1.0f);
 		// Bottom right
 		uv_buffer.put(1.0f);
-		uv_buffer.put(0.0f);
+		uv_buffer.put(1.0f);
 		// Top right
 		uv_buffer.put(1.0f);
-		uv_buffer.put(1.0f);
+		uv_buffer.put(0.0f);
 		// Top left
 		uv_buffer.put(0.0f);
-		uv_buffer.put(1.0f);
+		uv_buffer.put(0.0f);
 		uv_buffer.flip();
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
