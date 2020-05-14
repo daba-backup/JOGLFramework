@@ -4,6 +4,10 @@ JOGLFramework (abbr. JOGLF) aims to simplify OpenGL-relating code in Java.
 
 # Overview
 
+## Requirements
+
+Java SE 11+
+
 ## Install
 
 Locate the *Data* folder at the current directory of your program.
@@ -20,7 +24,7 @@ After setting up *Data*, download the required JARs.
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework-gl</artifactId>
-    <version>11.1.0</version>
+    <version>11.2.0</version>
 </dependency>
 ```
 
@@ -30,7 +34,7 @@ After setting up *Data*, download the required JARs.
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework-al</artifactId>
-    <version>11.1.0</version>
+    <version>11.2.0</version>
 </dependency>
 ```
 
