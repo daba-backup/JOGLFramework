@@ -102,7 +102,7 @@ public class Sound3DFunctions {
 
 	public static int DeleteSound(int sound_handle) {
 		if (sounds_map.containsKey(sound_handle) == false) {
-			logger.warn("No such sound. sound_handle={}", sound_handle);
+			logger.trace("No such sound. sound_handle={}", sound_handle);
 			return -1;
 		}
 
@@ -124,7 +124,7 @@ public class Sound3DFunctions {
 
 	public static int SetSoundSourcePosition(int sound_handle, Vector position) {
 		if (sounds_map.containsKey(sound_handle) == false) {
-			logger.warn("No such sound. sound_handle={}", sound_handle);
+			logger.trace("No such sound. sound_handle={}", sound_handle);
 			return -1;
 		}
 
@@ -135,7 +135,7 @@ public class Sound3DFunctions {
 	}
 	public static int SetSoundSourceVelocity(int sound_handle, Vector velocity) {
 		if (sounds_map.containsKey(sound_handle) == false) {
-			logger.warn("No such sound. sound_handle={}", sound_handle);
+			logger.trace("No such sound. sound_handle={}", sound_handle);
 			return -1;
 		}
 
@@ -146,7 +146,7 @@ public class Sound3DFunctions {
 	}
 	public static int SetSoundLoopFlag(int sound_handle, boolean loop_flag) {
 		if (sounds_map.containsKey(sound_handle) == false) {
-			logger.warn("No such sound. sound_handle={}", sound_handle);
+			logger.trace("No such sound. sound_handle={}", sound_handle);
 			return -1;
 		}
 
@@ -157,7 +157,7 @@ public class Sound3DFunctions {
 	}
 	public static int SetSoundReferenceDistance(int sound_handle, float reference_distance) {
 		if (sounds_map.containsKey(sound_handle) == false) {
-			logger.warn("No such sound. sound_handle={}", sound_handle);
+			logger.trace("No such sound. sound_handle={}", sound_handle);
 			return -1;
 		}
 
@@ -168,7 +168,7 @@ public class Sound3DFunctions {
 	}
 	public static int SetSoundMaxDistance(int sound_handle, float max_distance) {
 		if (sounds_map.containsKey(sound_handle) == false) {
-			logger.warn("No such sound. sound_handle={}", sound_handle);
+			logger.trace("No such sound. sound_handle={}", sound_handle);
 			return -1;
 		}
 
@@ -180,7 +180,7 @@ public class Sound3DFunctions {
 
 	public static int PlaySound(int sound_handle) {
 		if (sounds_map.containsKey(sound_handle) == false) {
-			logger.warn("No such sound. sound_handle={}", sound_handle);
+			logger.trace("No such sound. sound_handle={}", sound_handle);
 			return -1;
 		}
 
@@ -191,7 +191,7 @@ public class Sound3DFunctions {
 	}
 	public static int StopSound(int sound_handle) {
 		if (sounds_map.containsKey(sound_handle) == false) {
-			logger.warn("No such sound. sound_handle={}", sound_handle);
+			logger.trace("No such sound. sound_handle={}", sound_handle);
 			return -1;
 		}
 
@@ -202,7 +202,7 @@ public class Sound3DFunctions {
 	}
 	public static int PauseSound(int sound_handle) {
 		if (sounds_map.containsKey(sound_handle) == false) {
-			logger.warn("No such sound. sound_handle={}", sound_handle);
+			logger.trace("No such sound. sound_handle={}", sound_handle);
 			return -1;
 		}
 
@@ -214,7 +214,7 @@ public class Sound3DFunctions {
 
 	public static boolean IsSoundPlaying(int sound_handle) {
 		if (sounds_map.containsKey(sound_handle) == false) {
-			logger.warn("No such sound. sound_handle={}", sound_handle);
+			logger.trace("No such sound. sound_handle={}", sound_handle);
 			return false;
 		}
 
