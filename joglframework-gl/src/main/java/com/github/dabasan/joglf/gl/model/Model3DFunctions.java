@@ -30,8 +30,7 @@ import com.github.dabasan.tool.FilenameFunctions;
  *
  */
 public class Model3DFunctions {
-	private static Logger logger = LoggerFactory
-			.getLogger(Model3DFunctions.class);
+	private static Logger logger = LoggerFactory.getLogger(Model3DFunctions.class);
 
 	private static int count = 0;
 	private static Map<Integer, ModelMgr> models_map = new HashMap<>();
@@ -39,14 +38,14 @@ public class Model3DFunctions {
 
 	private static boolean keep_order_if_possible = false;
 
-	public static void SetKeepOrderIfPossible(
-			boolean a_keep_order_if_possible) {
+	public static void SetKeepOrderIfPossible(boolean a_keep_order_if_possible) {
 		keep_order_if_possible = a_keep_order_if_possible;
 	}
 
 	public static int LoadModel(String model_filename, FlipVOption option) {
-		final String extension = FilenameFunctions
-				.GetFileExtension(model_filename).toLowerCase();
+		logger.info("Start loading a model. model_filename={}", model_filename);
+
+		final String extension = FilenameFunctions.GetFileExtension(model_filename).toLowerCase();
 
 		ModelMgr model;
 		try {
@@ -62,8 +61,7 @@ public class Model3DFunctions {
 					model = LoadOBJ(model_filename, option);
 					break;
 				default :
-					logger.error("Unsupported model format. model_filename={}",
-							model_filename);
+					logger.error("Unsupported model format. extension={}", extension);
 					return -1;
 			}
 		} catch (IOException e) {
@@ -80,26 +78,22 @@ public class Model3DFunctions {
 	public static int LoadModel(String model_filename) {
 		return LoadModel(model_filename, FlipVOption.MUST_FLIP_VERTICALLY);
 	}
-	private static ModelMgr LoadBD1(String model_filename, FlipVOption option)
-			throws IOException {
-		final List<BufferedVertices> buffered_vertices_list = BD1Loader
-				.LoadBD1(model_filename);
+	private static ModelMgr LoadBD1(String model_filename, FlipVOption option) throws IOException {
+		final List<BufferedVertices> buffered_vertices_list = BD1Loader.LoadBD1(model_filename);
 		ModelMgr model = new ModelMgr(buffered_vertices_list, option);
 
 		return model;
 	}
-	private static ModelMgr LoadBD1_KeepOrder(String model_filename,
-			FlipVOption option) throws IOException {
+	private static ModelMgr LoadBD1_KeepOrder(String model_filename, FlipVOption option)
+			throws IOException {
 		final List<BufferedVertices> buffered_vertices_list = BD1Loader
 				.LoadBD1_KeepOrder(model_filename);
 		ModelMgr model = new ModelMgr(buffered_vertices_list, option);
 
 		return model;
 	}
-	private static ModelMgr LoadOBJ(String model_filename, FlipVOption option)
-			throws IOException {
-		final List<BufferedVertices> buffered_vertices_list = OBJLoader
-				.LoadOBJ(model_filename);
+	private static ModelMgr LoadOBJ(String model_filename, FlipVOption option) throws IOException {
+		final List<BufferedVertices> buffered_vertices_list = OBJLoader.LoadOBJ(model_filename);
 		ModelMgr model = new ModelMgr(buffered_vertices_list, option);
 
 		return model;
@@ -193,8 +187,8 @@ public class Model3DFunctions {
 		return 0;
 	}
 
-	public static int DrawModelWithProgram(int model_handle,
-			ShaderProgram program, String sampler_name, int texture_unit) {
+	public static int DrawModelWithProgram(int model_handle, ShaderProgram program,
+			String sampler_name, int texture_unit) {
 		if (models_map.containsKey(model_handle) == false) {
 			logger.trace("No such model. model_handle={}", model_handle);
 			return -1;
@@ -216,8 +210,7 @@ public class Model3DFunctions {
 
 		return 0;
 	}
-	public static int DrawModel(int model_handle, String sampler_name,
-			int texture_unit) {
+	public static int DrawModel(int model_handle, String sampler_name, int texture_unit) {
 		if (models_map.containsKey(model_handle) == false) {
 			logger.trace("No such model. model_handle={}", model_handle);
 			return -1;
@@ -250,8 +243,8 @@ public class Model3DFunctions {
 
 		return 0;
 	}
-	public static int DrawModelElements(int model_handle, String sampler_name,
-			int texture_unit, int bound) {
+	public static int DrawModelElements(int model_handle, String sampler_name, int texture_unit,
+			int bound) {
 		if (models_map.containsKey(model_handle) == false) {
 			logger.trace("No such model. model_handle={}", model_handle);
 			return -1;
@@ -358,8 +351,7 @@ public class Model3DFunctions {
 	 *            Rotation angles
 	 * @return -1 on error and 0 on success
 	 */
-	public static int RotateModelLocally(int model_handle, Vector origin,
-			Vector rotate) {
+	public static int RotateModelLocally(int model_handle, Vector origin, Vector rotate) {
 		if (models_map.containsKey(model_handle) == false) {
 			logger.trace("No such model. model_handle={}", model_handle);
 			return -1;
@@ -369,13 +361,11 @@ public class Model3DFunctions {
 
 		final Vector to_world_origin_vec = VectorFunctions
 				.VSub(VectorFunctions.VGet(0.0f, 0.0f, 0.0f), origin);
-		final Matrix to_world_origin_mat = MatrixFunctions
-				.MGetTranslate(to_world_origin_vec);
+		final Matrix to_world_origin_mat = MatrixFunctions.MGetTranslate(to_world_origin_vec);
 		final Matrix rot_x = MatrixFunctions.MGetRotX(rotate.GetX());
 		final Matrix rot_y = MatrixFunctions.MGetRotY(rotate.GetY());
 		final Matrix rot_z = MatrixFunctions.MGetRotZ(rotate.GetZ());
-		final Matrix to_local_origin_mat = MatrixFunctions
-				.MGetTranslate(origin);
+		final Matrix to_local_origin_mat = MatrixFunctions.MGetTranslate(origin);
 
 		Matrix mat = MatrixFunctions.MMult(rot_x, to_world_origin_mat);
 		mat = MatrixFunctions.MMult(rot_y, mat);
@@ -446,8 +436,8 @@ public class Model3DFunctions {
 		return ret;
 	}
 
-	public static int AttachAnimation(int model_handle, int anim_index,
-			int anim_src_handle, float time) {
+	public static int AttachAnimation(int model_handle, int anim_index, int anim_src_handle,
+			float time) {
 		if (models_map.containsKey(model_handle) == false) {
 			logger.trace("No such model. model_handle={}", model_handle);
 			return -1;
@@ -467,19 +457,15 @@ public class Model3DFunctions {
 		return 0;
 	}
 
-	public static int SetAttachedAnimationTime(int model_handle, int anim_index,
-			float time) {
+	public static int SetAttachedAnimationTime(int model_handle, int anim_index, float time) {
 		if (animation_info_map.containsKey(model_handle) == false) {
-			logger.trace(
-					"No animation info exists for this model. model_handle={}",
-					model_handle);
+			logger.trace("No animation info exists for this model. model_handle={}", model_handle);
 			return -1;
 		}
 
 		final AnimationInfoMap aim = animation_info_map.get(model_handle);
 		if (aim.AnimationInfoExists(anim_index) == false) {
-			logger.trace(
-					"No corresponding animation for this index exists. anim_index={}",
+			logger.trace("No corresponding animation for this index exists. anim_index={}",
 					anim_index);
 			return -1;
 		}
@@ -523,8 +509,7 @@ public class Model3DFunctions {
 
 		final AnimationInfoMap aim = animation_info_map.get(model_handle);
 		if (aim.AnimationInfoExists(anim_index) == false) {
-			logger.trace(
-					"No corresponding animation for this index exists. anim_index={}",
+			logger.trace("No corresponding animation for this index exists. anim_index={}",
 					anim_index);
 			return -1;
 		}
