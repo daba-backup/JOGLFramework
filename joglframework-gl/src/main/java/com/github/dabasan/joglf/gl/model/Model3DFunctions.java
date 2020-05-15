@@ -1,5 +1,6 @@
 package com.github.dabasan.joglf.gl.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,31 +46,33 @@ public class Model3DFunctions {
 
 	public static int LoadModel(String model_filename, FlipVOption option) {
 		final String extension = FilenameFunctions
-				.GetFileExtension(model_filename);
+				.GetFileExtension(model_filename).toLowerCase();
 
-		final int model_handle = count;
-		if (extension.equals("obj") || extension.equals("OBJ")) {
-			final List<BufferedVertices> buffered_vertices_list = OBJLoader
-					.LoadOBJ(model_filename);
-			final ModelMgr model = new ModelMgr(buffered_vertices_list, option);
-
-			models_map.put(model_handle, model);
-		} else if (extension.equals("bd1") || extension.equals("BD1")) {
-			List<BufferedVertices> buffered_vertices_list;
-			if (keep_order_if_possible == false) {
-				buffered_vertices_list = BD1Loader.LoadBD1(model_filename);
-			} else {
-				buffered_vertices_list = BD1Loader
-						.LoadBD1_KeepOrder(model_filename);
+		ModelMgr model;
+		try {
+			switch (extension) {
+				case "bd1" :
+					if (keep_order_if_possible == true) {
+						model = LoadBD1_KeepOrder(model_filename, option);
+					} else {
+						model = LoadBD1(model_filename, option);
+					}
+					break;
+				case "obj" :
+					model = LoadOBJ(model_filename, option);
+					break;
+				default :
+					logger.error("Unsupported model format. model_filename={}",
+							model_filename);
+					return -1;
 			}
-			final ModelMgr model = new ModelMgr(buffered_vertices_list, option);
-
-			models_map.put(model_handle, model);
-		} else {
-			logger.warn("Unsupported model format. extension={}", extension);
+		} catch (IOException e) {
+			logger.error("Failed to load a model.", e);
 			return -1;
 		}
 
+		int model_handle = count;
+		models_map.put(model_handle, model);
 		count++;
 
 		return model_handle;
@@ -77,6 +80,31 @@ public class Model3DFunctions {
 	public static int LoadModel(String model_filename) {
 		return LoadModel(model_filename, FlipVOption.MUST_FLIP_VERTICALLY);
 	}
+	private static ModelMgr LoadBD1(String model_filename, FlipVOption option)
+			throws IOException {
+		final List<BufferedVertices> buffered_vertices_list = BD1Loader
+				.LoadBD1(model_filename);
+		ModelMgr model = new ModelMgr(buffered_vertices_list, option);
+
+		return model;
+	}
+	private static ModelMgr LoadBD1_KeepOrder(String model_filename,
+			FlipVOption option) throws IOException {
+		final List<BufferedVertices> buffered_vertices_list = BD1Loader
+				.LoadBD1_KeepOrder(model_filename);
+		ModelMgr model = new ModelMgr(buffered_vertices_list, option);
+
+		return model;
+	}
+	private static ModelMgr LoadOBJ(String model_filename, FlipVOption option)
+			throws IOException {
+		final List<BufferedVertices> buffered_vertices_list = OBJLoader
+				.LoadOBJ(model_filename);
+		ModelMgr model = new ModelMgr(buffered_vertices_list, option);
+
+		return model;
+	}
+
 	public static int CopyModel(int model_handle) {
 		if (models_map.containsKey(model_handle) == false) {
 			logger.trace("No such model. model_handle={}", model_handle);
