@@ -12,6 +12,7 @@ public class Viewer extends JOGLFWindow {
 	private FreeCamera camera;
 
 	private int model_handle;
+	private int model_handle_2;
 
 	@Override
 	public void Init() {
@@ -22,6 +23,8 @@ public class Viewer extends JOGLFWindow {
 				.LoadModel("./Data/Model/BD1/map0/temp.bd1");
 		Model3DFunctions.RescaleModel(model_handle,
 				VectorFunctions.VGet(0.1f, 0.1f, 0.1f));
+		model_handle_2 = Model3DFunctions
+				.LoadModel("./Data/Model/OBJ/Teapot/teapot.obj");
 	}
 
 	@Override
@@ -50,6 +53,7 @@ public class Viewer extends JOGLFWindow {
 	@Override
 	public void Draw() {
 		Model3DFunctions.DrawModel(model_handle);
+		Model3DFunctions.DrawModel(model_handle_2);
 		DrawFunctions3D.DrawAxes(100.0f);
 	}
 }
