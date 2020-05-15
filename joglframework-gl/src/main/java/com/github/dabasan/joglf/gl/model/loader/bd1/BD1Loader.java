@@ -8,9 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.github.dabasan.basis.vector.Vector;
 import com.github.dabasan.joglf.gl.model.buffer.BufferedVertices;
 import com.github.dabasan.joglf.gl.shape.Triangle;
@@ -28,18 +25,11 @@ import com.jogamp.common.nio.Buffers;
  *
  */
 public class BD1Loader {
-	private static Logger logger = LoggerFactory.getLogger(BD1Loader.class);
-
-	public static List<BufferedVertices> LoadBD1(String bd1_filename) {
+	public static List<BufferedVertices> LoadBD1(String bd1_filename)
+			throws IOException {
 		final List<BufferedVertices> ret = new ArrayList<>();
 
-		BD1Manipulator manipulator;
-		try {
-			manipulator = new BD1Manipulator(bd1_filename);
-		} catch (final IOException e) {
-			logger.error("Error while reading.", e);
-			return ret;
-		}
+		BD1Manipulator manipulator = new BD1Manipulator(bd1_filename);
 
 		final String bd1_directory = FilenameFunctions
 				.GetFileDirectory(bd1_filename);
@@ -135,17 +125,11 @@ public class BD1Loader {
 
 		return ret;
 	}
-	public static List<BufferedVertices> LoadBD1_KeepOrder(
-			String bd1_filename) {
+	public static List<BufferedVertices> LoadBD1_KeepOrder(String bd1_filename)
+			throws IOException {
 		final List<BufferedVertices> ret = new ArrayList<>();
 
-		BD1Manipulator manipulator;
-		try {
-			manipulator = new BD1Manipulator(bd1_filename);
-		} catch (final IOException e) {
-			logger.error("Error while reading.", e);
-			return ret;
-		}
+		BD1Manipulator manipulator = new BD1Manipulator(bd1_filename);
 
 		final String bd1_directory = FilenameFunctions
 				.GetFileDirectory(bd1_filename);
