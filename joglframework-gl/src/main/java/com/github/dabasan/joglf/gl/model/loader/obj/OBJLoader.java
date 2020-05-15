@@ -36,49 +36,26 @@ import de.javagl.obj.ObjUtils;
 public class OBJLoader {
 	private static Logger logger = LoggerFactory.getLogger(OBJLoader.class);
 
-	public static List<BufferedVertices> LoadOBJ(String obj_filename) {
+	public static List<BufferedVertices> LoadOBJ(String obj_filename) throws IOException{
 		final List<BufferedVertices> ret = new ArrayList<>();
 
 		final String obj_directory = FilenameFunctions
 				.GetFileDirectory(obj_filename);
 
-		InputStreamReader isr = null;
-		try {
-			isr = new InputStreamReader(new FileInputStream(obj_filename));
-		} catch (final IOException e) {
-			logger.error("Error while reading.", e);
-			return ret;
+		Obj obj;
+		try(InputStreamReader isr=new InputStreamReader(new FileInputStream(obj_filename))){
+			obj=ObjReader.read(isr);
 		}
-
-		Obj obj = null;
-		try {
-			obj = ObjReader.read(isr);
-		} catch (final IOException e) {
-			logger.error("Error while reading.", e);
-			return ret;
-		}
-
 		obj = ObjUtils.convertToRenderable(obj);
 
 		final List<Mtl> all_mtls = new ArrayList<>();
 		for (final String mtl_filename : obj.getMtlFileNames()) {
 			final String mtl_filepath = obj_directory + "/" + mtl_filename;
-			try {
-				isr = new InputStreamReader(new FileInputStream(mtl_filepath));
-			} catch (final IOException e) {
-				logger.warn("Error while reading.", e);
-				continue;
+			
+			try(InputStreamReader isr=new InputStreamReader(new FileInputStream(mtl_filepath))){
+				List<Mtl> mtls = MtlReader.read(isr);
+				all_mtls.addAll(mtls);
 			}
-
-			List<Mtl> mtls = null;
-			try {
-				mtls = MtlReader.read(isr);
-			} catch (final IOException e) {
-				logger.error("Error while reading.", e);
-				return ret;
-			}
-
-			all_mtls.addAll(mtls);
 		}
 
 		final Map<String, Obj> material_groups = ObjSplitting
