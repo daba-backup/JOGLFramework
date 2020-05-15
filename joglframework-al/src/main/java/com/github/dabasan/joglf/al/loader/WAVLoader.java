@@ -1,13 +1,11 @@
 package com.github.dabasan.joglf.al.loader;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.nio.ByteBuffer;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.github.dabasan.joglf.al.buffer.SoundBuffer;
-import com.github.dabasan.joglf.al.wrapper.ALWrapper;
+import com.jogamp.openal.util.ALut;
 
 /**
  * WAV loader
@@ -16,24 +14,21 @@ import com.github.dabasan.joglf.al.wrapper.ALWrapper;
  *
  */
 public class WAVLoader {
-	private static Logger logger = LoggerFactory.getLogger(WAVLoader.class);
-
 	/**
 	 * Loads a WAV file.<br>
-	 * This method depends on ALUT.<br>
-	 * Therefore, this method fails if ALUT is disabled.
+	 * This method depends on ALUT.
 	 * 
 	 * @param wav_filename
-	 *            Filename of a WAV file
-	 * @return SoundBuffer
+	 *            Filename of the WAV file
+	 * @return Sound buffer
+	 * @throws FileNotFoundException
 	 */
-	public static SoundBuffer LoadWAV(String wav_filename) {
+	public static SoundBuffer LoadWAV(String wav_filename) throws FileNotFoundException {
 		final SoundBuffer sound_buffer = new SoundBuffer();
 
 		final File file = new File(wav_filename);
 		if (file.exists() == false) {
-			logger.error("File does not exist. filename={}", wav_filename);
-			return sound_buffer;
+			throw new FileNotFoundException(wav_filename);
 		}
 
 		final int[] format = new int[1];
@@ -42,7 +37,7 @@ public class WAVLoader {
 		final int[] freq = new int[1];
 		final int[] loop = new int[1];
 
-		ALWrapper.alutLoadWAVFile(wav_filename, format, data, size, freq, loop);
+		ALut.alutLoadWAVFile(wav_filename, format, data, size, freq, loop);
 
 		sound_buffer.SetFormat(format[0]);
 		sound_buffer.SetSize(size[0]);

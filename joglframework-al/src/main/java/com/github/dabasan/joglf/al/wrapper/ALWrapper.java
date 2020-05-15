@@ -20,6 +20,12 @@ import com.jogamp.openal.util.ALut;
 public class ALWrapper {
 	private static Logger logger = LoggerFactory.getLogger(ALWrapper.class);
 
+	@Deprecated
+	public static void alutLoadWAVFile(String arg0, int[] arg1, ByteBuffer[] arg2, int[] arg3,
+			int[] arg4, int[] arg5) {
+		ALut.alutLoadWAVFile(arg0, arg1, arg2, arg3, arg4, arg5);
+	}
+
 	public static void alDistanceModel(int arg0) {
 		final AL al = ALFactory.getAL();
 		al.alDistanceModel(arg0);
@@ -38,12 +44,7 @@ public class ALWrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void alutLoadWAVFile(String arg0, int[] arg1,
-			ByteBuffer[] arg2, int[] arg3, int[] arg4, int[] arg5) {
-		ALut.alutLoadWAVFile(arg0, arg1, arg2, arg3, arg4, arg5);
-	}
-	public static void alBufferData(int arg0, int arg1, Buffer arg2, int arg3,
-			int arg4) {
+	public static void alBufferData(int arg0, int arg1, Buffer arg2, int arg3, int arg4) {
 		final AL al = ALFactory.getAL();
 		al.alBufferData(arg0, arg1, arg2, arg3, arg4);
 
@@ -79,8 +80,7 @@ public class ALWrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void alSource3f(int arg0, int arg1, float arg2, float arg3,
-			float arg4) {
+	public static void alSource3f(int arg0, int arg1, float arg2, float arg3, float arg4) {
 		final AL al = ALFactory.getAL();
 		al.alSource3f(arg0, arg1, arg2, arg3, arg4);
 
@@ -98,8 +98,7 @@ public class ALWrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void alListener3f(int arg0, float arg1, float arg2,
-			float arg3) {
+	public static void alListener3f(int arg0, float arg1, float arg2, float arg3) {
 		final AL al = ALFactory.getAL();
 		al.alListener3f(arg0, arg1, arg2, arg3);
 

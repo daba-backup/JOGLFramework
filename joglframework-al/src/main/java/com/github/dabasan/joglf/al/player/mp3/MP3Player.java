@@ -32,6 +32,8 @@ public class MP3Player {
 	 * @return Sound handle
 	 */
 	public static int LoadSound(String sound_filename) {
+		logger.info("Start loading a sound. sound_filename={}", sound_filename);
+
 		BufferedInputStream stream = null;
 		AdvancedPlayer player = null;
 
@@ -40,11 +42,11 @@ public class MP3Player {
 					new FileInputStream(sound_filename));
 			player = new AdvancedPlayer(stream);
 		} catch (final IOException e) {
-			logger.error("Error while loading a sound file. sound_filename={}",
+			logger.error("Error while loading a sound. sound_filename={}",
 					sound_filename);
 			return -1;
 		} catch (final JavaLayerException e) {
-			logger.error("Error while loading a sound file. sound_filename={}",
+			logger.error("Error while loading a sound. sound_filename={}",
 					sound_filename);
 			logger.error("", e);
 			return -1;
