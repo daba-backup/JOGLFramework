@@ -70,6 +70,8 @@ public class Sound3DFunctions {
 	}
 
 	public static int LoadSound(String sound_filename) {
+		logger.info("Start loading a sound. sound_filename={}", sound_filename);
+
 		final String extension = FilenameFunctions.GetFileExtension(sound_filename).toLowerCase();
 
 		SoundMgr sound;
