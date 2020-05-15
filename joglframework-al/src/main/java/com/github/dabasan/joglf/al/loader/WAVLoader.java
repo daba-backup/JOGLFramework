@@ -22,6 +22,7 @@ public class WAVLoader {
 	 *            Filename of the WAV file
 	 * @return Sound buffer
 	 * @throws FileNotFoundException
+	 *             System cannot find the file specified.
 	 */
 	public static SoundBuffer LoadWAV(String wav_filename) throws FileNotFoundException {
 		final SoundBuffer sound_buffer = new SoundBuffer();
