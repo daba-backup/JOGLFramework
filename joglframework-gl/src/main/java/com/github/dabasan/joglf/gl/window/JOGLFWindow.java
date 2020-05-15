@@ -64,13 +64,11 @@ public class JOGLFWindow
 
 	public JOGLFWindow() {
 		final String profile_str = GLFront.GetProfileStr();
-		final GLCapabilities capabilities = new GLCapabilities(
-				GLProfile.get(profile_str));
+		final GLCapabilities capabilities = new GLCapabilities(GLProfile.get(profile_str));
 
 		window = GLWindow.create(capabilities);
 		window.setTitle(WindowCommonInfo.DEFAULT_TITLE);
-		window.setSize(WindowCommonInfo.DEFAULT_WIDTH,
-				WindowCommonInfo.DEFAULT_HEIGHT);
+		window.setSize(WindowCommonInfo.DEFAULT_WIDTH, WindowCommonInfo.DEFAULT_HEIGHT);
 		window.addGLEventListener(this);
 		window.addKeyListener(this);
 		window.addMouseListener(this);
@@ -316,8 +314,7 @@ public class JOGLFWindow
 		GLFront.Unlock();
 	}
 	@Override
-	public void reshape(GLAutoDrawable drawable, int x, int y, int width,
-			int height) {
+	public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
 		GLFront.Lock();
 		this.Reshape(x, y, width, height);
 		GLFront.Unlock();
@@ -376,8 +373,7 @@ public class JOGLFWindow
 	}
 	@Override
 	public void Update() {
-		CameraFront.SetCameraPositionAndTarget_UpVecY(
-				VectorFunctions.VGet(50.0f, 50.0f, 50.0f),
+		CameraFront.SetCameraPositionAndTarget_UpVecY(VectorFunctions.VGet(50.0f, 50.0f, 50.0f),
 				VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
 	}
 	@Override

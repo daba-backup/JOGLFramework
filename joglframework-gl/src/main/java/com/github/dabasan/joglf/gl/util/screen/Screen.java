@@ -60,8 +60,8 @@ public class Screen {
 		renderbuffer_id = renderbuffer_ids.get(0);
 
 		GLWrapper.glBindRenderbuffer(GL.GL_RENDERBUFFER, renderbuffer_id);
-		GLWrapper.glRenderbufferStorage(GL.GL_RENDERBUFFER,
-				GL2ES2.GL_DEPTH_COMPONENT, screen_width, screen_height);
+		GLWrapper.glRenderbufferStorage(GL.GL_RENDERBUFFER, GL2ES2.GL_DEPTH_COMPONENT, screen_width,
+				screen_height);
 		GLWrapper.glBindRenderbuffer(GL.GL_RENDERBUFFER, 0);
 	}
 	private void SetupTexture() {
@@ -70,16 +70,12 @@ public class Screen {
 		texture_id = texture_ids.get(0);
 
 		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, texture_id);
-		GLWrapper.glTexImage2D(GL.GL_TEXTURE_2D, 0, GL.GL_RGBA, screen_width,
-				screen_height, 0, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, null);
-		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER,
-				GL.GL_NEAREST);
-		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER,
-				GL.GL_NEAREST);
-		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S,
-				GL.GL_REPEAT);
-		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T,
-				GL.GL_REPEAT);
+		GLWrapper.glTexImage2D(GL.GL_TEXTURE_2D, 0, GL.GL_RGBA, screen_width, screen_height, 0,
+				GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, null);
+		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_NEAREST);
+		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST);
+		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT);
+		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
 		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, 0);
 	}
 	private void SetupFramebuffer() {
@@ -89,16 +85,15 @@ public class Screen {
 
 		GLWrapper.glBindFramebuffer(GL.GL_FRAMEBUFFER, fbo_id);
 
-		GLWrapper.glFramebufferTexture2D(GL.GL_FRAMEBUFFER,
-				GL.GL_COLOR_ATTACHMENT0, GL.GL_TEXTURE_2D, texture_id, 0);
-		GLWrapper.glFramebufferRenderbuffer(GL.GL_FRAMEBUFFER,
-				GL.GL_DEPTH_ATTACHMENT, GL.GL_RENDERBUFFER, renderbuffer_id);
+		GLWrapper.glFramebufferTexture2D(GL.GL_FRAMEBUFFER, GL.GL_COLOR_ATTACHMENT0,
+				GL.GL_TEXTURE_2D, texture_id, 0);
+		GLWrapper.glFramebufferRenderbuffer(GL.GL_FRAMEBUFFER, GL.GL_DEPTH_ATTACHMENT,
+				GL.GL_RENDERBUFFER, renderbuffer_id);
 		final IntBuffer draw_buffers = Buffers
 				.newDirectIntBuffer(new int[]{GL.GL_COLOR_ATTACHMENT0});
 		GLWrapper.glDrawBuffers(1, draw_buffers);
 
-		final int status = GLWrapper
-				.glCheckFramebufferStatus(GL.GL_FRAMEBUFFER);
+		final int status = GLWrapper.glCheckFramebufferStatus(GL.GL_FRAMEBUFFER);
 		if (status != GL.GL_FRAMEBUFFER_COMPLETE) {
 			logger.warn("Incomplete framebuffer. status={}", status);
 		}
@@ -108,10 +103,8 @@ public class Screen {
 
 	public void Dispose() {
 		final IntBuffer fbo_ids = Buffers.newDirectIntBuffer(new int[]{fbo_id});
-		final IntBuffer renderbuffer_ids = Buffers
-				.newDirectIntBuffer(new int[]{renderbuffer_id});
-		final IntBuffer texture_ids = Buffers
-				.newDirectIntBuffer(new int[]{texture_id});
+		final IntBuffer renderbuffer_ids = Buffers.newDirectIntBuffer(new int[]{renderbuffer_id});
+		final IntBuffer texture_ids = Buffers.newDirectIntBuffer(new int[]{texture_id});
 
 		GLWrapper.glDeleteFramebuffers(1, fbo_ids);
 		GLWrapper.glDeleteRenderbuffers(1, renderbuffer_ids);
@@ -141,8 +134,8 @@ public class Screen {
 	}
 
 	public int Associate(boolean flip_vertically) {
-		texture_handle = TextureMgr.AssociateTexture(texture_id, screen_width,
-				screen_height, flip_vertically);
+		texture_handle = TextureMgr.AssociateTexture(texture_id, screen_width, screen_height,
+				flip_vertically);
 		return texture_handle;
 	}
 
@@ -168,16 +161,14 @@ public class Screen {
 	}
 
 	public int TakeScreenshot(String filename) {
-		final ByteBuffer data = Buffers
-				.newDirectByteBuffer(screen_width * screen_height * 4);
+		final ByteBuffer data = Buffers.newDirectByteBuffer(screen_width * screen_height * 4);
 
 		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, texture_id);
-		GLWrapper.glGetTexImage(GL.GL_TEXTURE_2D, 0, GL.GL_RGBA,
-				GL.GL_UNSIGNED_BYTE, data);
+		GLWrapper.glGetTexImage(GL.GL_TEXTURE_2D, 0, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, data);
 		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, 0);
 
-		final BufferedImage image = new BufferedImage(screen_width,
-				screen_height, BufferedImage.TYPE_3BYTE_BGR);
+		final BufferedImage image = new BufferedImage(screen_width, screen_height,
+				BufferedImage.TYPE_3BYTE_BGR);
 
 		int pos = 0;
 		for (int y = screen_height - 1; y >= 0; y--) {

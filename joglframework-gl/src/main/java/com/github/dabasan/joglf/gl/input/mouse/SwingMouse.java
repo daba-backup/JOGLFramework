@@ -15,11 +15,7 @@ import com.github.dabasan.joglf.gl.input.CountsAndFlags;
  * @author Daba
  *
  */
-public class SwingMouse
-		implements
-			MouseListener,
-			MouseMotionListener,
-			MouseWheelListener {
+public class SwingMouse implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private final int KEY_NUM = 3;
 
 	private final CountsAndFlags mouse_buttons;

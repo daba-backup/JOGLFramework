@@ -36,30 +36,28 @@ import de.javagl.obj.ObjUtils;
 public class OBJLoader {
 	private static Logger logger = LoggerFactory.getLogger(OBJLoader.class);
 
-	public static List<BufferedVertices> LoadOBJ(String obj_filename) throws IOException{
+	public static List<BufferedVertices> LoadOBJ(String obj_filename) throws IOException {
 		final List<BufferedVertices> ret = new ArrayList<>();
 
-		final String obj_directory = FilenameFunctions
-				.GetFileDirectory(obj_filename);
+		final String obj_directory = FilenameFunctions.GetFileDirectory(obj_filename);
 
 		Obj obj;
-		try(InputStreamReader isr=new InputStreamReader(new FileInputStream(obj_filename))){
-			obj=ObjReader.read(isr);
+		try (InputStreamReader isr = new InputStreamReader(new FileInputStream(obj_filename))) {
+			obj = ObjReader.read(isr);
 		}
 		obj = ObjUtils.convertToRenderable(obj);
 
 		final List<Mtl> all_mtls = new ArrayList<>();
 		for (final String mtl_filename : obj.getMtlFileNames()) {
 			final String mtl_filepath = obj_directory + "/" + mtl_filename;
-			
-			try(InputStreamReader isr=new InputStreamReader(new FileInputStream(mtl_filepath))){
-				List<Mtl> mtls = MtlReader.read(isr);
+
+			try (InputStreamReader isr = new InputStreamReader(new FileInputStream(mtl_filepath))) {
+				final List<Mtl> mtls = MtlReader.read(isr);
 				all_mtls.addAll(mtls);
 			}
 		}
 
-		final Map<String, Obj> material_groups = ObjSplitting
-				.splitByMaterialGroups(obj);
+		final Map<String, Obj> material_groups = ObjSplitting.splitByMaterialGroups(obj);
 
 		for (final Map.Entry<String, Obj> entry : material_groups.entrySet()) {
 			final BufferedVertices buffered_vertices = new BufferedVertices();
@@ -69,8 +67,7 @@ public class OBJLoader {
 
 			final Mtl mtl = FindMTLByName(all_mtls, material_name);
 			if (mtl == null) {
-				logger.warn("No such material. material_name={}",
-						material_name);
+				logger.warn("No such material. material_name={}", material_name);
 				continue;
 			}
 
@@ -78,15 +75,12 @@ public class OBJLoader {
 			final FloatTuple ft_diffuse_color = mtl.getKd();
 			final FloatTuple ft_specular_color = mtl.getKs();
 
-			final ColorU8 ambient_color = ColorU8Functions.GetColorU8(
-					ft_ambient_color.get(0), ft_ambient_color.get(1),
-					ft_ambient_color.get(2), 1.0f);
-			final ColorU8 diffuse_color = ColorU8Functions.GetColorU8(
-					ft_diffuse_color.get(0), ft_diffuse_color.get(1),
-					ft_diffuse_color.get(2), 1.0f);
-			final ColorU8 specular_color = ColorU8Functions.GetColorU8(
-					ft_specular_color.get(0), ft_specular_color.get(1),
-					ft_specular_color.get(2), 1.0f);
+			final ColorU8 ambient_color = ColorU8Functions.GetColorU8(ft_ambient_color.get(0),
+					ft_ambient_color.get(1), ft_ambient_color.get(2), 1.0f);
+			final ColorU8 diffuse_color = ColorU8Functions.GetColorU8(ft_diffuse_color.get(0),
+					ft_diffuse_color.get(1), ft_diffuse_color.get(2), 1.0f);
+			final ColorU8 specular_color = ColorU8Functions.GetColorU8(ft_specular_color.get(0),
+					ft_specular_color.get(1), ft_specular_color.get(2), 1.0f);
 			final float specular_exponent = mtl.getNs();
 			final float dissolve = mtl.getD();
 			final String diffuse_texture_map = mtl.getMapKd();
@@ -98,11 +92,9 @@ public class OBJLoader {
 			buffered_vertices.SetDissolve(dissolve);
 			buffered_vertices.SetDiffuseTextureMap(diffuse_texture_map);
 
-			final IntBuffer indices = ObjData
-					.getFaceVertexIndices(material_group, 3);
+			final IntBuffer indices = ObjData.getFaceVertexIndices(material_group, 3);
 			final FloatBuffer pos_buffer = ObjData.getVertices(material_group);
-			final FloatBuffer uv_buffer = ObjData.getTexCoords(material_group,
-					2);
+			final FloatBuffer uv_buffer = ObjData.getTexCoords(material_group, 2);
 			final FloatBuffer norm_buffer = ObjData.getNormals(material_group);
 			buffered_vertices.SetIndicesBuffer(indices);
 			buffered_vertices.SetPosBuffer(pos_buffer);
@@ -117,8 +109,7 @@ public class OBJLoader {
 			} else {
 				texture_filename = obj_directory + "/" + texture_filename;
 
-				final int texture_handle = TextureMgr
-						.LoadTexture(texture_filename);
+				final int texture_handle = TextureMgr.LoadTexture(texture_filename);
 				buffered_vertices.SetTextureHandle(texture_handle);
 			}
 
@@ -128,8 +119,7 @@ public class OBJLoader {
 		return ret;
 	}
 
-	private static Mtl FindMTLByName(Iterable<? extends Mtl> mtls,
-			String name) {
+	private static Mtl FindMTLByName(Iterable<? extends Mtl> mtls, String name) {
 		for (final Mtl mtl : mtls) {
 			if (mtl.getName().equals(name)) {
 				return mtl;

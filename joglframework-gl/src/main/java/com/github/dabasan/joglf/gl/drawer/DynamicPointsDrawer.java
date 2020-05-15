@@ -24,8 +24,7 @@ import com.jogamp.opengl.GL;
  *
  */
 public class DynamicPointsDrawer extends Dynamic3DDrawer {
-	private final Logger logger = LoggerFactory
-			.getLogger(DynamicPointsDrawer.class);
+	private final Logger logger = LoggerFactory.getLogger(DynamicPointsDrawer.class);
 
 	private final Map<Integer, Vertex3D> points_map;
 
@@ -55,10 +54,8 @@ public class DynamicPointsDrawer extends Dynamic3DDrawer {
 	public void UpdateBuffers() {
 		final int point_num = points_map.size();
 
-		final FloatBuffer pos_buffer = Buffers
-				.newDirectFloatBuffer(point_num * 3);
-		final FloatBuffer dif_buffer = Buffers
-				.newDirectFloatBuffer(point_num * 4);
+		final FloatBuffer pos_buffer = Buffers.newDirectFloatBuffer(point_num * 3);
+		final FloatBuffer dif_buffer = Buffers.newDirectFloatBuffer(point_num * 4);
 
 		for (final Vertex3D point : points_map.values()) {
 			final Vector pos = point.GetPos();
@@ -76,13 +73,11 @@ public class DynamicPointsDrawer extends Dynamic3DDrawer {
 		dif_buffer.flip();
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * pos_buffer.capacity(), pos_buffer,
-				GL.GL_DYNAMIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * pos_buffer.capacity(),
+				pos_buffer, GL.GL_DYNAMIC_DRAW);
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, dif_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * dif_buffer.capacity(), dif_buffer,
-				GL.GL_DYNAMIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * dif_buffer.capacity(),
+				dif_buffer, GL.GL_DYNAMIC_DRAW);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 
@@ -90,13 +85,11 @@ public class DynamicPointsDrawer extends Dynamic3DDrawer {
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(0);
-		GLWrapper.glVertexAttribPointer(0, 3, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 3, 0);
+		GLWrapper.glVertexAttribPointer(0, 3, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 3, 0);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, dif_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(1);
-		GLWrapper.glVertexAttribPointer(1, 4, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 4, 0);
+		GLWrapper.glVertexAttribPointer(1, 4, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 4, 0);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 		GLWrapper.glBindVertexArray(0);

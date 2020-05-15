@@ -12,25 +12,24 @@ import com.github.dabasan.basis.vector.VectorFunctions;
  *
  */
 public class ProjectionMatrixFunctions {
-	public static Matrix GetOrthogonalMatrix(float left, float right,
-			float bottom, float top, float near, float far) {
+	public static Matrix GetOrthogonalMatrix(float left, float right, float bottom, float top,
+			float near, float far) {
 		Matrix orthogonal_matrix;
 
-		final Vector vec_translate = VectorFunctions.VGet(-(right + left) / 2,
-				-(bottom + top) / 2, (far + near) / 2);
-		final Vector vec_scale = VectorFunctions.VGet(2 / (right - left),
-				2 / (top - bottom), -2 / (far - near));
+		final Vector vec_translate = VectorFunctions.VGet(-(right + left) / 2, -(bottom + top) / 2,
+				(far + near) / 2);
+		final Vector vec_scale = VectorFunctions.VGet(2 / (right - left), 2 / (top - bottom),
+				-2 / (far - near));
 
-		final Matrix mat_translate = MatrixFunctions
-				.MGetTranslate(vec_translate);
+		final Matrix mat_translate = MatrixFunctions.MGetTranslate(vec_translate);
 		final Matrix mat_scale = MatrixFunctions.MGetScale(vec_scale);
 
 		orthogonal_matrix = MatrixFunctions.MMult(mat_scale, mat_translate);
 
 		return orthogonal_matrix;
 	}
-	public static Matrix GetPerspectiveMatrix(float left, float right,
-			float bottom, float top, float near, float far) {
+	public static Matrix GetPerspectiveMatrix(float left, float right, float bottom, float top,
+			float near, float far) {
 		final Matrix perspective_matrix = new Matrix();
 
 		perspective_matrix.SetValue(0, 0, 2 * near / (right - left));
@@ -52,8 +51,7 @@ public class ProjectionMatrixFunctions {
 
 		return perspective_matrix;
 	}
-	public static Matrix GetPerspectiveMatrix(float fov, float aspect,
-			float near, float far) {
+	public static Matrix GetPerspectiveMatrix(float fov, float aspect, float near, float far) {
 		final Matrix perspective_matrix = new Matrix();
 
 		final float f = 1 / (float) Math.tan(fov / 2);

@@ -32,21 +32,20 @@ public class CameraFront {
 	public static void SetCameraNearFar(float near, float far) {
 		camera.SetCameraNearFar(near, far);
 	}
-	public static void SetCameraPositionAndTarget_UpVecY(Vector position,
-			Vector target) {
+	public static void SetCameraPositionAndTarget_UpVecY(Vector position, Vector target) {
 		camera.SetCameraPositionAndTarget(position, target);
 		camera.SetCameraUpVector(VectorFunctions.VGet(0.0f, 1.0f, 0.0f));
 	}
-	public static void SetCameraPositionAndTargetAndUpVec(Vector position,
-			Vector target, Vector up) {
+	public static void SetCameraPositionAndTargetAndUpVec(Vector position, Vector target,
+			Vector up) {
 		camera.SetCameraPositionAndTarget(position, target);
 		camera.SetCameraUpVector(up);
 	}
 	public static void SetCameraViewMatrix(Matrix m) {
 		camera.SetCameraViewMatrix(m);
 	}
-	public static void SetCameraPositionAndAngle(Vector position,
-			float v_rotate, float h_rotate, float t_rotate) {
+	public static void SetCameraPositionAndAngle(Vector position, float v_rotate, float h_rotate,
+			float t_rotate) {
 		Vector direction = new Vector();
 
 		direction.SetX((float) Math.cos(h_rotate));
@@ -57,10 +56,9 @@ public class CameraFront {
 
 		final Vector target = VectorFunctions.VAdd(position, direction);
 
-		final Matrix rot_direction = MatrixFunctions.MGetRotAxis(direction,
-				t_rotate);
-		final Vector up = MatrixFunctions.VTransform(
-				VectorFunctions.VGet(0.0f, 1.0f, 0.0f), rot_direction);
+		final Matrix rot_direction = MatrixFunctions.MGetRotAxis(direction, t_rotate);
+		final Vector up = MatrixFunctions.VTransform(VectorFunctions.VGet(0.0f, 1.0f, 0.0f),
+				rot_direction);
 
 		camera.SetCameraPositionAndTarget(position, target);
 		camera.SetCameraUpVector(up);
@@ -104,21 +102,18 @@ public class CameraFront {
 		final Matrix projection = camera.GetProjectionMatrix();
 		final Matrix view_transformation = camera.GetViewTransformationMatrix();
 
-		final Matrix camera_matrix = MatrixFunctions.MMult(projection,
-				view_transformation);
+		final Matrix camera_matrix = MatrixFunctions.MMult(projection, view_transformation);
 
 		final Matrix world_pos_matrix = new Matrix();
 		world_pos_matrix.SetValue(0, 0, world_pos.GetX());
 		world_pos_matrix.SetValue(1, 0, world_pos.GetY());
 		world_pos_matrix.SetValue(2, 0, world_pos.GetZ());
 		world_pos_matrix.SetValue(3, 0, 1.0f);
-		final Matrix clip_space_matrix = MatrixFunctions.MMult(camera_matrix,
-				world_pos_matrix);
+		final Matrix clip_space_matrix = MatrixFunctions.MMult(camera_matrix, world_pos_matrix);
 		final float w = clip_space_matrix.GetValue(3, 0);
 
 		Vector ret = VectorFunctions.VGet(clip_space_matrix.GetValue(0, 0),
-				clip_space_matrix.GetValue(1, 0),
-				clip_space_matrix.GetValue(2, 0));
+				clip_space_matrix.GetValue(1, 0), clip_space_matrix.GetValue(2, 0));
 		ret = VectorFunctions.VScale(ret, 1.0f / w);
 
 		float x = ret.GetX();
@@ -150,33 +145,27 @@ public class CameraFront {
 	 */
 	public static Vector ConvertScreenPosToWorldPos(Vector screen_pos) {
 		final Vector normalized_screen_pos = new Vector();
-		final float x = CoordinateFunctions
-				.NormalizeCoordinate(screen_pos.GetX(), window_width);
-		final float y = CoordinateFunctions
-				.NormalizeCoordinate(screen_pos.GetY(), window_height);
+		final float x = CoordinateFunctions.NormalizeCoordinate(screen_pos.GetX(), window_width);
+		final float y = CoordinateFunctions.NormalizeCoordinate(screen_pos.GetY(), window_height);
 		final float z = MathFunctions.Clamp(screen_pos.GetZ(), -1.0f, 1.0f);
 		normalized_screen_pos.SetVector(x, y, z);
 
 		final Matrix projection = camera.GetProjectionMatrix();
 		final Matrix view_transformation = camera.GetViewTransformationMatrix();
 
-		final Matrix camera_matrix = MatrixFunctions.MMult(projection,
-				view_transformation);
-		final Matrix inv_camera_matrix = MatrixFunctions
-				.MInverse(camera_matrix);
+		final Matrix camera_matrix = MatrixFunctions.MMult(projection, view_transformation);
+		final Matrix inv_camera_matrix = MatrixFunctions.MInverse(camera_matrix);
 
 		final Matrix clip_space_matrix = new Matrix();
 		clip_space_matrix.SetValue(0, 0, normalized_screen_pos.GetX());
 		clip_space_matrix.SetValue(1, 0, normalized_screen_pos.GetY());
 		clip_space_matrix.SetValue(2, 0, normalized_screen_pos.GetZ());
 		clip_space_matrix.SetValue(3, 0, 1.0f);
-		final Matrix world_pos_matrix = MatrixFunctions.MMult(inv_camera_matrix,
-				clip_space_matrix);
+		final Matrix world_pos_matrix = MatrixFunctions.MMult(inv_camera_matrix, clip_space_matrix);
 		final float w = world_pos_matrix.GetValue(3, 0);
 
 		Vector ret = VectorFunctions.VGet(world_pos_matrix.GetValue(0, 0),
-				world_pos_matrix.GetValue(1, 0),
-				world_pos_matrix.GetValue(2, 0));
+				world_pos_matrix.GetValue(1, 0), world_pos_matrix.GetValue(2, 0));
 		ret = VectorFunctions.VScale(ret, 1.0f / w);
 
 		return ret;

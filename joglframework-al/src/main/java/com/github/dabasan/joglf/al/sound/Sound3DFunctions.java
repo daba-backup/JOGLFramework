@@ -82,12 +82,12 @@ public class Sound3DFunctions {
 					logger.error("Unsupported sound format. extension={}", extension);
 					return -1;
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			logger.error("Failed to load a sound. sound_filename={}", sound_filename);
 			return -1;
 		}
 
-		int sound_handle = count;
+		final int sound_handle = count;
 		sounds_map.put(sound_handle, sound);
 		count++;
 

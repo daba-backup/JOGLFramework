@@ -25,8 +25,7 @@ import com.jogamp.opengl.GL;
  *
  */
 public class DynamicQuadranglesDrawer extends Dynamic3DDrawer {
-	private final Logger logger = LoggerFactory
-			.getLogger(DynamicQuadranglesDrawer.class);
+	private final Logger logger = LoggerFactory.getLogger(DynamicQuadranglesDrawer.class);
 
 	private int texture_handle;
 	private final Map<Integer, Quadrangle> quadrangles_map;
@@ -66,14 +65,10 @@ public class DynamicQuadranglesDrawer extends Dynamic3DDrawer {
 		final int triangle_num = quadrangle_num * 2;
 		final int vertex_num = quadrangle_num * 4;
 
-		final IntBuffer indices_buffer = Buffers
-				.newDirectIntBuffer(triangle_num * 3);
-		final FloatBuffer pos_buffer = Buffers
-				.newDirectFloatBuffer(vertex_num * 3);
-		final FloatBuffer uv_buffer = Buffers
-				.newDirectFloatBuffer(vertex_num * 2);
-		final FloatBuffer norm_buffer = Buffers
-				.newDirectFloatBuffer(vertex_num * 3);
+		final IntBuffer indices_buffer = Buffers.newDirectIntBuffer(triangle_num * 3);
+		final FloatBuffer pos_buffer = Buffers.newDirectFloatBuffer(vertex_num * 3);
+		final FloatBuffer uv_buffer = Buffers.newDirectFloatBuffer(vertex_num * 2);
+		final FloatBuffer norm_buffer = Buffers.newDirectFloatBuffer(vertex_num * 3);
 
 		int count = 0;
 		for (final Quadrangle quadrangle : quadrangles_map.values()) {
@@ -111,17 +106,14 @@ public class DynamicQuadranglesDrawer extends Dynamic3DDrawer {
 		norm_buffer.flip();
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * pos_buffer.capacity(), pos_buffer,
-				GL.GL_DYNAMIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * pos_buffer.capacity(),
+				pos_buffer, GL.GL_DYNAMIC_DRAW);
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, uv_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * uv_buffer.capacity(), uv_buffer,
-				GL.GL_DYNAMIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * uv_buffer.capacity(),
+				uv_buffer, GL.GL_DYNAMIC_DRAW);
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, norm_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * norm_buffer.capacity(), norm_buffer,
-				GL.GL_DYNAMIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * norm_buffer.capacity(),
+				norm_buffer, GL.GL_DYNAMIC_DRAW);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 
@@ -129,23 +121,19 @@ public class DynamicQuadranglesDrawer extends Dynamic3DDrawer {
 
 		GLWrapper.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(0));
 		GLWrapper.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER,
-				Buffers.SIZEOF_INT * indices_buffer.capacity(), indices_buffer,
-				GL.GL_DYNAMIC_DRAW);
+				Buffers.SIZEOF_INT * indices_buffer.capacity(), indices_buffer, GL.GL_DYNAMIC_DRAW);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(0);
-		GLWrapper.glVertexAttribPointer(0, 3, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 3, 0);
+		GLWrapper.glVertexAttribPointer(0, 3, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 3, 0);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, uv_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(1);
-		GLWrapper.glVertexAttribPointer(1, 2, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 2, 0);
+		GLWrapper.glVertexAttribPointer(1, 2, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 2, 0);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, norm_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(2);
-		GLWrapper.glVertexAttribPointer(2, 3, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 3, 0);
+		GLWrapper.glVertexAttribPointer(2, 3, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 3, 0);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 		GLWrapper.glBindVertexArray(0);
@@ -202,8 +190,7 @@ public class DynamicQuadranglesDrawer extends Dynamic3DDrawer {
 			final int indices_size = triangle_num * 3;
 
 			GLWrapper.glEnable(GL.GL_BLEND);
-			GLWrapper.glDrawElements(GL.GL_TRIANGLES, indices_size,
-					GL.GL_UNSIGNED_INT, 0);
+			GLWrapper.glDrawElements(GL.GL_TRIANGLES, indices_size, GL.GL_UNSIGNED_INT, 0);
 			GLWrapper.glDisable(GL.GL_BLEND);
 
 			TextureMgr.UnbindTexture();
@@ -221,8 +208,7 @@ public class DynamicQuadranglesDrawer extends Dynamic3DDrawer {
 		final int indices_size = triangle_num * 3;
 
 		GLWrapper.glEnable(GL.GL_BLEND);
-		GLWrapper.glDrawElements(GL.GL_TRIANGLES, indices_size,
-				GL.GL_UNSIGNED_INT, 0);
+		GLWrapper.glDrawElements(GL.GL_TRIANGLES, indices_size, GL.GL_UNSIGNED_INT, 0);
 		GLWrapper.glDisable(GL.GL_BLEND);
 
 		GLWrapper.glBindVertexArray(0);

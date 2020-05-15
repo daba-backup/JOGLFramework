@@ -15,18 +15,15 @@ class LightingTestWindow extends JOGLFWindow {
 
 	@Override
 	public void Init() {
-		model_handle = Model3DFunctions
-				.LoadModel("./Data/Model/BD1/map2/temp.bd1");
-		Model3DFunctions.RescaleModel(model_handle,
-				VectorFunctions.VGet(0.1f, 0.1f, 0.1f));
+		model_handle = Model3DFunctions.LoadModel("./Data/Model/BD1/map2/temp.bd1");
+		Model3DFunctions.RescaleModel(model_handle, VectorFunctions.VGet(0.1f, 0.1f, 0.1f));
 
 		camera_position = VectorFunctions.VGet(50.0f, 50.0f, 50.0f);
 	}
 
 	@Override
 	public void Update() {
-		final Matrix rot_y = MatrixFunctions
-				.MGetRotY(MathFunctions.DegToRad(0.5f));
+		final Matrix rot_y = MatrixFunctions.MGetRotY(MathFunctions.DegToRad(0.5f));
 		camera_position = MatrixFunctions.VTransform(camera_position, rot_y);
 
 		CameraFront.SetCameraPositionAndTarget_UpVecY(camera_position,

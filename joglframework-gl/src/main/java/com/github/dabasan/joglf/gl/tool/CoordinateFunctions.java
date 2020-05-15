@@ -55,8 +55,7 @@ public class CoordinateFunctions {
 	 *            Window height
 	 * @return OpenGL y-coordinate
 	 */
-	public static int ConvertWindowCoordinateAndOpenGLCoordinate_Y(int y,
-			int height) {
+	public static int ConvertWindowCoordinateAndOpenGLCoordinate_Y(int y, int height) {
 		return height - y;
 	}
 }

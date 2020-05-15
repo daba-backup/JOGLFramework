@@ -15,14 +15,10 @@ class Draw3DTestWindow extends JOGLFWindow {
 		texture_handle = TextureMgr.LoadTexture("./Data/Texture/test.jpg");
 
 		quadrangle = new Quadrangle();
-		quadrangle.GetVertex(0)
-				.SetPos(VectorFunctions.VGet(-30.0f, 0.0f, -30.0f));
-		quadrangle.GetVertex(1)
-				.SetPos(VectorFunctions.VGet(-30.0f, 0.0f, 30.0f));
-		quadrangle.GetVertex(2)
-				.SetPos(VectorFunctions.VGet(30.0f, 0.0f, 30.0f));
-		quadrangle.GetVertex(3)
-				.SetPos(VectorFunctions.VGet(30.0f, 0.0f, -30.0f));
+		quadrangle.GetVertex(0).SetPos(VectorFunctions.VGet(-30.0f, 0.0f, -30.0f));
+		quadrangle.GetVertex(1).SetPos(VectorFunctions.VGet(-30.0f, 0.0f, 30.0f));
+		quadrangle.GetVertex(2).SetPos(VectorFunctions.VGet(30.0f, 0.0f, 30.0f));
+		quadrangle.GetVertex(3).SetPos(VectorFunctions.VGet(30.0f, 0.0f, -30.0f));
 		quadrangle.GetVertex(0).SetU(0.0f);
 		quadrangle.GetVertex(0).SetV(0.0f);
 		quadrangle.GetVertex(1).SetU(1.0f);
@@ -36,7 +32,6 @@ class Draw3DTestWindow extends JOGLFWindow {
 	@Override
 	public void Draw() {
 		DrawFunctions3D.DrawQuadrangle3D(quadrangle);
-		DrawFunctions3D.DrawTexturedQuadrangle(quadrangle, texture_handle,
-				true);
+		DrawFunctions3D.DrawTexturedQuadrangle(quadrangle, texture_handle, true);
 	}
 }

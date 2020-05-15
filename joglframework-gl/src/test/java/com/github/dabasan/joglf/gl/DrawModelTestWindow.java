@@ -10,16 +10,13 @@ class DrawModelTestWindow extends JOGLFWindow {
 
 	@Override
 	public void Init() {
-		model_handle = Model3DFunctions
-				.LoadModel("./Data/Model/BD1/map2/temp.bd1");
-		Model3DFunctions.RescaleModel(model_handle,
-				VectorFunctions.VGet(0.1f, 0.1f, 0.1f));
+		model_handle = Model3DFunctions.LoadModel("./Data/Model/BD1/map2/temp.bd1");
+		Model3DFunctions.RescaleModel(model_handle, VectorFunctions.VGet(0.1f, 0.1f, 0.1f));
 	}
 
 	@Override
 	public void Update() {
-		CameraFront.SetCameraPositionAndTarget_UpVecY(
-				VectorFunctions.VGet(50.0f, 50.0f, 50.0f),
+		CameraFront.SetCameraPositionAndTarget_UpVecY(VectorFunctions.VGet(50.0f, 50.0f, 50.0f),
 				VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
 	}
 

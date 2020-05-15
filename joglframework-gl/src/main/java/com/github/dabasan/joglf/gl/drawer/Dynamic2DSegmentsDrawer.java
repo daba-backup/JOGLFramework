@@ -25,8 +25,7 @@ import com.jogamp.opengl.GL;
  *
  */
 public class Dynamic2DSegmentsDrawer extends Dynamic2DDrawer {
-	private final Logger logger = LoggerFactory
-			.getLogger(Dynamic2DSegmentsDrawer.class);
+	private final Logger logger = LoggerFactory.getLogger(Dynamic2DSegmentsDrawer.class);
 
 	private final Map<Integer, Vertex2D[]> segments_map;
 
@@ -56,10 +55,8 @@ public class Dynamic2DSegmentsDrawer extends Dynamic2DDrawer {
 	public void UpdateBuffers() {
 		final int point_num = segments_map.size() * 2;
 
-		final FloatBuffer pos_buffer = Buffers
-				.newDirectFloatBuffer(point_num * 2 * 2);
-		final FloatBuffer dif_buffer = Buffers
-				.newDirectFloatBuffer(point_num * 4 * 2);
+		final FloatBuffer pos_buffer = Buffers.newDirectFloatBuffer(point_num * 2 * 2);
+		final FloatBuffer dif_buffer = Buffers.newDirectFloatBuffer(point_num * 4 * 2);
 
 		final int window_width = this.GetWindowWidth();
 		final int window_height = this.GetWindowHeight();
@@ -71,10 +68,9 @@ public class Dynamic2DSegmentsDrawer extends Dynamic2DDrawer {
 
 				final int x = point.x;
 				final int y = point.y;
-				final float normalized_x = CoordinateFunctions
-						.NormalizeCoordinate(x, window_width);
-				final float normalized_y = CoordinateFunctions
-						.NormalizeCoordinate(y, window_height);
+				final float normalized_x = CoordinateFunctions.NormalizeCoordinate(x, window_width);
+				final float normalized_y = CoordinateFunctions.NormalizeCoordinate(y,
+						window_height);
 
 				pos_buffer.put(normalized_x);
 				pos_buffer.put(normalized_y);
@@ -88,13 +84,11 @@ public class Dynamic2DSegmentsDrawer extends Dynamic2DDrawer {
 		dif_buffer.flip();
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * pos_buffer.capacity(), pos_buffer,
-				GL.GL_DYNAMIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * pos_buffer.capacity(),
+				pos_buffer, GL.GL_DYNAMIC_DRAW);
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, dif_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * dif_buffer.capacity(), dif_buffer,
-				GL.GL_DYNAMIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * dif_buffer.capacity(),
+				dif_buffer, GL.GL_DYNAMIC_DRAW);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 
@@ -102,13 +96,11 @@ public class Dynamic2DSegmentsDrawer extends Dynamic2DDrawer {
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(0);
-		GLWrapper.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 2, 0);
+		GLWrapper.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 2, 0);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, dif_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(1);
-		GLWrapper.glVertexAttribPointer(1, 4, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 4, 0);
+		GLWrapper.glVertexAttribPointer(1, 4, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 4, 0);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 		GLWrapper.glBindVertexArray(0);

@@ -25,8 +25,7 @@ import com.jogamp.opengl.GL;
  *
  */
 public class DynamicTrianglesDrawer extends Dynamic3DDrawer {
-	private final Logger logger = LoggerFactory
-			.getLogger(DynamicTrianglesDrawer.class);
+	private final Logger logger = LoggerFactory.getLogger(DynamicTrianglesDrawer.class);
 
 	private int texture_handle;
 	private final Map<Integer, Triangle> triangles_map;
@@ -62,12 +61,9 @@ public class DynamicTrianglesDrawer extends Dynamic3DDrawer {
 		final int triangle_num = triangles_map.size();
 		final int vertex_num = triangle_num * 3;
 
-		final FloatBuffer pos_buffer = Buffers
-				.newDirectFloatBuffer(vertex_num * 3);
-		final FloatBuffer uv_buffer = Buffers
-				.newDirectFloatBuffer(vertex_num * 2);
-		final FloatBuffer norm_buffer = Buffers
-				.newDirectFloatBuffer(vertex_num * 3);
+		final FloatBuffer pos_buffer = Buffers.newDirectFloatBuffer(vertex_num * 3);
+		final FloatBuffer uv_buffer = Buffers.newDirectFloatBuffer(vertex_num * 2);
+		final FloatBuffer norm_buffer = Buffers.newDirectFloatBuffer(vertex_num * 3);
 
 		for (final Triangle triangle : triangles_map.values()) {
 			final Vertex3D[] vertices = triangle.GetVertices();
@@ -93,17 +89,14 @@ public class DynamicTrianglesDrawer extends Dynamic3DDrawer {
 		norm_buffer.flip();
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * pos_buffer.capacity(), pos_buffer,
-				GL.GL_DYNAMIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * pos_buffer.capacity(),
+				pos_buffer, GL.GL_DYNAMIC_DRAW);
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, uv_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * uv_buffer.capacity(), uv_buffer,
-				GL.GL_DYNAMIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * uv_buffer.capacity(),
+				uv_buffer, GL.GL_DYNAMIC_DRAW);
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, norm_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * norm_buffer.capacity(), norm_buffer,
-				GL.GL_DYNAMIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * norm_buffer.capacity(),
+				norm_buffer, GL.GL_DYNAMIC_DRAW);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 
@@ -111,18 +104,15 @@ public class DynamicTrianglesDrawer extends Dynamic3DDrawer {
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(0);
-		GLWrapper.glVertexAttribPointer(0, 3, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 3, 0);
+		GLWrapper.glVertexAttribPointer(0, 3, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 3, 0);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, uv_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(1);
-		GLWrapper.glVertexAttribPointer(1, 2, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 2, 0);
+		GLWrapper.glVertexAttribPointer(1, 2, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 2, 0);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, norm_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(2);
-		GLWrapper.glVertexAttribPointer(2, 3, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 3, 0);
+		GLWrapper.glVertexAttribPointer(2, 3, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 3, 0);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 		GLWrapper.glBindVertexArray(0);

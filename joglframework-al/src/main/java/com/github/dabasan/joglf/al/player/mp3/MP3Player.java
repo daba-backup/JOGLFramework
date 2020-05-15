@@ -38,16 +38,13 @@ public class MP3Player {
 		AdvancedPlayer player = null;
 
 		try {
-			stream = new BufferedInputStream(
-					new FileInputStream(sound_filename));
+			stream = new BufferedInputStream(new FileInputStream(sound_filename));
 			player = new AdvancedPlayer(stream);
 		} catch (final IOException e) {
-			logger.error("Error while loading a sound. sound_filename={}",
-					sound_filename);
+			logger.error("Error while loading a sound. sound_filename={}", sound_filename);
 			return -1;
 		} catch (final JavaLayerException e) {
-			logger.error("Error while loading a sound. sound_filename={}",
-					sound_filename);
+			logger.error("Error while loading a sound. sound_filename={}", sound_filename);
 			logger.error("", e);
 			return -1;
 		}

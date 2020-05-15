@@ -26,8 +26,7 @@ import com.jogamp.opengl.GL;
  *
  */
 public class Dynamic2DFilledCirclesDrawer extends Dynamic2DDrawer {
-	private final Logger logger = LoggerFactory
-			.getLogger(Dynamic2DFilledCirclesDrawer.class);
+	private final Logger logger = LoggerFactory.getLogger(Dynamic2DFilledCirclesDrawer.class);
 
 	private final Map<Integer, Circle2D> circles_map;
 	private final Map<Integer, Integer> indices_sizes_map;
@@ -82,17 +81,15 @@ public class Dynamic2DFilledCirclesDrawer extends Dynamic2DDrawer {
 			final ColorU8 color = circle.GetColor();
 			final int div_num = circle.GetDivNum();
 
-			final FloatBuffer pos_buffer = Buffers
-					.newDirectFloatBuffer(2 * (div_num + 1));
-			final FloatBuffer dif_buffer = Buffers
-					.newDirectFloatBuffer(4 * (div_num + 1));
+			final FloatBuffer pos_buffer = Buffers.newDirectFloatBuffer(2 * (div_num + 1));
+			final FloatBuffer dif_buffer = Buffers.newDirectFloatBuffer(4 * (div_num + 1));
 
 			final int center_x = center.x;
 			final int center_y = center.y;
-			final float normalized_center_x = CoordinateFunctions
-					.NormalizeCoordinate(center_x, window_width);
-			final float normalized_center_y = CoordinateFunctions
-					.NormalizeCoordinate(center_y, window_height);
+			final float normalized_center_x = CoordinateFunctions.NormalizeCoordinate(center_x,
+					window_width);
+			final float normalized_center_y = CoordinateFunctions.NormalizeCoordinate(center_y,
+					window_height);
 			pos_buffer.put(normalized_center_x);
 			pos_buffer.put(normalized_center_y);
 
@@ -102,10 +99,9 @@ public class Dynamic2DFilledCirclesDrawer extends Dynamic2DDrawer {
 				final float x = radius * (float) Math.cos(th) + center_x;
 				final float y = radius * (float) Math.sin(th) + center_y;
 
-				final float normalized_x = CoordinateFunctions
-						.NormalizeCoordinate(x, window_width);
-				final float normalized_y = CoordinateFunctions
-						.NormalizeCoordinate(y, window_height);
+				final float normalized_x = CoordinateFunctions.NormalizeCoordinate(x, window_width);
+				final float normalized_y = CoordinateFunctions.NormalizeCoordinate(y,
+						window_height);
 
 				pos_buffer.put(normalized_x);
 				pos_buffer.put(normalized_y);
@@ -125,8 +121,7 @@ public class Dynamic2DFilledCirclesDrawer extends Dynamic2DDrawer {
 			pos_buffer.flip();
 			dif_buffer.flip();
 
-			final IntBuffer indices_buffer = Buffers
-					.newDirectIntBuffer(3 * div_num);
+			final IntBuffer indices_buffer = Buffers.newDirectIntBuffer(3 * div_num);
 			for (int i = 1; i < div_num; i++) {
 				indices_buffer.put(i);
 				indices_buffer.put(i + 1);
@@ -139,34 +134,29 @@ public class Dynamic2DFilledCirclesDrawer extends Dynamic2DDrawer {
 			indices_buffer.flip();
 
 			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(count));
-			GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-					Buffers.SIZEOF_FLOAT * pos_buffer.capacity(), pos_buffer,
-					GL.GL_DYNAMIC_DRAW);
+			GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * pos_buffer.capacity(),
+					pos_buffer, GL.GL_DYNAMIC_DRAW);
 			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, dif_vbo.get(count));
-			GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-					Buffers.SIZEOF_FLOAT * dif_buffer.capacity(), dif_buffer,
-					GL.GL_DYNAMIC_DRAW);
+			GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * dif_buffer.capacity(),
+					dif_buffer, GL.GL_DYNAMIC_DRAW);
 
 			GLWrapper.glBindVertexArray(vao.get(count));
 
 			// Indices
-			GLWrapper.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER,
-					indices_vbo.get(count));
+			GLWrapper.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(count));
 			GLWrapper.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER,
-					Buffers.SIZEOF_INT * indices_buffer.capacity(),
-					indices_buffer, GL.GL_DYNAMIC_DRAW);
+					Buffers.SIZEOF_INT * indices_buffer.capacity(), indices_buffer,
+					GL.GL_DYNAMIC_DRAW);
 
 			// Position attribute
 			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(count));
 			GLWrapper.glEnableVertexAttribArray(0);
-			GLWrapper.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false,
-					Buffers.SIZEOF_FLOAT * 2, 0);
+			GLWrapper.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 2, 0);
 
 			// Color attribute
 			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, dif_vbo.get(count));
 			GLWrapper.glEnableVertexAttribArray(1);
-			GLWrapper.glVertexAttribPointer(1, 4, GL.GL_FLOAT, false,
-					Buffers.SIZEOF_FLOAT * 4, 0);
+			GLWrapper.glVertexAttribPointer(1, 4, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 4, 0);
 
 			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 			GLWrapper.glBindVertexArray(0);
@@ -220,8 +210,7 @@ public class Dynamic2DFilledCirclesDrawer extends Dynamic2DDrawer {
 
 				final int indices_size = indices_sizes_map.get(i);
 				GLWrapper.glEnable(GL.GL_BLEND);
-				GLWrapper.glDrawElements(GL.GL_TRIANGLES, indices_size,
-						GL.GL_UNSIGNED_INT, 0);
+				GLWrapper.glDrawElements(GL.GL_TRIANGLES, indices_size, GL.GL_UNSIGNED_INT, 0);
 				GLWrapper.glDisable(GL.GL_BLEND);
 
 				GLWrapper.glBindVertexArray(0);

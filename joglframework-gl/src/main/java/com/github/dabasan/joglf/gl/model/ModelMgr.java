@@ -41,8 +41,7 @@ public class ModelMgr {
 
 	private final List<ShaderProgram> programs;
 
-	public ModelMgr(List<BufferedVertices> buffered_vertices_list,
-			FlipVOption option) {
+	public ModelMgr(List<BufferedVertices> buffered_vertices_list, FlipVOption option) {
 		this.buffered_vertices_list = buffered_vertices_list;
 
 		property_updated_flag = false;
@@ -64,8 +63,7 @@ public class ModelMgr {
 		programs.clear();
 	}
 
-	public void Interpolate(ModelMgr frame1, ModelMgr frame2,
-			float blend_ratio) {
+	public void Interpolate(ModelMgr frame1, ModelMgr frame2, float blend_ratio) {
 		final List<BufferedVertices> interpolated_bv_list = new ArrayList<>();
 		final List<BufferedVertices> frame1_bv_list = frame1.buffered_vertices_list;
 		final List<BufferedVertices> frame2_bv_list = frame2.buffered_vertices_list;
@@ -75,8 +73,8 @@ public class ModelMgr {
 			final BufferedVertices frame1_bv = frame1_bv_list.get(i);
 			final BufferedVertices frame2_bv = frame2_bv_list.get(i);
 
-			final BufferedVertices interpolated_bv = BufferedVertices
-					.Interpolate(frame1_bv, frame2_bv, blend_ratio);
+			final BufferedVertices interpolated_bv = BufferedVertices.Interpolate(frame1_bv,
+					frame2_bv, blend_ratio);
 			interpolated_bv_list.add(interpolated_bv);
 		}
 
@@ -87,13 +85,11 @@ public class ModelMgr {
 		final List<BufferedVertices> copied_buffered_vertices_list = new ArrayList<>();
 
 		for (final BufferedVertices buffered_vertices : buffered_vertices_list) {
-			final BufferedVertices copied_buffered_vertices = buffered_vertices
-					.Copy();
+			final BufferedVertices copied_buffered_vertices = buffered_vertices.Copy();
 			copied_buffered_vertices_list.add(copied_buffered_vertices);
 		}
 
-		final ModelMgr copied_model = new ModelMgr(
-				copied_buffered_vertices_list);
+		final ModelMgr copied_model = new ModelMgr(copied_buffered_vertices_list);
 
 		return copied_model;
 	}
@@ -113,8 +109,7 @@ public class ModelMgr {
 		GLWrapper.glGenVertexArrays(element_num, vao);
 
 		for (int i = 0; i < element_num; i++) {
-			final BufferedVertices buffered_vertices = buffered_vertices_list
-					.get(i);
+			final BufferedVertices buffered_vertices = buffered_vertices_list.get(i);
 
 			final FloatBuffer pos_buffer = buffered_vertices.GetPosBuffer();
 			final FloatBuffer uv_buffer = buffered_vertices.GetUVBuffer();
@@ -122,8 +117,7 @@ public class ModelMgr {
 
 			if (option == FlipVOption.MUST_FLIP_VERTICALLY) {
 				final int texture_handle = buffered_vertices.GetTextureHandle();
-				final boolean texture_exists = TextureMgr
-						.TextureExists(texture_handle);
+				final boolean texture_exists = TextureMgr.TextureExists(texture_handle);
 				if (texture_exists == true) {
 					final boolean must_flip_vertically = TextureMgr
 							.GetMustFlipVertically(texture_handle);
@@ -148,47 +142,38 @@ public class ModelMgr {
 			}
 
 			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(i));
-			GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-					Buffers.SIZEOF_FLOAT * pos_buffer.capacity(), pos_buffer,
-					GL.GL_DYNAMIC_DRAW);
+			GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * pos_buffer.capacity(),
+					pos_buffer, GL.GL_DYNAMIC_DRAW);
 			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, uv_vbo.get(i));
-			GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-					Buffers.SIZEOF_FLOAT * uv_buffer.capacity(), uv_buffer,
-					GL.GL_STATIC_DRAW);
+			GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * uv_buffer.capacity(),
+					uv_buffer, GL.GL_STATIC_DRAW);
 			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, norm_vbo.get(i));
 			GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-					Buffers.SIZEOF_FLOAT * norm_buffer.capacity(), norm_buffer,
-					GL.GL_DYNAMIC_DRAW);
+					Buffers.SIZEOF_FLOAT * norm_buffer.capacity(), norm_buffer, GL.GL_DYNAMIC_DRAW);
 			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 		}
 		for (int i = 0; i < element_num; i++) {
-			final BufferedVertices buffered_vertices = buffered_vertices_list
-					.get(i);
-			final IntBuffer indices_buffer = buffered_vertices
-					.GetIndicesBuffer();
+			final BufferedVertices buffered_vertices = buffered_vertices_list.get(i);
+			final IntBuffer indices_buffer = buffered_vertices.GetIndicesBuffer();
 
 			GLWrapper.glBindVertexArray(vao.get(i));
 
-			GLWrapper.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER,
-					indices_vbo.get(i));
+			GLWrapper.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(i));
 			GLWrapper.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER,
-					Buffers.SIZEOF_INT * indices_buffer.capacity(),
-					indices_buffer, GL.GL_STATIC_DRAW);
+					Buffers.SIZEOF_INT * indices_buffer.capacity(), indices_buffer,
+					GL.GL_STATIC_DRAW);
 
 			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(i));
 			GLWrapper.glEnableVertexAttribArray(0);
-			GLWrapper.glVertexAttribPointer(0, 3, GL.GL_FLOAT, false,
-					Buffers.SIZEOF_FLOAT * 3, 0);
+			GLWrapper.glVertexAttribPointer(0, 3, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 3, 0);
 
 			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, uv_vbo.get(i));
 			GLWrapper.glEnableVertexAttribArray(1);
-			GLWrapper.glVertexAttribPointer(1, 2, GL.GL_FLOAT, false,
-					Buffers.SIZEOF_FLOAT * 2, 0);
+			GLWrapper.glVertexAttribPointer(1, 2, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 2, 0);
 
 			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, norm_vbo.get(i));
 			GLWrapper.glEnableVertexAttribArray(2);
-			GLWrapper.glVertexAttribPointer(2, 3, GL.GL_FLOAT, false,
-					Buffers.SIZEOF_FLOAT * 3, 0);
+			GLWrapper.glVertexAttribPointer(2, 3, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 3, 0);
 
 			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 			GLWrapper.glBindVertexArray(0);
@@ -198,8 +183,7 @@ public class ModelMgr {
 		final int element_num = buffered_vertices_list.size();
 
 		for (int i = 0; i < element_num; i++) {
-			final BufferedVertices buffered_vertices = buffered_vertices_list
-					.get(i);
+			final BufferedVertices buffered_vertices = buffered_vertices_list.get(i);
 
 			final FloatBuffer pos_buffer = buffered_vertices.GetPosBuffer();
 			final FloatBuffer norm_buffer = buffered_vertices.GetNormBuffer();
@@ -207,13 +191,11 @@ public class ModelMgr {
 			GLWrapper.glBindVertexArray(vao.get(i));
 
 			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(i));
-			GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-					Buffers.SIZEOF_FLOAT * pos_buffer.capacity(), pos_buffer,
-					GL.GL_DYNAMIC_DRAW);
+			GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * pos_buffer.capacity(),
+					pos_buffer, GL.GL_DYNAMIC_DRAW);
 			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, norm_vbo.get(i));
 			GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-					Buffers.SIZEOF_FLOAT * norm_buffer.capacity(), norm_buffer,
-					GL.GL_DYNAMIC_DRAW);
+					Buffers.SIZEOF_FLOAT * norm_buffer.capacity(), norm_buffer, GL.GL_DYNAMIC_DRAW);
 
 			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 			GLWrapper.glBindVertexArray(0);
@@ -237,8 +219,7 @@ public class ModelMgr {
 		}
 	}
 
-	public void DrawWithProgram(ShaderProgram program, String sampler_name,
-			int texture_unit) {
+	public void DrawWithProgram(ShaderProgram program, String sampler_name, int texture_unit) {
 		if (property_updated_flag == true) {
 			this.UpdateBuffers();
 		}
@@ -248,8 +229,7 @@ public class ModelMgr {
 		program.Enable();
 
 		for (int i = 0; i < element_num; i++) {
-			final BufferedVertices buffered_vertices = buffered_vertices_list
-					.get(i);
+			final BufferedVertices buffered_vertices = buffered_vertices_list.get(i);
 			final int texture_handle = buffered_vertices.GetTextureHandle();
 			final int indices_count = buffered_vertices.GetIndicesCount();
 
@@ -258,8 +238,7 @@ public class ModelMgr {
 			program.SetTexture(sampler_name, texture_unit, texture_handle);
 
 			GLWrapper.glEnable(GL.GL_BLEND);
-			GLWrapper.glDrawElements(GL.GL_TRIANGLES, indices_count,
-					GL.GL_UNSIGNED_INT, 0);
+			GLWrapper.glDrawElements(GL.GL_TRIANGLES, indices_count, GL.GL_UNSIGNED_INT, 0);
 			GLWrapper.glDisable(GL.GL_BLEND);
 
 			GLWrapper.glBindVertexArray(0);
@@ -284,15 +263,13 @@ public class ModelMgr {
 		final int element_num = buffered_vertices_list.size();
 
 		for (int i = 0; i < element_num; i++) {
-			final BufferedVertices buffered_vertices = buffered_vertices_list
-					.get(i);
+			final BufferedVertices buffered_vertices = buffered_vertices_list.get(i);
 			final int indices_count = buffered_vertices.GetIndicesCount();
 
 			GLWrapper.glBindVertexArray(vao.get(i));
 
 			GLWrapper.glEnable(GL.GL_BLEND);
-			GLWrapper.glDrawElements(GL.GL_TRIANGLES, indices_count,
-					GL.GL_UNSIGNED_INT, 0);
+			GLWrapper.glDrawElements(GL.GL_TRIANGLES, indices_count, GL.GL_UNSIGNED_INT, 0);
 			GLWrapper.glDisable(GL.GL_BLEND);
 
 			GLWrapper.glBindVertexArray(0);
@@ -319,8 +296,7 @@ public class ModelMgr {
 			program.Enable();
 
 			for (int i = 0; i < clamped_bound; i++) {
-				final BufferedVertices buffered_vertices = buffered_vertices_list
-						.get(i);
+				final BufferedVertices buffered_vertices = buffered_vertices_list.get(i);
 				final int texture_handle = buffered_vertices.GetTextureHandle();
 				final int indices_count = buffered_vertices.GetIndicesCount();
 
@@ -329,8 +305,7 @@ public class ModelMgr {
 				program.SetTexture(sampler_name, texture_unit, texture_handle);
 
 				GLWrapper.glEnable(GL.GL_BLEND);
-				GLWrapper.glDrawElements(GL.GL_TRIANGLES, indices_count,
-						GL.GL_UNSIGNED_INT, 0);
+				GLWrapper.glDrawElements(GL.GL_TRIANGLES, indices_count, GL.GL_UNSIGNED_INT, 0);
 				GLWrapper.glDisable(GL.GL_BLEND);
 
 				GLWrapper.glBindVertexArray(0);
@@ -388,15 +363,12 @@ public class ModelMgr {
 	}
 
 	public int ChangeTexture(int material_index, int new_texture_handle) {
-		if (!(0 <= material_index
-				&& material_index < buffered_vertices_list.size())) {
-			logger.warn("Index out of bounds. material_index={}",
-					material_index);
+		if (!(0 <= material_index && material_index < buffered_vertices_list.size())) {
+			logger.warn("Index out of bounds. material_index={}", material_index);
 			return -1;
 		}
 
-		final BufferedVertices buffered_vertices = buffered_vertices_list
-				.get(material_index);
+		final BufferedVertices buffered_vertices = buffered_vertices_list.get(material_index);
 		buffered_vertices.SetTextureHandle(new_texture_handle);
 
 		return 0;
@@ -407,8 +379,7 @@ public class ModelMgr {
 		final int[] texture_handles = new int[element_num];
 
 		for (int i = 0; i < element_num; i++) {
-			texture_handles[i] = buffered_vertices_list.get(i)
-					.GetTextureHandle();
+			texture_handles[i] = buffered_vertices_list.get(i).GetTextureHandle();
 		}
 
 		return texture_handles;
@@ -418,8 +389,7 @@ public class ModelMgr {
 		final List<Triangle> ret = new ArrayList<>();
 
 		for (final BufferedVertices buffered_vertices : buffered_vertices_list) {
-			final IntBuffer indices_buffer = buffered_vertices
-					.GetIndicesBuffer();
+			final IntBuffer indices_buffer = buffered_vertices.GetIndicesBuffer();
 			final FloatBuffer pos_buffer = buffered_vertices.GetPosBuffer();
 			final FloatBuffer norm_buffer = buffered_vertices.GetNormBuffer();
 			final FloatBuffer uv_buffer = buffered_vertices.GetUVBuffer();

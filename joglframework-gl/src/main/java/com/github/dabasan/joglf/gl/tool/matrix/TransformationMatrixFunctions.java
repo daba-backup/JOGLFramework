@@ -12,8 +12,7 @@ import com.github.dabasan.basis.vector.VectorFunctions;
  *
  */
 public class TransformationMatrixFunctions {
-	public static Matrix GetViewTransformationMatrix(Vector pos, Vector target,
-			Vector up) {
+	public static Matrix GetViewTransformationMatrix(Vector pos, Vector target, Vector up) {
 		Matrix view_transformation_matrix;
 
 		final Vector vec_translate = VectorFunctions.VScale(pos, -1.0f);

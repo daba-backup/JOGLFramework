@@ -29,8 +29,7 @@ import com.jogamp.opengl.GL;
  *
  */
 public class DynamicCapsulesDrawer extends Dynamic3DDrawer {
-	private final Logger logger = LoggerFactory
-			.getLogger(DynamicCapsulesDrawer.class);
+	private final Logger logger = LoggerFactory.getLogger(DynamicCapsulesDrawer.class);
 
 	private final Map<Integer, Capsule> capsules_map;
 	private final Map<Integer, Integer> indices_sizes_map;
@@ -84,16 +83,14 @@ public class DynamicCapsulesDrawer extends Dynamic3DDrawer {
 			final int stack_num = capsule.GetStackNum();
 			final ColorU8 color = capsule.GetColor();
 
-			final Vector capsule_axis = VectorFunctions.VSub(capsule_pos_2,
-					capsule_pos_1);
+			final Vector capsule_axis = VectorFunctions.VSub(capsule_pos_2, capsule_pos_1);
 			final float d = VectorFunctions.VSize(capsule_axis);
 			final float half_d = d / 2.0f;
 
 			final float th_v = VectorFunctions.VAngleV(capsule_axis);
 			final float th_h = VectorFunctions.VAngleH(capsule_axis);
 
-			Vector center_pos = VectorFunctions.VAdd(capsule_pos_1,
-					capsule_pos_2);
+			Vector center_pos = VectorFunctions.VAdd(capsule_pos_1, capsule_pos_2);
 			center_pos = VectorFunctions.VScale(center_pos, 0.5f);
 
 			final List<Vector> vertices = new ArrayList<>();
@@ -135,8 +132,7 @@ public class DynamicCapsulesDrawer extends Dynamic3DDrawer {
 			// South pole
 			vertices.add(VectorFunctions.VGet(0.0f, -radius - half_d, 0.0f));
 
-			final Matrix rot_z = MatrixFunctions
-					.MGetRotZ(th_v - (float) Math.PI / 2.0f);
+			final Matrix rot_z = MatrixFunctions.MGetRotZ(th_v - (float) Math.PI / 2.0f);
 			final Matrix rot_y = MatrixFunctions.MGetRotY(-th_h);
 
 			for (int i = 0; i < vertex_num; i++) {
@@ -194,12 +190,9 @@ public class DynamicCapsulesDrawer extends Dynamic3DDrawer {
 			indices.add(count);
 			indices.add(vertex_num - 1);
 
-			final IntBuffer indices_buffer = Buffers
-					.newDirectIntBuffer(indices.size());
-			final FloatBuffer pos_buffer = Buffers
-					.newDirectFloatBuffer(vertices.size() * 3);
-			final FloatBuffer dif_buffer = Buffers
-					.newDirectFloatBuffer(indices.size() * 4);
+			final IntBuffer indices_buffer = Buffers.newDirectIntBuffer(indices.size());
+			final FloatBuffer pos_buffer = Buffers.newDirectFloatBuffer(vertices.size() * 3);
+			final FloatBuffer dif_buffer = Buffers.newDirectFloatBuffer(indices.size() * 4);
 
 			final int indices_size = indices.size();
 			for (int i = 0; i < indices_size; i++) {
@@ -228,39 +221,30 @@ public class DynamicCapsulesDrawer extends Dynamic3DDrawer {
 			pos_buffer.flip();
 			dif_buffer.flip();
 
-			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER,
-					pos_vbo.get(buffer_count));
-			GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-					Buffers.SIZEOF_FLOAT * pos_buffer.capacity(), pos_buffer,
-					GL.GL_DYNAMIC_DRAW);
-			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER,
-					dif_vbo.get(buffer_count));
-			GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-					Buffers.SIZEOF_FLOAT * dif_buffer.capacity(), dif_buffer,
-					GL.GL_DYNAMIC_DRAW);
+			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(buffer_count));
+			GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * pos_buffer.capacity(),
+					pos_buffer, GL.GL_DYNAMIC_DRAW);
+			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, dif_vbo.get(buffer_count));
+			GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * dif_buffer.capacity(),
+					dif_buffer, GL.GL_DYNAMIC_DRAW);
 
 			GLWrapper.glBindVertexArray(vao.get(buffer_count));
 
 			// Indices
-			GLWrapper.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER,
-					indices_vbo.get(buffer_count));
+			GLWrapper.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(buffer_count));
 			GLWrapper.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER,
-					Buffers.SIZEOF_INT * indices_buffer.capacity(),
-					indices_buffer, GL.GL_DYNAMIC_DRAW);
+					Buffers.SIZEOF_INT * indices_buffer.capacity(), indices_buffer,
+					GL.GL_DYNAMIC_DRAW);
 
 			// Position attribute
-			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER,
-					pos_vbo.get(buffer_count));
+			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(buffer_count));
 			GLWrapper.glEnableVertexAttribArray(0);
-			GLWrapper.glVertexAttribPointer(0, 3, GL.GL_FLOAT, false,
-					Buffers.SIZEOF_FLOAT * 3, 0);
+			GLWrapper.glVertexAttribPointer(0, 3, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 3, 0);
 
 			// Color attribute
-			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER,
-					dif_vbo.get(buffer_count));
+			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, dif_vbo.get(buffer_count));
 			GLWrapper.glEnableVertexAttribArray(1);
-			GLWrapper.glVertexAttribPointer(1, 4, GL.GL_FLOAT, false,
-					Buffers.SIZEOF_FLOAT * 4, 0);
+			GLWrapper.glVertexAttribPointer(1, 4, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 4, 0);
 
 			GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 			GLWrapper.glBindVertexArray(0);
@@ -312,8 +296,7 @@ public class DynamicCapsulesDrawer extends Dynamic3DDrawer {
 
 				final int indices_size = indices_sizes_map.get(i);
 				GLWrapper.glEnable(GL.GL_BLEND);
-				GLWrapper.glDrawElements(GL.GL_LINES, indices_size,
-						GL.GL_UNSIGNED_INT, 0);
+				GLWrapper.glDrawElements(GL.GL_LINES, indices_size, GL.GL_UNSIGNED_INT, 0);
 				GLWrapper.glDisable(GL.GL_BLEND);
 
 				GLWrapper.glBindVertexArray(0);

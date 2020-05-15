@@ -89,8 +89,7 @@ public class AnimationInfo {
 			if (f1 <= frame_index && frame_index < f2) {
 				final int frame1_handle = frames_map.get(f1);
 				final int frame2_handle = frames_map.get(f2);
-				final float blend_ratio = (float) (frame_index - f1)
-						/ (f2 - f1);
+				final float blend_ratio = (float) (frame_index - f1) / (f2 - f1);
 
 				abi.SetFrame1Handle(frame1_handle);
 				abi.SetFrame2Handle(frame2_handle);

@@ -38,8 +38,7 @@ class Drawer3DTestWindow extends JOGLFWindow {
 
 	@Override
 	public void Update() {
-		CameraFront.SetCameraPositionAndTarget_UpVecY(
-				VectorFunctions.VGet(-50.0f, 20.0f, -50.0f),
+		CameraFront.SetCameraPositionAndTarget_UpVecY(VectorFunctions.VGet(-50.0f, 20.0f, -50.0f),
 				VectorFunctions.VGet(50.0f, 0.0f, 50.0f));
 	}
 

@@ -73,8 +73,7 @@ public class GLFront {
 		ShaderFunctions.CreateProgram("texture2",
 				"./Data/Shader/330/default/texture/phong/vshader.glsl",
 				"./Data/Shader/330/default/texture/phong/fshader.glsl");
-		ShaderFunctions.CreateProgram("color",
-				"./Data/Shader/330/default/color/vshader.glsl",
+		ShaderFunctions.CreateProgram("color", "./Data/Shader/330/default/color/vshader.glsl",
 				"./Data/Shader/330/default/color/fshader.glsl");
 		ShaderFunctions.CreateProgram("texture_drawer",
 				"./Data/Shader/330/default/texture_drawer/vshader.glsl",

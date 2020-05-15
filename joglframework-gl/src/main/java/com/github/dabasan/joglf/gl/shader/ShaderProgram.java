@@ -31,8 +31,7 @@ public class ShaderProgram {
 		this.program_name = program_name;
 		program_id = ShaderFunctions.GetProgramID(program_name);
 		if (program_id < 0) {
-			logger.warn("This program is invalid. program_name={}",
-					program_name);
+			logger.warn("This program is invalid. program_name={}", program_name);
 		}
 
 		logging_enabled_flag = false;
@@ -45,8 +44,7 @@ public class ShaderProgram {
 		this.program_name = program_name;
 		program_id = ShaderFunctions.GetProgramID(program_name);
 		if (program_id < 0) {
-			logger.warn("This program is invalid. program_name={}",
-					program_name);
+			logger.warn("This program is invalid. program_name={}", program_name);
 		}
 
 		logging_enabled_flag = false;
@@ -85,8 +83,7 @@ public class ShaderProgram {
 		final int location = GLWrapper.glGetUniformLocation(program_id, name);
 		if (location < 0) {
 			if (logging_enabled_flag == true) {
-				logger.trace("({}) Invalid uniform name. name={}", program_name,
-						name);
+				logger.trace("({}) Invalid uniform name. name={}", program_name, name);
 			}
 			return -1;
 		}
@@ -99,8 +96,7 @@ public class ShaderProgram {
 		final int location = GLWrapper.glGetUniformLocation(program_id, name);
 		if (location < 0) {
 			if (logging_enabled_flag == true) {
-				logger.trace("({}) Invalid uniform name. name={}", program_name,
-						name);
+				logger.trace("({}) Invalid uniform name. name={}", program_name, name);
 			}
 			return -1;
 		}
@@ -113,8 +109,7 @@ public class ShaderProgram {
 		final int location = GLWrapper.glGetUniformLocation(program_id, name);
 		if (location < 0) {
 			if (logging_enabled_flag == true) {
-				logger.trace("({}) Invalid uniform name. name={}", program_name,
-						name);
+				logger.trace("({}) Invalid uniform name. name={}", program_name, name);
 			}
 			return -1;
 		}
@@ -123,13 +118,11 @@ public class ShaderProgram {
 
 		return 0;
 	}
-	public int SetUniform(String name, int value0, int value1, int value2,
-			int value3) {
+	public int SetUniform(String name, int value0, int value1, int value2, int value3) {
 		final int location = GLWrapper.glGetUniformLocation(program_id, name);
 		if (location < 0) {
 			if (logging_enabled_flag == true) {
-				logger.trace("({}) Invalid uniform name. name={}", program_name,
-						name);
+				logger.trace("({}) Invalid uniform name. name={}", program_name, name);
 			}
 			return -1;
 		}
@@ -142,8 +135,7 @@ public class ShaderProgram {
 		final int location = GLWrapper.glGetUniformLocation(program_id, name);
 		if (location < 0) {
 			if (logging_enabled_flag == true) {
-				logger.trace("({}) Invalid uniform name. name={}", program_name,
-						name);
+				logger.trace("({}) Invalid uniform name. name={}", program_name, name);
 			}
 			return -1;
 		}
@@ -156,8 +148,7 @@ public class ShaderProgram {
 		final int location = GLWrapper.glGetUniformLocation(program_id, name);
 		if (location < 0) {
 			if (logging_enabled_flag == true) {
-				logger.trace("({}) Invalid uniform name. name={}", program_name,
-						name);
+				logger.trace("({}) Invalid uniform name. name={}", program_name, name);
 			}
 			return -1;
 		}
@@ -166,13 +157,11 @@ public class ShaderProgram {
 
 		return 0;
 	}
-	public int SetUniform(String name, float value0, float value1,
-			float value2) {
+	public int SetUniform(String name, float value0, float value1, float value2) {
 		final int location = GLWrapper.glGetUniformLocation(program_id, name);
 		if (location < 0) {
 			if (logging_enabled_flag == true) {
-				logger.trace("({}) Invalid uniform name. name={}", program_name,
-						name);
+				logger.trace("({}) Invalid uniform name. name={}", program_name, name);
 			}
 			return -1;
 		}
@@ -181,13 +170,11 @@ public class ShaderProgram {
 
 		return 0;
 	}
-	public int SetUniform(String name, float value0, float value1, float value2,
-			float value3) {
+	public int SetUniform(String name, float value0, float value1, float value2, float value3) {
 		final int location = GLWrapper.glGetUniformLocation(program_id, name);
 		if (location < 0) {
 			if (logging_enabled_flag == true) {
-				logger.trace("({}) Invalid uniform name. name={}", program_name,
-						name);
+				logger.trace("({}) Invalid uniform name. name={}", program_name, name);
 			}
 			return -1;
 		}
@@ -200,14 +187,12 @@ public class ShaderProgram {
 		final int location = GLWrapper.glGetUniformLocation(program_id, name);
 		if (location < 0) {
 			if (logging_enabled_flag == true) {
-				logger.trace("({}) Invalid uniform name. name={}", program_name,
-						name);
+				logger.trace("({}) Invalid uniform name. name={}", program_name, name);
 			}
 			return -1;
 		}
 
-		GLWrapper.glUniform3f(location, value.GetX(), value.GetY(),
-				value.GetZ());
+		GLWrapper.glUniform3f(location, value.GetX(), value.GetY(), value.GetZ());
 
 		return 0;
 	}
@@ -215,14 +200,12 @@ public class ShaderProgram {
 		final int location = GLWrapper.glGetUniformLocation(program_id, name);
 		if (location < 0) {
 			if (logging_enabled_flag == true) {
-				logger.trace("({}) Invalid uniform name. name={}", program_name,
-						name);
+				logger.trace("({}) Invalid uniform name. name={}", program_name, name);
 			}
 			return -1;
 		}
 
-		GLWrapper.glUniform4f(location, value.GetR(), value.GetG(),
-				value.GetB(), value.GetA());
+		GLWrapper.glUniform4f(location, value.GetR(), value.GetG(), value.GetB(), value.GetA());
 
 		return 0;
 	}
@@ -230,14 +213,12 @@ public class ShaderProgram {
 		final int location = GLWrapper.glGetUniformLocation(program_id, name);
 		if (location < 0) {
 			if (logging_enabled_flag == true) {
-				logger.trace("({}) Invalid uniform name. name={}", program_name,
-						name);
+				logger.trace("({}) Invalid uniform name. name={}", program_name, name);
 			}
 			return -1;
 		}
 
-		final FloatBuffer buffer = BufferFunctions
-				.MakeFloatBufferFromMatrix(value);
+		final FloatBuffer buffer = BufferFunctions.MakeFloatBufferFromMatrix(value);
 		GLWrapper.glUniformMatrix4fv(location, 1, transpose, buffer);
 
 		return 0;
@@ -247,8 +228,7 @@ public class ShaderProgram {
 		final int location = GLWrapper.glGetUniformLocation(program_id, name);
 		if (location < 0) {
 			if (logging_enabled_flag == true) {
-				logger.trace("({}) Invalid uniform name. name={}", program_name,
-						name);
+				logger.trace("({}) Invalid uniform name. name={}", program_name, name);
 			}
 			return -1;
 		}

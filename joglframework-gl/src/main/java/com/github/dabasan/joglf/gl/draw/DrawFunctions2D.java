@@ -52,8 +52,7 @@ public class DrawFunctions2D {
 		window_height = height;
 	}
 
-	public static void DrawLine2D(int x1, int y1, int x2, int y2,
-			ColorU8 color) {
+	public static void DrawLine2D(int x1, int y1, int x2, int y2, ColorU8 color) {
 		final IntBuffer pos_vbo = Buffers.newDirectIntBuffer(1);
 		final IntBuffer color_vbo = Buffers.newDirectIntBuffer(1);
 		final IntBuffer vao = Buffers.newDirectIntBuffer(1);
@@ -61,14 +60,10 @@ public class DrawFunctions2D {
 		final FloatBuffer pos_buffer = Buffers.newDirectFloatBuffer(4);
 		final FloatBuffer color_buffer = Buffers.newDirectFloatBuffer(8);
 
-		final float normalized_x1 = CoordinateFunctions.NormalizeCoordinate(x1,
-				window_width);
-		final float normalized_y1 = CoordinateFunctions.NormalizeCoordinate(y1,
-				window_height);
-		final float normalized_x2 = CoordinateFunctions.NormalizeCoordinate(x2,
-				window_width);
-		final float normalized_y2 = CoordinateFunctions.NormalizeCoordinate(y2,
-				window_height);
+		final float normalized_x1 = CoordinateFunctions.NormalizeCoordinate(x1, window_width);
+		final float normalized_y1 = CoordinateFunctions.NormalizeCoordinate(y1, window_height);
+		final float normalized_x2 = CoordinateFunctions.NormalizeCoordinate(x2, window_width);
+		final float normalized_y2 = CoordinateFunctions.NormalizeCoordinate(y2, window_height);
 
 		pos_buffer.put(normalized_x1);
 		pos_buffer.put(normalized_y1);
@@ -93,13 +88,11 @@ public class DrawFunctions2D {
 		GLWrapper.glGenBuffers(1, color_vbo);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * pos_buffer.capacity(), pos_buffer,
-				GL.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * pos_buffer.capacity(),
+				pos_buffer, GL.GL_STATIC_DRAW);
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, color_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * color_buffer.capacity(), color_buffer,
-				GL.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * color_buffer.capacity(),
+				color_buffer, GL.GL_STATIC_DRAW);
 
 		GLWrapper.glGenVertexArrays(1, vao);
 		GLWrapper.glBindVertexArray(vao.get(0));
@@ -107,14 +100,12 @@ public class DrawFunctions2D {
 		// Position attribute
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(0);
-		GLWrapper.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 2, 0);
+		GLWrapper.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 2, 0);
 
 		// Color attribute
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, color_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(1);
-		GLWrapper.glVertexAttribPointer(1, 4, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 4, 0);
+		GLWrapper.glVertexAttribPointer(1, 4, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 4, 0);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 		GLWrapper.glBindVertexArray(0);
@@ -148,8 +139,7 @@ public class DrawFunctions2D {
 	 * @param color
 	 *            Color
 	 */
-	public static void DrawRectangle2D(int x1, int y1, int x2, int y2,
-			ColorU8 color) {
+	public static void DrawRectangle2D(int x1, int y1, int x2, int y2, ColorU8 color) {
 		final IntBuffer pos_vbo = Buffers.newDirectIntBuffer(1);
 		final IntBuffer color_vbo = Buffers.newDirectIntBuffer(1);
 		final IntBuffer vao = Buffers.newDirectIntBuffer(1);
@@ -157,14 +147,10 @@ public class DrawFunctions2D {
 		final FloatBuffer pos_buffer = Buffers.newDirectFloatBuffer(2 * 4);
 		final FloatBuffer color_buffer = Buffers.newDirectFloatBuffer(4 * 4);
 
-		final float normalized_x1 = CoordinateFunctions.NormalizeCoordinate(x1,
-				window_width);
-		final float normalized_y1 = CoordinateFunctions.NormalizeCoordinate(y1,
-				window_height);
-		final float normalized_x2 = CoordinateFunctions.NormalizeCoordinate(x2,
-				window_width);
-		final float normalized_y2 = CoordinateFunctions.NormalizeCoordinate(y2,
-				window_height);
+		final float normalized_x1 = CoordinateFunctions.NormalizeCoordinate(x1, window_width);
+		final float normalized_y1 = CoordinateFunctions.NormalizeCoordinate(y1, window_height);
+		final float normalized_x2 = CoordinateFunctions.NormalizeCoordinate(x2, window_width);
+		final float normalized_y2 = CoordinateFunctions.NormalizeCoordinate(y2, window_height);
 
 		// Bottom left
 		pos_buffer.put(normalized_x1);
@@ -197,13 +183,11 @@ public class DrawFunctions2D {
 		GLWrapper.glGenBuffers(1, color_vbo);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * pos_buffer.capacity(), pos_buffer,
-				GL.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * pos_buffer.capacity(),
+				pos_buffer, GL.GL_STATIC_DRAW);
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, color_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * color_buffer.capacity(), color_buffer,
-				GL.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * color_buffer.capacity(),
+				color_buffer, GL.GL_STATIC_DRAW);
 
 		GLWrapper.glGenVertexArrays(1, vao);
 		GLWrapper.glBindVertexArray(vao.get(0));
@@ -211,14 +195,12 @@ public class DrawFunctions2D {
 		// Position attribute
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(0);
-		GLWrapper.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 2, 0);
+		GLWrapper.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 2, 0);
 
 		// Color attribute
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, color_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(1);
-		GLWrapper.glVertexAttribPointer(1, 4, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 4, 0);
+		GLWrapper.glVertexAttribPointer(1, 4, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 4, 0);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 		GLWrapper.glBindVertexArray(0);
@@ -238,8 +220,7 @@ public class DrawFunctions2D {
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
 
-	public static void DrawFilledRectangle2D(int x1, int y1, int x2, int y2,
-			ColorU8 color) {
+	public static void DrawFilledRectangle2D(int x1, int y1, int x2, int y2, ColorU8 color) {
 		final IntBuffer indices_vbo = Buffers.newDirectIntBuffer(1);
 		final IntBuffer pos_vbo = Buffers.newDirectIntBuffer(1);
 		final IntBuffer color_vbo = Buffers.newDirectIntBuffer(1);
@@ -248,14 +229,10 @@ public class DrawFunctions2D {
 		final FloatBuffer pos_buffer = Buffers.newDirectFloatBuffer(2 * 4);
 		final FloatBuffer color_buffer = Buffers.newDirectFloatBuffer(4 * 4);
 
-		final float normalized_x1 = CoordinateFunctions.NormalizeCoordinate(x1,
-				window_width);
-		final float normalized_y1 = CoordinateFunctions.NormalizeCoordinate(y1,
-				window_height);
-		final float normalized_x2 = CoordinateFunctions.NormalizeCoordinate(x2,
-				window_width);
-		final float normalized_y2 = CoordinateFunctions.NormalizeCoordinate(y2,
-				window_height);
+		final float normalized_x1 = CoordinateFunctions.NormalizeCoordinate(x1, window_width);
+		final float normalized_y1 = CoordinateFunctions.NormalizeCoordinate(y1, window_height);
+		final float normalized_x2 = CoordinateFunctions.NormalizeCoordinate(x2, window_width);
+		final float normalized_y2 = CoordinateFunctions.NormalizeCoordinate(y2, window_height);
 
 		// Bottom left
 		pos_buffer.put(normalized_x1);
@@ -298,13 +275,11 @@ public class DrawFunctions2D {
 		GLWrapper.glGenBuffers(1, color_vbo);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * pos_buffer.capacity(), pos_buffer,
-				GL.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * pos_buffer.capacity(),
+				pos_buffer, GL.GL_STATIC_DRAW);
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, color_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * color_buffer.capacity(), color_buffer,
-				GL.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * color_buffer.capacity(),
+				color_buffer, GL.GL_STATIC_DRAW);
 
 		GLWrapper.glGenVertexArrays(1, vao);
 		GLWrapper.glBindVertexArray(vao.get(0));
@@ -312,20 +287,17 @@ public class DrawFunctions2D {
 		// Indices
 		GLWrapper.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(0));
 		GLWrapper.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER,
-				Buffers.SIZEOF_INT * indices_buffer.capacity(), indices_buffer,
-				GL.GL_STATIC_DRAW);
+				Buffers.SIZEOF_INT * indices_buffer.capacity(), indices_buffer, GL.GL_STATIC_DRAW);
 
 		// Position attribute
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(0);
-		GLWrapper.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 2, 0);
+		GLWrapper.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 2, 0);
 
 		// Color attribute
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, color_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(1);
-		GLWrapper.glVertexAttribPointer(1, 4, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 4, 0);
+		GLWrapper.glVertexAttribPointer(1, 4, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 4, 0);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 		GLWrapper.glBindVertexArray(0);
@@ -334,8 +306,7 @@ public class DrawFunctions2D {
 		GLWrapper.glBindVertexArray(vao.get(0));
 		GLWrapper.glEnable(GL.GL_BLEND);
 		simple_2d_program.Enable();
-		GLWrapper.glDrawElements(GL.GL_TRIANGLES, indices_buffer.capacity(),
-				GL.GL_UNSIGNED_INT, 0);
+		GLWrapper.glDrawElements(GL.GL_TRIANGLES, indices_buffer.capacity(), GL.GL_UNSIGNED_INT, 0);
 		simple_2d_program.Disable();
 		GLWrapper.glDisable(GL.GL_BLEND);
 		GLWrapper.glBindVertexArray(0);
@@ -347,16 +318,14 @@ public class DrawFunctions2D {
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
 
-	public static void DrawCircle2D(int center_x, int center_y, int radius,
-			int div_num, ColorU8 color) {
+	public static void DrawCircle2D(int center_x, int center_y, int radius, int div_num,
+			ColorU8 color) {
 		final IntBuffer pos_vbo = Buffers.newDirectIntBuffer(1);
 		final IntBuffer color_vbo = Buffers.newDirectIntBuffer(1);
 		final IntBuffer vao = Buffers.newDirectIntBuffer(1);
 
-		final FloatBuffer pos_buffer = Buffers
-				.newDirectFloatBuffer(2 * div_num);
-		final FloatBuffer color_buffer = Buffers
-				.newDirectFloatBuffer(4 * div_num);
+		final FloatBuffer pos_buffer = Buffers.newDirectFloatBuffer(2 * div_num);
+		final FloatBuffer color_buffer = Buffers.newDirectFloatBuffer(4 * div_num);
 
 		for (int i = 0; i < div_num; i++) {
 			final float th = (float) Math.PI * 2.0f / div_num * i;
@@ -364,10 +333,8 @@ public class DrawFunctions2D {
 			final float x = radius * (float) Math.cos(th) + center_x;
 			final float y = radius * (float) Math.sin(th) + center_y;
 
-			final float normalized_x = CoordinateFunctions
-					.NormalizeCoordinate(x, window_width);
-			final float normalized_y = CoordinateFunctions
-					.NormalizeCoordinate(y, window_height);
+			final float normalized_x = CoordinateFunctions.NormalizeCoordinate(x, window_width);
+			final float normalized_y = CoordinateFunctions.NormalizeCoordinate(y, window_height);
 
 			pos_buffer.put(normalized_x);
 			pos_buffer.put(normalized_y);
@@ -391,13 +358,11 @@ public class DrawFunctions2D {
 		GLWrapper.glGenBuffers(1, color_vbo);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * pos_buffer.capacity(), pos_buffer,
-				GL.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * pos_buffer.capacity(),
+				pos_buffer, GL.GL_STATIC_DRAW);
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, color_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * color_buffer.capacity(), color_buffer,
-				GL.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * color_buffer.capacity(),
+				color_buffer, GL.GL_STATIC_DRAW);
 
 		GLWrapper.glGenVertexArrays(1, vao);
 		GLWrapper.glBindVertexArray(vao.get(0));
@@ -405,14 +370,12 @@ public class DrawFunctions2D {
 		// Position attribute
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(0);
-		GLWrapper.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 2, 0);
+		GLWrapper.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 2, 0);
 
 		// Color attribute
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, color_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(1);
-		GLWrapper.glVertexAttribPointer(1, 4, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 4, 0);
+		GLWrapper.glVertexAttribPointer(1, 4, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 4, 0);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 		GLWrapper.glBindVertexArray(0);
@@ -432,22 +395,20 @@ public class DrawFunctions2D {
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
 
-	public static void DrawFilledCircle2D(int center_x, int center_y,
-			int radius, int div_num, ColorU8 color) {
+	public static void DrawFilledCircle2D(int center_x, int center_y, int radius, int div_num,
+			ColorU8 color) {
 		final IntBuffer indices_vbo = Buffers.newDirectIntBuffer(1);
 		final IntBuffer pos_vbo = Buffers.newDirectIntBuffer(1);
 		final IntBuffer color_vbo = Buffers.newDirectIntBuffer(1);
 		final IntBuffer vao = Buffers.newDirectIntBuffer(1);
 
-		final FloatBuffer pos_buffer = Buffers
-				.newDirectFloatBuffer(2 * (div_num + 1));
-		final FloatBuffer color_buffer = Buffers
-				.newDirectFloatBuffer(4 * (div_num + 1));
+		final FloatBuffer pos_buffer = Buffers.newDirectFloatBuffer(2 * (div_num + 1));
+		final FloatBuffer color_buffer = Buffers.newDirectFloatBuffer(4 * (div_num + 1));
 
-		final float normalized_center_x = CoordinateFunctions
-				.NormalizeCoordinate(center_x, window_width);
-		final float normalized_center_y = CoordinateFunctions
-				.NormalizeCoordinate(center_y, window_height);
+		final float normalized_center_x = CoordinateFunctions.NormalizeCoordinate(center_x,
+				window_width);
+		final float normalized_center_y = CoordinateFunctions.NormalizeCoordinate(center_y,
+				window_height);
 		pos_buffer.put(normalized_center_x);
 		pos_buffer.put(normalized_center_y);
 
@@ -457,10 +418,8 @@ public class DrawFunctions2D {
 			final float x = radius * (float) Math.cos(th) + center_x;
 			final float y = radius * (float) Math.sin(th) + center_y;
 
-			final float normalized_x = CoordinateFunctions
-					.NormalizeCoordinate(x, window_width);
-			final float normalized_y = CoordinateFunctions
-					.NormalizeCoordinate(y, window_height);
+			final float normalized_x = CoordinateFunctions.NormalizeCoordinate(x, window_width);
+			final float normalized_y = CoordinateFunctions.NormalizeCoordinate(y, window_height);
 
 			pos_buffer.put(normalized_x);
 			pos_buffer.put(normalized_y);
@@ -480,8 +439,7 @@ public class DrawFunctions2D {
 		pos_buffer.flip();
 		color_buffer.flip();
 
-		final IntBuffer indices_buffer = Buffers
-				.newDirectIntBuffer(3 * div_num);
+		final IntBuffer indices_buffer = Buffers.newDirectIntBuffer(3 * div_num);
 		for (int i = 1; i < div_num; i++) {
 			indices_buffer.put(i);
 			indices_buffer.put(i + 1);
@@ -498,13 +456,11 @@ public class DrawFunctions2D {
 		GLWrapper.glGenBuffers(1, color_vbo);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * pos_buffer.capacity(), pos_buffer,
-				GL.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * pos_buffer.capacity(),
+				pos_buffer, GL.GL_STATIC_DRAW);
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, color_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * color_buffer.capacity(), color_buffer,
-				GL.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * color_buffer.capacity(),
+				color_buffer, GL.GL_STATIC_DRAW);
 
 		GLWrapper.glGenVertexArrays(1, vao);
 		GLWrapper.glBindVertexArray(vao.get(0));
@@ -512,20 +468,17 @@ public class DrawFunctions2D {
 		// Indices
 		GLWrapper.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(0));
 		GLWrapper.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER,
-				Buffers.SIZEOF_INT * indices_buffer.capacity(), indices_buffer,
-				GL.GL_STATIC_DRAW);
+				Buffers.SIZEOF_INT * indices_buffer.capacity(), indices_buffer, GL.GL_STATIC_DRAW);
 
 		// Position attribute
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(0);
-		GLWrapper.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 2, 0);
+		GLWrapper.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 2, 0);
 
 		// Color attribute
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, color_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(1);
-		GLWrapper.glVertexAttribPointer(1, 4, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 4, 0);
+		GLWrapper.glVertexAttribPointer(1, 4, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 4, 0);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 		GLWrapper.glBindVertexArray(0);
@@ -534,8 +487,7 @@ public class DrawFunctions2D {
 		GLWrapper.glBindVertexArray(vao.get(0));
 		GLWrapper.glEnable(GL.GL_BLEND);
 		simple_2d_program.Enable();
-		GLWrapper.glDrawElements(GL.GL_TRIANGLES, indices_buffer.capacity(),
-				GL.GL_UNSIGNED_INT, 0);
+		GLWrapper.glDrawElements(GL.GL_TRIANGLES, indices_buffer.capacity(), GL.GL_UNSIGNED_INT, 0);
 		simple_2d_program.Disable();
 		GLWrapper.glDisable(GL.GL_BLEND);
 		GLWrapper.glBindVertexArray(0);
@@ -547,8 +499,8 @@ public class DrawFunctions2D {
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
 
-	public static void TransferQuad(float bottom_left_x, float bottom_left_y,
-			float top_right_x, float top_right_y) {
+	public static void TransferQuad(float bottom_left_x, float bottom_left_y, float top_right_x,
+			float top_right_y) {
 		final IntBuffer indices = Buffers.newDirectIntBuffer(6);
 		final FloatBuffer pos_buffer = Buffers.newDirectFloatBuffer(8);
 		final FloatBuffer uv_buffer = Buffers.newDirectFloatBuffer(8);
@@ -596,30 +548,25 @@ public class DrawFunctions2D {
 		GLWrapper.glGenVertexArrays(1, vao);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * pos_buffer.capacity(), pos_buffer,
-				GL.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * pos_buffer.capacity(),
+				pos_buffer, GL.GL_STATIC_DRAW);
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, uv_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * uv_buffer.capacity(), uv_buffer,
-				GL.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * uv_buffer.capacity(),
+				uv_buffer, GL.GL_STATIC_DRAW);
 
 		GLWrapper.glBindVertexArray(vao.get(0));
 
 		GLWrapper.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER,
-				Buffers.SIZEOF_INT * indices.capacity(), indices,
-				GL.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, Buffers.SIZEOF_INT * indices.capacity(),
+				indices, GL.GL_STATIC_DRAW);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(0);
-		GLWrapper.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 2, 0);
+		GLWrapper.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 2, 0);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, uv_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(1);
-		GLWrapper.glVertexAttribPointer(1, 2, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 2, 0);
+		GLWrapper.glVertexAttribPointer(1, 2, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 2, 0);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 
@@ -638,10 +585,9 @@ public class DrawFunctions2D {
 		TransferQuad(-1.0f, -1.0f, 1.0f, 1.0f);
 	}
 
-	public static int DrawTexture(int texture_handle, int x, int y, int width,
-			int height, float bottom_left_u, float bottom_left_v,
-			float bottom_right_u, float bottom_right_v, float top_right_u,
-			float top_right_v, float top_left_u, float top_left_v) {
+	public static int DrawTexture(int texture_handle, int x, int y, int width, int height,
+			float bottom_left_u, float bottom_left_v, float bottom_right_u, float bottom_right_v,
+			float top_right_u, float top_right_v, float top_left_u, float top_left_v) {
 		final IntBuffer indices = Buffers.newDirectIntBuffer(6);
 		final FloatBuffer pos_buffer = Buffers.newDirectFloatBuffer(8);
 		final FloatBuffer uv_buffer = Buffers.newDirectFloatBuffer(8);
@@ -694,30 +640,25 @@ public class DrawFunctions2D {
 		GLWrapper.glGenVertexArrays(1, vao);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * pos_buffer.capacity(), pos_buffer,
-				GL.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * pos_buffer.capacity(),
+				pos_buffer, GL.GL_STATIC_DRAW);
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, uv_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * uv_buffer.capacity(), uv_buffer,
-				GL.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * uv_buffer.capacity(),
+				uv_buffer, GL.GL_STATIC_DRAW);
 
 		GLWrapper.glBindVertexArray(vao.get(0));
 
 		GLWrapper.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER,
-				Buffers.SIZEOF_INT * indices.capacity(), indices,
-				GL.GL_STATIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, Buffers.SIZEOF_INT * indices.capacity(),
+				indices, GL.GL_STATIC_DRAW);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(0);
-		GLWrapper.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 2, 0);
+		GLWrapper.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 2, 0);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, uv_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(1);
-		GLWrapper.glVertexAttribPointer(1, 2, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 2, 0);
+		GLWrapper.glVertexAttribPointer(1, 2, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 2, 0);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 
@@ -737,10 +678,9 @@ public class DrawFunctions2D {
 
 		return 0;
 	}
-	public static int DrawTexture(int texture_handle, int x, int y, int width,
-			int height) {
-		final int ret = DrawTexture(texture_handle, x, y, width, height, 0.0f,
-				0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f);
+	public static int DrawTexture(int texture_handle, int x, int y, int width, int height) {
+		final int ret = DrawTexture(texture_handle, x, y, width, height, 0.0f, 0.0f, 1.0f, 0.0f,
+				1.0f, 1.0f, 0.0f, 1.0f);
 
 		return ret;
 	}

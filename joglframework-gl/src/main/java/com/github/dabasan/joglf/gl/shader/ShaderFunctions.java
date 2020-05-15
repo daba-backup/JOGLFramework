@@ -24,8 +24,7 @@ import com.jogamp.opengl.GL2ES2;
  *
  */
 public class ShaderFunctions {
-	private static Logger logger = LoggerFactory
-			.getLogger(ShaderFunctions.class);
+	private static Logger logger = LoggerFactory.getLogger(ShaderFunctions.class);
 
 	private static Map<String, Integer> program_ids_map = new HashMap<>();
 
@@ -40,16 +39,14 @@ public class ShaderFunctions {
 	 *            Filename of the fragment shader
 	 * @return -1 on error and 0 on success
 	 */
-	public static int CreateProgram(String program_name,
-			String vertex_shader_filename, String fragment_shader_filename) {
+	public static int CreateProgram(String program_name, String vertex_shader_filename,
+			String fragment_shader_filename) {
 		logger.info("Start creating a program. program_name={}", program_name);
-		logger.info("vertex_shader_filename={} fragment_shader_filename={}",
-				vertex_shader_filename, fragment_shader_filename);
+		logger.info("vertex_shader_filename={} fragment_shader_filename={}", vertex_shader_filename,
+				fragment_shader_filename);
 
-		final int vertex_shader_id = GLWrapper
-				.glCreateShader(GL2ES2.GL_VERTEX_SHADER);
-		final int fragment_shader_id = GLWrapper
-				.glCreateShader(GL2ES2.GL_FRAGMENT_SHADER);
+		final int vertex_shader_id = GLWrapper.glCreateShader(GL2ES2.GL_VERTEX_SHADER);
+		final int fragment_shader_id = GLWrapper.glCreateShader(GL2ES2.GL_FRAGMENT_SHADER);
 
 		// Load the code files of shaders.
 		List<String> vertex_shader_code_list;
@@ -57,10 +54,10 @@ public class ShaderFunctions {
 		String[] vertex_shader_code;
 		String[] fragment_shader_code;
 		try {
-			vertex_shader_code_list = FileFunctions
-					.GetFileAllLines(vertex_shader_filename, "UTF-8");
-			fragment_shader_code_list = FileFunctions
-					.GetFileAllLines(fragment_shader_filename, "UTF-8");
+			vertex_shader_code_list = FileFunctions.GetFileAllLines(vertex_shader_filename,
+					"UTF-8");
+			fragment_shader_code_list = FileFunctions.GetFileAllLines(fragment_shader_filename,
+					"UTF-8");
 		} catch (final IOException e) {
 			logger.error("Error while reading.", e);
 			return -1;
@@ -84,21 +81,18 @@ public class ShaderFunctions {
 		String error_message_str;
 
 		// Compile vertex shader.
-		GLWrapper.glShaderSource(vertex_shader_id, vertex_shader_code.length,
-				vertex_shader_code, null);
+		GLWrapper.glShaderSource(vertex_shader_id, vertex_shader_code.length, vertex_shader_code,
+				null);
 		GLWrapper.glCompileShader(vertex_shader_id);
 
 		// Check vertex shader.
-		GLWrapper.glGetShaderiv(vertex_shader_id, GL2ES2.GL_COMPILE_STATUS,
-				result);
+		GLWrapper.glGetShaderiv(vertex_shader_id, GL2ES2.GL_COMPILE_STATUS, result);
 		if (result.get(0) == GL.GL_FALSE) {
-			GLWrapper.glGetShaderiv(vertex_shader_id, GL2ES2.GL_INFO_LOG_LENGTH,
-					info_log_length);
+			GLWrapper.glGetShaderiv(vertex_shader_id, GL2ES2.GL_INFO_LOG_LENGTH, info_log_length);
 			error_message = Buffers.newDirectByteBuffer(info_log_length.get(0));
-			GLWrapper.glGetShaderInfoLog(vertex_shader_id,
-					info_log_length.get(0), null, error_message);
-			error_message_str = BufferFunctions
-					.GetStringFromByteBuffer(error_message);
+			GLWrapper.glGetShaderInfoLog(vertex_shader_id, info_log_length.get(0), null,
+					error_message);
+			error_message_str = BufferFunctions.GetStringFromByteBuffer(error_message);
 
 			logger.error("Vertex shader compilation failed.");
 			logger.error(error_message_str);
@@ -107,21 +101,18 @@ public class ShaderFunctions {
 		}
 
 		// Compile fragment shader.
-		GLWrapper.glShaderSource(fragment_shader_id,
-				fragment_shader_code.length, fragment_shader_code, null);
+		GLWrapper.glShaderSource(fragment_shader_id, fragment_shader_code.length,
+				fragment_shader_code, null);
 		GLWrapper.glCompileShader(fragment_shader_id);
 
 		// Check fragment shader.
-		GLWrapper.glGetShaderiv(fragment_shader_id, GL2ES2.GL_COMPILE_STATUS,
-				result);
+		GLWrapper.glGetShaderiv(fragment_shader_id, GL2ES2.GL_COMPILE_STATUS, result);
 		if (result.get(0) == GL.GL_FALSE) {
-			GLWrapper.glGetShaderiv(fragment_shader_id,
-					GL2ES2.GL_INFO_LOG_LENGTH, info_log_length);
+			GLWrapper.glGetShaderiv(fragment_shader_id, GL2ES2.GL_INFO_LOG_LENGTH, info_log_length);
 			error_message = Buffers.newDirectByteBuffer(info_log_length.get(0));
-			GLWrapper.glGetShaderInfoLog(fragment_shader_id,
-					info_log_length.get(0), null, error_message);
-			error_message_str = BufferFunctions
-					.GetStringFromByteBuffer(error_message);
+			GLWrapper.glGetShaderInfoLog(fragment_shader_id, info_log_length.get(0), null,
+					error_message);
+			error_message_str = BufferFunctions.GetStringFromByteBuffer(error_message);
 
 			logger.error("Fragment shader compilation failed.");
 			logger.error(error_message_str);
@@ -139,13 +130,10 @@ public class ShaderFunctions {
 		// Check program.
 		GLWrapper.glGetProgramiv(program_id, GL2ES2.GL_LINK_STATUS, result);
 		if (result.get(0) == GL.GL_FALSE) {
-			GLWrapper.glGetProgramiv(program_id, GL2ES2.GL_INFO_LOG_LENGTH,
-					info_log_length);
+			GLWrapper.glGetProgramiv(program_id, GL2ES2.GL_INFO_LOG_LENGTH, info_log_length);
 			error_message = Buffers.newDirectByteBuffer(info_log_length.get(0));
-			GLWrapper.glGetProgramInfoLog(program_id, info_log_length.get(0),
-					null, error_message);
-			error_message_str = BufferFunctions
-					.GetStringFromByteBuffer(error_message);
+			GLWrapper.glGetProgramInfoLog(program_id, info_log_length.get(0), null, error_message);
+			error_message_str = BufferFunctions.GetStringFromByteBuffer(error_message);
 
 			logger.error("Program link failed.");
 			logger.error(error_message_str);
@@ -157,9 +145,8 @@ public class ShaderFunctions {
 		GLWrapper.glDeleteShader(fragment_shader_id);
 
 		program_ids_map.put(program_name, program_id);
-		logger.info(
-				"Successfully created a program. program_name={} program_id={}",
-				program_name, program_id);
+		logger.info("Successfully created a program. program_name={} program_id={}", program_name,
+				program_id);
 
 		return 0;
 	}

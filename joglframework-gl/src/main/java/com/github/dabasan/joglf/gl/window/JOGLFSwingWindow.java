@@ -61,8 +61,7 @@ public class JOGLFSwingWindow
 			MouseListener,
 			MouseMotionListener,
 			MouseWheelListener {
-	private final Logger logger = LoggerFactory
-			.getLogger(JOGLFSwingWindow.class);
+	private final Logger logger = LoggerFactory.getLogger(JOGLFSwingWindow.class);
 
 	private final JFrame frame;
 	private WindowAdapter adapter;
@@ -79,8 +78,7 @@ public class JOGLFSwingWindow
 
 	public JOGLFSwingWindow() {
 		final String profile_str = GLFront.GetProfileStr();
-		final GLCapabilities capabilities = new GLCapabilities(
-				GLProfile.get(profile_str));
+		final GLCapabilities capabilities = new GLCapabilities(GLProfile.get(profile_str));
 
 		frame = new JFrame();
 		frame.setTitle(WindowCommonInfo.DEFAULT_TITLE);
@@ -101,8 +99,8 @@ public class JOGLFSwingWindow
 		frame.addMouseWheelListener(this);
 
 		canvas = new GLCanvas(capabilities);
-		canvas.setPreferredSize(new Dimension(WindowCommonInfo.DEFAULT_WIDTH,
-				WindowCommonInfo.DEFAULT_HEIGHT));
+		canvas.setPreferredSize(
+				new Dimension(WindowCommonInfo.DEFAULT_WIDTH, WindowCommonInfo.DEFAULT_HEIGHT));
 		canvas.addGLEventListener(this);
 		canvas.addKeyListener(this);
 		canvas.addMouseListener(this);
@@ -151,8 +149,7 @@ public class JOGLFSwingWindow
 
 		@Override
 		public void run() {
-			frame.dispatchEvent(
-					new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+			frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 			frame.dispose();
 		}
 	}
@@ -286,16 +283,14 @@ public class JOGLFSwingWindow
 
 	@Override
 	public void SetWindowMode(WindowMode mode) {
-		final GraphicsEnvironment environment = GraphicsEnvironment
-				.getLocalGraphicsEnvironment();
+		final GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		final GraphicsDevice device = environment.getDefaultScreenDevice();
 
 		if (mode == WindowMode.WINDOW) {
 			device.setFullScreenWindow(null);
 		} else {
 			if (device.isFullScreenSupported() == false) {
-				logger.warn(
-						"Full-screen mode is not supported on this system.");
+				logger.warn("Full-screen mode is not supported on this system.");
 				return;
 			} else {
 				device.setFullScreenWindow(frame);
@@ -371,8 +366,7 @@ public class JOGLFSwingWindow
 		GLFront.Unlock();
 	}
 	@Override
-	public void reshape(GLAutoDrawable drawable, int x, int y, int width,
-			int height) {
+	public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
 		GLFront.Lock();
 		this.Reshape(x, y, width, height);
 		GLFront.Unlock();
@@ -418,8 +412,7 @@ public class JOGLFSwingWindow
 
 	@Override
 	public void Fit() {
-		GLWrapper.glViewport(0, 0, this.GetCanvasWidth(),
-				this.GetCanvasHeight());
+		GLWrapper.glViewport(0, 0, this.GetCanvasWidth(), this.GetCanvasHeight());
 	}
 
 	@Override
@@ -432,8 +425,7 @@ public class JOGLFSwingWindow
 	}
 	@Override
 	public void Update() {
-		CameraFront.SetCameraPositionAndTarget_UpVecY(
-				VectorFunctions.VGet(50.0f, 50.0f, 50.0f),
+		CameraFront.SetCameraPositionAndTarget_UpVecY(VectorFunctions.VGet(50.0f, 50.0f, 50.0f),
 				VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
 	}
 	@Override

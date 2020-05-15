@@ -27,8 +27,7 @@ public class Vertex3D {
 		u = 0.0f;
 		v = 0.0f;
 	}
-	public Vertex3D(Vector pos, Vector norm, ColorU8 dif, ColorU8 spc, float u,
-			float v) {
+	public Vertex3D(Vector pos, Vector norm, ColorU8 dif, ColorU8 spc, float u, float v) {
 		this.pos = pos;
 		this.norm = norm;
 		this.dif = dif;

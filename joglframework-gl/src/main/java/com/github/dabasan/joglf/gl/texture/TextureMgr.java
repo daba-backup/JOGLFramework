@@ -40,8 +40,7 @@ public class TextureMgr {
 	public static int LoadTexture(String texture_filename) {
 		final File file = new File(texture_filename);
 		if (!(file.isFile() && file.canRead())) {
-			logger.error("Failed to load a texture. texture_filename={}",
-					texture_filename);
+			logger.error("Failed to load a texture. texture_filename={}", texture_filename);
 			return -1;
 		}
 
@@ -55,20 +54,16 @@ public class TextureMgr {
 
 		final GL gl = GLContext.getCurrentGL();
 		texture.bind(gl);
-		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S,
-				GL.GL_REPEAT);
-		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T,
-				GL.GL_REPEAT);
+		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT);
+		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
 		if (generate_mipmap_flag == true) {
 			GLWrapper.glGenerateMipmap(GL.GL_TEXTURE_2D);
-			GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D,
-					GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR_MIPMAP_LINEAR);
+			GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER,
+					GL.GL_LINEAR_MIPMAP_LINEAR);
 		} else {
-			GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D,
-					GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
+			GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
 		}
-		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER,
-				GL.GL_LINEAR);
+		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
 
 		final int texture_handle = count;
 		textures_map.put(texture_handle, texture);
@@ -117,8 +112,7 @@ public class TextureMgr {
 		final ByteBuffer data = Buffers.newDirectByteBuffer(width * height * 4);
 
 		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, texture_object);
-		GLWrapper.glGetTexImage(GL.GL_TEXTURE_2D, 0, GL.GL_RGBA,
-				GL.GL_UNSIGNED_BYTE, data);
+		GLWrapper.glGetTexImage(GL.GL_TEXTURE_2D, 0, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, data);
 		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, 0);
 
 		final ByteBuffer data_r = Buffers.newDirectByteBuffer(width * height);
@@ -138,8 +132,7 @@ public class TextureMgr {
 		data_b.flip();
 		data_a.flip();
 
-		final ByteBuffer flipped_data = Buffers
-				.newDirectByteBuffer(width * height * 4);
+		final ByteBuffer flipped_data = Buffers.newDirectByteBuffer(width * height * 4);
 
 		if (flip_vertically == true && flip_horizontally == true) {
 			for (int y = height - 1; y >= 0; y--) {
@@ -174,8 +167,8 @@ public class TextureMgr {
 		flipped_data.flip();
 
 		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, texture_object);
-		GLWrapper.glTexImage2D(GL.GL_TEXTURE_2D, 0, GL.GL_RGBA, width, height,
-				0, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, flipped_data);
+		GLWrapper.glTexImage2D(GL.GL_TEXTURE_2D, 0, GL.GL_RGBA, width, height, 0, GL.GL_RGBA,
+				GL.GL_UNSIGNED_BYTE, flipped_data);
 		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, 0);
 
 		return 0;
@@ -214,12 +207,11 @@ public class TextureMgr {
 		return height;
 	}
 
-	public static int AssociateTexture(int texture_object, int texture_width,
-			int texture_height, boolean flip_vertically) {
+	public static int AssociateTexture(int texture_object, int texture_width, int texture_height,
+			boolean flip_vertically) {
 		final int texture_handle = count;
-		final Texture texture = new Texture(texture_object, GL.GL_TEXTURE_2D,
-				texture_width, texture_height, texture_width, texture_height,
-				flip_vertically);
+		final Texture texture = new Texture(texture_object, GL.GL_TEXTURE_2D, texture_width,
+				texture_height, texture_width, texture_height, flip_vertically);
 
 		textures_map.put(texture_handle, texture);
 		count++;
@@ -242,8 +234,7 @@ public class TextureMgr {
 		final ByteBuffer data = Buffers.newDirectByteBuffer(width * height * 4);
 
 		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, texture_object);
-		GLWrapper.glGetTexImage(GL.GL_TEXTURE_2D, 0, GL.GL_RGBA,
-				GL.GL_UNSIGNED_BYTE, data);
+		GLWrapper.glGetTexImage(GL.GL_TEXTURE_2D, 0, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, data);
 		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, 0);
 
 		return data;

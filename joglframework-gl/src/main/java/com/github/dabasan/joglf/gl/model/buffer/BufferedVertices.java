@@ -36,14 +36,10 @@ public class BufferedVertices {
 		buffered_vertices.texture_handle = this.texture_handle;
 		buffered_vertices.indices_count = this.indices_count;
 
-		buffered_vertices.indices_buffer = BufferFunctions
-				.CopyIntBuffer(this.indices_buffer);
-		buffered_vertices.pos_buffer = BufferFunctions
-				.CopyFloatBuffer(this.pos_buffer);
-		buffered_vertices.uv_buffer = BufferFunctions
-				.CopyFloatBuffer(this.uv_buffer);
-		buffered_vertices.norm_buffer = BufferFunctions
-				.CopyFloatBuffer(this.norm_buffer);
+		buffered_vertices.indices_buffer = BufferFunctions.CopyIntBuffer(this.indices_buffer);
+		buffered_vertices.pos_buffer = BufferFunctions.CopyFloatBuffer(this.pos_buffer);
+		buffered_vertices.uv_buffer = BufferFunctions.CopyFloatBuffer(this.uv_buffer);
+		buffered_vertices.norm_buffer = BufferFunctions.CopyFloatBuffer(this.norm_buffer);
 
 		buffered_vertices.ambient_color = this.GetAmbientColor();
 		buffered_vertices.diffuse_color = this.GetDiffuseColor();
@@ -67,8 +63,8 @@ public class BufferedVertices {
 		diffuse_texture_map = "";
 	}
 
-	public static BufferedVertices Interpolate(BufferedVertices bv1,
-			BufferedVertices bv2, float blend_ratio) {
+	public static BufferedVertices Interpolate(BufferedVertices bv1, BufferedVertices bv2,
+			float blend_ratio) {
 		final BufferedVertices interpolated = new BufferedVertices();
 		interpolated.SetAmbientColor(bv1.GetAmbientColor());
 		interpolated.SetDiffuseColor(bv1.GetDiffuseColor());
@@ -90,15 +86,12 @@ public class BufferedVertices {
 		final int pos_buffer_cap = pos_buffer_1.capacity();
 		final int norm_buffer_cap = norm_buffer_1.capacity();
 
-		final FloatBuffer interpolated_pos_buffer = Buffers
-				.newDirectFloatBuffer(pos_buffer_cap);
-		final FloatBuffer interpolated_norm_buffer = Buffers
-				.newDirectFloatBuffer(norm_buffer_cap);
+		final FloatBuffer interpolated_pos_buffer = Buffers.newDirectFloatBuffer(pos_buffer_cap);
+		final FloatBuffer interpolated_norm_buffer = Buffers.newDirectFloatBuffer(norm_buffer_cap);
 
 		float ftemp;
 		for (int i = 0; i < pos_buffer_cap; i++) {
-			ftemp = pos_buffer_1.get(i) * (1.0f - blend_ratio)
-					+ pos_buffer_2.get(i) * blend_ratio;
+			ftemp = pos_buffer_1.get(i) * (1.0f - blend_ratio) + pos_buffer_2.get(i) * blend_ratio;
 			interpolated_pos_buffer.put(ftemp);
 		}
 		for (int i = 0; i < norm_buffer_cap; i++) {

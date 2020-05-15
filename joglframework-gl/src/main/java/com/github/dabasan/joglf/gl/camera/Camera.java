@@ -45,8 +45,7 @@ public class Camera {
 		fov = MathFunctions.DegToRad(60.0f);
 		size = 10.0f;
 
-		aspect = WindowCommonInfo.DEFAULT_WIDTH
-				/ WindowCommonInfo.DEFAULT_HEIGHT;
+		aspect = WindowCommonInfo.DEFAULT_WIDTH / WindowCommonInfo.DEFAULT_HEIGHT;
 
 		position = VectorFunctions.VGet(-50.0f, 50.0f, -50.0f);
 		target = VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
@@ -96,15 +95,14 @@ public class Camera {
 	}
 
 	public void SetupCamera_Perspective(float fov) {
-		projection = ProjectionMatrixFunctions.GetPerspectiveMatrix(fov, aspect,
-				near, far);
+		projection = ProjectionMatrixFunctions.GetPerspectiveMatrix(fov, aspect, near, far);
 
 		camera_mode = CameraMode.PERSPECTIVE;
 		this.fov = fov;
 	}
 	public void SetupCamera_Ortho(float size) {
-		projection = ProjectionMatrixFunctions.GetOrthogonalMatrix(-size, size,
-				-size, size, near, far);
+		projection = ProjectionMatrixFunctions.GetOrthogonalMatrix(-size, size, -size, size, near,
+				far);
 
 		camera_mode = CameraMode.ORTHOGRAPHIC;
 		this.size = size;
@@ -118,18 +116,17 @@ public class Camera {
 		Matrix ret;
 
 		if (camera_mode == CameraMode.PERSPECTIVE) {
-			ret = ProjectionMatrixFunctions.GetPerspectiveMatrix(fov, aspect,
-					near, far);
+			ret = ProjectionMatrixFunctions.GetPerspectiveMatrix(fov, aspect, near, far);
 		} else {
-			ret = ProjectionMatrixFunctions.GetOrthogonalMatrix(-size, size,
-					-size, size, near, far);
+			ret = ProjectionMatrixFunctions.GetOrthogonalMatrix(-size, size, -size, size, near,
+					far);
 		}
 
 		return ret;
 	}
 	public Matrix GetViewTransformationMatrix() {
-		final Matrix ret = TransformationMatrixFunctions
-				.GetViewTransformationMatrix(position, target, up);
+		final Matrix ret = TransformationMatrixFunctions.GetViewTransformationMatrix(position,
+				target, up);
 		return ret;
 	}
 
@@ -138,8 +135,7 @@ public class Camera {
 	}
 	public void Update() {
 		if (camera_mode == CameraMode.PERSPECTIVE) {
-			projection = ProjectionMatrixFunctions.GetPerspectiveMatrix(fov,
-					aspect, near, far);
+			projection = ProjectionMatrixFunctions.GetPerspectiveMatrix(fov, aspect, near, far);
 		}
 
 		if (view_transformation == null) {
@@ -152,8 +148,7 @@ public class Camera {
 			program.SetUniform("camera.position", position);
 			program.SetUniform("camera.target", target);
 			program.SetUniform("camera.projection", true, projection);
-			program.SetUniform("camera.view_transformation", true,
-					view_transformation);
+			program.SetUniform("camera.view_transformation", true, view_transformation);
 			program.SetUniform("camera.near", near);
 			program.SetUniform("camera.far", far);
 			program.Disable();

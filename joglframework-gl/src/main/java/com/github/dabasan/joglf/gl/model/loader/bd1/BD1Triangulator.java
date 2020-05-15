@@ -22,8 +22,7 @@ import com.github.dabasan.xops.bd1.BD1Functions;
  *
  */
 class BD1Triangulator {
-	private final Logger logger = LoggerFactory
-			.getLogger(BD1Triangulator.class);
+	private final Logger logger = LoggerFactory.getLogger(BD1Triangulator.class);
 
 	private final List<BD1Triangle> triangles_list;
 
@@ -48,10 +47,8 @@ class BD1Triangulator {
 		}
 
 		for (int i = 0; i < 6; i++) {
-			final int[] vertex_indices = BD1Functions
-					.GetFaceCorrespondingVertexIndices(i);
-			final int[] uv_indices = BD1Functions
-					.GetFaceCorrespondingUVIndices(i);
+			final int[] vertex_indices = BD1Functions.GetFaceCorrespondingVertexIndices(i);
+			final int[] uv_indices = BD1Functions.GetFaceCorrespondingUVIndices(i);
 
 			final Vector v1 = VectorFunctions.VSub(positions[vertex_indices[3]],
 					positions[vertex_indices[0]]);
@@ -66,10 +63,8 @@ class BD1Triangulator {
 				final int uv_index = uv_indices[j];
 
 				vertices[array_index].SetPos(positions[vertex_index]);
-				vertices[array_index].SetDif(
-						ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f));
-				vertices[array_index].SetSpc(
-						ColorU8Functions.GetColorU8(0.0f, 0.0f, 0.0f, 0.0f));
+				vertices[array_index].SetDif(ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f));
+				vertices[array_index].SetSpc(ColorU8Functions.GetColorU8(0.0f, 0.0f, 0.0f, 0.0f));
 				vertices[array_index].SetU(us[uv_index]);
 				vertices[array_index].SetV(vs[uv_index] * (-1.0f));
 
@@ -93,13 +88,11 @@ class BD1Triangulator {
 			int vertex_array_index;
 			for (int j = 0; j < 3; j++) {
 				vertex_array_index = (i / 2) * 4 + j;
-				triangles[i].SetVertex(j,
-						inverted_vertices[vertex_array_index]);
+				triangles[i].SetVertex(j, inverted_vertices[vertex_array_index]);
 			}
 			for (int j = 0; j < 3; j++) {
 				vertex_array_index = (i / 2) * 4 + (j + 2) % 4;
-				triangles[i + 1].SetVertex(j,
-						inverted_vertices[vertex_array_index]);
+				triangles[i + 1].SetVertex(j, inverted_vertices[vertex_array_index]);
 			}
 		}
 

@@ -25,20 +25,16 @@ import com.jogamp.common.nio.Buffers;
  *
  */
 public class BD1Loader {
-	public static List<BufferedVertices> LoadBD1(String bd1_filename)
-			throws IOException {
+	public static List<BufferedVertices> LoadBD1(String bd1_filename) throws IOException {
 		final List<BufferedVertices> ret = new ArrayList<>();
 
-		BD1Manipulator manipulator = new BD1Manipulator(bd1_filename);
+		final BD1Manipulator manipulator = new BD1Manipulator(bd1_filename);
 
-		final String bd1_directory = FilenameFunctions
-				.GetFileDirectory(bd1_filename);
+		final String bd1_directory = FilenameFunctions.GetFileDirectory(bd1_filename);
 
-		final Map<Integer, String> texture_filenames = manipulator
-				.GetTextureFilenames();
+		final Map<Integer, String> texture_filenames = manipulator.GetTextureFilenames();
 		final Map<Integer, Integer> texture_handles_map = new HashMap<>();
-		for (final Map.Entry<Integer, String> entry : texture_filenames
-				.entrySet()) {
+		for (final Map.Entry<Integer, String> entry : texture_filenames.entrySet()) {
 			final int texture_id = entry.getKey();
 
 			String texture_filename = entry.getValue();
@@ -59,10 +55,8 @@ public class BD1Loader {
 		final BD1Triangulator triangulator = new BD1Triangulator();
 		triangulator.TriangulateBlocks(blocks);
 
-		final Map<Integer, List<BD1Triangle>> triangles_map = triangulator
-				.GetTrianglesMap();
-		for (final Map.Entry<Integer, List<BD1Triangle>> entry : triangles_map
-				.entrySet()) {
+		final Map<Integer, List<BD1Triangle>> triangles_map = triangulator.GetTrianglesMap();
+		for (final Map.Entry<Integer, List<BD1Triangle>> entry : triangles_map.entrySet()) {
 			final int texture_id = entry.getKey();
 			final List<BD1Triangle> triangles = entry.getValue();
 
@@ -77,14 +71,10 @@ public class BD1Loader {
 			final int vertex_num = triangle_num * 3;
 
 			final BufferedVertices buffered_vertices = new BufferedVertices();
-			final IntBuffer indices_buffer = Buffers
-					.newDirectIntBuffer(vertex_num);
-			final FloatBuffer pos_buffer = Buffers
-					.newDirectFloatBuffer(vertex_num * 3);
-			final FloatBuffer uv_buffer = Buffers
-					.newDirectFloatBuffer(vertex_num * 2);
-			final FloatBuffer norm_buffer = Buffers
-					.newDirectFloatBuffer(vertex_num * 3);
+			final IntBuffer indices_buffer = Buffers.newDirectIntBuffer(vertex_num);
+			final FloatBuffer pos_buffer = Buffers.newDirectFloatBuffer(vertex_num * 3);
+			final FloatBuffer uv_buffer = Buffers.newDirectFloatBuffer(vertex_num * 2);
+			final FloatBuffer norm_buffer = Buffers.newDirectFloatBuffer(vertex_num * 3);
 
 			for (int i = 0; i < triangle_num; i++) {
 				final Triangle triangle = triangles.get(i);
@@ -125,20 +115,16 @@ public class BD1Loader {
 
 		return ret;
 	}
-	public static List<BufferedVertices> LoadBD1_KeepOrder(String bd1_filename)
-			throws IOException {
+	public static List<BufferedVertices> LoadBD1_KeepOrder(String bd1_filename) throws IOException {
 		final List<BufferedVertices> ret = new ArrayList<>();
 
-		BD1Manipulator manipulator = new BD1Manipulator(bd1_filename);
+		final BD1Manipulator manipulator = new BD1Manipulator(bd1_filename);
 
-		final String bd1_directory = FilenameFunctions
-				.GetFileDirectory(bd1_filename);
+		final String bd1_directory = FilenameFunctions.GetFileDirectory(bd1_filename);
 
-		final Map<Integer, String> texture_filenames = manipulator
-				.GetTextureFilenames();
+		final Map<Integer, String> texture_filenames = manipulator.GetTextureFilenames();
 		final Map<Integer, Integer> texture_handles_map = new HashMap<>();
-		for (final Map.Entry<Integer, String> entry : texture_filenames
-				.entrySet()) {
+		for (final Map.Entry<Integer, String> entry : texture_filenames.entrySet()) {
 			final int texture_id = entry.getKey();
 
 			String texture_filename = entry.getValue();
@@ -154,8 +140,7 @@ public class BD1Loader {
 		final BD1Triangulator triangulator = new BD1Triangulator();
 		triangulator.TriangulateBlocks(blocks);
 
-		final List<BD1Triangle> triangles_list = triangulator
-				.GetTrianglesList();
+		final List<BD1Triangle> triangles_list = triangulator.GetTrianglesList();
 		for (final BD1Triangle triangle : triangles_list) {
 			final int texture_id = triangle.GetTextureID();
 
@@ -169,14 +154,10 @@ public class BD1Loader {
 			final int vertex_num = 3;
 
 			final BufferedVertices buffered_vertices = new BufferedVertices();
-			final IntBuffer indices_buffer = Buffers
-					.newDirectIntBuffer(vertex_num);
-			final FloatBuffer pos_buffer = Buffers
-					.newDirectFloatBuffer(vertex_num * 3);
-			final FloatBuffer uv_buffer = Buffers
-					.newDirectFloatBuffer(vertex_num * 2);
-			final FloatBuffer norm_buffer = Buffers
-					.newDirectFloatBuffer(vertex_num * 3);
+			final IntBuffer indices_buffer = Buffers.newDirectIntBuffer(vertex_num);
+			final FloatBuffer pos_buffer = Buffers.newDirectFloatBuffer(vertex_num * 3);
+			final FloatBuffer uv_buffer = Buffers.newDirectFloatBuffer(vertex_num * 2);
+			final FloatBuffer norm_buffer = Buffers.newDirectFloatBuffer(vertex_num * 3);
 
 			for (int i = 0; i < 3; i++) {
 				final Vertex3D vertex = triangle.GetVertex(i);

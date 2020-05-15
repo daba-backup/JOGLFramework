@@ -102,8 +102,7 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void glBufferData(int arg0, long arg1, Buffer arg2,
-			int arg3) {
+	public static void glBufferData(int arg0, long arg1, Buffer arg2, int arg3) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glBufferData(arg0, arg1, arg2, arg3);
 
@@ -132,8 +131,7 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void glClearColor(float arg0, float arg1, float arg2,
-			float arg3) {
+	public static void glClearColor(float arg0, float arg1, float arg2, float arg3) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glClearColor(arg0, arg1, arg2, arg3);
 
@@ -169,8 +167,7 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void glColorMask(boolean arg0, boolean arg1, boolean arg2,
-			boolean arg3) {
+	public static void glColorMask(boolean arg0, boolean arg1, boolean arg2, boolean arg3) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glColorMask(arg0, arg1, arg2, arg3);
 
@@ -188,8 +185,8 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void glCopyTexImage2D(int arg0, int arg1, int arg2, int arg3,
-			int arg4, int arg5, int arg6, int arg7) {
+	public static void glCopyTexImage2D(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5,
+			int arg6, int arg7) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glCopyTexImage2D(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
 
@@ -382,8 +379,7 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void glFramebufferRenderbuffer(int arg0, int arg1, int arg2,
-			int arg3) {
+	public static void glFramebufferRenderbuffer(int arg0, int arg1, int arg2, int arg3) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glFramebufferRenderbuffer(arg0, arg1, arg2, arg3);
 
@@ -392,8 +388,7 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void glFramebufferTexture(int arg0, int arg1, int arg2,
-			int arg3) {
+	public static void glFramebufferTexture(int arg0, int arg1, int arg2, int arg3) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glFramebufferTexture(arg0, arg1, arg2, arg3);
 
@@ -402,8 +397,7 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void glFramebufferTexture2D(int arg0, int arg1, int arg2,
-			int arg3, int arg4) {
+	public static void glFramebufferTexture2D(int arg0, int arg1, int arg2, int arg3, int arg4) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glFramebufferTexture2D(arg0, arg1, arg2, arg3, arg4);
 
@@ -484,8 +478,7 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void glGetProgramInfoLog(int arg0, int arg1, IntBuffer arg2,
-			ByteBuffer arg3) {
+	public static void glGetProgramInfoLog(int arg0, int arg1, IntBuffer arg2, ByteBuffer arg3) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glGetProgramInfoLog(arg0, arg1, arg2, arg3);
 
@@ -503,8 +496,7 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void glGetShaderInfoLog(int arg0, int arg1, IntBuffer arg2,
-			ByteBuffer arg3) {
+	public static void glGetShaderInfoLog(int arg0, int arg1, IntBuffer arg2, ByteBuffer arg3) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glGetShaderInfoLog(arg0, arg1, arg2, arg3);
 
@@ -522,8 +514,7 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void glGetTexImage(int arg0, int arg1, int arg2, int arg3,
-			Buffer arg4) {
+	public static void glGetTexImage(int arg0, int arg1, int arg2, int arg3, Buffer arg4) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glGetTexImage(arg0, arg1, arg2, arg3, arg4);
 
@@ -572,8 +563,8 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void glReadPixels(int arg0, int arg1, int arg2, int arg3,
-			int arg4, int arg5, Buffer arg6) {
+	public static void glReadPixels(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5,
+			Buffer arg6) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glReadPixels(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
 
@@ -582,8 +573,7 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void glRenderbufferStorage(int arg0, int arg1, int arg2,
-			int arg3) {
+	public static void glRenderbufferStorage(int arg0, int arg1, int arg2, int arg3) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glRenderbufferStorage(arg0, arg1, arg2, arg3);
 
@@ -601,8 +591,7 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void glShaderSource(int arg0, int arg1, String[] arg2,
-			IntBuffer arg3) {
+	public static void glShaderSource(int arg0, int arg1, String[] arg2, IntBuffer arg3) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glShaderSource(arg0, arg1, arg2, arg3);
 
@@ -629,8 +618,8 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void glTexImage2D(int arg0, int arg1, int arg2, int arg3,
-			int arg4, int arg5, int arg6, int arg7, Buffer arg8) {
+	public static void glTexImage2D(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5,
+			int arg6, int arg7, Buffer arg8) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glTexImage2D(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
 
@@ -738,8 +727,7 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void glUniform3f(int arg0, float arg1, float arg2,
-			float arg3) {
+	public static void glUniform3f(int arg0, float arg1, float arg2, float arg3) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glUniform3f(arg0, arg1, arg2, arg3);
 
@@ -775,8 +763,7 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void glUniform4f(int arg0, float arg1, float arg2, float arg3,
-			float arg4) {
+	public static void glUniform4f(int arg0, float arg1, float arg2, float arg3, float arg4) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glUniform4f(arg0, arg1, arg2, arg3, arg4);
 
@@ -794,8 +781,7 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void glUniform4i(int arg0, int arg1, int arg2, int arg3,
-			int arg4) {
+	public static void glUniform4i(int arg0, int arg1, int arg2, int arg3, int arg4) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glUniform4i(arg0, arg1, arg2, arg3, arg4);
 
@@ -813,8 +799,7 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void glUniformMatrix2fv(int arg0, int arg1, boolean arg2,
-			FloatBuffer arg3) {
+	public static void glUniformMatrix2fv(int arg0, int arg1, boolean arg2, FloatBuffer arg3) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glUniformMatrix2fv(arg0, arg1, arg2, arg3);
 
@@ -823,8 +808,7 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void glUniformMatrix3fv(int arg0, int arg1, boolean arg2,
-			FloatBuffer arg3) {
+	public static void glUniformMatrix3fv(int arg0, int arg1, boolean arg2, FloatBuffer arg3) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glUniformMatrix3fv(arg0, arg1, arg2, arg3);
 
@@ -833,8 +817,7 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void glUniformMatrix4fv(int arg0, int arg1, boolean arg2,
-			FloatBuffer arg3) {
+	public static void glUniformMatrix4fv(int arg0, int arg1, boolean arg2, FloatBuffer arg3) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glUniformMatrix4fv(arg0, arg1, arg2, arg3);
 
@@ -863,8 +846,8 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
-	public static void glVertexAttribPointer(int arg0, int arg1, int arg2,
-			boolean arg3, int arg4, long arg5) {
+	public static void glVertexAttribPointer(int arg0, int arg1, int arg2, boolean arg3, int arg4,
+			long arg5) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glVertexAttribPointer(arg0, arg1, arg2, arg3, arg4, arg5);
 

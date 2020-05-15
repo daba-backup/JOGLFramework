@@ -19,26 +19,18 @@ public class Viewer extends JOGLFWindow {
 		camera = new FreeCamera();
 		camera.SetPosition(VectorFunctions.VGet(50.0f, 50.0f, 50.0f));
 
-		model_handle = Model3DFunctions
-				.LoadModel("./Data/Model/BD1/map0/temp.bd1");
-		Model3DFunctions.RescaleModel(model_handle,
-				VectorFunctions.VGet(0.1f, 0.1f, 0.1f));
-		model_handle_2 = Model3DFunctions
-				.LoadModel("./Data/Model/OBJ/Teapot/teapot.obj");
+		model_handle = Model3DFunctions.LoadModel("./Data/Model/BD1/map0/temp.bd1");
+		Model3DFunctions.RescaleModel(model_handle, VectorFunctions.VGet(0.1f, 0.1f, 0.1f));
+		model_handle_2 = Model3DFunctions.LoadModel("./Data/Model/OBJ/Teapot/teapot.obj");
 	}
 
 	@Override
 	public void Update() {
-		final int w_pressing_count = this
-				.GetKeyboardPressingCount(KeyboardEnum.KEY_W);
-		final int s_pressing_count = this
-				.GetKeyboardPressingCount(KeyboardEnum.KEY_S);
-		final int d_pressing_count = this
-				.GetKeyboardPressingCount(KeyboardEnum.KEY_D);
-		final int a_pressing_count = this
-				.GetKeyboardPressingCount(KeyboardEnum.KEY_A);
-		camera.Translate(w_pressing_count, s_pressing_count, d_pressing_count,
-				a_pressing_count);
+		final int w_pressing_count = this.GetKeyboardPressingCount(KeyboardEnum.KEY_W);
+		final int s_pressing_count = this.GetKeyboardPressingCount(KeyboardEnum.KEY_S);
+		final int d_pressing_count = this.GetKeyboardPressingCount(KeyboardEnum.KEY_D);
+		final int a_pressing_count = this.GetKeyboardPressingCount(KeyboardEnum.KEY_A);
+		camera.Translate(w_pressing_count, s_pressing_count, d_pressing_count, a_pressing_count);
 
 		if (this.GetMousePressingCount(MouseEnum.MOUSE_MIDDLE) > 0) {
 			final int diff_x = this.GetCursorDiffX();

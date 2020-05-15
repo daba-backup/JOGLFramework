@@ -25,8 +25,7 @@ import com.jogamp.opengl.GL;
  *
  */
 public class Dynamic2DFilledQuadranglesDrawer extends Dynamic2DDrawer {
-	private final Logger logger = LoggerFactory
-			.getLogger(Dynamic2DFilledQuadranglesDrawer.class);
+	private final Logger logger = LoggerFactory.getLogger(Dynamic2DFilledQuadranglesDrawer.class);
 
 	private final Map<Integer, Vertex2D[]> quadrangles_map;
 
@@ -61,12 +60,9 @@ public class Dynamic2DFilledQuadranglesDrawer extends Dynamic2DDrawer {
 		final int triangle_num = quadrangle_num * 2;
 		final int point_num = quadrangle_num * 4;
 
-		final IntBuffer indices_buffer = Buffers
-				.newDirectIntBuffer(triangle_num * 3);
-		final FloatBuffer pos_buffer = Buffers
-				.newDirectFloatBuffer(point_num * 2);
-		final FloatBuffer dif_buffer = Buffers
-				.newDirectFloatBuffer(point_num * 4);
+		final IntBuffer indices_buffer = Buffers.newDirectIntBuffer(triangle_num * 3);
+		final FloatBuffer pos_buffer = Buffers.newDirectFloatBuffer(point_num * 2);
+		final FloatBuffer dif_buffer = Buffers.newDirectFloatBuffer(point_num * 4);
 
 		final int window_width = this.GetWindowWidth();
 		final int window_height = this.GetWindowHeight();
@@ -79,10 +75,9 @@ public class Dynamic2DFilledQuadranglesDrawer extends Dynamic2DDrawer {
 
 				final int x = point.x;
 				final int y = point.y;
-				final float normalized_x = CoordinateFunctions
-						.NormalizeCoordinate(x, window_width);
-				final float normalized_y = CoordinateFunctions
-						.NormalizeCoordinate(y, window_height);
+				final float normalized_x = CoordinateFunctions.NormalizeCoordinate(x, window_width);
+				final float normalized_y = CoordinateFunctions.NormalizeCoordinate(y,
+						window_height);
 
 				pos_buffer.put(normalized_x);
 				pos_buffer.put(normalized_y);
@@ -107,13 +102,11 @@ public class Dynamic2DFilledQuadranglesDrawer extends Dynamic2DDrawer {
 		dif_buffer.flip();
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * pos_buffer.capacity(), pos_buffer,
-				GL.GL_DYNAMIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * pos_buffer.capacity(),
+				pos_buffer, GL.GL_DYNAMIC_DRAW);
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, dif_vbo.get(0));
-		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER,
-				Buffers.SIZEOF_FLOAT * dif_buffer.capacity(), dif_buffer,
-				GL.GL_DYNAMIC_DRAW);
+		GLWrapper.glBufferData(GL.GL_ARRAY_BUFFER, Buffers.SIZEOF_FLOAT * dif_buffer.capacity(),
+				dif_buffer, GL.GL_DYNAMIC_DRAW);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 
@@ -121,18 +114,15 @@ public class Dynamic2DFilledQuadranglesDrawer extends Dynamic2DDrawer {
 
 		GLWrapper.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, indices_vbo.get(0));
 		GLWrapper.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER,
-				Buffers.SIZEOF_INT * indices_buffer.capacity(), indices_buffer,
-				GL.GL_DYNAMIC_DRAW);
+				Buffers.SIZEOF_INT * indices_buffer.capacity(), indices_buffer, GL.GL_DYNAMIC_DRAW);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(0);
-		GLWrapper.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 2, 0);
+		GLWrapper.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 2, 0);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, dif_vbo.get(0));
 		GLWrapper.glEnableVertexAttribArray(1);
-		GLWrapper.glVertexAttribPointer(1, 4, GL.GL_FLOAT, false,
-				Buffers.SIZEOF_FLOAT * 4, 0);
+		GLWrapper.glVertexAttribPointer(1, 4, GL.GL_FLOAT, false, Buffers.SIZEOF_FLOAT * 4, 0);
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 		GLWrapper.glBindVertexArray(0);
@@ -145,8 +135,8 @@ public class Dynamic2DFilledQuadranglesDrawer extends Dynamic2DDrawer {
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
 
-	public void AddQuadrangle(int quadrangle_id, Vertex2D v1, Vertex2D v2,
-			Vertex2D v3, Vertex2D v4) {
+	public void AddQuadrangle(int quadrangle_id, Vertex2D v1, Vertex2D v2, Vertex2D v3,
+			Vertex2D v4) {
 		final Vertex2D[] vertices = new Vertex2D[4];
 		vertices[0] = v1;
 		vertices[1] = v2;
@@ -187,8 +177,7 @@ public class Dynamic2DFilledQuadranglesDrawer extends Dynamic2DDrawer {
 			final int indices_size = triangle_num * 3;
 
 			GLWrapper.glEnable(GL.GL_BLEND);
-			GLWrapper.glDrawElements(GL.GL_TRIANGLES, indices_size,
-					GL.GL_UNSIGNED_INT, 0);
+			GLWrapper.glDrawElements(GL.GL_TRIANGLES, indices_size, GL.GL_UNSIGNED_INT, 0);
 			GLWrapper.glDisable(GL.GL_BLEND);
 
 			GLWrapper.glBindVertexArray(0);

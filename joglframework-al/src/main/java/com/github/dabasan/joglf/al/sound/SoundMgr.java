@@ -54,23 +54,17 @@ class SoundMgr {
 		ALWrapper.alSourcef(sources[0], ALConstants.AL_PITCH, 1.0f);
 		ALWrapper.alSourcef(sources[0], ALConstants.AL_GAIN, 1.0f);
 
-		ALWrapper.alSource3f(sources[0], ALConstants.AL_POSITION,
-				source_position.GetX(), source_position.GetY(),
-				source_position.GetZ());
-		ALWrapper.alSource3f(sources[0], ALConstants.AL_VELOCITY,
-				source_velocity.GetX(), source_velocity.GetY(),
-				source_velocity.GetZ());
-		ALWrapper.alSourcef(sources[0], ALConstants.AL_REFERENCE_DISTANCE,
-				reference_distance);
-		ALWrapper.alSourcef(sources[0], ALConstants.AL_MAX_DISTANCE,
-				max_distance);
+		ALWrapper.alSource3f(sources[0], ALConstants.AL_POSITION, source_position.GetX(),
+				source_position.GetY(), source_position.GetZ());
+		ALWrapper.alSource3f(sources[0], ALConstants.AL_VELOCITY, source_velocity.GetX(),
+				source_velocity.GetY(), source_velocity.GetZ());
+		ALWrapper.alSourcef(sources[0], ALConstants.AL_REFERENCE_DISTANCE, reference_distance);
+		ALWrapper.alSourcef(sources[0], ALConstants.AL_MAX_DISTANCE, max_distance);
 
 		if (loop_flag == false) {
-			ALWrapper.alSourcei(sources[0], ALConstants.AL_LOOPING,
-					ALConstants.AL_FALSE);
+			ALWrapper.alSourcei(sources[0], ALConstants.AL_LOOPING, ALConstants.AL_FALSE);
 		} else {
-			ALWrapper.alSourcei(sources[0], ALConstants.AL_LOOPING,
-					ALConstants.AL_TRUE);
+			ALWrapper.alSourcei(sources[0], ALConstants.AL_LOOPING, ALConstants.AL_TRUE);
 		}
 
 		buffer = buffers[0];
@@ -88,33 +82,28 @@ class SoundMgr {
 	public void SetSourcePosition(Vector source_position) {
 		this.source_position = source_position;
 
-		ALWrapper.alSource3f(source, ALConstants.AL_POSITION,
-				source_position.GetX(), source_position.GetY(),
-				source_position.GetZ());
+		ALWrapper.alSource3f(source, ALConstants.AL_POSITION, source_position.GetX(),
+				source_position.GetY(), source_position.GetZ());
 	}
 	public void SetSourceVelocity(Vector source_velocity) {
 		this.source_velocity = source_velocity;
 
-		ALWrapper.alSource3f(source, ALConstants.AL_VELOCITY,
-				source_velocity.GetX(), source_velocity.GetY(),
-				source_velocity.GetZ());
+		ALWrapper.alSource3f(source, ALConstants.AL_VELOCITY, source_velocity.GetX(),
+				source_velocity.GetY(), source_velocity.GetZ());
 	}
 	public void SetLoopFlag(boolean loop_flag) {
 		this.loop_flag = loop_flag;
 
 		if (loop_flag == false) {
-			ALWrapper.alSourcei(source, ALConstants.AL_LOOPING,
-					ALConstants.AL_FALSE);
+			ALWrapper.alSourcei(source, ALConstants.AL_LOOPING, ALConstants.AL_FALSE);
 		} else {
-			ALWrapper.alSourcei(source, ALConstants.AL_LOOPING,
-					ALConstants.AL_TRUE);
+			ALWrapper.alSourcei(source, ALConstants.AL_LOOPING, ALConstants.AL_TRUE);
 		}
 	}
 	public void SetReferenceDistance(float reference_distance) {
 		this.reference_distance = reference_distance;
 
-		ALWrapper.alSourcef(source, ALConstants.AL_REFERENCE_DISTANCE,
-				reference_distance);
+		ALWrapper.alSourcef(source, ALConstants.AL_REFERENCE_DISTANCE, reference_distance);
 	}
 	public void SetMaxDistance(float max_distance) {
 		this.max_distance = max_distance;

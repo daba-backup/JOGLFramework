@@ -48,8 +48,7 @@ public class TextMgr {
 		render_state.setColorStatic(1.0f, 1.0f, 1.0f, 1.0f);
 		render_state.setHintMask(RenderState.BITHINT_GLOBAL_DEPTH_TEST_ENABLED);
 
-		region_renderer = RegionRenderer.create(render_state,
-				RegionRenderer.defaultBlendEnable,
+		region_renderer = RegionRenderer.create(render_state, RegionRenderer.defaultBlendEnable,
 				RegionRenderer.defaultBlendDisable);
 
 		text_region_util = new TextRegionUtil(Region.VARWEIGHT_RENDERING_BIT);
@@ -116,15 +115,14 @@ public class TextMgr {
 		window_height = height;
 	}
 
-	public static int DrawText(int x, int y, String text, ColorU8 color,
-			int size, int weight) {
+	public static int DrawText(int x, int y, String text, ColorU8 color, int size, int weight) {
 		final Font font = fonts_map.get(default_font_handle);
 		innerDrawText(x, y, text, font, color, size, weight);
 
 		return 0;
 	}
-	public static int DrawTextWithFont(int x, int y, String text,
-			int font_handle, ColorU8 color, int size, int weight) {
+	public static int DrawTextWithFont(int x, int y, String text, int font_handle, ColorU8 color,
+			int size, int weight) {
 		if (fonts_map.containsKey(font_handle) == false) {
 			logger.warn("No such font. font_handle={}", font_handle);
 			return -1;
@@ -135,8 +133,8 @@ public class TextMgr {
 
 		return 0;
 	}
-	private static void innerDrawText(int x, int y, String text, Font font,
-			ColorU8 color, int size, int weight) {
+	private static void innerDrawText(int x, int y, String text, Font font, ColorU8 color, int size,
+			int weight) {
 		final float pixel_size = font.getPixelSize(size, weight);
 
 		final PMVMatrix pmv = region_renderer.getMatrix();
@@ -144,17 +142,15 @@ public class TextMgr {
 		pmv.glLoadIdentity();
 		pmv.glTranslatef(x, y, -1.0f);
 
-		render_state.setColorStatic(color.GetR(), color.GetG(), color.GetB(),
-				color.GetA());
+		render_state.setColorStatic(color.GetR(), color.GetG(), color.GetB(), color.GetA());
 
 		final GL2ES2 gl = GLContext.getCurrentGL().getGL2ES2();
 
 		final int[] sample_count = new int[]{4};
 		region_renderer.enable(gl, true);
-		region_renderer.reshapeOrtho(window_width, window_height, 0.1f,
-				1000.0f);
-		text_region_util.drawString3D(gl, region_renderer, font, pixel_size,
-				text, null, sample_count);
+		region_renderer.reshapeOrtho(window_width, window_height, 0.1f, 1000.0f);
+		text_region_util.drawString3D(gl, region_renderer, font, pixel_size, text, null,
+				sample_count);
 		region_renderer.enable(gl, false);
 	}
 }

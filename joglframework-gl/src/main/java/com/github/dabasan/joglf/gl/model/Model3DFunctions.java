@@ -64,12 +64,12 @@ public class Model3DFunctions {
 					logger.error("Unsupported model format. extension={}", extension);
 					return -1;
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			logger.error("Failed to load a model.", e);
 			return -1;
 		}
 
-		int model_handle = count;
+		final int model_handle = count;
 		models_map.put(model_handle, model);
 		count++;
 
@@ -80,7 +80,7 @@ public class Model3DFunctions {
 	}
 	private static ModelMgr LoadBD1(String model_filename, FlipVOption option) throws IOException {
 		final List<BufferedVertices> buffered_vertices_list = BD1Loader.LoadBD1(model_filename);
-		ModelMgr model = new ModelMgr(buffered_vertices_list, option);
+		final ModelMgr model = new ModelMgr(buffered_vertices_list, option);
 
 		return model;
 	}
@@ -88,13 +88,13 @@ public class Model3DFunctions {
 			throws IOException {
 		final List<BufferedVertices> buffered_vertices_list = BD1Loader
 				.LoadBD1_KeepOrder(model_filename);
-		ModelMgr model = new ModelMgr(buffered_vertices_list, option);
+		final ModelMgr model = new ModelMgr(buffered_vertices_list, option);
 
 		return model;
 	}
 	private static ModelMgr LoadOBJ(String model_filename, FlipVOption option) throws IOException {
 		final List<BufferedVertices> buffered_vertices_list = OBJLoader.LoadOBJ(model_filename);
-		ModelMgr model = new ModelMgr(buffered_vertices_list, option);
+		final ModelMgr model = new ModelMgr(buffered_vertices_list, option);
 
 		return model;
 	}

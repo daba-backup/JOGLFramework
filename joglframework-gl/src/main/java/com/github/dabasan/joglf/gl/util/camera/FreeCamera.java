@@ -99,7 +99,6 @@ public class FreeCamera {
 	}
 
 	public void Update() {
-		CameraFront.SetCameraPositionAndAngle(position, v_rotate, h_rotate,
-				0.0f);
+		CameraFront.SetCameraPositionAndAngle(position, v_rotate, h_rotate, 0.0f);
 	}
 }
