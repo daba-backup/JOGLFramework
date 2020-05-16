@@ -96,6 +96,11 @@ public class ModelMgr {
 
 	private void GenerateBuffers(FlipVOption option) {
 		final int element_num = buffered_vertices_list.size();
+		if (element_num == 0) {
+			logger.warn("This model does not contain any elements.");
+			return;
+		}
+
 		indices_vbo = Buffers.newDirectIntBuffer(element_num);
 		pos_vbo = Buffers.newDirectIntBuffer(element_num);
 		uv_vbo = Buffers.newDirectIntBuffer(element_num);
