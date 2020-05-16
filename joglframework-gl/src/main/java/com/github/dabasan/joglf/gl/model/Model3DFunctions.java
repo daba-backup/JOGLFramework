@@ -99,6 +99,21 @@ public class Model3DFunctions {
 		return model;
 	}
 
+	public static int Associate(List<BufferedVertices> buffered_vertices_list, FlipVOption option) {
+		if (buffered_vertices_list == null) {
+			logger.error("Null argument where non-null required.");
+			return -1;
+		}
+
+		ModelMgr model = new ModelMgr(buffered_vertices_list, option);
+
+		int model_handle = count;
+		models_map.put(model_handle, model);
+		count++;
+
+		return model_handle;
+	}
+
 	public static int CopyModel(int model_handle) {
 		if (models_map.containsKey(model_handle) == false) {
 			logger.trace("No such model. model_handle={}", model_handle);
