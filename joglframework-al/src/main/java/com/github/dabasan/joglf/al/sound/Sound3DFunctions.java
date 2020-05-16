@@ -102,6 +102,21 @@ public class Sound3DFunctions {
 		return sound;
 	}
 
+	public static int Associate(SoundBuffer sound_buffer) {
+		if (sound_buffer == null) {
+			logger.error("Null argument where non-null required.");
+			return -1;
+		}
+
+		SoundMgr sound = new SoundMgr(sound_buffer);
+
+		int sound_handle = count;
+		sounds_map.put(sound_handle, sound);
+		count++;
+
+		return sound_handle;
+	}
+
 	public static int DeleteSound(int sound_handle) {
 		if (sounds_map.containsKey(sound_handle) == false) {
 			logger.trace("No such sound. sound_handle={}", sound_handle);
