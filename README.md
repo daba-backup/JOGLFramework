@@ -10,7 +10,7 @@ Java SE 11+
 
 ## Installation
 
-1. Download the *[Data](https://github.com/Dabasan/JOGLFramework/releases/download/v11.1.0/Data.zip)* folder
+1. Download *[Data](https://github.com/Dabasan/JOGLFramework/releases/download/v11.1.0/Data.zip)* and extract it
 2. Move the *Data* folder to the same directory as your program
 
 ### Maven project
