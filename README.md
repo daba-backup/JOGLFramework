@@ -38,14 +38,6 @@ After setting up *Data*, download the required JARs.
 </dependency>
 ```
 
-## Demo (Runnable JAR)
-
-### ReflectionMapping
-
-Download:[Google Drive](https://drive.google.com/open?id=19AIKvqsXXTAp2hM0yGhlSzc-jdK61NW2)
-
-![Imgur](https://i.imgur.com/gRG3SOH.jpg)
-
 ## Example
 
 ### MyWindow.java
@@ -154,6 +146,12 @@ They are mostly licensed under the New BSD 2-Clause License.
 #### Other
 
 - [Obj](https://github.com/javagl/Obj/blob/master/LICENSE.txt)
+
+## Todo
+
+- Provide add-ons for specific usage (spotlight, shadow, etc.)
+- Use Assimp (Jassimp) to load various formats of 3D models
+- Documentation
 
 # External links
 
