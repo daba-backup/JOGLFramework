@@ -108,9 +108,9 @@ public class Sound3DFunctions {
 			return -1;
 		}
 
-		SoundMgr sound = new SoundMgr(sound_buffer);
+		final SoundMgr sound = new SoundMgr(sound_buffer);
 
-		int sound_handle = count;
+		final int sound_handle = count;
 		sounds_map.put(sound_handle, sound);
 		count++;
 

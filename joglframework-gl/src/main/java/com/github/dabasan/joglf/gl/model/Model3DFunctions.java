@@ -105,9 +105,9 @@ public class Model3DFunctions {
 			return -1;
 		}
 
-		ModelMgr model = new ModelMgr(buffered_vertices_list, option);
+		final ModelMgr model = new ModelMgr(buffered_vertices_list, option);
 
-		int model_handle = count;
+		final int model_handle = count;
 		models_map.put(model_handle, model);
 		count++;
 
