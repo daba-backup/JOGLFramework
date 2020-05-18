@@ -17,8 +17,7 @@ import com.github.dabasan.joglf.gl.transferrer.FullscreenQuadTransferrerWithUV;
 import com.github.dabasan.joglf.gl.wrapper.GLWrapper;
 import com.github.dabasan.tool.FilenameFunctions;
 import com.jogamp.common.nio.Buffers;
-import com.jogamp.opengl.GL;
-import com.jogamp.opengl.GL2ES2;
+import com.jogamp.opengl.GL4;
 
 /**
  * Screen
@@ -59,46 +58,46 @@ public class Screen {
 		GLWrapper.glGenRenderbuffers(1, renderbuffer_ids);
 		renderbuffer_id = renderbuffer_ids.get(0);
 
-		GLWrapper.glBindRenderbuffer(GL.GL_RENDERBUFFER, renderbuffer_id);
-		GLWrapper.glRenderbufferStorage(GL.GL_RENDERBUFFER, GL2ES2.GL_DEPTH_COMPONENT, screen_width,
+		GLWrapper.glBindRenderbuffer(GL4.GL_RENDERBUFFER, renderbuffer_id);
+		GLWrapper.glRenderbufferStorage(GL4.GL_RENDERBUFFER, GL4.GL_DEPTH_COMPONENT, screen_width,
 				screen_height);
-		GLWrapper.glBindRenderbuffer(GL.GL_RENDERBUFFER, 0);
+		GLWrapper.glBindRenderbuffer(GL4.GL_RENDERBUFFER, 0);
 	}
 	private void SetupTexture() {
 		final IntBuffer texture_ids = Buffers.newDirectIntBuffer(1);
 		GLWrapper.glGenTextures(1, texture_ids);
 		texture_id = texture_ids.get(0);
 
-		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, texture_id);
-		GLWrapper.glTexImage2D(GL.GL_TEXTURE_2D, 0, GL.GL_RGBA, screen_width, screen_height, 0,
-				GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, null);
-		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_NEAREST);
-		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST);
-		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT);
-		GLWrapper.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
-		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, 0);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_id);
+		GLWrapper.glTexImage2D(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, screen_width, screen_height, 0,
+				GL4.GL_RGBA, GL4.GL_UNSIGNED_BYTE, null);
+		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
+		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);
+		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_S, GL4.GL_REPEAT);
+		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_T, GL4.GL_REPEAT);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 	}
 	private void SetupFramebuffer() {
 		final IntBuffer fbo_ids = Buffers.newDirectIntBuffer(1);
 		GLWrapper.glGenFramebuffers(1, fbo_ids);
 		fbo_id = fbo_ids.get(0);
 
-		GLWrapper.glBindFramebuffer(GL.GL_FRAMEBUFFER, fbo_id);
+		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, fbo_id);
 
-		GLWrapper.glFramebufferTexture2D(GL.GL_FRAMEBUFFER, GL.GL_COLOR_ATTACHMENT0,
-				GL.GL_TEXTURE_2D, texture_id, 0);
-		GLWrapper.glFramebufferRenderbuffer(GL.GL_FRAMEBUFFER, GL.GL_DEPTH_ATTACHMENT,
-				GL.GL_RENDERBUFFER, renderbuffer_id);
+		GLWrapper.glFramebufferTexture2D(GL4.GL_FRAMEBUFFER, GL4.GL_COLOR_ATTACHMENT0,
+				GL4.GL_TEXTURE_2D, texture_id, 0);
+		GLWrapper.glFramebufferRenderbuffer(GL4.GL_FRAMEBUFFER, GL4.GL_DEPTH_ATTACHMENT,
+				GL4.GL_RENDERBUFFER, renderbuffer_id);
 		final IntBuffer draw_buffers = Buffers
-				.newDirectIntBuffer(new int[]{GL.GL_COLOR_ATTACHMENT0});
+				.newDirectIntBuffer(new int[]{GL4.GL_COLOR_ATTACHMENT0});
 		GLWrapper.glDrawBuffers(1, draw_buffers);
 
-		final int status = GLWrapper.glCheckFramebufferStatus(GL.GL_FRAMEBUFFER);
-		if (status != GL.GL_FRAMEBUFFER_COMPLETE) {
+		final int status = GLWrapper.glCheckFramebufferStatus(GL4.GL_FRAMEBUFFER);
+		if (status != GL4.GL_FRAMEBUFFER_COMPLETE) {
 			logger.warn("Incomplete framebuffer. status={}", status);
 		}
 
-		GLWrapper.glBindFramebuffer(GL.GL_FRAMEBUFFER, 0);
+		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
 	}
 
 	public void Dispose() {
@@ -123,14 +122,14 @@ public class Screen {
 	}
 
 	public void Enable() {
-		GLWrapper.glBindFramebuffer(GL.GL_FRAMEBUFFER, fbo_id);
+		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, fbo_id);
 		GLWrapper.glViewport(0, 0, screen_width, screen_height);
 	}
 	public void Disable() {
-		GLWrapper.glBindFramebuffer(GL.GL_FRAMEBUFFER, 0);
+		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
 	}
 	public void Clear() {
-		GLWrapper.glClear(GL.GL_DEPTH_BUFFER_BIT | GL.GL_COLOR_BUFFER_BIT);
+		GLWrapper.glClear(GL4.GL_DEPTH_BUFFER_BIT | GL4.GL_COLOR_BUFFER_BIT);
 	}
 
 	public int Associate(boolean flip_vertically) {
@@ -142,8 +141,8 @@ public class Screen {
 	public void Draw() {
 		program.Enable();
 
-		GLWrapper.glActiveTexture(GL.GL_TEXTURE0);
-		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, texture_id);
+		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_id);
 		program.SetUniform("texture_sampler", 0);
 
 		transferrer.Transfer();
@@ -154,18 +153,18 @@ public class Screen {
 	}
 
 	public void BindScreenTexture() {
-		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, texture_id);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_id);
 	}
 	public void UnbindScreenTexture() {
-		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, 0);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 	}
 
 	public int TakeScreenshot(String filename) {
 		final ByteBuffer data = Buffers.newDirectByteBuffer(screen_width * screen_height * 4);
 
-		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, texture_id);
-		GLWrapper.glGetTexImage(GL.GL_TEXTURE_2D, 0, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, data);
-		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, 0);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_id);
+		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_UNSIGNED_BYTE, data);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 
 		final BufferedImage image = new BufferedImage(screen_width, screen_height,
 				BufferedImage.TYPE_3BYTE_BGR);
