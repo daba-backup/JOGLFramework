@@ -113,7 +113,7 @@ public class FullscreenQuadTransferrerWithUV implements FullscreenQuadTransferre
 		GLWrapper.glBindVertexArray(0);
 	}
 	public FullscreenQuadTransferrerWithUV() {
-		this(true);
+		this(false);
 	}
 
 	@Override
