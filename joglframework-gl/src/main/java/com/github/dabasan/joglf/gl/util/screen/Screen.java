@@ -50,7 +50,7 @@ public class Screen {
 		this.SetupFramebuffer();
 
 		program = new ShaderProgram("texture_drawer");
-		transferrer = new FullscreenQuadTransferrerWithUV();
+		transferrer = new FullscreenQuadTransferrerWithUV(true);
 
 		texture_handle = -1;
 	}
