@@ -19,7 +19,7 @@ public class FullscreenQuadTransferrerWithUV implements FullscreenQuadTransferre
 	private final IntBuffer uv_vbo;
 	private final IntBuffer vao;
 
-	public FullscreenQuadTransferrerWithUV() {
+	public FullscreenQuadTransferrerWithUV(boolean flip_v_flag) {
 		indices_vbo = Buffers.newDirectIntBuffer(1);
 		pos_vbo = Buffers.newDirectIntBuffer(1);
 		uv_vbo = Buffers.newDirectIntBuffer(1);
@@ -58,18 +58,33 @@ public class FullscreenQuadTransferrerWithUV implements FullscreenQuadTransferre
 		pos_buffer.put(1.0f);
 		pos_buffer.flip();
 
-		// Bottom left
-		uv_buffer.put(0.0f);
-		uv_buffer.put(1.0f);
-		// Bottom right
-		uv_buffer.put(1.0f);
-		uv_buffer.put(1.0f);
-		// Top right
-		uv_buffer.put(1.0f);
-		uv_buffer.put(0.0f);
-		// Top left
-		uv_buffer.put(0.0f);
-		uv_buffer.put(0.0f);
+		if (flip_v_flag == true) {
+			// Bottom left
+			uv_buffer.put(0.0f);
+			uv_buffer.put(0.0f);
+			// Bottom right
+			uv_buffer.put(1.0f);
+			uv_buffer.put(0.0f);
+			// Top right
+			uv_buffer.put(1.0f);
+			uv_buffer.put(1.0f);
+			// Top left
+			uv_buffer.put(0.0f);
+			uv_buffer.put(1.0f);
+		} else {
+			// Bottom left
+			uv_buffer.put(0.0f);
+			uv_buffer.put(1.0f);
+			// Bottom right
+			uv_buffer.put(1.0f);
+			uv_buffer.put(1.0f);
+			// Top right
+			uv_buffer.put(1.0f);
+			uv_buffer.put(0.0f);
+			// Top left
+			uv_buffer.put(0.0f);
+			uv_buffer.put(0.0f);
+		}
 		uv_buffer.flip();
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, pos_vbo.get(0));
@@ -96,6 +111,9 @@ public class FullscreenQuadTransferrerWithUV implements FullscreenQuadTransferre
 
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 		GLWrapper.glBindVertexArray(0);
+	}
+	public FullscreenQuadTransferrerWithUV() {
+		this(true);
 	}
 
 	@Override
