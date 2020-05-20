@@ -108,7 +108,7 @@ Sample code is available in [JOGLFramework3Samples](https://github.com/Dabasan/J
 
 JOGLFramework is released under the MIT license.
 
-See [LICENSES](./LICENSES) for dependent software licenses.
+See also: [LICENSES](./LICENSES)
 
 ## Todo
 
