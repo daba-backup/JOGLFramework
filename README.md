@@ -108,27 +108,7 @@ Sample code is available in [JOGLFramework3Samples](https://github.com/Dabasan/J
 
 JOGLFramework is released under the MIT license.
 
-### Dependencies
-
-####  New BSD 2-Clause License
-
-- [JOGL](https://github.com/sgothel/jogl/blob/master/LICENSE.txt)
-- [GlueGen](https://github.com/sgothel/gluegen/blob/master/LICENSE.txt)
-
-They are mostly licensed under the New BSD 2-Clause License.
-
-#### BSD License
-
-- [JOAL](https://github.com/sgothel/joal/blob/master/LICENSE.txt)
-
-#### LGPL
-
-- [JLayer](https://github.com/pdudits/soundlibs/blob/master/jlayer/LICENSE.txt)
-- [logback](https://github.com/qos-ch/logback/blob/master/LICENSE.txt)
-
-#### Other
-
-- [Obj](https://github.com/javagl/Obj/blob/master/LICENSE.txt)
+See [LICENSES](./LICENSES) for dependent software licenses.
 
 ## Todo
 
