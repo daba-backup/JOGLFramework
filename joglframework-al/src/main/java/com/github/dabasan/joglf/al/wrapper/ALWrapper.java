@@ -12,7 +12,7 @@ import com.jogamp.openal.ALFactory;
 import com.jogamp.openal.util.ALut;
 
 /**
- * Wrapper functions of AL
+ * Wrapper functions for OpenAL
  * 
  * @author Daba
  *
@@ -21,6 +21,8 @@ public class ALWrapper {
 	private static Logger logger = LoggerFactory.getLogger(ALWrapper.class);
 
 	@Deprecated
+	// This method should be removed in the next major update as ALUT is not
+	// part of OpenAL.
 	public static void alutLoadWAVFile(String arg0, int[] arg1, ByteBuffer[] arg2, int[] arg3,
 			int[] arg4, int[] arg5) {
 		ALut.alutLoadWAVFile(arg0, arg1, arg2, arg3, arg4, arg5);

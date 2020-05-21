@@ -16,7 +16,8 @@ import com.github.dabasan.tool.FilenameFunctions;
 import com.jogamp.openal.ALConstants;
 
 /**
- * Functions for 3D sounds
+ * Functions for 3D sound<br>
+ * 3D audio works correctly only with monaural sound files.
  * 
  * @author Daba
  *
@@ -32,10 +33,21 @@ public class Sound3DFunctions {
 	private static Vector listener_target = VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
 	private static Vector listener_up = VectorFunctions.VGet(0.0f, 1.0f, 0.0f);
 
+	/**
+	 * Sets the distance model.
+	 * 
+	 * @param model
+	 *            Distance model
+	 */
 	public static void SetDistanceModel(int model) {
 		ALWrapper.alDistanceModel(model);
 	}
 
+	/**
+	 * Updates the listener properties.<br>
+	 * This method is called by JOGLF and you usually don't have to call it
+	 * yourself.
+	 */
 	public static void SetupListenerProperties() {
 		ALWrapper.alListener3f(ALConstants.AL_POSITION, listener_position.GetX(),
 				listener_position.GetY(), listener_position.GetZ());
@@ -69,6 +81,15 @@ public class Sound3DFunctions {
 		ALWrapper.alListenerfv(ALConstants.AL_ORIENTATION, orientation, 0);
 	}
 
+	/**
+	 * Loads a sound.<br>
+	 * Currently this method only loads the WAV format.<br>
+	 * 3D audio works correctly only with monaural sound files.
+	 * 
+	 * @param sound_filename
+	 *            Filename
+	 * @return Sound handle
+	 */
 	public static int LoadSound(String sound_filename) {
 		logger.info("Start loading a sound. sound_filename={}", sound_filename);
 
@@ -102,6 +123,15 @@ public class Sound3DFunctions {
 		return sound;
 	}
 
+	/**
+	 * Creates a sound from a raw sound buffer.<br>
+	 * You have to make a waveform and set required info into a sound buffer on
+	 * your own.
+	 * 
+	 * @param sound_buffer
+	 *            Sound buffer
+	 * @return Sound handle
+	 */
 	public static int Associate(SoundBuffer sound_buffer) {
 		if (sound_buffer == null) {
 			logger.error("Null argument where non-null required.");

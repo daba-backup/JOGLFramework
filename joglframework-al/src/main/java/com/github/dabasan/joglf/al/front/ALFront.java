@@ -17,6 +17,10 @@ import com.jogamp.openal.util.ALut;
 public class ALFront {
 	private static Logger logger = LoggerFactory.getLogger(ALFront.class);
 
+	/**
+	 * Initializes ALut and sets some default values.<br>
+	 * ALut.alutInit() call inside this method may throw ALException at runtime.
+	 */
 	public static void Initialize() {
 		ALut.alutInit();
 
@@ -25,6 +29,9 @@ public class ALFront {
 
 		logger.info("ALFront initialized.");
 	}
+	/**
+	 * Disposes ALut.
+	 */
 	public static void Dispose() {
 		ALut.alutExit();
 
