@@ -14,7 +14,7 @@ under the terms of the GNU Lesser General Public License version 2.1
 as published by the Free Software Foundation.
 
 ====================
-Note by the author of JOGLFramework
+Note by the licensee
 ---------------
 
 LGPL v2.1 is adopted in this project.
