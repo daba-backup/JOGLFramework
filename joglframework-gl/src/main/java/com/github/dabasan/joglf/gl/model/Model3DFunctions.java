@@ -17,6 +17,7 @@ import com.github.dabasan.joglf.gl.model.animation.AnimationBlendInfo;
 import com.github.dabasan.joglf.gl.model.animation.AnimationInfo;
 import com.github.dabasan.joglf.gl.model.animation.AnimationInfoMap;
 import com.github.dabasan.joglf.gl.model.buffer.BufferedVertices;
+import com.github.dabasan.joglf.gl.model.loader.assimp.AssimpLoader;
 import com.github.dabasan.joglf.gl.model.loader.bd1.BD1Loader;
 import com.github.dabasan.joglf.gl.model.loader.obj.OBJLoader;
 import com.github.dabasan.joglf.gl.shader.ShaderProgram;
@@ -61,8 +62,8 @@ public class Model3DFunctions {
 					model = LoadOBJ(model_filename, option);
 					break;
 				default :
-					logger.error("Unsupported model format. extension={}", extension);
-					return -1;
+					model = LoadModelWithAssimp(model_filename, option);
+					break;
 			}
 		} catch (final IOException e) {
 			logger.error("Failed to load a model.", e);
@@ -94,6 +95,14 @@ public class Model3DFunctions {
 	}
 	private static ModelMgr LoadOBJ(String model_filename, FlipVOption option) throws IOException {
 		final List<BufferedVertices> buffered_vertices_list = OBJLoader.LoadOBJ(model_filename);
+		final ModelMgr model = new ModelMgr(buffered_vertices_list, option);
+
+		return model;
+	}
+	private static ModelMgr LoadModelWithAssimp(String model_filename, FlipVOption option)
+			throws IOException {
+		final List<BufferedVertices> buffered_vertices_list = AssimpLoader
+				.LoadModelWithAssimp(model_filename);
 		final ModelMgr model = new ModelMgr(buffered_vertices_list, option);
 
 		return model;
