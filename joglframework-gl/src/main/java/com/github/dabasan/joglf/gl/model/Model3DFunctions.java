@@ -505,7 +505,7 @@ public class Model3DFunctions {
 	}
 	/**
 	 * Rotates a model.<br>
-	 * The order of rotation:X→Y→Z
+	 * The order of rotation: X→Y→Z
 	 * 
 	 * @param model_handle
 	 *            Model handle
@@ -754,7 +754,7 @@ public class Model3DFunctions {
 	 *            Model handle
 	 * @param anim_index
 	 *            Animation index
-	 * @return Negative value on error and time on success
+	 * @return Negative value on error and time of the last frame on success
 	 */
 	public static float GetAnimationMaxTime(int model_handle, int anim_index) {
 		if (animation_info_map.containsKey(model_handle) == false) {
