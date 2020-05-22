@@ -113,8 +113,6 @@ See also: [LICENSES](./LICENSES)
 ## Todo
 
 - Provide add-ons for specific usage (spotlight, shadow, etc.)
-- Use Assimp (JAssimp) to load various formats of 3D models
-- Documentation
 
 # External links
 
