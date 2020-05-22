@@ -24,6 +24,7 @@ import com.jogamp.opengl.util.PMVMatrix;
 
 /**
  * Text manager<br>
+ * <br>
  * A backward-compatible profile is required to draw texts with this class
  * because it depends on GL2 implementation.
  * 
@@ -150,13 +151,14 @@ public class TextMgr {
 	 *            Color
 	 * @param size
 	 *            Size
-	 * @param weight
-	 *            Weight
+	 * @param resolution
+	 *            Display resolution in DPI
 	 * @return 0
 	 */
-	public static int DrawText(int x, int y, String text, ColorU8 color, int size, int weight) {
+	public static int DrawText(int x, int y, String text, ColorU8 color, float size,
+			float resolution) {
 		final Font font = fonts_map.get(default_font_handle);
-		innerDrawText(x, y, text, font, color, size, weight);
+		innerDrawText(x, y, text, font, color, size, resolution);
 
 		return 0;
 	}
@@ -175,25 +177,25 @@ public class TextMgr {
 	 *            Color
 	 * @param size
 	 *            Size
-	 * @param weight
-	 *            Weight
+	 * @param resolution
+	 *            Display resolution in DPI
 	 * @return -1 on error and 0 on success
 	 */
 	public static int DrawTextWithFont(int x, int y, String text, int font_handle, ColorU8 color,
-			int size, int weight) {
+			float size, float resolution) {
 		if (fonts_map.containsKey(font_handle) == false) {
 			logger.warn("No such font. font_handle={}", font_handle);
 			return -1;
 		}
 
 		final Font font = fonts_map.get(font_handle);
-		innerDrawText(x, y, text, font, color, size, weight);
+		innerDrawText(x, y, text, font, color, size, resolution);
 
 		return 0;
 	}
-	private static void innerDrawText(int x, int y, String text, Font font, ColorU8 color, int size,
-			int weight) {
-		final float pixel_size = font.getPixelSize(size, weight);
+	private static void innerDrawText(int x, int y, String text, Font font, ColorU8 color,
+			float size, float resolution) {
+		final float pixel_size = font.getPixelSize(size, resolution);
 
 		final PMVMatrix pmv = region_renderer.getMatrix();
 		pmv.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
