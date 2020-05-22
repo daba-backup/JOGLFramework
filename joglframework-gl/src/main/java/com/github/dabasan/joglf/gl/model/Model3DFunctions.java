@@ -102,6 +102,13 @@ public class Model3DFunctions {
 
 		return model_handle;
 	}
+	/**
+	 * Loads a model.
+	 * 
+	 * @param model_filename
+	 *            Filename
+	 * @return -1 on error and model handle on success
+	 */
 	public static int LoadModel(String model_filename) {
 		return LoadModel(model_filename, FlipVOption.MUST_FLIP_VERTICALLY);
 	}
@@ -134,6 +141,15 @@ public class Model3DFunctions {
 		return model;
 	}
 
+	/**
+	 * Creates a model from a raw buffered vertices.
+	 * 
+	 * @param buffered_vertices_list
+	 *            List of buffered vertices
+	 * @param option
+	 *            Option to flip texture v-coordinate
+	 * @return -1 on error and model handle on success
+	 */
 	public static int Associate(List<BufferedVertices> buffered_vertices_list, FlipVOption option) {
 		if (buffered_vertices_list == null) {
 			logger.error("Null argument where non-null required.");
@@ -149,6 +165,14 @@ public class Model3DFunctions {
 		return model_handle;
 	}
 
+	/**
+	 * Copies a model.<br>
+	 * Texture is shared with the source model.
+	 * 
+	 * @param model_handle
+	 *            Source model handle
+	 * @return -1 on error and model handle on success
+	 */
 	public static int CopyModel(int model_handle) {
 		if (models_map.containsKey(model_handle) == false) {
 			logger.trace("No such model. model_handle={}", model_handle);
@@ -201,6 +225,15 @@ public class Model3DFunctions {
 		return ret;
 	}
 
+	/**
+	 * Adds a program to draw the specified model with.
+	 * 
+	 * @param model_handle
+	 *            Model handle
+	 * @param program
+	 *            Program
+	 * @return -1 on error and 0 on success
+	 */
 	public static int AddProgram(int model_handle, ShaderProgram program) {
 		if (models_map.containsKey(model_handle) == false) {
 			logger.trace("No such model. model_handle={}", model_handle);
@@ -237,6 +270,19 @@ public class Model3DFunctions {
 		return 0;
 	}
 
+	/**
+	 * Draws a model with a specified program.
+	 * 
+	 * @param model_handle
+	 *            Model handle
+	 * @param program
+	 *            Program
+	 * @param sampler_name
+	 *            Sampler name
+	 * @param texture_unit
+	 *            Texture unit
+	 * @return -1 on error and 0 on success
+	 */
 	public static int DrawModelWithProgram(int model_handle, ShaderProgram program,
 			String sampler_name, int texture_unit) {
 		if (models_map.containsKey(model_handle) == false) {
@@ -249,6 +295,13 @@ public class Model3DFunctions {
 
 		return 0;
 	}
+	/**
+	 * Draws a model.
+	 * 
+	 * @param model_handle
+	 *            Model handle
+	 * @return -1 on error and 0 on success
+	 */
 	public static int DrawModel(int model_handle) {
 		if (models_map.containsKey(model_handle) == false) {
 			logger.trace("No such model. model_handle={}", model_handle);
@@ -260,6 +313,17 @@ public class Model3DFunctions {
 
 		return 0;
 	}
+	/**
+	 * Draws a model.
+	 * 
+	 * @param model_handle
+	 *            Model handle
+	 * @param sampler_name
+	 *            Sampler name
+	 * @param texture_unit
+	 *            Texture unit
+	 * @return -1 on error and 0 on success
+	 */
 	public static int DrawModel(int model_handle, String sampler_name, int texture_unit) {
 		if (models_map.containsKey(model_handle) == false) {
 			logger.trace("No such model. model_handle={}", model_handle);
@@ -271,6 +335,14 @@ public class Model3DFunctions {
 
 		return 0;
 	}
+	/**
+	 * Transfers a model.<br>
+	 * No programs are enabled inside this method.
+	 * 
+	 * @param model_handle
+	 *            Model handle
+	 * @return -1 on error and 0 on success
+	 */
 	public static int TransferModel(int model_handle) {
 		if (models_map.containsKey(model_handle) == false) {
 			logger.trace("No such model. model_handle={}", model_handle);
@@ -282,6 +354,14 @@ public class Model3DFunctions {
 
 		return 0;
 	}
+	/**
+	 * Draws a model element.
+	 * 
+	 * @param model_handle
+	 *            Model handle
+	 * @param bound
+	 * @return
+	 */
 	public static int DrawModelElements(int model_handle, int bound) {
 		if (models_map.containsKey(model_handle) == false) {
 			logger.trace("No such model. model_handle={}", model_handle);
