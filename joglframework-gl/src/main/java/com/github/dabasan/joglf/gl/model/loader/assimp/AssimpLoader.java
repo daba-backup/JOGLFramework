@@ -24,7 +24,10 @@ import com.github.dabasan.joglf.gl.texture.TextureMgr;
 import com.github.dabasan.tool.FilenameFunctions;
 
 /**
- * Loads a 3D model with Assimp.
+ * Loads a 3D model with Assimp.<br>
+ * <br>
+ * Native libraries are required to use this class.
+ * 
  * 
  * @author Daba
  *

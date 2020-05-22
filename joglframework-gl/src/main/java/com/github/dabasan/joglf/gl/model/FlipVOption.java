@@ -2,6 +2,7 @@ package com.github.dabasan.joglf.gl.model;
 
 /**
  * Options for flip of texture v-coordinate<br>
+ * <br>
  * MUST_FLIP_VERTICALLY flips v-coordinate only if getMustFlipVertically() of
  * the underlying JOGL Texture instance returns true.
  * 
