@@ -179,13 +179,12 @@ public class TextMgr {
 	 *            Size
 	 * @param resolution
 	 *            Display resolution in DPI
-	 * @return -1 on error and 0 on success
+	 * @return 0
 	 */
 	public static int DrawTextWithFont(int x, int y, String text, int font_handle, ColorU8 color,
 			float size, float resolution) {
 		if (fonts_map.containsKey(font_handle) == false) {
-			logger.warn("No such font. font_handle={}", font_handle);
-			return -1;
+			font_handle = default_font_handle;
 		}
 
 		final Font font = fonts_map.get(font_handle);
