@@ -56,6 +56,19 @@ public class FreeCamera {
 		this.rotate_speed = rotate_speed;
 	}
 
+	/**
+	 * Translates the camera.<br>
+	 * Assumed keyboard input for the arguments, but not restricted to that.
+	 * 
+	 * @param front
+	 *            Move forward
+	 * @param back
+	 *            Move backward
+	 * @param right
+	 *            Move right
+	 * @param left
+	 *            Move left
+	 */
 	public void Translate(int front, int back, int right, int left) {
 		Vector translate = VGet(0.0f, 0.0f, 0.0f);
 
@@ -81,6 +94,15 @@ public class FreeCamera {
 			position = VAdd(position, translate);
 		}
 	}
+	/**
+	 * Rotates the camera.<br>
+	 * Assumed the displacement of the cursor, but not restricted to that.
+	 * 
+	 * @param diff_x
+	 *            Diff x
+	 * @param diff_y
+	 *            Diff y
+	 */
 	public void Rotate(int diff_x, int diff_y) {
 		h_rotate += rotate_speed * (-diff_x);
 		v_rotate += rotate_speed * (-diff_y);
@@ -98,6 +120,9 @@ public class FreeCamera {
 		}
 	}
 
+	/**
+	 * Updates the camera.
+	 */
 	public void Update() {
 		CameraFront.SetCameraPositionAndAngle(position, v_rotate, h_rotate, 0.0f);
 	}

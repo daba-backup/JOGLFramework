@@ -8,5 +8,6 @@ package com.github.dabasan.joglf.gl.transferrer;
  */
 public interface FullscreenQuadTransferrerInterface {
 	public void DeleteBuffers();
+
 	public void Transfer();
 }

@@ -19,6 +19,11 @@ public class FullscreenQuadTransferrerWithUV implements FullscreenQuadTransferre
 	private final IntBuffer uv_vbo;
 	private final IntBuffer vao;
 
+	/**
+	 * 
+	 * @param flip_v_flag
+	 *            Flip texture v-coordinate
+	 */
 	public FullscreenQuadTransferrerWithUV(boolean flip_v_flag) {
 		indices_vbo = Buffers.newDirectIntBuffer(1);
 		pos_vbo = Buffers.newDirectIntBuffer(1);
@@ -112,6 +117,9 @@ public class FullscreenQuadTransferrerWithUV implements FullscreenQuadTransferre
 		GLWrapper.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
 		GLWrapper.glBindVertexArray(0);
 	}
+	/**
+	 * Texture v-coordinate is not flipped by default.
+	 */
 	public FullscreenQuadTransferrerWithUV() {
 		this(false);
 	}

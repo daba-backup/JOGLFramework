@@ -23,14 +23,14 @@ public class GLWrapper {
 
 	/**
 	 * Sets the GL version.<br>
-	 * This method is disabled after the framework is setup.
+	 * This method is disabled after JOGLFramework is setup.
 	 * 
 	 * @param version
 	 *            Version
 	 */
 	public static void SetGLVersion(GLVersion version) {
 		if (GLFront.IsSetup() == true) {
-			logger.warn("This method is disabled after the GL is set up.");
+			logger.warn("This method is disabled after JOGLFramework is set up.");
 			return;
 		}
 

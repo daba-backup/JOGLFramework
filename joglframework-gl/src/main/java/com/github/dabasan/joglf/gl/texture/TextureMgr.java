@@ -32,11 +32,22 @@ public class TextureMgr {
 
 	private static boolean generate_mipmap_flag = true;
 
+	/**
+	 * Initialization<br>
+	 * You don't have to call this method by yourself.
+	 */
 	public static void Initialize() {
 		default_texture_handle = LoadTexture("./Data/Texture/white.bmp");
 		logger.info("TextureMgr initialized.");
 	}
 
+	/**
+	 * Loads a texture.
+	 * 
+	 * @param texture_filename
+	 *            Texture filename
+	 * @return -1 on error and texture handle on success
+	 */
 	public static int LoadTexture(String texture_filename) {
 		final File file = new File(texture_filename);
 		if (!(file.isFile() && file.canRead())) {
@@ -96,6 +107,17 @@ public class TextureMgr {
 		textures_map.clear();
 	}
 
+	/**
+	 * Flips a texture.
+	 * 
+	 * @param texture_handle
+	 *            Texture handle
+	 * @param flip_vertically
+	 *            Flip vertically
+	 * @param flip_horizontally
+	 *            Flip horizontally
+	 * @return -1 on error and 0 on success
+	 */
 	public static int FlipTexture(int texture_handle, boolean flip_vertically,
 			boolean flip_horizontally) {
 		if (textures_map.containsKey(texture_handle) == false) {
@@ -174,6 +196,14 @@ public class TextureMgr {
 		return 0;
 	}
 
+	/**
+	 * Returns a flag to show whether the texture v-coordinate should be
+	 * flipped.
+	 * 
+	 * @param texture_handle
+	 *            Texture handle
+	 * @return Flag
+	 */
 	public static boolean GetMustFlipVertically(int texture_handle) {
 		if (textures_map.containsKey(texture_handle) == false) {
 			logger.warn("No such texture. texture_handle={}", texture_handle);
@@ -207,6 +237,21 @@ public class TextureMgr {
 		return height;
 	}
 
+	/**
+	 * Creates a texture from an OpenGL texture object.<br>
+	 * "texture_object" is an object generated with glGenTextures(GL_TEXTURE_2D,
+	 * ...).
+	 * 
+	 * @param texture_object
+	 *            Texture object
+	 * @param texture_width
+	 *            Texture width
+	 * @param texture_height
+	 *            Texture height
+	 * @param flip_vertically
+	 *            Flip vertically
+	 * @return Texture handle
+	 */
 	public static int AssociateTexture(int texture_object, int texture_width, int texture_height,
 			boolean flip_vertically) {
 		final int texture_handle = count;
@@ -219,6 +264,13 @@ public class TextureMgr {
 		return texture_handle;
 	}
 
+	/**
+	 * Returns a buffer of the texture image.
+	 * 
+	 * @param texture_handle
+	 *            Texture handle
+	 * @return Empty buffer on error and texture image on success
+	 */
 	public static ByteBuffer GetTextureImage(int texture_handle) {
 		if (textures_map.containsKey(texture_handle) == false) {
 			logger.warn("No such texture. texture_handle={}", texture_handle);
@@ -248,6 +300,13 @@ public class TextureMgr {
 		generate_mipmap_flag = flag;
 	}
 
+	/**
+	 * Binds a texture.
+	 * 
+	 * @param texture_handle
+	 *            Texture handle
+	 * @return 0
+	 */
 	public static int BindTexture(int texture_handle) {
 		if (textures_map.containsKey(texture_handle) == false) {
 			texture_handle = default_texture_handle;
@@ -260,6 +319,9 @@ public class TextureMgr {
 
 		return 0;
 	}
+	/**
+	 * Unbinds a texture.
+	 */
 	public static void UnbindTexture() {
 		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, 0);
 	}

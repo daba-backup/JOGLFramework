@@ -41,6 +41,13 @@ public class Screen {
 
 	private int texture_handle;
 
+	/**
+	 * 
+	 * @param width
+	 *            Screen width
+	 * @param height
+	 *            Screen height
+	 */
 	public Screen(int width, int height) {
 		screen_width = width;
 		screen_height = height;
@@ -122,23 +129,42 @@ public class Screen {
 		return screen_height;
 	}
 
+	/**
+	 * Enables the screen.
+	 */
 	public void Enable() {
 		GLWrapper.glBindFramebuffer(GL.GL_FRAMEBUFFER, fbo_id);
 		GLWrapper.glViewport(0, 0, screen_width, screen_height);
 	}
+	/**
+	 * Disables the screen.
+	 */
 	public void Disable() {
 		GLWrapper.glBindFramebuffer(GL.GL_FRAMEBUFFER, 0);
 	}
+	/**
+	 * Clears the screen.
+	 */
 	public void Clear() {
 		GLWrapper.glClear(GL.GL_DEPTH_BUFFER_BIT | GL.GL_COLOR_BUFFER_BIT);
 	}
 
+	/**
+	 * Associates the underlying texture object with TextureMgr.
+	 * 
+	 * @param flip_vertically
+	 *            Flip vertically
+	 * @return Texture handle
+	 */
 	public int Associate(boolean flip_vertically) {
 		texture_handle = TextureMgr.AssociateTexture(texture_id, screen_width, screen_height,
 				flip_vertically);
 		return texture_handle;
 	}
 
+	/**
+	 * Draws the current contents of the screen.
+	 */
 	public void Draw() {
 		program.Enable();
 
@@ -148,18 +174,43 @@ public class Screen {
 
 		transferrer.Transfer();
 	}
+	/**
+	 * Draws the current contents of the screen onto the specified rect.
+	 * 
+	 * @param x
+	 *            Bottom left x
+	 * @param y
+	 *            Bottom left y
+	 * @param width
+	 *            Width
+	 * @param height
+	 *            Height
+	 */
 	public void Draw(int x, int y, int width, int height) {
 		GLWrapper.glViewport(x, y, width, height);
 		this.Draw();
 	}
 
+	/**
+	 * Binds the screen texture.
+	 */
 	public void BindScreenTexture() {
 		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, texture_id);
 	}
+	/**
+	 * Unbinds the screen texture.
+	 */
 	public void UnbindScreenTexture() {
 		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, 0);
 	}
 
+	/**
+	 * Takes a screenshot of the screen.
+	 * 
+	 * @param filename
+	 *            Screenshot filename
+	 * @return -1 on error and 0 on success
+	 */
 	public int TakeScreenshot(String filename) {
 		final ByteBuffer data = Buffers.newDirectByteBuffer(screen_width * screen_height * 4);
 

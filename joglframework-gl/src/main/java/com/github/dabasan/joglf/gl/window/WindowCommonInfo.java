@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Common information for windows
+ * Common information about windows
  * 
  * @author Daba
  *
@@ -24,7 +24,7 @@ public class WindowCommonInfo {
 	}
 	public static void SetFPS(int a_fps) {
 		if (fps_finalized_flag == true) {
-			logger.warn("This method is disabled after the fps is finalized.");
+			logger.warn("This method is disabled after the FPS is finalized.");
 			return;
 		}
 		fps = a_fps;

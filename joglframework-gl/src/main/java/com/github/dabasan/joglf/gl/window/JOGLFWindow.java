@@ -128,6 +128,9 @@ public class JOGLFWindow
 		final WindowCloser closer = new WindowCloser(window);
 		closer.start();
 	}
+	/**
+	 * Terminates JVM when this window is destroyed.
+	 */
 	@Override
 	public void SetExitProcessWhenDestroyed() {
 		window.removeWindowListener(adapter);

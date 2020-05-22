@@ -23,7 +23,9 @@ import com.jogamp.opengl.fixedfunc.GLMatrixFunc;
 import com.jogamp.opengl.util.PMVMatrix;
 
 /**
- * Text manager
+ * Text manager<br>
+ * A backward-compatible profile is required to draw texts with this class
+ * because it depends on GL2 implementation.
  * 
  * @author Daba
  *
@@ -43,6 +45,10 @@ public class TextMgr {
 	private static int window_width = WindowCommonInfo.DEFAULT_WIDTH;
 	private static int window_height = WindowCommonInfo.DEFAULT_HEIGHT;
 
+	/**
+	 * Initialization<br>
+	 * You don't have to call this method by yourself.
+	 */
 	public static void Initialize() {
 		render_state = RenderState.createRenderState(SVertex.factory());
 		render_state.setColorStatic(1.0f, 1.0f, 1.0f, 1.0f);
@@ -78,6 +84,13 @@ public class TextMgr {
 		return font_handle;
 	}
 
+	/**
+	 * Loads a font.
+	 * 
+	 * @param font_filename
+	 *            Filename
+	 * @return -1 on error and font handle on success
+	 */
 	public static int LoadFont(String font_filename) {
 		Font font = null;
 		try {
@@ -110,17 +123,62 @@ public class TextMgr {
 		return 0;
 	}
 
+	/**
+	 * Sets the window size.<br>
+	 * This method is automatically called in JOGLFWindow and JOGLFSwingWindow.
+	 * 
+	 * @param width
+	 *            Width
+	 * @param height
+	 *            Height
+	 */
 	public static void SetWindowSize(int width, int height) {
 		window_width = width;
 		window_height = height;
 	}
 
+	/**
+	 * Draws text with the default font.
+	 * 
+	 * @param x
+	 *            Bottom left x
+	 * @param y
+	 *            Bottom left y
+	 * @param text
+	 *            Text
+	 * @param color
+	 *            Color
+	 * @param size
+	 *            Size
+	 * @param weight
+	 *            Weight
+	 * @return 0
+	 */
 	public static int DrawText(int x, int y, String text, ColorU8 color, int size, int weight) {
 		final Font font = fonts_map.get(default_font_handle);
 		innerDrawText(x, y, text, font, color, size, weight);
 
 		return 0;
 	}
+	/**
+	 * Draws text with a font specified.
+	 * 
+	 * @param x
+	 *            Bottom left x
+	 * @param y
+	 *            Bottom left y
+	 * @param text
+	 *            Text
+	 * @param font_handle
+	 *            Font handle
+	 * @param color
+	 *            Color
+	 * @param size
+	 *            Size
+	 * @param weight
+	 *            Weight
+	 * @return -1 on error and 0 on success
+	 */
 	public static int DrawTextWithFont(int x, int y, String text, int font_handle, ColorU8 color,
 			int size, int weight) {
 		if (fonts_map.containsKey(font_handle) == false) {
