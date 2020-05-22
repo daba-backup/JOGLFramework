@@ -375,7 +375,7 @@ public class Model3DFunctions {
 		}
 
 		final ModelMgr model = models_map.get(model_handle);
-		int r = model.DrawElement(index, sampler_name, texture_unit);
+		final int r = model.DrawElement(index, sampler_name, texture_unit);
 
 		int ret;
 		if (r < 0) {
@@ -402,7 +402,7 @@ public class Model3DFunctions {
 		}
 
 		final ModelMgr model = models_map.get(model_handle);
-		int r = model.DrawElement(index);
+		final int r = model.DrawElement(index);
 
 		int ret;
 		if (r < 0) {

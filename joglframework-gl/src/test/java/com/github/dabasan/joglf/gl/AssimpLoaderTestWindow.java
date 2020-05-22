@@ -13,9 +13,9 @@ class AssimpLoaderTestWindow extends JOGLFWindow {
 	@Override
 	public void Init() {
 		try {
-			var bvl = AssimpLoader.LoadModelWithAssimp("./Data/Model/X/model.x");
+			final var bvl = AssimpLoader.LoadModelWithAssimp("./Data/Model/X/model.x");
 			model_handle = Model3DFunctions.Associate(bvl, FlipVOption.MUST_FLIP_VERTICALLY);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 			this.CloseWindow();
 

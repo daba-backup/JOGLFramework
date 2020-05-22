@@ -801,7 +801,7 @@ public class DrawFunctions2D {
 
 		GLWrapper.glEnable(GL.GL_BLEND);
 		texture_drawer_program.Enable();
-		int r = texture_drawer_program.SetTexture("texture_sampler", 0, texture_handle);
+		final int r = texture_drawer_program.SetTexture("texture_sampler", 0, texture_handle);
 		GLWrapper.glDrawElements(GL.GL_TRIANGLES, 6, GL.GL_UNSIGNED_INT, 0);
 		texture_drawer_program.Disable();
 		GLWrapper.glDisable(GL.GL_BLEND);

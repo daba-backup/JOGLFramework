@@ -48,12 +48,12 @@ public class AssimpLoader {
 			Set<AiPostProcessSteps> flags) throws IOException {
 		logger.info("Start loading a model with Assimp. model_filename={}", model_filename);
 
-		List<BufferedVertices> buffered_vertices_list = new ArrayList<>();
-		String model_directory = FilenameFunctions.GetFileDirectory(model_filename);
+		final List<BufferedVertices> buffered_vertices_list = new ArrayList<>();
+		final String model_directory = FilenameFunctions.GetFileDirectory(model_filename);
 
-		AiScene scene = Jassimp.importFile(model_filename, flags);
-		List<AiMaterial> materials = scene.getMaterials();
-		List<AiMesh> meshes = scene.getMeshes();
+		final AiScene scene = Jassimp.importFile(model_filename, flags);
+		final List<AiMaterial> materials = scene.getMaterials();
+		final List<AiMesh> meshes = scene.getMeshes();
 
 		if (materials.size() == 0) {
 			throw new IOException("There are no materials in this model.");
@@ -65,8 +65,8 @@ public class AssimpLoader {
 			throw new IOException("material_num != mesh_num");
 		}
 
-		for (var material : materials) {
-			BufferedVertices buffered_vertices = new BufferedVertices();
+		for (final var material : materials) {
+			final BufferedVertices buffered_vertices = new BufferedVertices();
 
 			String texture_filename = material.getTextureFile(AiTextureType.DIFFUSE, 0);
 			buffered_vertices.SetDiffuseTextureMap(texture_filename);
@@ -74,17 +74,17 @@ public class AssimpLoader {
 			if (texture_filename != null && texture_filename.equals("") == false) {
 				texture_filename = model_directory + "/" + texture_filename;
 
-				int texture_handle = TextureMgr.LoadTexture(texture_filename);
+				final int texture_handle = TextureMgr.LoadTexture(texture_filename);
 				buffered_vertices.SetTextureHandle(texture_handle);
 			} else {
 				buffered_vertices.SetTextureHandle(-1);
 			}
 
-			AiColor ambient_color = material.getAmbientColor(null);
-			AiColor diffuse_color = material.getDiffuseColor(null);
-			AiColor specular_color = material.getSpecularColor(null);
-			float shininess = material.getShininess();
-			float opacity = material.getOpacity();
+			final AiColor ambient_color = material.getAmbientColor(null);
+			final AiColor diffuse_color = material.getDiffuseColor(null);
+			final AiColor specular_color = material.getSpecularColor(null);
+			final float shininess = material.getShininess();
+			final float opacity = material.getOpacity();
 			buffered_vertices.SetAmbientColor(ColorU8Functions.GetColorU8(ambient_color.getRed(),
 					ambient_color.getGreen(), ambient_color.getBlue(), ambient_color.getAlpha()));
 			buffered_vertices.SetDiffuseColor(ColorU8Functions.GetColorU8(diffuse_color.getRed(),
@@ -99,13 +99,13 @@ public class AssimpLoader {
 		}
 
 		for (int i = 0; i < meshes.size(); i++) {
-			AiMesh mesh = meshes.get(i);
-			BufferedVertices buffered_vertices = buffered_vertices_list.get(i);
+			final AiMesh mesh = meshes.get(i);
+			final BufferedVertices buffered_vertices = buffered_vertices_list.get(i);
 
-			IntBuffer indices_buffer = mesh.getIndexBuffer();
-			FloatBuffer pos_buffer = mesh.getPositionBuffer();
-			FloatBuffer norm_buffer = mesh.getNormalBuffer();
-			FloatBuffer uv_buffer = mesh.getTexCoordBuffer(0);
+			final IntBuffer indices_buffer = mesh.getIndexBuffer();
+			final FloatBuffer pos_buffer = mesh.getPositionBuffer();
+			final FloatBuffer norm_buffer = mesh.getNormalBuffer();
+			final FloatBuffer uv_buffer = mesh.getTexCoordBuffer(0);
 
 			buffered_vertices.SetIndicesBuffer(indices_buffer);
 			buffered_vertices.SetPosBuffer(pos_buffer);
