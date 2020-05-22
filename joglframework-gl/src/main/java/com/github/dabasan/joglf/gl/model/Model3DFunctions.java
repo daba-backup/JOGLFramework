@@ -44,12 +44,11 @@ public class Model3DFunctions {
 	 * files when loaded.<br>
 	 * <br>
 	 * Vertices are stored per material (texture) in this library, which means
-	 * that the original order of vertices stored in the model file may differ
-	 * from that of this library.<br>
-	 * For example, in the BD1 format, data is stored per "block", (usually)
-	 * aligned so that the oldest one comes first and the newest one comes last.
-	 * It is considered that the original data retains the chronological order
-	 * of the creator's operation.<br>
+	 * that the order of vertices stored for this library may differ from that
+	 * of the original model file. For example, in the BD1 format, data is
+	 * stored per "block", (usually) aligned so that the oldest one comes first
+	 * and the newest one comes last. It is considered that the original data
+	 * retains the chronological order of the creator's operation.<br>
 	 * <br>
 	 * This flag currently doesn't have an effect on model formats except BD1.
 	 * 
