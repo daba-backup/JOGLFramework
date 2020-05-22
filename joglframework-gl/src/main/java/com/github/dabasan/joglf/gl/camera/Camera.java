@@ -94,12 +94,24 @@ public class Camera {
 		return new Vector(up);
 	}
 
+	/**
+	 * Sets up a perspective camera.
+	 * 
+	 * @param fov
+	 *            Field of view (rad)
+	 */
 	public void SetupCamera_Perspective(float fov) {
 		projection = ProjectionMatrixFunctions.GetPerspectiveMatrix(fov, aspect, near, far);
 
 		camera_mode = CameraMode.PERSPECTIVE;
 		this.fov = fov;
 	}
+	/**
+	 * Sets up a orthographic camera.
+	 * 
+	 * @param size
+	 *            Size
+	 */
 	public void SetupCamera_Ortho(float size) {
 		projection = ProjectionMatrixFunctions.GetOrthogonalMatrix(-size, size, -size, size, near,
 				far);
@@ -108,6 +120,13 @@ public class Camera {
 		this.size = size;
 	}
 
+	/**
+	 * Sets a view transformation matrix for this camera.
+	 * 
+	 * @param m
+	 *            View transformation matrix
+	 */
+	@Deprecated
 	public void SetCameraViewMatrix(Matrix m) {
 		view_transformation = m;
 	}
@@ -130,9 +149,20 @@ public class Camera {
 		return ret;
 	}
 
+	/**
+	 * Updates the aspect of this camera.
+	 * 
+	 * @param width
+	 *            Width
+	 * @param height
+	 *            Height
+	 */
 	public void UpdateAspect(int width, int height) {
 		aspect = (float) width / height;
 	}
+	/**
+	 * Transfers data to the programs.
+	 */
 	public void Update() {
 		if (camera_mode == CameraMode.PERSPECTIVE) {
 			projection = ProjectionMatrixFunctions.GetPerspectiveMatrix(fov, aspect, near, far);

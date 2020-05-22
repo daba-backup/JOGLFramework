@@ -39,10 +39,36 @@ public class Model3DFunctions {
 
 	private static boolean keep_order_if_possible = false;
 
+	/**
+	 * Sets the flag to keep the chronological order of the elements in model
+	 * files when loaded.<br>
+	 * <br>
+	 * Vertices are stored per material (texture) in this library, which means
+	 * that the original order of vertices stored in the model file may differ
+	 * from that of this library.<br>
+	 * For example, in the BD1 format, data is stored per "block", (usually)
+	 * aligned so that the oldest one comes first and the newest one comes last.
+	 * It is considered that the original data retains the chronological order
+	 * of the creator's operation.<br>
+	 * <br>
+	 * This flag currently doesn't have an effect on model format except BD1.
+	 * 
+	 * @param a_keep_order_if_possible
+	 *            Flag
+	 */
 	public static void SetKeepOrderIfPossible(boolean a_keep_order_if_possible) {
 		keep_order_if_possible = a_keep_order_if_possible;
 	}
 
+	/**
+	 * Loads a model.
+	 * 
+	 * @param model_filename
+	 *            Filename
+	 * @param option
+	 *            Option to flip texture v-coordinate
+	 * @return -1 on error and model handle on success
+	 */
 	public static int LoadModel(String model_filename, FlipVOption option) {
 		logger.info("Start loading a model. model_filename={}", model_filename);
 

@@ -1,7 +1,7 @@
 package com.github.dabasan.joglf.gl.input;
 
 /**
- * Counts and flags used for handling user input.
+ * Counts and flags used to store user input
  * 
  * @author Daba
  *
@@ -27,6 +27,10 @@ public class CountsAndFlags {
 		}
 	}
 
+	/**
+	 * Sets pressing counts to 0, releasing counts to 0 and pressing flags to
+	 * false.
+	 */
 	public void Reset() {
 		for (int i = 0; i < element_num; i++) {
 			pressing_counts[i] = 0;

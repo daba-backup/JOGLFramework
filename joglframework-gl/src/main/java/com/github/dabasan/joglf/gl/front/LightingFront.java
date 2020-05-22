@@ -37,6 +37,9 @@ public class LightingFront {
 		lighting.SetSpecularPower(specular_power);
 	}
 
+	/**
+	 * Transfers data to the programs.
+	 */
 	public static void Update() {
 		lighting.Update();
 	}

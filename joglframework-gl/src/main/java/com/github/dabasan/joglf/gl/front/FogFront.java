@@ -27,6 +27,9 @@ public class FogFront {
 		fog.SetFogStartEnd(start, end);
 	}
 
+	/**
+	 * Transfers data to the programs.
+	 */
 	public static void Update() {
 		fog.Update();
 	}

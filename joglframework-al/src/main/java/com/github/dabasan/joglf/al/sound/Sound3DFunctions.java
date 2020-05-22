@@ -88,7 +88,7 @@ public class Sound3DFunctions {
 	 * 
 	 * @param sound_filename
 	 *            Filename
-	 * @return Sound handle
+	 * @return -1 on error and sound handle on success
 	 */
 	public static int LoadSound(String sound_filename) {
 		logger.info("Start loading a sound. sound_filename={}", sound_filename);

@@ -72,6 +72,9 @@ public class Lighting {
 		this.specular_power = specular_power;
 	}
 
+	/**
+	 * Transfers data to the programs.
+	 */
 	public void Update() {
 		for (final ShaderProgram program : programs) {
 			program.Enable();

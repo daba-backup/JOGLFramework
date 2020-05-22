@@ -29,21 +29,61 @@ public class CameraFront {
 		camera.RemoveAllPrograms();
 	}
 
+	/**
+	 * Sets zNear and zFar of the camera.
+	 * 
+	 * @param near
+	 *            zNear
+	 * @param far
+	 *            zFar
+	 */
 	public static void SetCameraNearFar(float near, float far) {
 		camera.SetCameraNearFar(near, far);
 	}
+	/**
+	 * Sets the camera position and the target.<br>
+	 * The up vector of the camera is (0, 1, 0).
+	 * 
+	 * @param position
+	 *            Position
+	 * @param target
+	 *            Target
+	 */
 	public static void SetCameraPositionAndTarget_UpVecY(Vector position, Vector target) {
 		camera.SetCameraPositionAndTarget(position, target);
 		camera.SetCameraUpVector(VectorFunctions.VGet(0.0f, 1.0f, 0.0f));
 	}
+	/**
+	 * Sets the camera position and the target with a specified up vector.
+	 * 
+	 * @param position
+	 *            Position
+	 * @param target
+	 *            Target
+	 * @param up
+	 *            Up
+	 */
 	public static void SetCameraPositionAndTargetAndUpVec(Vector position, Vector target,
 			Vector up) {
 		camera.SetCameraPositionAndTarget(position, target);
 		camera.SetCameraUpVector(up);
 	}
+	@Deprecated
 	public static void SetCameraViewMatrix(Matrix m) {
 		camera.SetCameraViewMatrix(m);
 	}
+	/**
+	 * Sets the camera position and the angle.
+	 * 
+	 * @param position
+	 *            Position
+	 * @param v_rotate
+	 *            Vertical angle
+	 * @param h_rotate
+	 *            Horizontal angle
+	 * @param t_rotate
+	 *            Twist angle
+	 */
 	public static void SetCameraPositionAndAngle(Vector position, float v_rotate, float h_rotate,
 			float t_rotate) {
 		Vector direction = new Vector();
@@ -82,9 +122,21 @@ public class CameraFront {
 		return camera.GetCameraUpVector();
 	}
 
+	/**
+	 * Sets up a perspective camera.
+	 * 
+	 * @param fov
+	 *            Field of view (rad)
+	 */
 	public static void SetupCamera_Perspective(float fov) {
 		camera.SetupCamera_Perspective(fov);
 	}
+	/**
+	 * Sets up a orthographic camera.
+	 * 
+	 * @param size
+	 *            Size
+	 */
 	public static void SetupCamera_Ortho(float size) {
 		camera.SetupCamera_Ortho(size);
 	}
@@ -171,11 +223,26 @@ public class CameraFront {
 		return ret;
 	}
 
+	/**
+	 * Updates the aspect of the camera.<br>
+	 * You usually don't have to call this method by yourself.
+	 * 
+	 * @param width
+	 *            Width
+	 * @param height
+	 *            Height
+	 */
 	public static void UpdateAspect(int width, int height) {
 		camera.UpdateAspect(width, height);
 		window_width = width;
 		window_height = height;
 	}
+	/**
+	 * Updates the camera.<br>
+	 * This method transfers the camera properties to the programs.<br>
+	 * This method is called by default between Update() and Draw() of
+	 * JOGLFWindow and JOGLFSwingWindow.
+	 */
 	public static void Update() {
 		camera.Update();
 	}

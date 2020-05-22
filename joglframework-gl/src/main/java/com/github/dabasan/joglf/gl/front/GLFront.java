@@ -31,12 +31,22 @@ public class GLFront {
 
 	private static boolean setup_flag = false;
 
+	/**
+	 * Sets up JOGLFramework.
+	 * 
+	 * @param gl_version
+	 *            Version of OpenGL
+	 */
 	public static void Setup(GLVersion gl_version) {
 		GLWrapper.SetGLVersion(gl_version);
 		CreateGLProfileStr(gl_version);
 
 		setup_flag = true;
 	}
+	/**
+	 * Initialization<br>
+	 * This is called by default at the initialization phase of a window.
+	 */
 	public static void Initialize() {
 		CreateDefaultPrograms();
 		SetDefaultGLProperties();
@@ -116,9 +126,20 @@ public class GLFront {
 		LightingFront.AddProgram(texture2);
 	}
 
+	/**
+	 * Lock<br>
+	 * Used to prevent attempts from multiple windows to make current the OpenGL
+	 * context simultaneously.<br>
+	 * This handling is automatically done inside each window, so you usually
+	 * don't need to call this method by yourself.<br>
+	 * Use {@link Unlock} to unlock.
+	 */
 	public static void Lock() {
 		lock.lock();
 	}
+	/**
+	 * Unlock
+	 */
 	public static void Unlock() {
 		lock.unlock();
 	}

@@ -12,7 +12,10 @@ import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL;
 
 /**
- * Draw functions for 2D primitives
+ * Draw functions for 2D primitives<br>
+ * Pass to the functions window coordinates with the origin located at the
+ * bottom left of the window.<br>
+ * bottom_left = (0,0) and top_right = (window_width, window_height)
  * 
  * @author Daba
  *
@@ -24,6 +27,10 @@ public class DrawFunctions2D {
 	private static int window_width = WindowCommonInfo.DEFAULT_WIDTH;
 	private static int window_height = WindowCommonInfo.DEFAULT_HEIGHT;
 
+	/**
+	 * Initialization<br>
+	 * You don't have to call this method by yourself.
+	 */
 	public static void Initialize() {
 		simple_2d_program = new ShaderProgram("simple_2d");
 		simple_2d_program.Enable();
@@ -36,22 +43,62 @@ public class DrawFunctions2D {
 		texture_drawer_program.Disable();
 	}
 
+	/**
+	 * Sets the z-coordinate for 2-dimensional draw process except texture
+	 * drawing.<br>
+	 * z = -1.0 means you draw to the very front (closest to the screen), while
+	 * z= 1.0 means the farthest from the screen.
+	 * 
+	 * @param z
+	 *            Z-coordinate
+	 */
 	public static void SetSimple2DZ(float z) {
 		simple_2d_program.Enable();
 		simple_2d_program.SetUniform("z", z);
 		simple_2d_program.Disable();
 	}
+	/**
+	 * Sets the z-coordinate for 2-dimensional texture drawing.<br>
+	 * z = -1.0 means you draw to the very front (closest to the screen), while
+	 * z= 1.0 means the farthest from the screen.
+	 * 
+	 * @param z
+	 *            Z-coordinate
+	 */
 	public static void SetTextureDrawerZ(float z) {
 		texture_drawer_program.Enable();
 		texture_drawer_program.SetUniform("z", z);
 		texture_drawer_program.Disable();
 	}
 
+	/**
+	 * Sets the window size<br>
+	 * This method is automatically called in JOGLFWindow and JOGLFSwingWindow.
+	 * 
+	 * @param width
+	 *            Window width
+	 * @param height
+	 *            Window height
+	 */
 	public static void SetWindowSize(int width, int height) {
 		window_width = width;
 		window_height = height;
 	}
 
+	/**
+	 * Draws a line.
+	 * 
+	 * @param x1
+	 *            Start pos x
+	 * @param y1
+	 *            Start pos y
+	 * @param x2
+	 *            End pos x
+	 * @param y2
+	 *            End pos y
+	 * @param color
+	 *            Color
+	 */
 	public static void DrawLine2D(int x1, int y1, int x2, int y2, ColorU8 color) {
 		final IntBuffer pos_vbo = Buffers.newDirectIntBuffer(1);
 		final IntBuffer color_vbo = Buffers.newDirectIntBuffer(1);
@@ -129,13 +176,13 @@ public class DrawFunctions2D {
 	 * Draws a rectangle.
 	 * 
 	 * @param x1
-	 *            Bottom left x-coordinate
+	 *            Bottom left x
 	 * @param y1
-	 *            Bottom left y-coordinate
+	 *            Bottom left y
 	 * @param x2
-	 *            Top right x-coordinate
+	 *            Top right x
 	 * @param y2
-	 *            Top right y-coordinate
+	 *            Top right y
 	 * @param color
 	 *            Color
 	 */
@@ -220,6 +267,20 @@ public class DrawFunctions2D {
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
 
+	/**
+	 * Draws a filled rectangle.
+	 * 
+	 * @param x1
+	 *            Bottom left x
+	 * @param y1
+	 *            Bottom left y
+	 * @param x2
+	 *            Top right x
+	 * @param y2
+	 *            Top right y
+	 * @param color
+	 *            Color
+	 */
 	public static void DrawFilledRectangle2D(int x1, int y1, int x2, int y2, ColorU8 color) {
 		final IntBuffer indices_vbo = Buffers.newDirectIntBuffer(1);
 		final IntBuffer pos_vbo = Buffers.newDirectIntBuffer(1);
@@ -318,6 +379,20 @@ public class DrawFunctions2D {
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
 
+	/**
+	 * Draws a circle.
+	 * 
+	 * @param center_x
+	 *            Center x
+	 * @param center_y
+	 *            Center y
+	 * @param radius
+	 *            Radius
+	 * @param div_num
+	 *            Number of divisions
+	 * @param color
+	 *            Color
+	 */
 	public static void DrawCircle2D(int center_x, int center_y, int radius, int div_num,
 			ColorU8 color) {
 		final IntBuffer pos_vbo = Buffers.newDirectIntBuffer(1);
@@ -395,6 +470,20 @@ public class DrawFunctions2D {
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
 
+	/**
+	 * Draws a filled circle.
+	 * 
+	 * @param center_x
+	 *            Center x
+	 * @param center_y
+	 *            Center y
+	 * @param radius
+	 *            Radius
+	 * @param div_num
+	 *            Number of divisions
+	 * @param color
+	 *            Color
+	 */
 	public static void DrawFilledCircle2D(int center_x, int center_y, int radius, int div_num,
 			ColorU8 color) {
 		final IntBuffer indices_vbo = Buffers.newDirectIntBuffer(1);
@@ -499,6 +588,19 @@ public class DrawFunctions2D {
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
 
+	/**
+	 * Transfers a quad.<br>
+	 * Texture v-coordinate is flipped.
+	 * 
+	 * @param bottom_left_x
+	 *            Bottom left x
+	 * @param bottom_left_y
+	 *            Bottom left y
+	 * @param top_right_x
+	 *            Top right x
+	 * @param top_right_y
+	 *            Top right y
+	 */
 	public static void TransferQuad(float bottom_left_x, float bottom_left_y, float top_right_x,
 			float top_right_y) {
 		final IntBuffer indices = Buffers.newDirectIntBuffer(6);
@@ -581,10 +683,45 @@ public class DrawFunctions2D {
 		GLWrapper.glDeleteBuffers(1, uv_vbo);
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
+	/**
+	 * Transfers a fullscreen quad.<br>
+	 * Texture v-coordinate is flipped.
+	 */
 	public static void TransferFullscreenQuad() {
 		TransferQuad(-1.0f, -1.0f, 1.0f, 1.0f);
 	}
 
+	/**
+	 * Draws a texture onto the screen.
+	 * 
+	 * @param texture_handle
+	 *            Texture handle
+	 * @param x
+	 *            Bottom left x
+	 * @param y
+	 *            Bottom left y
+	 * @param width
+	 *            Width
+	 * @param height
+	 *            Height
+	 * @param bottom_left_u
+	 *            Bottom left texture u-coord
+	 * @param bottom_left_v
+	 *            Bottom left texture v-coord
+	 * @param bottom_right_u
+	 *            Bottom right texture u-coord
+	 * @param bottom_right_v
+	 *            Bottom right texture v-coord
+	 * @param top_right_u
+	 *            Top right texture u-coord
+	 * @param top_right_v
+	 *            Top right texture v-coord
+	 * @param top_left_u
+	 *            Top left texture u-coord
+	 * @param top_left_v
+	 *            Top left texture v-coord
+	 * @return -1 on error and 0 on success
+	 */
 	public static int DrawTexture(int texture_handle, int x, int y, int width, int height,
 			float bottom_left_u, float bottom_left_v, float bottom_right_u, float bottom_right_v,
 			float top_right_u, float top_right_v, float top_left_u, float top_left_v) {
@@ -664,7 +801,7 @@ public class DrawFunctions2D {
 
 		GLWrapper.glEnable(GL.GL_BLEND);
 		texture_drawer_program.Enable();
-		texture_drawer_program.SetTexture("texture_sampler", 0, texture_handle);
+		int r = texture_drawer_program.SetTexture("texture_sampler", 0, texture_handle);
 		GLWrapper.glDrawElements(GL.GL_TRIANGLES, 6, GL.GL_UNSIGNED_INT, 0);
 		texture_drawer_program.Disable();
 		GLWrapper.glDisable(GL.GL_BLEND);
@@ -676,8 +813,30 @@ public class DrawFunctions2D {
 		GLWrapper.glDeleteBuffers(1, uv_vbo);
 		GLWrapper.glDeleteVertexArrays(1, vao);
 
-		return 0;
+		int ret;
+		if (r < 0) {
+			ret = -1;
+		} else {
+			ret = 0;
+		}
+
+		return ret;
 	}
+	/**
+	 * Draws a texture onto the screen.
+	 * 
+	 * @param texture_handle
+	 *            Texture handle
+	 * @param x
+	 *            Bottom left x
+	 * @param y
+	 *            Bottom left y
+	 * @param width
+	 *            Width
+	 * @param height
+	 *            Height
+	 * @return -1 on error and 0 on success
+	 */
 	public static int DrawTexture(int texture_handle, int x, int y, int width, int height) {
 		final int ret = DrawTexture(texture_handle, x, y, width, height, 0.0f, 0.0f, 1.0f, 0.0f,
 				1.0f, 1.0f, 0.0f, 1.0f);

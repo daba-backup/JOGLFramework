@@ -9,7 +9,7 @@ import com.github.dabasan.joglf.gl.tool.BufferFunctions;
 import com.jogamp.common.nio.Buffers;
 
 /**
- * Set of buffers for shaders.
+ * Set of buffers for native handling of vertices
  * 
  * @author Daba
  *
@@ -30,6 +30,11 @@ public class BufferedVertices {
 	private float dissolve;
 	private String diffuse_texture_map;
 
+	/**
+	 * Copies a new buffered vertices.
+	 * 
+	 * @return Buffered vertices
+	 */
 	public BufferedVertices Copy() {
 		final BufferedVertices buffered_vertices = new BufferedVertices();
 
@@ -63,6 +68,22 @@ public class BufferedVertices {
 		diffuse_texture_map = "";
 	}
 
+	/**
+	 * Linearly interpolates two buffered vertices.<br>
+	 * e.g. A vertex position x1 from bv1 and x2 from bv2<br>
+	 * Interpolated vertex position y (return value)<br>
+	 * y = x1 * (1 - blend_ratio) + x2 * blend_ratio<br>
+	 * If blend_ratio = 0.0, it is equivalent to x1. If blend_ratio = 1.0, it is
+	 * equivalent to x2.
+	 * 
+	 * @param bv1
+	 *            Buffered vertices 1
+	 * @param bv2
+	 *            Buffered vertices 2
+	 * @param blend_ratio
+	 *            Blend ratio
+	 * @return Interpolated buffered vertices
+	 */
 	public static BufferedVertices Interpolate(BufferedVertices bv1, BufferedVertices bv2,
 			float blend_ratio) {
 		final BufferedVertices interpolated = new BufferedVertices();

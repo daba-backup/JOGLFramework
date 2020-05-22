@@ -1,7 +1,8 @@
 package com.github.dabasan.joglf.gl.input.keyboard;
 
 /**
- * Keyboard enum
+ * Keyboard enum<br>
+ * Not all keys are enumerated here.
  * 
  * @author Daba
  *

@@ -32,6 +32,18 @@ import com.github.dabasan.tool.FilenameFunctions;
 public class AssimpLoader {
 	private static Logger logger = LoggerFactory.getLogger(AssimpLoader.class);
 
+	/**
+	 * Loads a model with Assimp.<br>
+	 * Currently, this method fails if material_num != mesh_num.
+	 * 
+	 * @param model_filename
+	 *            Filename
+	 * @param flags
+	 *            Flags
+	 * @return Buffered vertices
+	 * @throws IOException
+	 *             Cannot load the model specified.
+	 */
 	public static List<BufferedVertices> LoadModelWithAssimp(String model_filename,
 			Set<AiPostProcessSteps> flags) throws IOException {
 		logger.info("Start loading a model with Assimp. model_filename={}", model_filename);
@@ -103,6 +115,15 @@ public class AssimpLoader {
 
 		return buffered_vertices_list;
 	}
+	/**
+	 * Loads a model with Assimp.<br>
+	 * Currently, this method fails if material_num != mesh_num.
+	 * 
+	 * @param model_filename
+	 * @return
+	 * @throws IOException
+	 *             Cannot load the model specified.
+	 */
 	public static List<BufferedVertices> LoadModelWithAssimp(String model_filename)
 			throws IOException {
 		return LoadModelWithAssimp(model_filename,

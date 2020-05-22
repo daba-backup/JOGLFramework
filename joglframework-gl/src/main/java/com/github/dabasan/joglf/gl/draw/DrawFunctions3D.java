@@ -29,11 +29,27 @@ public class DrawFunctions3D {
 	private static ShaderProgram color_program;
 	private static ShaderProgram texture_program;
 
+	/**
+	 * Initialization<br>
+	 * You don't have to call this method by yourself.
+	 */
 	public static void Initialize() {
 		color_program = new ShaderProgram("color");
 		texture_program = new ShaderProgram("texture");
 	}
 
+	/**
+	 * Draws a line.
+	 * 
+	 * @param line_pos_1
+	 *            Start pos
+	 * @param line_pos_2
+	 *            End pos
+	 * @param color_1
+	 *            Start color
+	 * @param color_2
+	 *            End color
+	 */
 	public static void DrawLine3D(Vector line_pos_1, Vector line_pos_2, ColorU8 color_1,
 			ColorU8 color_2) {
 		final IntBuffer pos_vbo = Buffers.newDirectIntBuffer(1);
@@ -100,10 +116,26 @@ public class DrawFunctions3D {
 		GLWrapper.glDeleteBuffers(1, color_vbo);
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
+	/**
+	 * Draws a line.
+	 * 
+	 * @param line_pos_1
+	 *            Start pos
+	 * @param line_pos_2
+	 *            End pos
+	 * @param color
+	 *            Color
+	 */
 	public static void DrawLine3D(Vector line_pos_1, Vector line_pos_2, ColorU8 color) {
 		DrawLine3D(line_pos_1, line_pos_2, color, color);
 	}
 
+	/**
+	 * Draw the axes (X, Y and Z).
+	 * 
+	 * @param length
+	 *            Length of each axis (starting from the origin)
+	 */
 	public static void DrawAxes(float length) {
 		DrawLine3D(VectorFunctions.VGet(-length, 0.0f, 0.0f),
 				VectorFunctions.VGet(length, 0.0f, 0.0f),
@@ -115,6 +147,12 @@ public class DrawFunctions3D {
 				VectorFunctions.VGet(0.0f, 0.0f, length),
 				ColorU8Functions.GetColorU8(0.0f, 0.0f, 1.0f, 1.0f));
 	}
+	/**
+	 * Draws the axes in the positive directions (X+, Y+ and Z+).
+	 * 
+	 * @param length
+	 *            Length of each axis (starting from the origin)
+	 */
 	public static void DrawAxes_Positive(float length) {
 		DrawLine3D(VectorFunctions.VGet(0.0f, 0.0f, 0.0f), VectorFunctions.VGet(length, 0.0f, 0.0f),
 				ColorU8Functions.GetColorU8(1.0f, 0.0f, 0.0f, 1.0f));
@@ -123,6 +161,12 @@ public class DrawFunctions3D {
 		DrawLine3D(VectorFunctions.VGet(0.0f, 0.0f, 0.0f), VectorFunctions.VGet(0.0f, 0.0f, length),
 				ColorU8Functions.GetColorU8(0.0f, 0.0f, 1.0f, 1.0f));
 	}
+	/**
+	 * Draws the axes in the negative directions (X-, Y- and Z-).
+	 * 
+	 * @param length
+	 *            Length of each axis (starting from the origin)
+	 */
 	public static void DrawAxes_Negative(float length) {
 		DrawLine3D(VectorFunctions.VGet(-length, 0.0f, 0.0f),
 				VectorFunctions.VGet(0.0f, 0.0f, 0.0f),
@@ -135,6 +179,12 @@ public class DrawFunctions3D {
 				ColorU8Functions.GetColorU8(0.0f, 0.0f, 1.0f, 1.0f));
 	}
 
+	/**
+	 * Draws a triangle.
+	 * 
+	 * @param triangle
+	 *            Triangle
+	 */
 	public static void DrawTriangle3D(Triangle triangle) {
 		final IntBuffer pos_vbo = Buffers.newDirectIntBuffer(1);
 		final IntBuffer color_vbo = Buffers.newDirectIntBuffer(1);
@@ -199,6 +249,18 @@ public class DrawFunctions3D {
 		GLWrapper.glDeleteBuffers(1, color_vbo);
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
+	/**
+	 * Draws a triangle.
+	 * 
+	 * @param triangle_pos_1
+	 *            Vertex 1
+	 * @param triangle_pos_2
+	 *            Vertex 2
+	 * @param triangle_pos_3
+	 *            Vertex 3
+	 * @param color
+	 *            Color
+	 */
 	public static void DrawTriangle3D(Vector triangle_pos_1, Vector triangle_pos_2,
 			Vector triangle_pos_3, ColorU8 color) {
 		final Triangle triangle = new Triangle();
@@ -214,6 +276,12 @@ public class DrawFunctions3D {
 		DrawTriangle3D(triangle);
 	}
 
+	/**
+	 * Draws a quadrangle.
+	 * 
+	 * @param quadrangle
+	 *            Quadrangle
+	 */
 	public static void DrawQuadrangle3D(Quadrangle quadrangle) {
 		final IntBuffer pos_vbo = Buffers.newDirectIntBuffer(1);
 		final IntBuffer color_vbo = Buffers.newDirectIntBuffer(1);
@@ -278,6 +346,20 @@ public class DrawFunctions3D {
 		GLWrapper.glDeleteBuffers(1, color_vbo);
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
+	/**
+	 * Draws a quadrangle.
+	 * 
+	 * @param quadrangle_pos_1
+	 *            Vertex 1
+	 * @param quadrangle_pos_2
+	 *            Vertex 2
+	 * @param quadrangle_pos_3
+	 *            Vertex 3
+	 * @param quadrangle_pos_4
+	 *            Vertex 4
+	 * @param color
+	 *            Color
+	 */
 	public static void DrawQuadrangle3D(Vector quadrangle_pos_1, Vector quadrangle_pos_2,
 			Vector quadrangle_pos_3, Vector quadrangle_pos_4, ColorU8 color) {
 		final Quadrangle quadrangle = new Quadrangle();
@@ -294,6 +376,20 @@ public class DrawFunctions3D {
 		DrawQuadrangle3D(quadrangle);
 	}
 
+	/**
+	 * Draws a sphere.
+	 * 
+	 * @param center
+	 *            Center
+	 * @param radius
+	 *            Radius
+	 * @param slice_num
+	 *            Number of divisions in the longitudinal direction
+	 * @param stack_num
+	 *            Number of divisions in the latitudinal direction
+	 * @param color
+	 *            Color
+	 */
 	public static void DrawSphere3D(Vector center, float radius, int slice_num, int stack_num,
 			ColorU8 color) {
 		final List<Vector> vertices = new ArrayList<>();
@@ -457,6 +553,22 @@ public class DrawFunctions3D {
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
 
+	/**
+	 * Draws a capsule.
+	 * 
+	 * @param capsule_pos_1
+	 *            Start pos of the capsule axis
+	 * @param capsule_pos_2
+	 *            End pos of the capsule axis
+	 * @param radius
+	 *            Radius
+	 * @param slice_num
+	 *            Number of divisions in the longitudinal direction
+	 * @param stack_num
+	 *            Number of divisions in the latitudinal direction
+	 * @param color
+	 *            Color
+	 */
 	public static void DrawCapsule3D(Vector capsule_pos_1, Vector capsule_pos_2, float radius,
 			int slice_num, int stack_num, ColorU8 color) {
 		final Vector capsule_axis = VectorFunctions.VSub(capsule_pos_2, capsule_pos_1);
@@ -647,6 +759,16 @@ public class DrawFunctions3D {
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
 
+	/**
+	 * Draws a textured triangle.
+	 * 
+	 * @param triangle
+	 *            Triangle
+	 * @param texture_handle
+	 *            Texture handle
+	 * @param use_face_normal_flag
+	 *            Use a face normal instead of vertex normals
+	 */
 	public static void DrawTexturedTriangle3D(Triangle triangle, int texture_handle,
 			boolean use_face_normal_flag) {
 		final IntBuffer pos_vbo = Buffers.newDirectIntBuffer(1);
@@ -746,6 +868,16 @@ public class DrawFunctions3D {
 		GLWrapper.glDeleteVertexArrays(1, vao);
 	}
 
+	/**
+	 * Draws a quadrangle.
+	 * 
+	 * @param quadrangle
+	 *            Quadrangle
+	 * @param texture_handle
+	 *            Texture handle
+	 * @param use_face_normal_flag
+	 *            Use a face normal instead of vertex normals
+	 */
 	public static void DrawTexturedQuadrangle(Quadrangle quadrangle, int texture_handle,
 			boolean use_face_normal_flag) {
 		final IntBuffer indices_vbo = Buffers.newDirectIntBuffer(1);

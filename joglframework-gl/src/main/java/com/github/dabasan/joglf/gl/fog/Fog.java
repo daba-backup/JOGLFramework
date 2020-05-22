@@ -43,6 +43,9 @@ public class Fog {
 		this.color = color;
 	}
 
+	/**
+	 * Transfers data to the programs.
+	 */
 	public void Update() {
 		for (final ShaderProgram program : programs) {
 			program.Enable();
