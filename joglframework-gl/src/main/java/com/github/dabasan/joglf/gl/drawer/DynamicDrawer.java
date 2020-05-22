@@ -7,6 +7,7 @@ import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 
 /**
  * All dynamic drawers have to extend this class.<br>
+ * <br>
  * Getter methods for the shapes (GetSegment(), GetTriangle(), etc.) return a
  * ref to a stored shape.<br>
  * e.g. After you add a triangle (id = 100),

@@ -654,13 +654,14 @@ public class Model3DFunctions {
 
 	/**
 	 * Attaches animation to the model specified.<br>
-	 * Animation here is something like a flip book. You attach frames and the
-	 * intervals will be linearly interpolated.<br>
+	 * <br>
+	 * Animation here is something like a flip book. You attach frames and then
+	 * the intervals will be linearly interpolated.<br>
 	 * A model can have multiple channels of animation, such as "walk," "run,"
 	 * and "jump." You decide an index (anim_index) for each channel (e.g.
 	 * "walk" = 0 and "run" = 1) and attach a frame by passing to this method a
 	 * model handle for the frame (anim_src_handle). Also, you specify when this
-	 * frame takes places (time).
+	 * frame takes place (time).
 	 * 
 	 * @param model_handle
 	 *            Model handle to attach animation to
