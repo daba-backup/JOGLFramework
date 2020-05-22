@@ -51,7 +51,7 @@ public class Model3DFunctions {
 	 * It is considered that the original data retains the chronological order
 	 * of the creator's operation.<br>
 	 * <br>
-	 * This flag currently doesn't have an effect on model format except BD1.
+	 * This flag currently doesn't have an effect on model formats except BD1.
 	 * 
 	 * @param a_keep_order_if_possible
 	 *            Flag
