@@ -120,7 +120,8 @@ public class AssimpLoader {
 	 * Currently, this method fails if material_num != mesh_num.
 	 * 
 	 * @param model_filename
-	 * @return
+	 *            Filename
+	 * @return Buffered vertices
 	 * @throws IOException
 	 *             Cannot load the model specified.
 	 */
