@@ -354,14 +354,68 @@ public class Model3DFunctions {
 
 		return 0;
 	}
+
 	/**
 	 * Draws a model element.
 	 * 
 	 * @param model_handle
 	 *            Model handle
-	 * @param bound
-	 * @return
+	 * @param index
+	 *            Element index
+	 * @param sampler_name
+	 *            Sampler name
+	 * @param texture_unit
+	 *            Texture unit
+	 * @return -1 on error and 0 on success
 	 */
+	public static int DrawModelElement(int model_handle, int index, String sampler_name,
+			int texture_unit) {
+		if (models_map.containsKey(model_handle) == false) {
+			logger.trace("No such model. model_handle={}", model_handle);
+			return -1;
+		}
+
+		final ModelMgr model = models_map.get(model_handle);
+		int r = model.DrawElement(index, sampler_name, texture_unit);
+
+		int ret;
+		if (r < 0) {
+			ret = -1;
+		} else {
+			ret = 0;
+		}
+
+		return ret;
+	}
+	/**
+	 * Draws a model element.
+	 * 
+	 * @param model_handle
+	 *            Model handle
+	 * @param index
+	 *            Element index
+	 * @return -1 on error and 0 on success
+	 */
+	public static int DrawModelElement(int model_handle, int index) {
+		if (models_map.containsKey(model_handle) == false) {
+			logger.trace("No such model. model_handle={}", model_handle);
+			return -1;
+		}
+
+		final ModelMgr model = models_map.get(model_handle);
+		int r = model.DrawElement(index);
+
+		int ret;
+		if (r < 0) {
+			ret = -1;
+		} else {
+			ret = 0;
+		}
+
+		return ret;
+	}
+
+	@Deprecated
 	public static int DrawModelElements(int model_handle, int bound) {
 		if (models_map.containsKey(model_handle) == false) {
 			logger.trace("No such model. model_handle={}", model_handle);
@@ -373,6 +427,7 @@ public class Model3DFunctions {
 
 		return 0;
 	}
+	@Deprecated
 	public static int DrawModelElements(int model_handle, String sampler_name, int texture_unit,
 			int bound) {
 		if (models_map.containsKey(model_handle) == false) {
@@ -386,6 +441,13 @@ public class Model3DFunctions {
 		return 0;
 	}
 
+	/**
+	 * Returns the number of elements in the model specified.
+	 * 
+	 * @param model_handle
+	 *            Model handle
+	 * @return -1 on error and the number of elements on success
+	 */
 	public static int GetModelElementNum(int model_handle) {
 		if (models_map.containsKey(model_handle) == false) {
 			logger.trace("No such model. model_handle={}", model_handle);
@@ -529,6 +591,17 @@ public class Model3DFunctions {
 		return 0;
 	}
 
+	/**
+	 * Changes a texture in the model specified.
+	 * 
+	 * @param model_handle
+	 *            Model handle
+	 * @param material_index
+	 *            Material index
+	 * @param new_texture_handle
+	 *            New texture handle
+	 * @return -1 on error and 0 on success
+	 */
 	public static int ChangeModelTexture(int model_handle, int material_index,
 			int new_texture_handle) {
 		if (models_map.containsKey(model_handle) == false) {
@@ -542,6 +615,13 @@ public class Model3DFunctions {
 		return 0;
 	}
 
+	/**
+	 * Returns all texture handles used in the model specified.
+	 * 
+	 * @param model_handle
+	 *            Model handle
+	 * @return Null on error and texture handles on success
+	 */
 	public static int[] GetModelTextureHandles(int model_handle) {
 		if (models_map.containsKey(model_handle) == false) {
 			logger.trace("No such model. model_handle={}", model_handle);
@@ -554,6 +634,13 @@ public class Model3DFunctions {
 		return texture_handles;
 	}
 
+	/**
+	 * Returns all faces of the model specified.
+	 * 
+	 * @param model_handle
+	 *            Model handle
+	 * @return Faces
+	 */
 	public static List<Triangle> GetModelFaces(int model_handle) {
 		if (models_map.containsKey(model_handle) == false) {
 			logger.trace("No such model. model_handle={}", model_handle);
@@ -566,6 +653,26 @@ public class Model3DFunctions {
 		return ret;
 	}
 
+	/**
+	 * Attaches animation to the model specified.<br>
+	 * Animation here is something like a flip book. You attach frames and the
+	 * intervals will be linearly interpolated.<br>
+	 * A model can have multiple channels of animation, such as "walk," "run,"
+	 * and "jump." You decide an index (anim_index) for each channel (e.g.
+	 * "walk" = 0 and "run" = 1) and attach a frame by passing to this method a
+	 * model handle for the frame (anim_src_handle). Also, you specify when this
+	 * frame takes places (time).
+	 * 
+	 * @param model_handle
+	 *            Model handle to attach animation to
+	 * @param anim_index
+	 *            Animation index
+	 * @param anim_src_handle
+	 *            Model handle for the animation
+	 * @param time
+	 *            Time (second)
+	 * @return -1 on error and 0 on success
+	 */
 	public static int AttachAnimation(int model_handle, int anim_index, int anim_src_handle,
 			float time) {
 		if (models_map.containsKey(model_handle) == false) {
@@ -586,7 +693,17 @@ public class Model3DFunctions {
 
 		return 0;
 	}
-
+	/**
+	 * Sets the current animation and the current time for the animation.
+	 * 
+	 * @param model_handle
+	 *            Model handle
+	 * @param anim_index
+	 *            Animation index
+	 * @param time
+	 *            Time (second)
+	 * @return -1 on error and 0 on success
+	 */
 	public static int SetAttachedAnimationTime(int model_handle, int anim_index, float time) {
 		if (animation_info_map.containsKey(model_handle) == false) {
 			logger.trace("No animation info exists for this model. model_handle={}", model_handle);
@@ -630,18 +747,26 @@ public class Model3DFunctions {
 
 		return 0;
 	}
-
+	/**
+	 * Returns the time of the last frame of the animation.
+	 * 
+	 * @param model_handle
+	 *            Model handle
+	 * @param anim_index
+	 *            Animation index
+	 * @return Negative value on error and time on success
+	 */
 	public static float GetAnimationMaxTime(int model_handle, int anim_index) {
 		if (animation_info_map.containsKey(model_handle) == false) {
 			logger.trace("No such model. model_handle={}", model_handle);
-			return -1;
+			return -1.0f;
 		}
 
 		final AnimationInfoMap aim = animation_info_map.get(model_handle);
 		if (aim.AnimationInfoExists(anim_index) == false) {
 			logger.trace("No corresponding animation for this index exists. anim_index={}",
 					anim_index);
-			return -1;
+			return -1.0f;
 		}
 
 		final AnimationInfo ai = aim.GetAnimationInfo(anim_index);

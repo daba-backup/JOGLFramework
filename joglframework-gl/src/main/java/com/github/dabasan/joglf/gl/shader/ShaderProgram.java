@@ -50,6 +50,12 @@ public class ShaderProgram {
 		logging_enabled_flag = false;
 	}
 
+	/**
+	 * Enables log output from this program.
+	 * 
+	 * @param flag
+	 *            Flag
+	 */
 	public void EnableLogging(boolean flag) {
 		this.logging_enabled_flag = flag;
 	}
@@ -66,12 +72,18 @@ public class ShaderProgram {
 		}
 	}
 
+	/**
+	 * Enables the program.
+	 */
 	public void Enable() {
 		if (program_id < 0) {
 			return;
 		}
 		GLWrapper.glUseProgram(program_id);
 	}
+	/**
+	 * Disables the program.
+	 */
 	public void Disable() {
 		if (program_id < 0) {
 			return;
@@ -224,6 +236,17 @@ public class ShaderProgram {
 		return 0;
 	}
 
+	/**
+	 * Sets a texture to use in the program.
+	 * 
+	 * @param name
+	 *            Sampler name
+	 * @param texture_unit
+	 *            Texture unit
+	 * @param texture_handle
+	 *            Texture handle
+	 * @return -1 on error and 0 on success
+	 */
 	public int SetTexture(String name, int texture_unit, int texture_handle) {
 		final int location = GLWrapper.glGetUniformLocation(program_id, name);
 		if (location < 0) {
