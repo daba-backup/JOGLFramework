@@ -281,6 +281,44 @@ public class ModelMgr {
 		}
 	}
 
+	public int DrawElement(int index, String sampler_name, int texture_unit) {
+		if (property_updated_flag == true) {
+			this.UpdateBuffers();
+		}
+
+		final int element_num = buffered_vertices_list.size();
+		if (!(0 <= index && index < element_num)) {
+			logger.trace("Index out of bounds. index={}", index);
+			return -1;
+		}
+
+		for (final ShaderProgram program : programs) {
+			program.Enable();
+
+			final BufferedVertices buffered_vertices = buffered_vertices_list.get(index);
+			final int texture_handle = buffered_vertices.GetTextureHandle();
+			final int indices_count = buffered_vertices.GetIndicesCount();
+
+			GLWrapper.glBindVertexArray(vao.get(index));
+
+			program.SetTexture(sampler_name, texture_unit, texture_handle);
+
+			GLWrapper.glEnable(GL.GL_BLEND);
+			GLWrapper.glDrawElements(GL.GL_TRIANGLES, indices_count, GL.GL_UNSIGNED_INT, 0);
+			GLWrapper.glDisable(GL.GL_BLEND);
+
+			GLWrapper.glBindVertexArray(0);
+
+			program.Disable();
+		}
+
+		return 0;
+	}
+	public int DrawElement(int index) {
+		return this.DrawElement(index, "texture_sampler", 0);
+	}
+
+	@Deprecated
 	public void DrawElements(String sampler_name, int texture_unit, int bound) {
 		if (property_updated_flag == true) {
 			this.UpdateBuffers();
@@ -319,6 +357,7 @@ public class ModelMgr {
 			program.Disable();
 		}
 	}
+	@Deprecated
 	public void DrawElements(int bound) {
 		this.DrawElements("texture_sampler", 0, bound);
 	}
