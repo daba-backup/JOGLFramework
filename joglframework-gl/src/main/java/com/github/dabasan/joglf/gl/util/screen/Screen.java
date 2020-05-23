@@ -11,6 +11,8 @@ import javax.imageio.ImageIO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.github.dabasan.basis.coloru8.ColorU8;
+import com.github.dabasan.basis.coloru8.ColorU8Functions;
 import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 import com.github.dabasan.joglf.gl.texture.TextureMgr;
 import com.github.dabasan.joglf.gl.transferrer.FullscreenQuadTransferrerWithUV;
@@ -41,6 +43,8 @@ public class Screen {
 
 	private int texture_handle;
 
+	private ColorU8 background_color;
+
 	/**
 	 * 
 	 * @param width
@@ -60,6 +64,8 @@ public class Screen {
 		transferrer = new FullscreenQuadTransferrerWithUV(true);
 
 		texture_handle = -1;
+
+		background_color = ColorU8Functions.GetColorU8(0.0f, 0.0f, 0.0f, 0.0f);
 	}
 	private void SetupRenderbuffer() {
 		final IntBuffer renderbuffer_ids = Buffers.newDirectIntBuffer(1);
@@ -129,6 +135,10 @@ public class Screen {
 		return screen_height;
 	}
 
+	public void SetBackgroundColor(ColorU8 color) {
+		background_color = color;
+	}
+
 	/**
 	 * Enables the screen.
 	 */
@@ -146,6 +156,8 @@ public class Screen {
 	 * Clears the screen.
 	 */
 	public void Clear() {
+		GLWrapper.glClearColor(background_color.GetR(), background_color.GetG(),
+				background_color.GetB(), background_color.GetA());
 		GLWrapper.glClear(GL.GL_DEPTH_BUFFER_BIT | GL.GL_COLOR_BUFFER_BIT);
 	}
 
