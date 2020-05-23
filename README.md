@@ -21,7 +21,7 @@ Java SE 11+
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework-gl</artifactId>
-    <version>11.4.0</version>
+    <version>11.5.0</version>
 </dependency>
 ```
 
@@ -31,7 +31,7 @@ Java SE 11+
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework-al</artifactId>
-    <version>11.4.0</version>
+    <version>11.5.0</version>
 </dependency>
 ```
 
