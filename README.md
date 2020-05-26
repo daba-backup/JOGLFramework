@@ -81,7 +81,7 @@ public class ModelMain {
 }
 ```
 
-![Imgur](https://i.imgur.com/SQhECaA.png)
+<img src="https://i.imgur.com/SQhECaA.png" width="320">
 
 ## Sample code
 
