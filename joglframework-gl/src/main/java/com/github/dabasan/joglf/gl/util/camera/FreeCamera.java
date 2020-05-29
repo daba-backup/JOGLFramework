@@ -58,7 +58,8 @@ public class FreeCamera {
 
 	/**
 	 * Translates the camera.<br>
-	 * Assumed keyboard input for the arguments, but not restricted to that.
+	 * Set each argument to 1 or larger if you want to move the camera in each
+	 * direction.
 	 * 
 	 * @param front
 	 *            Move forward
@@ -96,7 +97,7 @@ public class FreeCamera {
 	}
 	/**
 	 * Rotates the camera.<br>
-	 * Assumed the displacement of the cursor, but not restricted to that.
+	 * Amount of rotation increases in proportion to the input arguments.
 	 * 
 	 * @param diff_x
 	 *            Diff x
