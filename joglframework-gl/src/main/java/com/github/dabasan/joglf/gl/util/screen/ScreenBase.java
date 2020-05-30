@@ -30,15 +30,15 @@ import com.jogamp.opengl.GL;
 public class ScreenBase {
 	private final Logger logger = LoggerFactory.getLogger(ScreenBase.class);
 
-	private int screen_width;
-	private int screen_height;
+	private final int screen_width;
+	private final int screen_height;
 	private ColorU8 background_color;
 
 	private int fbo_id;
 	private int texture_id;
 	private int texture_handle;
-	private ShaderProgram program;
-	private FullscreenQuadTransferrerWithUV transferrer;
+	private final ShaderProgram program;
+	private final FullscreenQuadTransferrerWithUV transferrer;
 
 	/**
 	 * 

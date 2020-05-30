@@ -45,7 +45,7 @@ public class Screen extends ScreenBase {
 		GLWrapper.glBindRenderbuffer(GL.GL_RENDERBUFFER, 0);
 	}
 	private void SetupFramebuffer() {
-		int fbo_id = this.GetFBOID();
+		final int fbo_id = this.GetFBOID();
 
 		GLWrapper.glBindFramebuffer(GL.GL_FRAMEBUFFER, fbo_id);
 		GLWrapper.glFramebufferRenderbuffer(GL.GL_FRAMEBUFFER, GL.GL_DEPTH_ATTACHMENT,

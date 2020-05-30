@@ -5,7 +5,7 @@ public class TestMain {
 		new TestMain();
 	}
 	public TestMain() {
-		var window = new ScreenWithDepthTestWindow();
+		final var window = new ScreenWithDepthTestWindow();
 		window.SetExitProcessWhenDestroyed();
 	}
 }

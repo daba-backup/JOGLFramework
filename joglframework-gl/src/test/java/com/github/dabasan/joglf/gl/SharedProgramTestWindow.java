@@ -4,7 +4,7 @@ import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 import com.github.dabasan.joglf.gl.window.JOGLFWindow;
 
 class SharedProgramTestWindow extends JOGLFWindow {
-	private boolean create_program_flag;
+	private final boolean create_program_flag;
 	private ShaderProgram program;
 
 	public SharedProgramTestWindow(boolean create_program_flag) {
