@@ -40,6 +40,13 @@ public class ScreenBase {
 	private ShaderProgram program;
 	private FullscreenQuadTransferrerWithUV transferrer;
 
+	/**
+	 * 
+	 * @param width
+	 *            Screen width
+	 * @param height
+	 *            Screen height
+	 */
 	public ScreenBase(int width, int height) {
 		screen_width = width;
 		screen_height = height;
