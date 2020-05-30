@@ -367,6 +367,9 @@ public class JOGLFWindow
 		GLFront.Unlock();
 	}
 
+	/**
+	 * Sets the viewport.
+	 */
 	@Override
 	public void Fit() {
 		GLWrapper.glViewport(0, 0, this.GetWidth(), this.GetHeight());
