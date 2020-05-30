@@ -1,13 +1,16 @@
 package com.github.dabasan.joglf.gl;
 
-import com.github.dabasan.joglf.gl.window.JOGLFWindowInterface;
-
 public class TestMain {
 	public static void main(String[] args) {
 		new TestMain();
 	}
 	public TestMain() {
-		final JOGLFWindowInterface window = new AssimpLoaderTestWindow();
-		window.SetExitProcessWhenDestroyed();
+		for (int i = 0; i < 5; i++) {
+			var window = new Viewer();
+			window.SetTitle("Window " + i);
+			if (i == 0) {
+				window.SetExitProcessWhenDestroyed();
+			}
+		}
 	}
 }
