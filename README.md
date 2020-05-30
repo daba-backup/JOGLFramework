@@ -1,6 +1,6 @@
 # JOGLFramework
 
-JOGLFramework (abbr. JOGLF) aims to simplify OpenGL-relating code in Java.
+This is a hobby project, which obviates the need for direct calls of OpenGL functions in my private graphics programs.
 
 # Overview
 
