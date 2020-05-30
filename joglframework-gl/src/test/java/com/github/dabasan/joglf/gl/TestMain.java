@@ -5,12 +5,7 @@ public class TestMain {
 		new TestMain();
 	}
 	public TestMain() {
-		for (int i = 0; i < 5; i++) {
-			var window = new Viewer();
-			window.SetTitle("Window " + i);
-			if (i == 0) {
-				window.SetExitProcessWhenDestroyed();
-			}
-		}
+		var window = new Viewer();
+		window.SetExitProcessWhenDestroyed();
 	}
 }
