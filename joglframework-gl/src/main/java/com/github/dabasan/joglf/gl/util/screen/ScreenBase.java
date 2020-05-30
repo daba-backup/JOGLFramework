@@ -213,6 +213,8 @@ public class ScreenBase {
 	 * @return -1 on error and 0 on success
 	 */
 	public int TakeScreenshot(String filename) {
+		logger.info("Taking a screenshot. filename={}", filename);
+
 		final ByteBuffer data = Buffers.newDirectByteBuffer(screen_width * screen_height * 4);
 
 		GLWrapper.glBindTexture(GL.GL_TEXTURE_2D, texture_id);
