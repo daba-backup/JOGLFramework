@@ -73,10 +73,11 @@ public class JOGLFSwingWindow
 	private Robot robot;
 
 	private ColorU8 background_color;
-
 	private boolean destroyed_flag;
 
 	public JOGLFSwingWindow() {
+		GLFront.Lock();
+
 		final String profile_str = GLFront.GetProfileStr();
 		final GLCapabilities capabilities = new GLCapabilities(GLProfile.get(profile_str));
 
@@ -116,8 +117,6 @@ public class JOGLFSwingWindow
 		frame.add(canvas, BorderLayout.CENTER);
 		frame.pack();
 
-		logger.info("Window created.");
-
 		keyboard = new SwingKeyboard();
 		mouse = new SwingMouse();
 		try {
@@ -127,10 +126,17 @@ public class JOGLFSwingWindow
 		}
 
 		background_color = ColorU8Functions.GetColorU8(0.0f, 0.0f, 0.0f, 1.0f);
-
 		destroyed_flag = false;
 
 		frame.setVisible(true);
+
+		if (GLFront.IsSetup() == false) {
+			GLFront.SetSetupFlag(true);
+		}
+
+		logger.info("Window created.");
+
+		GLFront.Unlock();
 	}
 
 	protected JFrame GetFrame() {

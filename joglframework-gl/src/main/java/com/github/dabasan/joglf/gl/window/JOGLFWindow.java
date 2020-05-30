@@ -59,10 +59,11 @@ public class JOGLFWindow
 	private Robot robot;
 
 	private ColorU8 background_color;
-
 	private boolean destroyed_flag;
 
 	public JOGLFWindow() {
+		GLFront.Lock();
+
 		final String profile_str = GLFront.GetProfileStr();
 		final GLCapabilities capabilities = new GLCapabilities(GLProfile.get(profile_str));
 
@@ -90,8 +91,6 @@ public class JOGLFWindow
 		animator.start();
 		WindowCommonInfo.FinalizeFPS();
 
-		logger.info("Window created.");
-
 		keyboard = new Keyboard();
 		mouse = new Mouse();
 		try {
@@ -101,10 +100,17 @@ public class JOGLFWindow
 		}
 
 		background_color = ColorU8Functions.GetColorU8(0.0f, 0.0f, 0.0f, 1.0f);
-
 		destroyed_flag = false;
 
 		window.setVisible(true);
+
+		if (GLFront.IsSetup() == false) {
+			GLFront.SetSetupFlag(true);
+		}
+
+		logger.info("Window created.");
+
+		GLFront.Unlock();
 	}
 
 	protected GLWindow GetWindow() {
