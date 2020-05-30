@@ -48,18 +48,12 @@ public class Screen extends ScreenBase {
 		int fbo_id = this.GetFBOID();
 
 		GLWrapper.glBindFramebuffer(GL.GL_FRAMEBUFFER, fbo_id);
-
 		GLWrapper.glFramebufferRenderbuffer(GL.GL_FRAMEBUFFER, GL.GL_DEPTH_ATTACHMENT,
 				GL.GL_RENDERBUFFER, renderbuffer_id);
-		final IntBuffer draw_buffers = Buffers
-				.newDirectIntBuffer(new int[]{GL.GL_COLOR_ATTACHMENT0});
-		GLWrapper.glDrawBuffers(1, draw_buffers);
-
 		final int status = GLWrapper.glCheckFramebufferStatus(GL.GL_FRAMEBUFFER);
 		if (status != GL.GL_FRAMEBUFFER_COMPLETE) {
 			logger.warn("Incomplete framebuffer. status={}", status);
 		}
-
 		GLWrapper.glBindFramebuffer(GL.GL_FRAMEBUFFER, 0);
 	}
 
