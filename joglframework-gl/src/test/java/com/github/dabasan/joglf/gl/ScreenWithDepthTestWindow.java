@@ -1,6 +1,8 @@
 package com.github.dabasan.joglf.gl;
 
+import com.github.dabasan.basis.vector.VectorFunctions;
 import com.github.dabasan.joglf.gl.draw.DrawFunctions2D;
+import com.github.dabasan.joglf.gl.front.CameraFront;
 import com.github.dabasan.joglf.gl.model.Model3DFunctions;
 import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 import com.github.dabasan.joglf.gl.util.screen.ScreenWithDepth;
@@ -15,11 +17,17 @@ class ScreenWithDepthTestWindow extends JOGLFWindow {
 	@Override
 	public void Init() {
 		screen = new ScreenWithDepth(1024, 1024);
-		model_handle = Model3DFunctions.LoadModel("./Data/Model/OBJ/Teapot/teapot.obj");
+		model_handle = Model3DFunctions.LoadModel("./Data/Model/BD1/Cube/cube.bd1");
 
 		draw_depth = new ShaderProgram("draw_depth",
 				"./Data/Shader/330/test/draw_depth/vshader.glsl",
 				"./Data/Shader/330/test/draw_depth/fshader.glsl");
+	}
+
+	@Override
+	public void Update() {
+		CameraFront.SetCameraPositionAndTarget_UpVecY(VectorFunctions.VGet(30.0f, 30.0f, 30.0f),
+				VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
 	}
 
 	@Override
