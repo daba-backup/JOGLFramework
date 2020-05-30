@@ -58,13 +58,6 @@ public class GLFront {
 		TextMgr.Initialize();
 	}
 
-	public static String GetProfileStr() {
-		return profile_str;
-	}
-	public static boolean IsSetup() {
-		return setup_flag;
-	}
-
 	private static void CreateGLProfileStr(GLVersion gl_version) {
 		if (gl_version == GLVersion.GL3bc) {
 			profile_str = GLProfile.GL3bc;
@@ -124,6 +117,17 @@ public class GLFront {
 		FogFront.AddProgram(color);
 		LightingFront.AddProgram(texture);
 		LightingFront.AddProgram(texture2);
+	}
+
+	public static String GetProfileStr() {
+		return profile_str;
+	}
+	public static boolean IsSetup() {
+		return setup_flag;
+	}
+
+	public static void SetSetupFlag(boolean a_setup_flag) {
+		setup_flag = a_setup_flag;
 	}
 
 	/**
