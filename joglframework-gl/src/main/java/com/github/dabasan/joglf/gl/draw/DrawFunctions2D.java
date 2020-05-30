@@ -12,10 +12,7 @@ import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL;
 
 /**
- * Draw functions for 2D primitives<br>
- * Pass to the functions window coordinates with the origin located at the
- * bottom left of the window.<br>
- * bottom_left = (0,0) and top_right = (window_width, window_height)
+ * Draw functions for 2D primitives
  * 
  * @author Daba
  *
@@ -590,7 +587,8 @@ public class DrawFunctions2D {
 
 	/**
 	 * Transfers a quad.<br>
-	 * Texture v-coordinate is flipped.
+	 * Texture v-coordinate is flipped.<br>
+	 * Arguments are not window coordinates but clip coordinates.
 	 * 
 	 * @param bottom_left_x
 	 *            Bottom left x
