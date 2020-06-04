@@ -1,6 +1,6 @@
 # JOGLFramework
 
-This is a hobby project that obviates the need for direct calls to OpenGL functions in my private works.
+This is a hobby work that obviates the need for direct calls to OpenGL functions in my personal projects.
 
 # Overview
 
