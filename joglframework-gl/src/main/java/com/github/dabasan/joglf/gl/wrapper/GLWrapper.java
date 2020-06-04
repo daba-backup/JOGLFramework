@@ -224,6 +224,13 @@ public class GLWrapper {
 			GL4Wrapper.glDeleteFramebuffers(arg0, arg1);
 		}
 	}
+	public static void glDeleteProgram(int arg0) {
+		if (gl_version == GLVersion.GL3bc || gl_version == GLVersion.GL3) {
+			GL3Wrapper.glDeleteProgram(arg0);
+		} else if (gl_version == GLVersion.GL4bc || gl_version == GLVersion.GL4) {
+			GL4Wrapper.glDeleteProgram(arg0);
+		}
+	}
 	public static void glDeleteRenderbuffers(int arg0, IntBuffer arg1) {
 		if (gl_version == GLVersion.GL3bc || gl_version == GLVersion.GL3) {
 			GL3Wrapper.glDeleteRenderbuffers(arg0, arg1);

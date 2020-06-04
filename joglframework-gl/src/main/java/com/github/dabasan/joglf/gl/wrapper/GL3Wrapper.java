@@ -244,6 +244,15 @@ class GL3Wrapper {
 			logger.trace("code={}", code);
 		}
 	}
+	public static void glDeleteProgram(int arg0) {
+		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
+		gl3.glDeleteProgram(arg0);
+
+		final int code = gl3.glGetError();
+		if (code != GL.GL_NO_ERROR) {
+			logger.trace("code={}", code);
+		}
+	}
 	public static void glDeleteRenderbuffers(int arg0, IntBuffer arg1) {
 		final GL3 gl3 = GLContext.getCurrentGL().getGL3();
 		gl3.glDeleteRenderbuffers(arg0, arg1);
