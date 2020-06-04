@@ -17,6 +17,9 @@ public class LightingFront {
 	public static void AddProgram(ShaderProgram program) {
 		lighting.AddProgram(program);
 	}
+	public static void RemoveProgram(ShaderProgram program) {
+		lighting.RemoveProgram(program);
+	}
 	public static void RemoveAllPrograms() {
 		lighting.RemoveAllPrograms();
 	}

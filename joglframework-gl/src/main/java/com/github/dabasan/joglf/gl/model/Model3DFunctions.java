@@ -244,6 +244,17 @@ public class Model3DFunctions {
 
 		return 0;
 	}
+	public static int RemoveProgram(int model_handle, ShaderProgram program) {
+		if (models_map.containsKey(model_handle) == false) {
+			logger.trace("No such model. model_handle={}", model_handle);
+			return -1;
+		}
+
+		final ModelMgr model = models_map.get(model_handle);
+		model.RemoveProgram(program);
+
+		return 0;
+	}
 	public static int RemoveAllPrograms(int model_handle) {
 		if (models_map.containsKey(model_handle) == false) {
 			logger.trace("No such model. model_handle={}", model_handle);

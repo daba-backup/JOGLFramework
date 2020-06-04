@@ -25,6 +25,9 @@ public class CameraFront {
 	public static void AddProgram(ShaderProgram program) {
 		camera.AddProgram(program);
 	}
+	public static void RemoveProgram(ShaderProgram program) {
+		camera.RemoveProgram(program);
+	}
 	public static void RemoveAllPrograms() {
 		camera.RemoveAllPrograms();
 	}

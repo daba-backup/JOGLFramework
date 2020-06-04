@@ -57,6 +57,9 @@ public class Camera {
 	public void AddProgram(ShaderProgram program) {
 		programs.add(program);
 	}
+	public void RemoveProgram(ShaderProgram program) {
+		programs.remove(program);
+	}
 	public void RemoveAllPrograms() {
 		programs.clear();
 	}

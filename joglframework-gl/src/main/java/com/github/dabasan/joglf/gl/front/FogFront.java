@@ -16,6 +16,9 @@ public class FogFront {
 	public static void AddProgram(ShaderProgram program) {
 		fog.AddProgram(program);
 	}
+	public static void RemoveProgram(ShaderProgram program) {
+		fog.RemoveProgram(program);
+	}
 	public static void RemoveAllPrograms() {
 		fog.RemoveAllPrograms();
 	}

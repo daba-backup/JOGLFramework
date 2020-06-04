@@ -34,6 +34,9 @@ public abstract class DynamicDrawer {
 		programs.add(program);
 	}
 	public abstract void SetDefaultProgram();
+	public void RemoveProgram(ShaderProgram program) {
+		programs.remove(program);
+	}
 	public void RemoveAllPrograms() {
 		programs.clear();
 	}
