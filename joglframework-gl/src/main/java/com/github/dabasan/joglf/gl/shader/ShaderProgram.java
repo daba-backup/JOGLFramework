@@ -27,6 +27,12 @@ public class ShaderProgram {
 
 	private boolean logging_enabled_flag;
 
+	/**
+	 * Wraps an already existing program.
+	 * 
+	 * @param program_name
+	 *            Program name
+	 */
 	public ShaderProgram(String program_name) {
 		this.program_name = program_name;
 		program_id = ShaderFunctions.GetProgramID(program_name);
@@ -36,10 +42,24 @@ public class ShaderProgram {
 
 		logging_enabled_flag = false;
 	}
+	/**
+	 * Creates a new program.<br>
+	 * Wraps the program specified if it already exists.
+	 * 
+	 * @param program_name
+	 *            Program name
+	 * @param vertex_shader_filename
+	 *            Filename of the vertex shader
+	 * @param fragment_shader_filename
+	 *            Filename of the fragment shader
+	 */
 	public ShaderProgram(String program_name, String vertex_shader_filename,
 			String fragment_shader_filename) {
-		ShaderFunctions.CreateProgram(program_name, vertex_shader_filename,
-				fragment_shader_filename);
+		// Create a program if not exists.
+		if (ShaderFunctions.GetProgramID(program_name) < 0) {
+			ShaderFunctions.CreateProgram(program_name, vertex_shader_filename,
+					fragment_shader_filename);
+		}
 
 		this.program_name = program_name;
 		program_id = ShaderFunctions.GetProgramID(program_name);
