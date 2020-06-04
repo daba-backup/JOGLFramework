@@ -183,4 +183,23 @@ public class ShaderFunctions {
 
 		return 0;
 	}
+
+	/**
+	 * Calls glDeleteProgram() for the program specified.
+	 * 
+	 * @param program_name
+	 *            Program name
+	 * @return -1 on error and 0 on success
+	 */
+	public static int DeleteProgram(String program_name) {
+		if (program_ids_map.containsKey(program_name) == false) {
+			logger.trace("Invalid program name. program_name={}", program_name);
+			return -1;
+		}
+
+		final int program_id = program_ids_map.get(program_name);
+		GLWrapper.glDeleteProgram(program_id);
+
+		return 0;
+	}
 }
