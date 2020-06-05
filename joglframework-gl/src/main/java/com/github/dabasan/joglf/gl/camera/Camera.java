@@ -166,18 +166,10 @@ public class Camera {
 	 * Transfers data to the programs.
 	 */
 	public void Update() {
-		if (camera_mode == CameraMode.PERSPECTIVE) {
-			projection = ProjectionMatrixFunctions.GetPerspectiveMatrix(fov, aspect, near, far);
-		}
-		if (view_transformation == null) {
-			view_transformation = TransformationMatrixFunctions
-					.GetViewTransformationMatrix(position, target, up);
-		}
-
+		this.MakeMatrices();
 		for (final ShaderProgram program : programs) {
 			innerUpdate(program);
 		}
-
 		view_transformation = null;
 	}
 	/**
@@ -187,6 +179,11 @@ public class Camera {
 	 *            Program
 	 */
 	public void Update(ShaderProgram program) {
+		this.MakeMatrices();
+		innerUpdate(program);
+		view_transformation = null;
+	}
+	private void MakeMatrices() {
 		if (camera_mode == CameraMode.PERSPECTIVE) {
 			projection = ProjectionMatrixFunctions.GetPerspectiveMatrix(fov, aspect, near, far);
 		}
@@ -194,10 +191,6 @@ public class Camera {
 			view_transformation = TransformationMatrixFunctions
 					.GetViewTransformationMatrix(position, target, up);
 		}
-
-		innerUpdate(program);
-
-		view_transformation = null;
 	}
 	private void innerUpdate(ShaderProgram program) {
 		program.Enable();
