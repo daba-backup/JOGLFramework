@@ -213,15 +213,7 @@ public class Model3DFunctions {
 	}
 
 	public static boolean ModelExists(int model_handle) {
-		boolean ret;
-
-		if (models_map.containsKey(model_handle) == true) {
-			ret = true;
-		} else {
-			ret = false;
-		}
-
-		return ret;
+		return models_map.containsKey(model_handle);
 	}
 
 	/**
