@@ -301,7 +301,9 @@ public class TextureMgr {
 	}
 
 	/**
-	 * Binds a texture.
+	 * Binds a texture.<br>
+	 * If the texture specified does not exist, this method binds the default
+	 * texture.
 	 * 
 	 * @param texture_handle
 	 *            Texture handle

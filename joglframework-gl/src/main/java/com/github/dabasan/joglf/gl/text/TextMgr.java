@@ -163,7 +163,9 @@ public class TextMgr {
 		return 0;
 	}
 	/**
-	 * Draws text with a font specified.
+	 * Draws text with a font specified.<br>
+	 * If the font specified does not exist, this method draws text with the
+	 * default font.
 	 * 
 	 * @param x
 	 *            Bottom left x
