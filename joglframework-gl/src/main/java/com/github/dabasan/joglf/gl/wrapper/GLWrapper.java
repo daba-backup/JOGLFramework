@@ -5,11 +5,6 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.github.dabasan.joglf.gl.front.GLFront;
-
 /**
  * Provides wrapper functions for several GL versions.
  * 
@@ -17,26 +12,11 @@ import com.github.dabasan.joglf.gl.front.GLFront;
  *
  */
 public class GLWrapper {
-	private static Logger logger = LoggerFactory.getLogger(GLWrapper.class);
-
 	private static GLVersion gl_version = GLVersion.GL3;
 
-	/**
-	 * Sets the GL version.<br>
-	 * This method is disabled after JOGLFramework is setup.
-	 * 
-	 * @param version
-	 *            Version
-	 */
 	public static void SetGLVersion(GLVersion version) {
-		if (GLFront.IsSetup() == true) {
-			logger.warn("This method is disabled after JOGLFramework is set up.");
-			return;
-		}
-
 		gl_version = version;
 	}
-
 	public static GLVersion GetGLVersion() {
 		return gl_version;
 	}
