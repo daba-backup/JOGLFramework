@@ -249,4 +249,14 @@ public class CameraFront {
 	public static void Update() {
 		camera.Update();
 	}
+	/**
+	 * Updates the camera.<br>
+	 * This method transfers the camera properties to the program specified.
+	 * 
+	 * @param program
+	 *            Program
+	 */
+	public static void Update(ShaderProgram program) {
+		camera.Update(program);
+	}
 }
