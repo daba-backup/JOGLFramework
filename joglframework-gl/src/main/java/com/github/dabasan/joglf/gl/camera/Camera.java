@@ -44,7 +44,6 @@ public class Camera {
 		camera_mode = CameraMode.PERSPECTIVE;
 		fov = MathFunctions.DegToRad(60.0f);
 		size = 10.0f;
-
 		aspect = WindowCommonInfo.DEFAULT_WIDTH / WindowCommonInfo.DEFAULT_HEIGHT;
 
 		position = VectorFunctions.VGet(-50.0f, 50.0f, -50.0f);
@@ -170,23 +169,44 @@ public class Camera {
 		if (camera_mode == CameraMode.PERSPECTIVE) {
 			projection = ProjectionMatrixFunctions.GetPerspectiveMatrix(fov, aspect, near, far);
 		}
-
 		if (view_transformation == null) {
 			view_transformation = TransformationMatrixFunctions
 					.GetViewTransformationMatrix(position, target, up);
 		}
 
 		for (final ShaderProgram program : programs) {
-			program.Enable();
-			program.SetUniform("camera.position", position);
-			program.SetUniform("camera.target", target);
-			program.SetUniform("camera.projection", true, projection);
-			program.SetUniform("camera.view_transformation", true, view_transformation);
-			program.SetUniform("camera.near", near);
-			program.SetUniform("camera.far", far);
-			program.Disable();
+			innerUpdate(program);
 		}
 
 		view_transformation = null;
+	}
+	/**
+	 * Transfers data to a program.
+	 * 
+	 * @param program
+	 *            Program
+	 */
+	public void Update(ShaderProgram program) {
+		if (camera_mode == CameraMode.PERSPECTIVE) {
+			projection = ProjectionMatrixFunctions.GetPerspectiveMatrix(fov, aspect, near, far);
+		}
+		if (view_transformation == null) {
+			view_transformation = TransformationMatrixFunctions
+					.GetViewTransformationMatrix(position, target, up);
+		}
+
+		innerUpdate(program);
+
+		view_transformation = null;
+	}
+	private void innerUpdate(ShaderProgram program) {
+		program.Enable();
+		program.SetUniform("camera.position", position);
+		program.SetUniform("camera.target", target);
+		program.SetUniform("camera.projection", true, projection);
+		program.SetUniform("camera.view_transformation", true, view_transformation);
+		program.SetUniform("camera.near", near);
+		program.SetUniform("camera.far", far);
+		program.Disable();
 	}
 }
