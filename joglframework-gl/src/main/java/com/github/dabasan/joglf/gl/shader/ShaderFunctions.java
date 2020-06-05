@@ -150,40 +150,6 @@ public class ShaderFunctions {
 
 		return 0;
 	}
-
-	/**
-	 * Returns a program ID.
-	 * 
-	 * @param program_name
-	 *            Program name
-	 * @return Program ID (-1 if the specified program does not exist)
-	 */
-	public static int GetProgramID(String program_name) {
-		if (program_ids_map.containsKey(program_name) == false) {
-			return -1;
-		}
-		return program_ids_map.get(program_name);
-	}
-
-	/**
-	 * Calls glUseProgram() for the program specified.
-	 * 
-	 * @param program_name
-	 *            Program name
-	 * @return -1 on error and 0 on success
-	 */
-	public static int UseProgram(String program_name) {
-		if (program_ids_map.containsKey(program_name) == false) {
-			logger.trace("Invalid program name. program_name={}", program_name);
-			return -1;
-		}
-
-		final int program_id = program_ids_map.get(program_name);
-		GLWrapper.glUseProgram(program_id);
-
-		return 0;
-	}
-
 	/**
 	 * Calls glDeleteProgram() for the program specified.
 	 * 
@@ -199,6 +165,41 @@ public class ShaderFunctions {
 
 		final int program_id = program_ids_map.get(program_name);
 		GLWrapper.glDeleteProgram(program_id);
+
+		return 0;
+	}
+
+	public static boolean ProgramExists(String program_name) {
+		return program_ids_map.containsKey(program_name);
+	}
+	/**
+	 * Returns a program ID.
+	 * 
+	 * @param program_name
+	 *            Program name
+	 * @return Program ID (-1 if the specified program does not exist)
+	 */
+	public static int GetProgramID(String program_name) {
+		if (program_ids_map.containsKey(program_name) == false) {
+			return -1;
+		}
+		return program_ids_map.get(program_name);
+	}
+	/**
+	 * Calls glUseProgram() for the program specified.
+	 * 
+	 * @param program_name
+	 *            Program name
+	 * @return -1 on error and 0 on success
+	 */
+	public static int UseProgram(String program_name) {
+		if (program_ids_map.containsKey(program_name) == false) {
+			logger.trace("Invalid program name. program_name={}", program_name);
+			return -1;
+		}
+
+		final int program_id = program_ids_map.get(program_name);
+		GLWrapper.glUseProgram(program_id);
 
 		return 0;
 	}
