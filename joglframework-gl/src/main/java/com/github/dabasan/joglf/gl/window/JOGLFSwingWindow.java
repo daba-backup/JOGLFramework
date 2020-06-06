@@ -75,14 +75,14 @@ public class JOGLFSwingWindow
 	private ColorU8 background_color;
 	private boolean destroyed_flag;
 
-	public JOGLFSwingWindow() {
+	public JOGLFSwingWindow(int width, int height, String title, boolean visible) {
 		GLFront.Lock();
 
 		final String profile_str = GLFront.GetProfileStr();
 		final GLCapabilities capabilities = new GLCapabilities(GLProfile.get(profile_str));
 
 		frame = new JFrame();
-		frame.setTitle(WindowCommonInfo.DEFAULT_TITLE);
+		frame.setTitle(title);
 
 		adapter = new WindowAdapter() {
 			@Override
@@ -100,8 +100,7 @@ public class JOGLFSwingWindow
 		frame.addMouseWheelListener(this);
 
 		canvas = new GLCanvas(capabilities);
-		canvas.setPreferredSize(
-				new Dimension(WindowCommonInfo.DEFAULT_WIDTH, WindowCommonInfo.DEFAULT_HEIGHT));
+		canvas.setPreferredSize(new Dimension(width, height));
 		canvas.addGLEventListener(this);
 		canvas.addKeyListener(this);
 		canvas.addMouseListener(this);
@@ -128,7 +127,7 @@ public class JOGLFSwingWindow
 		background_color = ColorU8Functions.GetColorU8(0.0f, 0.0f, 0.0f, 1.0f);
 		destroyed_flag = false;
 
-		frame.setVisible(true);
+		frame.setVisible(visible);
 
 		if (GLFront.IsSetup() == false) {
 			GLFront.SetSetupFlag(true);
@@ -137,6 +136,10 @@ public class JOGLFSwingWindow
 		logger.info("Window created.");
 
 		GLFront.Unlock();
+	}
+	public JOGLFSwingWindow() {
+		this(WindowCommonInfo.DEFAULT_WIDTH, WindowCommonInfo.DEFAULT_HEIGHT,
+				WindowCommonInfo.DEFAULT_TITLE, true);
 	}
 
 	protected JFrame GetFrame() {

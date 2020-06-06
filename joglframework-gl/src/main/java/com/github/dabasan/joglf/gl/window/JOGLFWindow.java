@@ -61,15 +61,15 @@ public class JOGLFWindow
 	private ColorU8 background_color;
 	private boolean destroyed_flag;
 
-	public JOGLFWindow() {
+	public JOGLFWindow(int width, int height, String title, boolean visible) {
 		GLFront.Lock();
 
 		final String profile_str = GLFront.GetProfileStr();
 		final GLCapabilities capabilities = new GLCapabilities(GLProfile.get(profile_str));
 
 		window = GLWindow.create(capabilities);
-		window.setTitle(WindowCommonInfo.DEFAULT_TITLE);
-		window.setSize(WindowCommonInfo.DEFAULT_WIDTH, WindowCommonInfo.DEFAULT_HEIGHT);
+		window.setSize(width, height);
+		window.setTitle(title);
 		window.addGLEventListener(this);
 		window.addKeyListener(this);
 		window.addMouseListener(this);
@@ -102,7 +102,7 @@ public class JOGLFWindow
 		background_color = ColorU8Functions.GetColorU8(0.0f, 0.0f, 0.0f, 1.0f);
 		destroyed_flag = false;
 
-		window.setVisible(true);
+		window.setVisible(visible);
 
 		if (GLFront.IsSetup() == false) {
 			GLFront.SetSetupFlag(true);
@@ -111,6 +111,10 @@ public class JOGLFWindow
 		logger.info("Window created.");
 
 		GLFront.Unlock();
+	}
+	public JOGLFWindow() {
+		this(WindowCommonInfo.DEFAULT_WIDTH, WindowCommonInfo.DEFAULT_HEIGHT,
+				WindowCommonInfo.DEFAULT_TITLE, true);
 	}
 
 	protected GLWindow GetWindow() {
