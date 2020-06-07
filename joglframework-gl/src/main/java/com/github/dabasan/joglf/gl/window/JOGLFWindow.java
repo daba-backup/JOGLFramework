@@ -99,7 +99,7 @@ public class JOGLFWindow
 			logger.error("Error", e);
 		}
 
-		background_color = ColorU8Functions.GetColorU8(0.0f, 0.0f, 0.0f, 1.0f);
+		background_color = ColorU8Functions.GetColorU8(0.0f, 0.0f, 0.0f, 0.0f);
 		destroyed_flag = false;
 
 		window.setVisible(visible);
