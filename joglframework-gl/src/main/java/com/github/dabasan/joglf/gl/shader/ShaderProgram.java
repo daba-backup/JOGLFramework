@@ -59,6 +59,9 @@ public class ShaderProgram {
 		if (ShaderFunctions.ProgramExists(program_name) == false) {
 			ShaderFunctions.CreateProgram(program_name, vertex_shader_filename,
 					fragment_shader_filename);
+		} else {
+			logger.info("Wraps the program specified because it already exists. program_name={}",
+					program_name);
 		}
 
 		this.program_name = program_name;
