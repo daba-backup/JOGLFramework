@@ -5,7 +5,6 @@ public class TestMain {
 		new TestMain();
 	}
 	public TestMain() {
-		final var window = new DrawModelTestWindow();
-		window.SetExitProcessWhenDestroyed();
+
 	}
 }
