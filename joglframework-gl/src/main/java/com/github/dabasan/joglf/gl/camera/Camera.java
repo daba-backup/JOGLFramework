@@ -46,7 +46,7 @@ public class Camera {
 		size = 10.0f;
 		aspect = WindowCommonInfo.DEFAULT_WIDTH / WindowCommonInfo.DEFAULT_HEIGHT;
 
-		position = VectorFunctions.VGet(-50.0f, 50.0f, -50.0f);
+		position = VectorFunctions.VGet(50.0f, 50.0f, 50.0f);
 		target = VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
 		up = VectorFunctions.VGet(0.0f, 1.0f, 0.0f);
 
