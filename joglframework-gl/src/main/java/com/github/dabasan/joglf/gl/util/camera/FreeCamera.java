@@ -58,7 +58,7 @@ public class FreeCamera {
 
 	/**
 	 * Translates the camera.<br>
-	 * Set each argument to 1 or larger if you want to move the camera in each
+	 * Set each argument to 1 or larger if you intend to move the camera in each
 	 * direction.
 	 * 
 	 * @param front
