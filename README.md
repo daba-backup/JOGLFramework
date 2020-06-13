@@ -10,7 +10,7 @@ Java SE 11+
 
 ## Installation
 
-1. Download *[Data](https://github.com/Dabasan/JOGLFramework/releases/download/v11.6.0/Data.zip)* and extract it
+1. Download *[Data](https://github.com/Dabasan/JOGLFramework/releases/download/v11.7.0/Data.zip)* and extract it
 2. Move the *Data* folder to the same directory as your program
 
 ### Maven project
@@ -21,7 +21,7 @@ Java SE 11+
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework-gl</artifactId>
-    <version>11.6.0</version>
+    <version>11.7.0</version>
 </dependency>
 ```
 
@@ -31,7 +31,7 @@ Java SE 11+
 <dependency>
     <groupId>com.github.dabasan</groupId>
     <artifactId>joglframework-al</artifactId>
-    <version>11.6.0</version>
+    <version>11.7.0</version>
 </dependency>
 ```
 
@@ -123,7 +123,13 @@ See also: [LICENSES](./LICENSES)
 
 - [JOGL - Java Binding for the OpenGL API](https://jogamp.org/jogl/www/)
   Official website of JOGL
+
+------
+
 - [HDRI Haven](https://hdrihaven.com/) 
 - [HDRI to Cubemap](https://matheowis.github.io/HDRI-to-CubeMap/) 
 - [Good Textures](https://www.goodtextures.com/)
+- [フリーテクスチャ素材館](https://free-texture.net/)
+- [textures.com](https://www.textures.com/)
+
 
