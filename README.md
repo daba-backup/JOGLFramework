@@ -119,6 +119,10 @@ See also: [LICENSES](./LICENSES)
 
 - Provide add-ons for specific usage (spotlight, shadow, etc.)
 
+# Comment from the author
+
+I'm sorry I've ignored naming conventions for Java.
+
 # External links
 
 - [JOGL - Java Binding for the OpenGL API](https://jogamp.org/jogl/www/)
