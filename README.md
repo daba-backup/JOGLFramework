@@ -117,11 +117,11 @@ See also: [LICENSES](./LICENSES)
 
 ## Todo
 
-- Provide add-ons for specific usage (spotlight, shadow, etc.)
+- ~~Provide add-ons for specific use (spotlight, skybox, etc.)~~
 
 # Comment from the author
 
-I'm sorry I've ignored naming conventions for Java.
+I'm sorry I've totally ignored naming conventions for Java.
 
 # External links
 
